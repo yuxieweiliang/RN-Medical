@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import DrawerView from './DrawerNavigator'
 import Swiper from '../InitSwiper'
-import storage from '../storage'
-
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -25,14 +23,7 @@ export default class App extends Component<Props> {
 
   render() {
     const { init } = this.state
-    storage.load('token', {a: 'fdsaf', b: 'fffff'})
-      .then(res => console.log(res))
-      .catch(err => {
-      console.warn('err', err)
-    })
 
-    storage.clearMap();
-    storage.remove('token');
     if(init) {
       // 如果是第一次，就显示欢迎界面
       return <Swiper

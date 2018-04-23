@@ -30,7 +30,7 @@ function headerRight() {
 function headerTitle(option, nav, title) {
   // console.log(option, nav, title)
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text style={{fontSize: 20, color: '#fff', fontWeight: 'bold'}}>{title}</Text></View>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text style={{fontSize: 20, color: '#333', fontWeight: 'bold'}}>{title}</Text></View>
   )
 }
 

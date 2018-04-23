@@ -32,7 +32,6 @@ export default StyleSheet.create({
   userIcon: {
     color: '#fff',
     fontSize: 20,
-
   },
   input: {
     height: 40,
@@ -40,6 +39,25 @@ export default StyleSheet.create({
     paddingLeft: 20,
     fontSize: 16,
     color: '#fff',
+  },
+  verification: {
+    height: 40,
+    width: width - 200,
+    paddingLeft: 20,
+    fontSize: 16,
+    color: '#fff',
+  },
+  verify: {
+    height: 24,
+    width: 120,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderLeftWidth: 1,
+    borderLeftColor: '#fafafa'
+  },
+  verifyText: {
+    textAlign: 'center',
+    color: '#fff'
   },
   button: {
     marginTop: 30,

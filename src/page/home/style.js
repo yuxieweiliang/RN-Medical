@@ -2,22 +2,9 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-  wrapper: {
-    // backgroundColor: '#63d0b4'
-  },
-  slide1: {
+  container: {
     width,
     height,
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   btn: {
@@ -27,9 +14,96 @@ export default StyleSheet.create({
     shadowRadius:3,
     shadowOpacity:0.8,
   },
+
   text: {
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
-  }
+  },
+
+  exposureHeader: {
+    height: 50,
+    paddingLeft: 15,
+    paddingRight: 15,
+    backgroundColor: '#fafafa',
+    flexDirection: 'row',
+  },
+
+  exposureHeaderLeft: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+
+  exposureHeaderRight: {
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  exposureHeaderFont: {
+    fontSize: 16,
+  },
+  exposureScroll: {
+    flexDirection: 'row',
+    height: 150,
+    width
+  },
+  exposureBody: {
+    flexDirection: 'row',
+    height: 150,
+  },
+  dailyBody: {
+    width,
+  },
+  exposureCard: {
+    width: width / 3,
+    height: 170,
+    backgroundColor: '#fafafa',
+    paddingLeft: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
+  exposureCardText: {
+    height: 50,
+    lineHeight: 20,
+    width: '66.666%',
+    fontSize: 16,
+    paddingBottom: 10,
+  },
+  dailyCard: {
+    flexDirection: 'row',
+    width: width,
+    height: 150,
+    backgroundColor: '#fafafa',
+    paddingLeft: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
+  dailyCardText: {
+    height: 50,
+    lineHeight: 20,
+    width: '66.666%',
+    fontSize: 16,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

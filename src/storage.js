@@ -21,7 +21,7 @@ CreateNewStorage.prototype = {
    * 初始化原先的 storage
    */
   init() {
-    console.log('initStorage')
+    // console.log('initStorage')
 
     if (!oldStorage) {
       oldStorage = new Storage({
@@ -57,10 +57,11 @@ CreateNewStorage.prototype = {
    * 通过key取数据
    * @param key
    * @param option
+   * @param sync
    * @returns {*|Promise.<T>}
    */
-  load(key, option) {
-    return oldStorage.load({
+  load(key, option, sync = true) {
+    let data = oldStorage.load({
       key,
       // 默认为true
       // 在没有找到数据或数据过期时自动调用相应的sync方法
@@ -68,7 +69,7 @@ CreateNewStorage.prototype = {
       // 默认为true
       // 意味着如果数据过期，在调用sync方法的同时先返回已经过期的数据。
       // 否则始终强制返回最新数据。
-      syncInBackground: false,
+      syncInBackground: sync,
       // 你还可以给sync方法传递额外的参数
       syncParams: {
         /*extraFetchOptions: { },// 各种参数
@@ -76,7 +77,6 @@ CreateNewStorage.prototype = {
         ...option,
       }
     })
-      .then(ret => ret)
       .catch(err => {
       //如果没有找到数据且没有sync方法，
       //或者有其他异常，则在catch中返回
@@ -94,6 +94,9 @@ CreateNewStorage.prototype = {
           return err
       }
     })
+
+    console.log(key, data)
+    return data
   },
 
   // 获取某个key下的所有id(仅key-id数据)
@@ -127,12 +130,14 @@ CreateNewStorage.prototype = {
     oldStorage.clearMap()
   },
 
-  get(url) {
-    fetch(url).then(response => (response.status === 200) ? response.json() : {})
+  get(option) {
+    let url = 'http://47.94.97.210:8011/' + option
+    console.log(url)
+    return fetch(url).then(response => (response.status === 200) ? response.json() : {})
   },
 
   post(url, data) {
-    fetch(url, {
+    return fetch(url, {
       method: 'POST',
       headers: {
         // 'Accept': 'application/json',

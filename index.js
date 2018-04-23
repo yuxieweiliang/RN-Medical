@@ -8,21 +8,13 @@ import configureStore from './store/ConfigureStore';
 const store = configureStore();
 
 export default class Root extends Component {
-
   render() {
-
     return (
-
       <Provider store={store}>
-
         <App />
-
       </Provider>
-
     )
-
   }
-
 }
 
 AppRegistry.registerComponent('reactNative', () => Root);

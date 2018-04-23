@@ -16,36 +16,18 @@ class LoginPage extends Component<Props> {
       password: null
     }
   }
-  _onPressButton() {
-    this.props.navigation.goBack()
-  }
-  static navigationOptions = ({ navigation }) => {
-    const { params } = navigation.state;
 
-    console.log(navigation)
-    return {
-      title: params ? params.otherParam : 'A Nested Details Screen',
-    }
-  };
-
-
-  componentWillMount() {
+  _login() {
     const { dispatch } = this.props
-    dispatch(action.login())
-  }
-  usernameFocus() {
-    this.setState({usernameInput: 10})
-  }
-  render() {
-    const { params } = this.props.navigation.state;
-    const itemId = params ? params.itemId : null;
-    const otherParam = params ? params.otherParam : null;
+    // this.props.navigation.goBack()
 
-    var navigationView = (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
-      </View>
-    );
+    dispatch(action.login(this.state))
+  }
+
+  componentWillMount() {}
+
+  render() {
+
     return (
       <ImageBackground style={{height,width}} source={require('../../../assets/images/bg.jpg')} resizeMode='cover'>
         <View style={styles.container}>
@@ -82,7 +64,7 @@ class LoginPage extends Component<Props> {
           </View>
           <TouchableHighlight
             style={styles.button}
-            onPress={() => this._onPressButton()}>
+            onPress={() => this._login()}>
             <Text
               style={styles.btnText}>
               登&nbsp;&nbsp;&nbsp;&nbsp;录

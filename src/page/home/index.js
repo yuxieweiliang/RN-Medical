@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, WebView, View, ScrollView, Image, Dimensions, TextInput } from 'react-native';
+import { Text, TouchableHighlight, TouchableOpacity, View, ScrollView, Image, Dimensions } from 'react-native';
 import styles from './style'
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 const { width, height } = Dimensions.get('window');
@@ -17,7 +17,7 @@ class HomePage extends Component<Props> {
       headerLeft: navigationOptions.headerLeft(navigation, navigationOptions),
       headerRight: (
         <View style={{width: 70, paddingRight: 15, alignItems: 'flex-end'}}>
-          <Icon name="commenting-o" style={{fontSize: 30, color: '#fff'}}/>
+          <Icon name="commenting-o" style={{fontSize: 30, color: '#333'}}/>
         </View>
       ),
       headerTitle: navigationOptions.headerTitle(navigation, navigationOptions, '首页'),
@@ -37,9 +37,7 @@ class HomePage extends Component<Props> {
     }
   };
 
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   _onPressButton() {
     this.props.navigation.navigate('Product', {
@@ -47,48 +45,137 @@ class HomePage extends Component<Props> {
       otherParam: 'anything you want here',
     })
   }
-  componentWillUnmount() {
-    // this._onPressButton.remove();
+  componentWillUnmount() {}
+  _onPressTabCardButton(item) {
+    if(item.title === '健康指标') {
+      this.props.navigation.navigate('HistoryMedical')
+    } else if(item.title === '生活指南') {
+      this.props.navigation.navigate('HistoryIndicators')
+    }
+    console.log(this)
   }
   render() {
-    const { tabCardData }= this.props
+    const { healthGuide }= this.props
     const tabItemStyle= {width, height: 200, padding: 15}
 
     return (
 
-      <ScrollView style={styles.slide1}>
+      <ScrollView style={styles.container}>
 
-        <WebView
-          automaticallyAdjustContentInsets={false}
-          style={{width, height: 300, }}
-          source={{uri: 'http://henhaomai.top:8011'}}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          decelerationRate="normal"
-          startInLoadingState={true}
-        />
-
+        {/*  健康指南  */}
         <View style={{ flex: 1 }}>
 
-          <TabCardView {...tabCardData}>
+          <TabCardView {...healthGuide}>
             {
-              tabCardData.dataSource && tabCardData.dataSource.map((item,i) => (
-                <View key={i} style={tabItemStyle}>
-                  <Text style={{fontSize: 16}}>{item.context.text}</Text>
-                  <TouchableHighlight
-                    style={{width: width - 30, height: 40, backgroundColor: '#ccc', borderRadius: 10, alignItems: 'center', marginTop: 20}} underlayColor="#eee">
+              healthGuide.dataSource && healthGuide.dataSource.map((items, i) => {
+                const button = items.context.button
+                const createBtn = function(option, key) {
+                  return (
+                    <TouchableHighlight
+                      key={key}
+                      style={{width: width - 30, height: 40, backgroundColor: '#ccc', borderRadius: 10, alignItems: 'center', marginTop: 20}}
+                      onPress={() => this._onPressTabCardButton(items)}
+                      underlayColor="#eee">
 
-                    <Text style={{height: 40, lineHeight: 40, fontSize: 16}}>
-                      {item.context.button}
-                    </Text>
+                      <Text style={{height: 40, lineHeight: 40, fontSize: 16}}>
+                        { option }
+                      </Text>
 
-                  </TouchableHighlight>
-                </View>
-              ))
+                    </TouchableHighlight>
+                  )
+                }
+
+                return (
+                  <View key={i} style={tabItemStyle}>
+                    <Text style={{fontSize: 16}}>{items.context.text}</Text>
+                    {
+                      (typeof button === 'object')
+                        ? button.map((child, i) => createBtn.call(this, child, i))
+                        : createBtn.call(this, button, items.context.text)
+                    }
+
+
+                  </View>
+                )
+              })
             }
           </TabCardView>
-
         </View>
+
+        {/*  晒健康  */}
+        <View style={{ height: 220 }}>
+          <View style={styles.exposureHeader}>
+            <View style={styles.exposureHeaderLeft}>
+              <Text style={styles.exposureHeaderFont}>晒健康</Text>
+            </View>
+            <View style={styles.exposureHeaderRight}>
+              <Text style={styles.exposureHeaderFont}>更多</Text>
+            </View>
+
+          </View>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={styles.exposureScroll}>
+            <View
+              style={styles.exposureBody}>
+              {
+                [1,3,4,5,5].map((item, i) => (
+                  <TouchableOpacity
+                    key={i}
+                    activeOpacity={.95}
+                    style={styles.exposureCard}
+                    underlayColor="#eee">
+
+                    <Text style={styles.exposureCardText}>
+                      ffffffffffffffffffffffffffffffffffffffffffffffffffff
+                    </Text>
+                    <Image source={require('../../../assets/images/a1.jpg')} style={{flex: 1}}/>
+
+                  </TouchableOpacity>
+                ))
+              }
+            </View>
+          </ScrollView>
+        </View>
+
+        {/*  健康日报  */}
+        <View>
+          <View style={styles.exposureHeader}>
+            <View style={styles.exposureHeaderLeft}>
+              <Text style={styles.exposureHeaderFont}>健康日报</Text>
+            </View>
+            <View style={styles.exposureHeaderRight}>
+              <Text style={styles.exposureHeaderFont}>更多</Text>
+            </View>
+
+          </View>
+          <View
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={[styles.exposureScroll, {height: 'auto'}]}>
+            <View
+              style={styles.dailyBody}>
+              {
+                [1,3,4,5,5].map((item, i) => (
+                  <TouchableOpacity
+                    key={i}
+                    activeOpacity={.95}
+                    style={styles.dailyCard}
+                    underlayColor="#eee">
+                    <Image source={require('../../../assets/images/a1.jpg')} style={{flex: 1}}/>
+
+                    <Text style={styles.dailyCardText}>
+                      ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                    </Text>
+                  </TouchableOpacity>
+                ))
+              }
+            </View>
+          </View>
+        </View>
+
+
       </ScrollView>
 
     );
@@ -97,7 +184,7 @@ class HomePage extends Component<Props> {
 
 
 const createState = function(state) {
-  return ({...state.loginIn})
+  return ({...state.home})
 }
 
 export default connect(createState)(HomePage)

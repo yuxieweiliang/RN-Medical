@@ -9,6 +9,7 @@ const { width, height } = Dimensions.get('window');
 
 export default props => {
 
+  console.log(props)
   const imageData = {
     ...props,
     boxStyle: styles.boxStyle,
@@ -63,18 +64,21 @@ export default props => {
 
         <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
           {...{
+            ...props,
             router: 'Login',
             text: '登陆'
           }}/>
 
         <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
           {...{
+            ...props,
             router: 'Register',
             text: '注册'
           }}/>
 
         <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
           {...{
+            ...props,
             router: 'exit',
             text: '退出'
           }}/>

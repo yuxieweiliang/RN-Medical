@@ -1,40 +1,39 @@
 'use strict';
-
-// import * as types from '../constants/loginTypes'; // 导入事件类别,用来做事件类别的判断
-
+import { system } from '../../type'
 // 初始状态
 
 const initialState = {
-  tabCardData: {
+  // 健康指南
+  healthGuide: {
     headerStyle: {
-      height: 40,
+      height: 50,
       backgroundColor: '#fafafa',
     },
     containerStyle: {
-      height: 400
+      height: 300
     },
     dataSource: [
       {
         active: true,
-        title: '生活',
+        title: '健康指标',
         context: {
           text: 'fdsafda生活生活生活生活sfdsafdsafdsafdsafdsa',
-          button: '饮食数据'
+          button: '历时指标'
         }
       },{
-        title: '运动',
+        title: '生活指南',
         context: {
           text: '运动运动运动运动运动运动运动运动运动运动运动',
-          button: '运动参数'
+          button: '生活数据'
         }
       },{
-        title: '体征',
+        title: '健康状况',
         context: {
           text: '体征体征体征体征体征体征体征体征体征体征',
-          button: '体征信息'
+          button: ['体征信息', '体征填写']
         }
       },{
-        title: '就医',
+        title: '就医情况',
         context: {
           text: '就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医',
           button: '就医状况'
@@ -54,12 +53,11 @@ const initialState = {
 }
 
 const LOGIN_IN_DOING = 'login/正在登陆'
-const LOGIN_IN_DONE = 'login/登陆成功'
-const LOGIN_IN_ERROR = 'login/登陆失败'
 
 
 let func = {
   [LOGIN_IN_DOING](state, action) {
+    console.log(system)
     return {
       ...state,
       status: '正在登陆',
@@ -67,25 +65,11 @@ let func = {
       user: null,
     }
   },
-  [LOGIN_IN_DONE](state, action) {
-    return {
-      ...state,
-      status: '登陆成功',
-      isSuccess: true,
-      user: action.user,
-    }
-  },
-  [LOGIN_IN_ERROR]: (state, action) => ({
-  ...state,
-  status: '登陆成功',
-  isSuccess: true,
-  user: action.user,
-}),
 }
 
 // 不同类别的事件使用switch对应处理过程
 
-export default function loginIn(state=initialState, action) {
+export default function homeTabCardData(state=initialState, action) {
 
   if(func[action.type]) {
     func[action.type].apply(null, arguments)

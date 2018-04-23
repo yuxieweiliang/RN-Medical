@@ -8,9 +8,9 @@ export const routeNames =  {
 export const config =  {
   headerMode: 'screen',
   headerStyle: {
-    backgroundColor: '#f4511e',
+    backgroundColor: '#fafafa',
   },
-  headerTintColor: '#fff',
+  headerTintColor: '#333',
   headerTitleStyle: {
     fontWeight: 'bold',
   }

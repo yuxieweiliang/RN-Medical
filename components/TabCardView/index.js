@@ -38,7 +38,7 @@ export default class TabCardView extends React.Component {
           <TouchableHighlight
             key={key}
             underlayColor="#eee"
-            style={{ ...styles.items, ...itemStyle, borderColor: this.state.active === key ? activeBgColor : '#fafafa' }}
+            style={{ ...styles.items, ...itemStyle, borderColor: this.state.active === key ? activeBgColor : '#ccc' }}
             onPress={() => _this._tabClick(key, item)}>
 
             <Text style={textColor}>
@@ -63,17 +63,17 @@ export default class TabCardView extends React.Component {
     const { containerStyle = {}, headerStyle = {}, bodyStyle = {} } = this.props
 
     return (
-      <View style={{...styles.container, ...containerStyle}}>
+      <View style={[styles.container, containerStyle]}>
 
         {/*   tab header -- start --  */}
-        <View style={{...styles.header, ...headerStyle}}>
+        <View style={[styles.header, headerStyle]}>
           {this._createHeader()}
         </View>
         {/*   tab header  -- end --  */}
 
 
         {/*   tab body -- start --  */}
-        <View style={{...styles.body, ...bodyStyle}}>
+        <View style={[styles.body, bodyStyle]}>
           {this._createBody()}
         </View>
         {/*   tab body  -- end --  */}

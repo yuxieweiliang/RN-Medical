@@ -1,71 +1,31 @@
-// import * as types from '../constants/loginTypes';// 导入事件类型,用来做分配给各个事件
+import { system } from '../../type'
+import storage from '../../storage'
+let { beforeLogin, Login, afterLogin } = system
 
-// 模拟用户信息
 
-let user = {
-  name: 'zhangsan',
-  age: 24,
-}
-
-// 访问登录接口 根据返回结果来划分action属于哪个type,然后返回对象,给reducer处理
-
-function login() {
+/**
+ * 用户登录
+ * @returns {function(*)}
+ */
+function login(option) {
 
   console.log('登录方法');
 
   return dispatch => {
 
-    dispatch(isLogining()); // 正在执行登录请求
+    dispatch({ type: beforeLogin }); // 正在执行登录请求
 
-// 模拟用户登录
-
-    let result = fetch('https://www.baidu.com/')
-
-      .then((res)=>{
-
-        dispatch(loginSuccess(true,user)); // 登录请求完成
-
-      }).catch((e)=>{
-
-        dispatch(loginError(false)); // 登录请求出错
-
+    storage.load('token', option)
+      .then(res => {
+        if(res) {
+          console.log('登录成功');
+          dispatch({ type: Login, data: res })
+        } else {
+          console.log('登录失败');
+          dispatch({ type: afterLogin })
+        }
+        return res
       })
-
-  }
-
-}
-
-function isLogining() {
-
-  return {
-
-    type: 'LOGIN_IN_DOING'
-
-  }
-
-}
-
-function loginSuccess(isSuccess, user) {
-
-  console.log('success');
-
-  return {
-
-    type: 'LOGIN_IN_DONE',
-
-    user: user,
-
-  }
-
-}
-
-function loginError(isSuccess) {
-
-  console.log('error');
-
-  return {
-
-    type: 'LOGIN_IN_ERROR',
 
   }
 

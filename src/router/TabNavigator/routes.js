@@ -28,14 +28,14 @@ function headerTitle() {
     <TextInput value="搜索"
                underlineColorAndroid="transparent"
                style={{
-                 color: '#fff',
+                 color: '#333',
                  fontSize: 18,
                  flex: 1,
                  marginRight: 15,
                  marginLeft: 15,
                  borderRadius: 10,
                  height: 40,
-                 backgroundColor: 'rgba(255, 255, 255, .4)'
+                 backgroundColor: 'rgba(0, 0, 0, .1)'
                }}/>
   )
 }

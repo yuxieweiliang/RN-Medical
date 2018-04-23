@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Image, Text, TouchableHighlight, Dimensions, View, ImageBackground, TextInput, ToastAndroid, Platform , BackHandler } from 'react-native';
+import {
+  Image, Text, TouchableHighlight, Dimensions, View, ImageBackground,
+  TextInput, ToastAndroid, Platform , BackHandler
+} from 'react-native';
 import { navigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import styles from './style'
@@ -38,27 +41,9 @@ export default class extends Component<Props> {
     }
     return false;
   };
-  static navigationOptions = ({ navigation }) => {
-    const { params } = navigation.state;
 
-    console.log(navigation)
-    return {
-      title: params ? params.otherParam : 'A Nested Details Screen',
-    }
-  };
-  usernameFocus() {
-    this.setState({usernameInput: 10})
-  }
   render() {
-    const { params } = this.props.navigation.state;
-    const itemId = params ? params.itemId : null;
-    const otherParam = params ? params.otherParam : null;
 
-    var navigationView = (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
-      </View>
-    );
     return (
       <ImageBackground style={{height,width}} source={require('../../../assets/images/bg.jpg')} resizeMode='cover'>
         <View style={styles.container}>
@@ -104,6 +89,26 @@ export default class extends Component<Props> {
               placeholder="重复密码"
               value={this.state.username}
             />
+          </View>
+          <View style={styles.inputBox}>
+            <View style={styles.iconBox}><Icon style={styles.userIcon} name="key"/></View>
+            <TextInput
+              style={styles.verification}
+              onChangeText={(text) => this.setState({text})}
+              underlineColorAndroid="transparent"
+              placeholderTextColor='#fff'
+              secureTextEntry={true}
+              placeholder="验证码"
+              value={this.state.username}
+            />
+            <TouchableHighlight
+              style={styles.verify}
+              onPress={() => this._onPressButton()}>
+              <Text
+                style={styles.verifyText}>
+                获取验证码
+              </Text>
+            </TouchableHighlight>
           </View>
           <TouchableHighlight
             style={styles.button}
