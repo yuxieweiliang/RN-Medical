@@ -40,4 +40,14 @@ export default StyleSheet.create({
     height: 40,
     lineHeight: 40,
   },
+  bottomBtnStyle: {
+    height: 40,
+    width: 70,
+    paddingLeft: 20
+  },
+  bottomFontStyle: {
+    fontSize: 16,
+    height: 40,
+    lineHeight: 40,
+  },
 });

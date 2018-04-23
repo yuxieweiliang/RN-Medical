@@ -3,7 +3,10 @@ import { ScrollView, Dimensions, Image, Text, View, TouchableHighlight } from 'r
 import { DrawerNavigator } from 'react-navigation';
 
 import DrawerView from './drawer'
-import Route from './DrawerRoute'
+import Route from './routes'
+
+// 获取基本设置
+import { routeConfig } from '../config'
 const { width, height } = Dimensions.get('window');
 
 /**
@@ -16,9 +19,16 @@ export default DrawerNavigator(Route, {
   drawerWidth: width / 3 * 2,
   // 抽屉在左边还是右边
   drawerPosition: 'left',
+
+  // 配置共同样式设置
+  navigationOptions: {
+    ...routeConfig,
+  },
+
+  // 抽屉的设置
   contentOptions: {
     // 默认页面组件
-    initialRouteName: 'InitStack',
+    initialRouteName: 'Home',
     // 正在活动的路由的key
     activeItemKey : 'Notifications',
     labelStyle : {//标签样式
@@ -37,10 +47,6 @@ export default DrawerNavigator(Route, {
     style: {
       // 垂直间距
       marginVertical: 0,
-    },
-    //没有作用
-    onItemPress : (route) => {
-      // console.log('-------->' + JSON.stringify(route))
     },
   },
   contentComponent: DrawerView,

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, WebView, View, ScrollView, Image, Dimensions, TextInput } from 'react-native';
 import styles from './style'
-import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 const { width, height } = Dimensions.get('window');
 import TabCardView from '../../../components/TabCardView/index'
 import { connect } from 'react-redux'
-import at from './action'
+import action from './action'
 
 
-class HomePage extends React.Component {
+type Props = {};
+class HomePage extends Component<Props> {
   static navigationOptions = ({ navigation, navigationOptions }) => {
     const { params } = navigation.state;
     // console.log(navigationOptions)
@@ -37,10 +37,6 @@ class HomePage extends React.Component {
     }
   };
 
-  componentWillMount() {
-    const { dispatch } = this.props
-    dispatch(at.login())
-  }
   componentDidMount() {
 
   }

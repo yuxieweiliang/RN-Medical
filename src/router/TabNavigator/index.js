@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 import { TouchableHighlight, View, Image, Text, Dimensions, TextInput,StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import Route from './TabRoute'
+import Route from './routes'
 const { width, height } = Dimensions.get('window');
 
 function headerLeft(navigation) {
@@ -13,7 +13,7 @@ function headerLeft(navigation) {
 
       <Image
         style={{width: 36, height: 36, borderRadius: 20}}
-        source={require('../../assets/images/a1.jpg')}/>
+        source={require('../../../assets/images/a1.jpg')}/>
 
     </TouchableHighlight>
   )

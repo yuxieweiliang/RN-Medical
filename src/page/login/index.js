@@ -4,9 +4,11 @@ import { navigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import styles from './style'
 const { width, height } = Dimensions.get('window');
+import action from './action'
+import { connect } from 'react-redux'
 
 type Props = {};
-export default class extends Component<Props> {
+class LoginPage extends Component<Props> {
   constructor(props) {
     super(props)
     this.state = {
@@ -25,6 +27,12 @@ export default class extends Component<Props> {
       title: params ? params.otherParam : 'A Nested Details Screen',
     }
   };
+
+
+  componentWillMount() {
+    const { dispatch } = this.props
+    dispatch(action.login())
+  }
   usernameFocus() {
     this.setState({usernameInput: 10})
   }
@@ -90,3 +98,10 @@ export default class extends Component<Props> {
     );
   }
 }
+
+
+const createState = function(state) {
+  return ({...state.loginIn})
+}
+
+export default connect(createState)(LoginPage)

@@ -1,15 +1,8 @@
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { StyleSheet, View, Text, Dimensions, TextInput } from 'react-native';
 import React, { Component } from 'react';
-// init Router 是一个主导航
-import HomeScreen from '../page/home';
-// 咨询
-import ConsultScreen from '../page/consult';
-// 推荐
-import RecommendScreen from '../page/recommend';
-// 我的
-import UserScreen from '../page/user'
 
+import routes from '../routes'
 
 const config = {
   headerMode: 'screen',
@@ -49,7 +42,7 @@ function headerTitle() {
 
 export default {
   InitStack: {
-    screen: HomeScreen,
+    screen: routes.Home,
     // 这里可以设置所有的
     navigationOptions: {
       ...config,
@@ -64,7 +57,7 @@ export default {
     },
   },
   Consult: {
-    screen: ConsultScreen,
+    screen: routes.Consult,
     // 这里可以设置所有的
     navigationOptions: {
       ...config,
@@ -78,7 +71,7 @@ export default {
     },
   },
   Recommend: {
-    screen: RecommendScreen,
+    screen: routes.Recommend,
     navigationOptions: {
       ...config,
       title: '推荐',
@@ -91,7 +84,7 @@ export default {
     }
   },
   User: {
-    screen: UserScreen,
+    screen: routes.User,
     navigationOptions: {
       ...config,
       title: '我的',

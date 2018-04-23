@@ -1,36 +1,35 @@
 import React, { Component } from 'react';
 import { ScrollView, Dimensions, Image, Text, View, TouchableHighlight } from 'react-native';
 import { SafeAreaView, DrawerItems } from 'react-navigation';
-import router from './drawerConfig'
-import styles from './drawerStyle'
-import {TouchImageButton, TouchButton} from '../../components/TouchButton'
+import { routeNames } from '../config'
+import styles from './style'
+import {TouchImageButton, TouchButton} from '../../../components/TouchButton'
 const { width, height } = Dimensions.get('window');
 
 
 export default props => {
+
   const imageData = {
     ...props,
     boxStyle: styles.boxStyle,
     imageStyle: styles.imageStyle,
     textStyle: styles.textStyle,
     router: 'Setting',
-    source: require('../../assets/images/a1.jpg'),
+    source: require('../../../assets/images/a1.jpg'),
     text: '用户名',
   }
 
-  const bottomBtnStyle = {
-    btnStyle: {
-      height: 40,
-      width: 70,
-      paddingLeft: 20
-    },
-    fontStyle: {
-      fontSize: 16,
-      height: 40,
-      lineHeight: 40,
-    },
+  const btnStyle = {
+    height: 40,
+    width: 70,
+    paddingLeft: 20
   }
-  // console.log(props)
+  const fontStyle = {
+    fontSize: 16,
+    height: 40,
+    lineHeight: 40,
+  }
+  //
   return (
     <View style={styles.container}>
 
@@ -38,7 +37,7 @@ export default props => {
       <View  style={styles.photoBox}>
         <TouchImageButton {...imageData}/>
       </View>
-      <ScrollView style={{height: height - 260}}>
+      <ScrollView style={{height: height - 300}}>
         {/*     这里是自定义导航      */}
         <SafeAreaView >
           {
@@ -49,9 +48,9 @@ export default props => {
                 btnStyle: styles.btnStyle,
                 fontStyle: styles.fontStyle,
                 router: item.key,
-                text: router[item.routeName]
+                text: routeNames[item.routeName]
               }
-              if(Object.keys(router).indexOf(item.key) < 0) return;
+              if(Object.keys(routeNames).indexOf(item.key) < 0) return;
 
               return (
               <TouchButton key={key} {...data}/>
@@ -60,25 +59,22 @@ export default props => {
           }
         </SafeAreaView >
       </ScrollView>
-      <View style={{height: 40, flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#ccc'}}>
+      <View style={{height: 180, flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#ccc'}}>
 
-        <TouchButton
+        <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
           {...{
-            ...bottomBtnStyle,
             router: 'Login',
             text: '登陆'
           }}/>
 
-        <TouchButton
+        <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
           {...{
-            ...bottomBtnStyle,
             router: 'Register',
             text: '注册'
           }}/>
 
-        <TouchButton
+        <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
           {...{
-            ...bottomBtnStyle,
             router: 'exit',
             text: '退出'
           }}/>
