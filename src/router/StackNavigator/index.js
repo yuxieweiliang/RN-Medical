@@ -7,7 +7,7 @@ import { config } from '../config'
 export default StackNavigator(
   routes,
   {
-    initialRouteName: 'TabNavigator',
+    initialRouteName: 'HistoryIndicators',
     navigationOptions: {
       ...config
     },

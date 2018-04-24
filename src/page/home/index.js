@@ -7,6 +7,14 @@ import TabCardView from '../../../components/TabCardView/index'
 import { connect } from 'react-redux'
 import action from './action'
 
+const list = [
+  require(`../../../assets/images/a1.jpg`),
+  require(`../../../assets/images/a2.jpg`),
+  require(`../../../assets/images/a3.jpg`),
+  require(`../../../assets/images/a4.jpg`),
+  require(`../../../assets/images/a5.jpg`),
+  require(`../../../assets/images/a7.jpg`),
+]
 
 type Props = {};
 class HomePage extends Component<Props> {
@@ -46,15 +54,23 @@ class HomePage extends Component<Props> {
     })
   }
   componentWillUnmount() {}
-  _onPressTabCardButton(item) {
-    if(item.title === '健康指标') {
+  _onPressTabCardButton(option) {
+    console.log(option)
+
+    if(option === '历时指标') {
       this.props.navigation.navigate('HistoryMedical')
-    } else if(item.title === '生活指南') {
+    } else if(option === '生活数据') {
       this.props.navigation.navigate('HistoryIndicators')
+    } else if(option === '体征趋势') {
+      this.props.navigation.navigate('SignTrend')
+    } else if(option === '体征填写') {
+      this.props.navigation.navigate('SignOut')
+    } else if(option === '就医状况') {
+      this.props.navigation.navigate('MedicalStatus')
     }
-    console.log(this)
   }
   render() {
+    const _this = this
     const { healthGuide }= this.props
     const tabItemStyle= {width, height: 200, padding: 15}
 
@@ -70,11 +86,12 @@ class HomePage extends Component<Props> {
               healthGuide.dataSource && healthGuide.dataSource.map((items, i) => {
                 const button = items.context.button
                 const createBtn = function(option, key) {
+
                   return (
                     <TouchableHighlight
                       key={key}
                       style={{width: width - 30, height: 40, backgroundColor: '#ccc', borderRadius: 10, alignItems: 'center', marginTop: 20}}
-                      onPress={() => this._onPressTabCardButton(items)}
+                      onPress={() => _this._onPressTabCardButton(option)}
                       underlayColor="#eee">
 
                       <Text style={{height: 40, lineHeight: 40, fontSize: 16}}>
@@ -90,8 +107,8 @@ class HomePage extends Component<Props> {
                     <Text style={{fontSize: 16}}>{items.context.text}</Text>
                     {
                       (typeof button === 'object')
-                        ? button.map((child, i) => createBtn.call(this, child, i))
-                        : createBtn.call(this, button, items.context.text)
+                        ? button.map((child, i) => createBtn( child, i))
+                        : createBtn( button, items.context.text)
                     }
 
 
@@ -120,7 +137,7 @@ class HomePage extends Component<Props> {
             <View
               style={styles.exposureBody}>
               {
-                [1,3,4,5,5].map((item, i) => (
+                list.map((item, i) => (
                   <TouchableOpacity
                     key={i}
                     activeOpacity={.95}
@@ -128,9 +145,9 @@ class HomePage extends Component<Props> {
                     underlayColor="#eee">
 
                     <Text style={styles.exposureCardText}>
-                      ffffffffffffffffffffffffffffffffffffffffffffffffffff
+                      这里是晒健康的内容，这里是晒健康的内容，
                     </Text>
-                    <Image source={require('../../../assets/images/a1.jpg')} style={{flex: 1}}/>
+                    <Image source={item} style={{flex: 1}}/>
 
                   </TouchableOpacity>
                 ))
@@ -157,17 +174,28 @@ class HomePage extends Component<Props> {
             <View
               style={styles.dailyBody}>
               {
-                [1,3,4,5,5].map((item, i) => (
+                list.map((item, i) => (
                   <TouchableOpacity
                     key={i}
                     activeOpacity={.95}
                     style={styles.dailyCard}
                     underlayColor="#eee">
-                    <Image source={require('../../../assets/images/a1.jpg')} style={{flex: 1}}/>
+                    <Image source={item} style={{flex: 1}}/>
 
-                    <Text style={styles.dailyCardText}>
-                      ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-                    </Text>
+                    <View style={styles.dailyCardTextCenter}>
+                      <View style={styles.dailyCardTextTitleBox}>
+                        <Text style={styles.dailyCardTextTitle}>
+                          这里是健康日报的标题
+                        </Text>
+                      </View>
+
+
+                      <View style={styles.dailyCardTextBox}>
+                        <Text style={styles.dailyCardText}>
+                          这里是健康日报的内容，这里是健康日报的内容，这里是健康日报的内容，这里是健康日报的内容，这里是健康日报的内容，这里是健康日报的内容，
+                        </Text>
+                      </View>
+                    </View>
                   </TouchableOpacity>
                 ))
               }

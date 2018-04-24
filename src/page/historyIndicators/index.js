@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
+import { Text, Dimensions,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+const { width, height } = Dimensions.get('window');
 
 
 export default class extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
     const { params } = navigation.state;
     return {
-      title: '就医历史',
+      title: '历时指标',
     }
   };
 
@@ -27,13 +28,38 @@ export default class extends React.Component {
   render() {
     return (
 
-      <View style={styles.slide1}>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>这里是建议页面</Text>
-          <Button
-            title="点击进入建议的详情页面"
-            onPress={() => this.props.navigation.navigate('DefaultRecommend')}
-          />
+      <View style={styles.container}>
+        <View style={{ width, }}>
+          <View style={{ height: 200, width, paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', marginTop: 10}}>
+            <View style={{ height: 50, width, flexDirection: 'row', alignItems: 'center' }}>
+              <Text>就医历史</Text>
+              <Text>就医历史</Text>
+            </View>
+
+            <View style={{ width,  }}>
+              <View style={{ width, flexDirection: 'row' }}>
+                <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
+                <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
+                <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
+              </View>
+              <View style={{ width, flexDirection: 'row' }}>
+                <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
+                <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
+                <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
+              </View>
+              <View style={{ width, flexDirection: 'row' }}>
+                <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
+                <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
+                <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
+              </View>
+              <View style={{ width, flexDirection: 'row' }}>
+                <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
+                <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
+                <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
+              </View>
+            </View>
+
+          </View>
 
         </View>
       </View>

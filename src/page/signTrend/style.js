@@ -5,9 +5,12 @@ export default StyleSheet.create({
   wrapper: {
     // backgroundColor: '#63d0b4'
   },
-  container: {
+  slide1: {
     width,
     height,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   slide2: {
     flex: 1,

@@ -17,6 +17,12 @@ import Consult from '../page/consult';
 import HistoryMedical from '../page/historyMedical';
 // 历史指标
 import HistoryIndicators from '../page/historyIndicators';
+// 体征趋势
+import SignTrend from '../page/signTrend';
+// 体征填写
+import SignOut from '../page/signOut';
+// 就医状况
+import MedicalStatus from '../page/medicalStatus';
 
 //////////////////////////////////   医院   ////////////////////////////////////////
 
@@ -40,8 +46,14 @@ export default {
   Register,
   Setting,
   User,
-  Consult,
   Product,
+  Consult,
+  // 体征趋势
+  SignTrend,
+  // 体征填写
+  SignOut,
+  // 体征填写
+  MedicalStatus,
 
   // 推荐
   Recommend,

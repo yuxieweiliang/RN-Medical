@@ -49,4 +49,16 @@ export default {
   HistoryIndicators: {
     screen: routes.HistoryIndicators,
   },
+
+  SignTrend: {
+    screen: routes.SignTrend,
+  },
+
+  SignOut: {
+    screen: routes.SignOut,
+  },
+
+  MedicalStatus: {
+    screen: routes.MedicalStatus,
+  },
 }

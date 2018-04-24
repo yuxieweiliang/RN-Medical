@@ -30,7 +30,7 @@ const initialState = {
         title: '健康状况',
         context: {
           text: '体征体征体征体征体征体征体征体征体征体征',
-          button: ['体征信息', '体征填写']
+          button: ['体征趋势', '体征填写']
         }
       },{
         title: '就医情况',

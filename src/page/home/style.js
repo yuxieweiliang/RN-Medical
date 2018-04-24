@@ -78,14 +78,28 @@ export default StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
   },
-  dailyCardText: {
+  dailyCardTextCenter: {
     height: 50,
-    lineHeight: 20,
     width: '66.666%',
-    fontSize: 16,
     paddingBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
+  },
+  dailyCardTextTitleBox: {
+    width: '100%',
+    paddingBottom: 10,
+  },
+  dailyCardTextTitle: {
+    width: '100%',
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  dailyCardTextBox: {
+    width: '100%',
+  },
+  dailyCardText: {
+    width: '100%',
+    fontSize: 16,
   },
 
 });
