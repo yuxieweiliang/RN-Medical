@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
+import { Text, WebView,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -9,7 +9,7 @@ export default class extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
     const { params } = navigation.state;
     return {
-      title: '就医历史',
+      title: '晒健康',
     }
   };
 
@@ -27,33 +27,16 @@ export default class extends React.Component {
   render() {
     return (
 
-      <View style={styles.slide1}>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>就医历史</Text>
-              </View>
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>就医历史</Text>
-              </View>
-            </View>
-            <Text>就医历史</Text>
-            <Button
-              title="点击进入建议的详情页面"
-              onPress={() => this.props.navigation.navigate('DefaultRecommend')}
-            />
-
-          </View>
-
-          <Text>就医历史</Text>
-          <Button
-            title="点击进入建议的详情页面"
-            onPress={() => this.props.navigation.navigate('DefaultRecommend')}
-          />
-
-        </View>
+      <View style={styles.container}>
+        <WebView
+          automaticallyAdjustContentInsets={false}
+          style={styles.scroll}
+          source={{uri: 'http://10.0.0.98:8011/healthExposure/view.html'}}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          decelerationRate="normal"
+          startInLoadingState={true}
+        />
       </View>
 
 

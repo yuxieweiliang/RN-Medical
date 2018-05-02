@@ -10,7 +10,10 @@ const initialState = {
       backgroundColor: '#fafafa',
     },
     containerStyle: {
-      height: 300
+      height: 500
+    },
+    bodyStyle: {
+      height: 450
     },
     dataSource: [
       {
@@ -69,7 +72,7 @@ let func = {
 
 // 不同类别的事件使用switch对应处理过程
 
-export default function homeTabCardData(state=initialState, action) {
+export default function appointmentTabCardData(state=initialState, action) {
 
   if(func[action.type]) {
     func[action.type].apply(null, arguments)

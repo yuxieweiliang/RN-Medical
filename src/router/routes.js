@@ -23,45 +23,85 @@ import SignTrend from '../page/signTrend';
 import SignOut from '../page/signOut';
 // 就医状况
 import MedicalStatus from '../page/medicalStatus';
+// 就医状况
+import HealthExposure from '../page/healthExposure';
 
 //////////////////////////////////   医院   ////////////////////////////////////////
 
 // 产品
 import Product from '../page/products';
+// 产品
+import Appointment from '../page/appointment';
+// 专家列表
+import ExpertList from '../page/expertList';
+// 专家主页
+import ExpertHome from '../page/expertHome';
 
 //////////////////////////////////   平台   ////////////////////////////////////////
 
 // 推荐
 import Recommend from '../page/recommend'
-
-// 咨询详情
+// 推荐详情
 import DefaultRecommend from '../page/recommend-details'
-
 // 主页
 import Home from '../page/home'
+// 健康日报-列表页
+import HealthDaily from '../page/healthDaily';
+// 健康日报-文章页
+import HealthDailyDetails from '../page/healthDailyDetails'
+// 健康日报-文章页
+import HospitalList from '../page/hospitalList'
 
 export default {
+
+  //////////////////////////////////   平台
+  // 主页
   Home,
+  // 推荐
+  Recommend,
+  // 推荐详情
+  DefaultRecommend,
+  // 健康日报-列表页
+  HealthDaily,
+  // 健康日报-文章页
+  HealthDailyDetails,
+  // 健康日报-文章页
+  HospitalList,
+
+  //////////////////////////////////   系统
+  // 登录
   Login,
+  // 注册
   Register,
+  // 设置
   Setting,
+
+  //////////////////////////////////   用户
+  // 用户
   User,
-  Product,
+  // 咨询
   Consult,
   // 体征趋势
   SignTrend,
   // 体征填写
   SignOut,
-  // 体征填写
+  // 就医情况
   MedicalStatus,
-
-  // 推荐
-  Recommend,
-  DefaultRecommend,
-
   // 就医历史
   HistoryMedical,
-
   // 历史指标
   HistoryIndicators,
+  // 晒健康
+  HealthExposure,
+
+  ///////////////////////////// 医院
+  // 产品
+  Product,
+  // 预约
+  Appointment,
+  // 专家列表
+  ExpertList,
+  // 专家主页
+  ExpertHome,
+
 }

@@ -5,40 +5,39 @@ export default StyleSheet.create({
 
   container: {
     width,
-    height: height - 80,
   },
   card: {
     width: '100%',
-    height: 140,
-    flexDirection: 'row',
     padding: 15,
     borderBottomWidth: 1,
     borderColor: '#ccc',
     backgroundColor: '#fafafa'
   },
-  cardLeft: {
-    flex: 2,
-    paddingRight: 15
+  cardTitle: {
+    height: 50,
   },
-  cardRight: {
-    flex: 1,
-  },
-
-  cardLeftTitle: {
-    height: 30,
-  },
-  cardLeftTitleText: {
+  cardTitleText: {
     fontSize: 20,
     color: '#333',
   },
-  cardLeftContent: {
+  cardImageBox: {
+    height: 200,
+    overflow: 'hidden',
+    paddingTop: 15,
+    paddingBottom: 15,
   },
-  cardLeftContentText: {
+  cardImage: {
+    width: '100%',
+    overflow: 'hidden'
+  },
+  cardContent: {
+    backgroundColor: '#fafafa',
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
+  cardContentText: {
     fontSize: 16,
     lineHeight: 30,
   },
-  cardRightImage: {
-    width: '100%',
-    height: '100%'
-  }
+
 });

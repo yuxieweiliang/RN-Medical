@@ -70,8 +70,8 @@ export default {
       ),
     },
   },
-  Recommend: {
-    screen: routes.Recommend,
+  Appointment: {
+    screen: routes.Appointment,
     navigationOptions: {
       ...config,
       title: '推荐',

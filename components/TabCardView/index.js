@@ -62,6 +62,7 @@ export default class TabCardView extends React.Component {
   render() {
     const { containerStyle = {}, headerStyle = {}, bodyStyle = {} } = this.props
 
+    // console.log(containerStyle, headerStyle, bodyStyle)
     return (
       <View style={[styles.container, containerStyle]}>
 

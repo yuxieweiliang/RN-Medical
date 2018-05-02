@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
+import { Text, Image,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -9,7 +9,7 @@ export default class extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
     const { params } = navigation.state;
     return {
-      title: '晒健康',
+      title: '健康日报',
     }
   };
 
@@ -27,33 +27,54 @@ export default class extends React.Component {
   render() {
     return (
 
-      <View style={styles.slide1}>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>晒健康</Text>
+      <View style={styles.container}>
+        <TouchableNativeFeedback style={styles.card} onPress={() => this.props.navigation.navigate('HealthDailyDetails')}>
+          <View style={styles.card}>
+            <View style={styles.cardLeft}>
+              <View style={styles.cardLeftTitle}>
+                <Text style={styles.cardLeftTitleText}>健康日报</Text>
               </View>
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>晒健康</Text>
+              <View style={styles.cardLeftContent}>
+                <Text style={styles.cardLeftContentText}>健康日报健康日，报健康日报健康日报健康日，报健康日报健康日，报健康日报健康日报健康日，报健康日报健......</Text>
               </View>
             </View>
-            <Text>晒健康</Text>
-            <Button
-              title="点击进入建议的详情页面"
-              onPress={() => this.props.navigation.navigate('DefaultRecommend')}
-            />
-
+            <View style={styles.cardRight}>
+              <Image style={styles.cardRightImage} source={require('../../../assets/images/a1.jpg')}/>
+            </View>
           </View>
+        </TouchableNativeFeedback>
+        <TouchableNativeFeedback style={styles.card}>
+          <View style={styles.card}>
+            <View style={styles.cardLeft}>
 
-          <Text>晒健康</Text>
-          <Button
-            title="点击进入建议的详情页面"
-            onPress={() => this.props.navigation.navigate('DefaultRecommend')}
-          />
+              <View style={styles.cardLeftTitle}>
+                <Text style={styles.cardLeftTitleText}>健康日报</Text>
+              </View>
+              <View style={styles.cardLeftContent}>
+                <Text style={styles.cardLeftContentText}>健康日报健康日，报健康日报健康日报健康日，报健康日报健康日，报健康日报健康日报健康日，报健康日报健......</Text>
+              </View>
+            </View>
+            <View style={styles.cardRight}>
+              <Image style={styles.cardRightImage} source={require('../../../assets/images/a1.jpg')}/>
+            </View>
+          </View>
+        </TouchableNativeFeedback>
+        <TouchableNativeFeedback style={styles.card}>
+          <View style={styles.card}>
+            <View style={styles.cardLeft}>
 
-        </View>
+              <View style={styles.cardLeftTitle}>
+                <Text style={styles.cardLeftTitleText}>健康日报</Text>
+              </View>
+              <View style={styles.cardLeftContent}>
+                <Text style={styles.cardLeftContentText}>健康日报健康日，报健康日报健康日报健康日，报健康日报健康日，报健康日报健康日报健康日，报健康日报健......</Text>
+              </View>
+            </View>
+            <View style={styles.cardRight}>
+              <Image style={styles.cardRightImage} source={require('../../../assets/images/a1.jpg')}/>
+            </View>
+          </View>
+        </TouchableNativeFeedback>
       </View>
 
 

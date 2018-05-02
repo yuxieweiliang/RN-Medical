@@ -125,9 +125,11 @@ class HomePage extends Component<Props> {
             <View style={styles.exposureHeaderLeft}>
               <Text style={styles.exposureHeaderFont}>晒健康</Text>
             </View>
-            <View style={styles.exposureHeaderRight}>
+            <TouchableOpacity
+              style={styles.exposureHeaderRight}
+              onPress={() => this.props.navigation.navigate('HealthExposure')}>
               <Text style={styles.exposureHeaderFont}>更多</Text>
-            </View>
+            </TouchableOpacity>
 
           </View>
           <ScrollView
@@ -162,10 +164,11 @@ class HomePage extends Component<Props> {
             <View style={styles.exposureHeaderLeft}>
               <Text style={styles.exposureHeaderFont}>健康日报</Text>
             </View>
-            <View style={styles.exposureHeaderRight}>
+            <TouchableOpacity
+              style={styles.exposureHeaderRight}
+              onPress={() => this.props.navigation.navigate('HealthDaily')}>
               <Text style={styles.exposureHeaderFont}>更多</Text>
-            </View>
-
+            </TouchableOpacity>
           </View>
           <View
             horizontal={true}
@@ -189,10 +192,10 @@ class HomePage extends Component<Props> {
                         </Text>
                       </View>
 
-
                       <View style={styles.dailyCardTextBox}>
                         <Text style={styles.dailyCardText}>
-                          这里是健康日报的内容，这里是健康日报的内容，这里是健康日报的内容，这里是健康日报的内容，这里是健康日报的内容，这里是健康日报的内容，
+                          这里是健康日报的内容，这里是健康日报的内容，这里是健康日报的内容，
+                          这里是健康日报的内容，这里是健康日报的内容，这里是健康日报的内容，
                         </Text>
                       </View>
                     </View>

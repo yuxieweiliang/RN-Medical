@@ -3,19 +3,26 @@ import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { combineReducers } from 'redux';
 
-import loginIn from '../src/page/login/reducer'; // 导入登录的redux处理过程
-import homeTabCardData from '../src/page/home/reducer'; // 导入登录的redux处理过程
+// 导入登录
+import loginIn from '../src/page/login/reducer';
+// 导入首页
+import homeTabCardData from '../src/page/home/reducer';
+// 导入预约挂号
+import appointmentTabCardData from '../src/page/appointment/reducer';
 
+// 所有页面的数据分发
 const rootReducer = combineReducers({ // 将所有的redux处理逻辑包装在一起
 
   loginIn: loginIn,
   home: homeTabCardData,
+  appointment: appointmentTabCardData,
 
 });
 
-
+// 添加中间件
 const storeMiddleware = applyMiddleware(
-  thunkMiddleware, createLogger
+  thunkMiddleware, // 拆分数据
+  createLogger // 打印日志
 )(createStore);
 
 

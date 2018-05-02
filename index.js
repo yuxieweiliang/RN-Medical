@@ -1,4 +1,5 @@
-import { AppRegistry } from 'react-native';
+import { AppRegistry, View, Text } from 'react-native';
+
 import App from './src/router/index';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';

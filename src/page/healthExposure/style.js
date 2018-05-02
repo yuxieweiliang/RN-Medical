@@ -5,34 +5,13 @@ export default StyleSheet.create({
   wrapper: {
     // backgroundColor: '#63d0b4'
   },
-  slide1: {
+  container: {
     width,
-    height,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: height - 80,
   },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  scroll: {
+    width,
+    height: '100%',
   },
 
-  btn: {
-    borderRadius: 10,
-    shadowColor:'green',
-    shadowOffset:{h:10,w:10},
-    shadowRadius:3,
-    shadowOpacity:0.8,
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
-  }
 });

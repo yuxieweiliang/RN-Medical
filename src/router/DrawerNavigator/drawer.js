@@ -9,7 +9,7 @@ const { width, height } = Dimensions.get('window');
 
 export default props => {
 
-  console.log(props)
+  // console.log(props)
   const imageData = {
     ...props,
     boxStyle: styles.boxStyle,
