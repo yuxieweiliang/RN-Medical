@@ -35,4 +35,5 @@ function token(params) {
 
 export default {
   token,
+  homeLoad: token,
 }

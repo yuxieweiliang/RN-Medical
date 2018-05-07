@@ -3,6 +3,7 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import { TouchableHighlight, View, Image, Text, Dimensions, TextInput,StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import Route from './routes'
+import { color } from '../../config'
 const { width, height } = Dimensions.get('window');
 
 function headerLeft(navigation) {
@@ -36,41 +37,50 @@ function headerTitle(option, nav, title) {
 
 
 const initConfig = {
+  // 初始化
   initialRouteName: 'InitStack',
-  lazy: true, // 是否懒加载
+  // 是否懒加载
+  lazy: true,
+  // 使用图标
   tabBarComponent: TabBarBottom,
+  // 出现在底部
   tabBarPosition: 'bottom',
+  // 配置
   tabBarOptions: {
-    activeTintColor: '#5a77e9',
-    // tab 背景色
-    // activeBackgroundColor: 'rgba(100, 100, 100, 1)',
+    // 选中色
+    activeTintColor: color.active,
+    // tab 选中时的背景色
+    activeBackgroundColor: color.tabBarActive,
+
     style: {
       height: 50,
       // backgroundColor: '#000',
       zIndex: 0,
       position: 'relative'
     },
+    // 文字的颜色
     labelStyle: {
       // color: '#000',
       fontSize: 14,
       paddingVertical: 0,
       marginTop: 0
     },
+    // 图标的样式
     iconStyle: {
       paddingTop: 6
     },
     tabStyle: {
-      // backgroundColor: '#000',
+      backgroundColor: color.tabBar,
     },
   },
   navigationOptions: {
     headerLeft,
     headerRight,
     headerTitle,
-    activeTintColor: '#5a77e9',
+    // activeTintColor: '#5a77e9',
     // activeBackgroundColor : '#111',
-    inactiveTintColor: '#000',
-    pressOpacity: 0.8,
+    // inactiveTintColor: '#000',
+    // pressOpacity: 0.8,
   },
 }
 

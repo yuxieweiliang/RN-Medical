@@ -1,4 +1,5 @@
-{
+调用的数据实例：
+var data = {
   // 头部样式
   headerStyle: {
     height: 40,
@@ -43,3 +44,11 @@
     console.log(index, item)
   }
 }
+
+// 调用组件
+<TabCardView {...data}>
+<View>tab 1</View>
+<View>tab 2</View>
+<View>tab 3</View>
+<View>tab 4</View>
+</TabCardView>

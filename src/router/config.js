@@ -1,3 +1,4 @@
+
 // 路由对应的名字
 export const routeNames =  {
   Home: '主页',

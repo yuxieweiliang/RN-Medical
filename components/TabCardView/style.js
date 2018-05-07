@@ -21,6 +21,6 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#aaa',
-    borderBottomWidth: 4
+    borderBottomWidth: 2
   }
 };

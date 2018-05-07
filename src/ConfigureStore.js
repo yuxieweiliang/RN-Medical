@@ -9,6 +9,8 @@ import loginIn from '../src/page/login/reducer';
 import homeTabCardData from '../src/page/home/reducer';
 // 导入预约挂号
 import appointmentTabCardData from '../src/page/appointment/reducer';
+// 导入电话访谈
+import telephoneInterviewData from '../src/page/telephoneInterview/reducer';
 
 // 所有页面的数据分发
 const rootReducer = combineReducers({ // 将所有的redux处理逻辑包装在一起
@@ -16,6 +18,7 @@ const rootReducer = combineReducers({ // 将所有的redux处理逻辑包装在�
   loginIn: loginIn,
   home: homeTabCardData,
   appointment: appointmentTabCardData,
+  interview: telephoneInterviewData,
 
 });
 

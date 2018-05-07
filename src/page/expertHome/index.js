@@ -70,6 +70,8 @@ class Appointment extends React.Component {
               </View>
             </View>
           </View>
+
+          <TouchableHighlight onPress={() => this.props.navigation.navigate('RegisteredInformation')}><Text>预约</Text></TouchableHighlight>
           <View style={{flex: 3}}>
             <View style={{width: width, marginTop: 10, borderBottomWidth: 1, borderBottomColor: '#ccc', height: 50, backgroundColor: '#fafafa', paddingRight: 15, paddingLeft: 15, }}>
               <Text>预约挂号条款</Text>

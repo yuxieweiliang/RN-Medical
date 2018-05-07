@@ -52,14 +52,15 @@ const initialState = {
 
 }
 
-const LOGIN_IN_DOING = 'login/正在登陆'
-
 
 let func = {
-  [LOGIN_IN_DOING](state, action) {
-    console.log(system)
+  [system.HOME_LOAD_BEFORE](state, action) {
+
+    console.log('---------------------------home/正在登陆')
+
     return {
       ...state,
+      ...action,
       status: '正在登陆',
       isSuccess: false,
       user: null,
@@ -72,6 +73,6 @@ let func = {
 export default function homeTabCardData(state=initialState, action) {
 
   if(func[action.type]) {
-    func[action.type].apply(null, arguments)
+    return func[action.type].apply(null, arguments)
   } else return state
 }

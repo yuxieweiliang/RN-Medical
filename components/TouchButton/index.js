@@ -22,7 +22,6 @@ export function TouchButton(props) {
     </TouchableHighlight>
   )
 }
-
 /**
  * {
  *    boxStyle: 宽度

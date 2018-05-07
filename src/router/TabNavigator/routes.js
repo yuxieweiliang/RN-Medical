@@ -1,19 +1,7 @@
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { StyleSheet, View, Text, Dimensions, TextInput } from 'react-native';
 import React, { Component } from 'react';
-
 import routes from '../routes'
-
-const config = {
-  headerMode: 'screen',
-  headerStyle: {
-    backgroundColor: '#f4511e',
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  }
-}
 
 const style =  StyleSheet.create({
   icon: {
@@ -45,7 +33,7 @@ export default {
     screen: routes.Home,
     // 这里可以设置所有的
     navigationOptions: {
-      ...config,
+      // ...config,
       title: '首页',
       tabBarLabel: '首页',
       tabBarIcon: ({tintColor}) => (
@@ -60,7 +48,7 @@ export default {
     screen: routes.Consult,
     // 这里可以设置所有的
     navigationOptions: {
-      ...config,
+      // ...config,
       title: '咨询',
       tabBarLabel: '咨询',
       tabBarIcon: ({tintColor}) => (
@@ -73,7 +61,7 @@ export default {
   Appointment: {
     screen: routes.Appointment,
     navigationOptions: {
-      ...config,
+      // ...config,
       title: '推荐',
       tabBarLabel: '推荐',
       tabBarIcon: ({tintColor}) => (
@@ -86,7 +74,7 @@ export default {
   User: {
     screen: routes.User,
     navigationOptions: {
-      ...config,
+      // ...config,
       title: '我的',
       tabBarLabel: '我的',
       tabBarIcon: ({tintColor}) => (

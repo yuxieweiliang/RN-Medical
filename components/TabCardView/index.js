@@ -10,6 +10,10 @@ export default class TabCardView extends React.Component {
     }
   }
 
+  /**
+   * 默认数据
+   * @type {{activeBgColor: string, activeColor: string, tabChange: (()), containerStyle: {}, headerStyle: {}, bodyStyle: {}, itemStyle: {}}}
+   */
   static defaultProps = {
     activeBgColor: '#4f62cd',
     activeColor: '#4f62cd',

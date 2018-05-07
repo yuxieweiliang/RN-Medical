@@ -4,7 +4,7 @@ import { navigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import styles from './style'
 const { width, height } = Dimensions.get('window');
-import action from './action'
+import ac from './action'
 import { connect } from 'react-redux'
 
 type Props = {};
@@ -19,9 +19,9 @@ class LoginPage extends Component<Props> {
 
   _login() {
     const { dispatch } = this.props
-    // this.props.navigation.goBack()
 
-    dispatch(action.login(this.state))
+    dispatch(ac.login(this.state))
+
   }
 
   componentWillMount() {}

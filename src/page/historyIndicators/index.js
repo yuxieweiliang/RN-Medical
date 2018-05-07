@@ -37,26 +37,36 @@ export default class extends React.Component {
             </View>
 
             <View style={{ width,  }}>
-              <View style={{ width, flexDirection: 'row' }}>
-                <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
-                <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
-                <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
-              </View>
-              <View style={{ width, flexDirection: 'row' }}>
-                <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
-                <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
-                <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
-              </View>
-              <View style={{ width, flexDirection: 'row' }}>
-                <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
-                <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
-                <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
-              </View>
-              <View style={{ width, flexDirection: 'row' }}>
-                <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
-                <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
-                <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
-              </View>
+              <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('BodyParts')} style={{ width, flexDirection: 'row' }}>
+                <View>
+                  <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
+                  <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
+                  <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
+                </View>
+              </TouchableNativeFeedback>
+              <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('BodyParts')} style={{ width, flexDirection: 'row' }}>
+                <View>
+                  <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
+                  <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
+                  <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
+                </View>
+              </TouchableNativeFeedback>
+              <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('BodyParts')} style={{ width, flexDirection: 'row' }}>
+                <View>
+                  <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
+                  <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
+                  <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
+                </View>
+              </TouchableNativeFeedback>
+              <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('BodyParts')} style={{ width, flexDirection: 'row' }}>
+                <View>
+                  <Text style={{ width: '50%',fontSize: 16 }}>点击进入建议的详情页面</Text>
+                  <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
+                  <Text style={{ width: '30%',fontSize: 16 }}>建议的详情页面</Text>
+                </View>
+              </TouchableNativeFeedback>
+
+
             </View>
 
           </View>

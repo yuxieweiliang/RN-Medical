@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
+import { Text, TouchableHighlight,StatusBar, View, Dimensions, TouchableNativeFeedback } from 'react-native';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+const { width, height } = Dimensions.get('window');
 
 
 export default class extends React.Component {
@@ -27,33 +28,45 @@ export default class extends React.Component {
   render() {
     return (
 
-      <View style={styles.slide1}>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.container}>
+        <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('RecommendDefault')}
+                                 style={{ width}}>
+          <View style={{ width, padding: 15, backgroundColor: '#3cffeb' }}>
+            <View style={{ height: 40, flexDirection: 'row' }}>
+              <View style={{ flex: 3}}>
                 <Text>就医历史</Text>
               </View>
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{ flex: 1}}>
+                <Text>就医历史</Text>
+              </View>
+              <View style={{ flex: 2}}>
                 <Text>就医历史</Text>
               </View>
             </View>
-            <Text>就医历史</Text>
-            <Button
-              title="点击进入建议的详情页面"
-              onPress={() => this.props.navigation.navigate('DefaultRecommend')}
-            />
-
+            <View style={{  height: 40, flexDirection: 'row' }}>
+              <View style={{ flex: 3}}>
+                <Text>就医历史</Text>
+              </View>
+              <View style={{ flex: 1}}>
+                <Text>就医历史</Text>
+              </View>
+              <View style={{ flex: 2}}>
+                <Text>就医历史</Text>
+              </View>
+            </View>
+            <View style={{ height: 40, flexDirection: 'row' }}>
+              <View style={{ flex: 3}}>
+                <Text>就医历史</Text>
+              </View>
+              <View style={{ flex: 1}}>
+                <Text>就医历史</Text>
+              </View>
+              <View style={{ flex: 2}}>
+                <Text>就医历史</Text>
+              </View>
+            </View>
           </View>
-
-          <Text>就医历史</Text>
-          <Button
-            title="点击进入建议的详情页面"
-            onPress={() => this.props.navigation.navigate('DefaultRecommend')}
-          />
-
-        </View>
+        </TouchableNativeFeedback>
       </View>
 
 

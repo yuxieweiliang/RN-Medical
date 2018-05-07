@@ -1,4 +1,4 @@
-import storage from './storage'
+
 import api from './api'
 /**
  * sync方法的名字必须和所存数据的key完全相同
@@ -7,9 +7,9 @@ import api from './api'
  * @type {{user: ((params))}}
  */
 
-console.log(api)
 const sync = {
-  token: api.system.token
+  token: api.system.token,
+  homeLoad: api.system.homeLoad,
 }
 
 

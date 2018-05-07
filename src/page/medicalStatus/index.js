@@ -29,48 +29,53 @@ export default class extends React.Component {
     return (
       <View style={styles.slide1}>
         <View style={{ flex: 1, width, }}>
-          <View style={{ height: 200, width, paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', marginTop: 10}}>
-            <View style={{ height: 50, width, flexDirection: 'row', justifyContent: 'center' }}>
+          <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('TelephoneInterview')} style={{ height: 200, width, paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', marginTop: 10}}>
+            <View style={{ height: 200, width,}}>
+              <View style={{ height: 50, width, flexDirection: 'row', justifyContent: 'center' }}>
 
-              <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text>就医历史</Text>
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                  <Text>就医历史</Text>
+                </View>
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                  <Text>就医历史</Text>
+                </View>
               </View>
-              <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text>就医历史</Text>
-              </View>
-            </View>
 
-            <View style={{ width }}>
-              <Text style={{fontWeight: 'bold', fontSize: 20}}>就医历史</Text>
-              <Text style={{fontWeight: 'bold', fontSize: 16}}>
-                就医历史点击进入建议的详情页面
-                就医历史点击进入建议的详情页面
-                就医历史点击进入建议的详情页面
-              </Text>
-            </View>
-
-          </View>
-          <View style={{ height: 200, width, paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', marginTop: 10}}>
-            <View style={{ height: 50, width, flexDirection: 'row', justifyContent: 'center' }}>
-
-              <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text>就医历史</Text>
-              </View>
-              <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text>就医历史</Text>
+              <View style={{ width }}>
+                <Text style={{fontWeight: 'bold', fontSize: 20}}>就医历史</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 16}}>
+                  就医历史点击进入建议的详情页面
+                  就医历史点击进入建议的详情页面
+                  就医历史点击进入建议的详情页面
+                </Text>
               </View>
             </View>
 
-            <View style={{ width }}>
-              <Text style={{fontWeight: 'bold', fontSize: 20}}>就医历史</Text>
-              <Text style={{fontWeight: 'bold', fontSize: 16}}>
-                就医历史点击进入建议的详情页面
-                就医历史点击进入建议的详情页面
-                就医历史点击进入建议的详情页面
-              </Text>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('TelephoneInterview')} style={{ height: 200, width, paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', marginTop: 10}}>
+            <View style={{ height: 200, width,}}>
+              <View style={{ height: 50, width, flexDirection: 'row', justifyContent: 'center' }}>
+
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                  <Text>就医历史</Text>
+                </View>
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                  <Text>就医历史</Text>
+                </View>
+              </View>
+
+              <View style={{ width }}>
+                <Text style={{fontWeight: 'bold', fontSize: 20}}>就医历史</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 16}}>
+                  就医历史点击进入建议的详情页面
+                  就医历史点击进入建议的详情页面
+                  就医历史点击进入建议的详情页面
+                </Text>
+              </View>
             </View>
 
-          </View>
+
+          </TouchableNativeFeedback>
 
         </View>
       </View>

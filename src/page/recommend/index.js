@@ -38,7 +38,7 @@ export default class extends React.Component {
           <Text>这里是建议页面</Text>
           <Button
             title="点击进入建议的详情页面"
-            onPress={() => this.props.navigation.navigate('DefaultRecommend')}
+            onPress={() => this.props.navigation.navigate('RecommendDefault')}
           />
 
         </View>

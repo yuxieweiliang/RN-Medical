@@ -1,6 +1,5 @@
 import { system } from '../../type'
 import storage from '../../storage'
-let { beforeLogin, Login, afterLogin } = system
 
 
 /**
@@ -9,20 +8,20 @@ let { beforeLogin, Login, afterLogin } = system
  */
 function login(option) {
 
-  console.log('登录方法');
+  console.log(login);
 
   return dispatch => {
 
-    dispatch({ type: beforeLogin }); // 正在执行登录请求
+    dispatch({ type: 'LOGIN_BEFORE' }); // 正在执行登录请求
 
     storage.load('token', option)
       .then(res => {
         if(res) {
           console.log('登录成功');
-          dispatch({ type: Login, data: res })
+          dispatch({ type: 'LOGIN_SUCCESS', data: res })
         } else {
           console.log('登录失败');
-          dispatch({ type: afterLogin })
+          dispatch({ type: 'LOGIN_FAIL' })
         }
         return res
       })

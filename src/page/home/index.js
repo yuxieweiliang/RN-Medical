@@ -36,7 +36,7 @@ class HomePage extends Component<Props> {
       <View style={{width: 20, height: 20, borderWidth: 1, borderColor: 'red'}}>
         <Image
           source={require('../../../assets/images/a1.jpg')}
-          style={[styles.icon, {tintColor: '#fff'}]}
+          style={[styles.icon]}
         />
       </View>
       ),
@@ -44,6 +44,16 @@ class HomePage extends Component<Props> {
 
     }
   };
+
+  componentWillMount() {
+    const { dispatch } = this.props
+
+    dispatch(action.beforeHomeLoad())
+
+    dispatch(action.homeLoad())
+
+    dispatch(action.afterHomeLoad())
+  }
 
   componentDidMount() {}
 

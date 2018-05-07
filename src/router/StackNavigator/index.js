@@ -3,9 +3,18 @@ import { TouchableHighlight, View, Image, Text, Dimensions, TextInput,StyleSheet
 import { StackNavigator } from 'react-navigation';
 
 import routes from './routes'
-import { config } from '../config'
+import { color } from '../../config'
 
-
+const config =  {
+  headerMode: 'screen',
+  headerStyle: {
+    backgroundColor: color.header,
+  },
+  /// headerTintColor: '#333',
+  /*headerTitleStyle: {
+    fontWeight: 'bold',
+  }*/
+}
 export default StackNavigator(
   routes,
   {
