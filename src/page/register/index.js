@@ -74,6 +74,9 @@ export default class extends Component<Props> {
     return false;
   };
 
+  returnIcon(){
+    this.props.navigation.navigate('User')
+  }
   render() {
 
     return (
