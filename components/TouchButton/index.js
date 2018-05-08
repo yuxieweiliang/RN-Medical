@@ -1,36 +1,33 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, View, Image } from 'react-native';
+import styles from './style'
 
 /**
- * {
- *    btnStyle: 按钮样式
- *    fontStyle: 文字样式
- *    router: 路由
- *    text: 文字
- *  }
- * @param props
- * @returns {XML}
+ * btnStyle: 按钮样式
+ * fontStyle: 文字样式
+ * router: 路由
+ * text: 文字
  */
-export function TouchButton(props) {
+export function TouchButton({ children, btnStyle, fontStyle, router, navigation, onPress  }) {
   return (
     <TouchableHighlight
-      style={props.btnStyle}
-      onPress={() => props.navigation.navigate(props.router)}>
-      <Text style={props.fontStyle}>
-        {props.text}
-      </Text>
+      style={[ styles.btnStyle, btnStyle, ]}
+      onPress={ onPress ? onPress : () => navigation.navigate(router)}>
+      {
+        (typeof children === 'string')
+          ? <Text style={[ styles.fontStyle, fontStyle,]}>{children}</Text>
+          : children
+      }
     </TouchableHighlight>
   )
 }
+
 /**
- * {
- *    boxStyle: 宽度
- *    imageStyle: 高度
- *    router: 路由
- *    source: 图片地址
- *    text: 图片说明
- *  }
- * @param props
+ * boxStyle: 宽度
+ * imageStyle: 高度
+ * router: 路由
+ * source: 图片地址
+ * text: 图片说明
  * @returns {XML}
  */
 export function TouchImageButton(props) {

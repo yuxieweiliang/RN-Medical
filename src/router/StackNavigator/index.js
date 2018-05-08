@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { TouchableHighlight, View, Image, Text, Dimensions, TextInput,StyleSheet } from 'react-native'
 import { StackNavigator } from 'react-navigation';
 
 import routes from './routes'
@@ -15,10 +14,11 @@ const config =  {
     fontWeight: 'bold',
   }*/
 }
+
 export default StackNavigator(
   routes,
   {
-    initialRouteName: 'TabNavigator',
+    initialRouteName: 'Register',
     navigationOptions: {
       ...config,
     },

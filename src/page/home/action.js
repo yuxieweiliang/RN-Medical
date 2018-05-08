@@ -41,8 +41,20 @@ function afterHomeLoad() {
   }
 }
 
+function onPressTabCardButton(option) {
+  const routers = {
+    '历时指标': 'HistoryMedical',
+    '生活数据': 'HistoryIndicators',
+    '体征趋势': 'SignTrend',
+    '体征填写': 'SignOut',
+    '就医状况': 'MedicalStatus',
+  }
+  this.props.navigation.navigate(routers[option])
+}
+
 export default {
   beforeHomeLoad,
   homeLoad,
   afterHomeLoad,
+  onPressTabCardButton,
 }

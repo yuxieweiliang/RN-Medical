@@ -30,19 +30,18 @@ const listData = [
 ]
 export default class extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
+    const { headerLeft, headerRight, headerTitle } = navigationOptions;
     const { params } = navigation.state;
     // console.log(navigationOptions)
     return {
-      headerLeft: navigationOptions.headerLeft(navigation, navigationOptions),
-      headerRight: navigationOptions.headerRight(navigation, navigationOptions),
-      headerTitle: navigationOptions.headerTitle(navigation, navigationOptions, '个人'),
+      headerLeft: headerLeft && headerLeft(navigation, navigationOptions),
+      headerRight: headerRight && headerRight(navigation, navigationOptions),
+      headerTitle: headerTitle && headerTitle(navigation, navigationOptions, '个人'),
       // title: <View><Icon name="home"/><Text>我的</Text></View>,
       // tabBarVisible: false,
     }
   };
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
   _onPressButton() {
     this.props.navigation.navigate('Product', {
       itemId: 87,

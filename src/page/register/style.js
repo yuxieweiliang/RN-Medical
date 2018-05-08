@@ -8,8 +8,31 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  returnBox: {
+    width,
+    height: 80,
+    backgroundColor: 'rgba(0, 0, 0, .1)',
+  },
+  returnIconBox: {
+    height: 80,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  returnIcon: {
+    color: '#fff',
+    paddingLeft: 30,
+    paddingRight: 10,
+    fontSize: 36,
+  },
+  returnIconFont: {
+    color: '#fff',
+    fontSize: 20,
+  },
   logoBox: {
-    height: 200,
+    paddingTop: 30,
+    paddingBottom: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   inputBox: {
     display: 'flex',

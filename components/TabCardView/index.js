@@ -35,7 +35,7 @@ export default class TabCardView extends React.Component {
       return dataSource.map((item, key) => {
         let textColor = {
           color: this.state.active === key ? activeColor : '#000',
-          fontSize: 16
+          fontSize: 20
         }
 
         return (

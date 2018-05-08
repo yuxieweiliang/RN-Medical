@@ -49,39 +49,35 @@ export default props => {
                 btnStyle: styles.btnStyle,
                 fontStyle: styles.fontStyle,
                 router: item.key,
-                text: routeNames[item.routeName]
               }
               if(Object.keys(routeNames).indexOf(item.key) < 0) return;
 
               return (
-              <TouchButton key={key} {...data}/>
+                <TouchButton key={key} {...data}>{routeNames[item.routeName]}</TouchButton>
               )
             })
           }
         </SafeAreaView >
       </ScrollView>
       <View style={{height: 180, flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#ccc'}}>
-
         <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
-          {...{
-            ...props,
-            router: 'Login',
-            text: '登陆'
-          }}/>
-
+                     {...{
+                       ...props,
+                       router: 'Login',
+                       text: ''
+                     }}>登陆</TouchButton>
         <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
-          {...{
-            ...props,
-            router: 'Register',
-            text: '注册'
-          }}/>
-
+                     {...{
+                       ...props,
+                       router: 'Register',
+                       text: ''
+                     }}>注册</TouchButton>
         <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
-          {...{
-            ...props,
-            router: 'exit',
-            text: '退出'
-          }}/>
+                     {...{
+                       ...props,
+                       router: 'exit',
+                       text: ''
+                     }}>退出</TouchButton>
 
       </View>
     </View>

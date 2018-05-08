@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DrawerView from './DrawerNavigator'
 import Swiper from '../InitSwiper'
 
+
 type Props = {};
 export default class App extends Component<Props> {
   state = {

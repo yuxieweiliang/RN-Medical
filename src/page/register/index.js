@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
-  Image, Text, TouchableHighlight, Dimensions, View, ImageBackground,
-  TextInput, ToastAndroid, Platform , BackHandler
+  Image, Text, TouchableHighlight, TouchableOpacity, Dimensions, View, ImageBackground,
+  TextInput, ToastAndroid, Platform , BackHandler, Animated, Keyboard
 } from 'react-native';
 import { navigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import styles from './style'
+import ImageEnlarge from '../../../components/ImageEnlarge'
 const { width, height } = Dimensions.get('window');
 
 type Props = {};
@@ -13,24 +14,55 @@ export default class extends Component<Props> {
   constructor(props) {
     super(props)
     this.state = {
+      logo: {
+        url: require('../../../assets/images/icon.png'),
+        width: 300,
+        height: 300
+      },
       username: null,
       password: null
     }
+    this.imageHeight = new Animated.Value(300);
   }
   _onPressButton() {
     ToastAndroid.show('A pikachu appeared nearby !', ToastAndroid.SHORT);
     // this.props.navigation.goBack()
   }
-  componentWillMount() {
+  componentWillMount () {
+    this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow);
+    this.keyboardDidHide = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide);
     if (Platform.OS === 'android') {
       BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
     }
   }
   componentWillUnmount() {
+    this.keyboardDidShow.remove();
+    this.keyboardDidHide.remove();
     if (Platform.OS === 'android') {
       BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
     }
   }
+  keyboardWillShow = (event) => {
+    let { logo } = this.state
+    logo.height = 200
+    logo.width = 200
+    this.setState({logo})
+    Animated.timing(this.imageHeight, {
+      duration: 200,
+      toValue: 200,
+    }).start();
+  };
+
+  keyboardWillHide = (event) => {
+    let { logo } = this.state
+    logo.height = 300
+    logo.width = 300
+    this.setState({logo})
+    Animated.timing(this.imageHeight, {
+      duration: 200,
+      toValue: 300,
+    }).start();
+  };
   onBackAndroid = () => {
     const nav = this.props.navigation
     const key = nav.state.key
@@ -46,13 +78,30 @@ export default class extends Component<Props> {
 
     return (
       <ImageBackground style={{height,width}} source={require('../../../assets/images/bg.jpg')} resizeMode='cover'>
+        <View style={styles.returnBox}>
+          <TouchableOpacity onPress={() => this.returnIcon()}>
+            <View style={styles.returnIconBox}>
+              <Icon style={styles.returnIcon} name="angle-left"/>
+              <Text style={styles.returnIconFont}>返回</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <Animated.View style={[styles.logoBox, { height: this.imageHeight }]}>
+          <ImageEnlarge
+            style={{height: 300, width: 300}}
+            width={this.state.logo.width}
+            height={this.state.logo.height}
+            source={this.state.logo.url}
+            resizeMode='cover'
+          />
+        </Animated.View>
         <View style={styles.container}>
-          <View style={styles.logoBox}>
+          {/*<View style={styles.logoBox}>
             <Image
               style={styles.icon}
               source={require('../../../assets/images/icon.png')}
             />
-          </View>
+          </View>*/}
 
           <View style={styles.inputBox}>
             <View style={styles.iconBox}><Icon style={styles.userIcon} name="user"/></View>

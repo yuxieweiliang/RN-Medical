@@ -1,26 +1,27 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { title, color, CARD } from '../../../src/config'
 const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
     width,
-    height,
+    height: height - 120,
+    backgroundColor: '#ccc'
   },
-
-  btn: {
-    borderRadius: 10,
-    shadowColor:'green',
-    shadowOffset:{h:10,w:10},
-    shadowRadius:3,
-    shadowOpacity:0.8,
+  tabCardText: {
+    ...title.font,
+    lineHeight: 40,
+    paddingBottom: 15,
+    height: '100%'
   },
-
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
+  tabItemStyle: {
+    width,
+    height: 200,
+    padding: 15
   },
-
+  /**
+   * 晒健康样式
+   */
   exposureHeader: {
     height: 50,
     paddingLeft: 15,
@@ -40,17 +41,16 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   exposureHeaderFont: {
-    fontSize: 16,
-  },
-  exposureScroll: {
-    flexDirection: 'row',
-    height: 150,
-    width
+    width: width / 3,
+    fontSize: 16
   },
   exposureBody: {
     flexDirection: 'row',
-    height: 150,
+    height: 180,
   },
+  /**
+   * 健康日报样式
+   */
   dailyBody: {
     width,
   },
@@ -65,7 +65,7 @@ export default StyleSheet.create({
   exposureCardText: {
     height: 50,
     lineHeight: 20,
-    width: '66.666%',
+    width: '100%',
     fontSize: 16,
     paddingBottom: 10,
   },
@@ -102,6 +102,9 @@ export default StyleSheet.create({
     fontSize: 16,
   },
 
+  avatar: {
+    flex: 1,
+  },
 });
 
 
