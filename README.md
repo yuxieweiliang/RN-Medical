@@ -26,6 +26,7 @@ android/app/src/main/AndroidManifest.xml
 
 
 > 获取token:
+
 `api:` http://auth.kecoretest.com:81/connect/token
 `type:` post
 `data:` client_id，client_secret，username，scope，password，grant_type
@@ -46,12 +47,12 @@ android/app/src/main/AndroidManifest.xml
         grant_type: password,
     }
 `返回值:`
-{
-    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9......",
-    "expires_in": 1296000,
-    "token_type": "Bearer",
-    "refresh_token": "4ee848f59a905e87a3cc416e8d606ae82055036412a95642c0ecf3416717c9ee"
-}
+    {
+        "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9......",
+        "expires_in": 1296000,
+        "token_type": "Bearer",
+        "refresh_token": "4ee848f59a905e87a3cc416e8d606ae82055036412a95642c0ecf3416717c9ee"
+    }
 
 
 
