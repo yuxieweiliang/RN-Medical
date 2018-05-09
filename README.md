@@ -27,11 +27,11 @@ android/app/src/main/AndroidManifest.xml
 
 >### 获取token:
 
-* api:*  http://auth.kecoretest.com:81/connect/token
+*api:*  http://auth.kecoretest.com:81/connect/token
 
-* type:*  post
+*type:*  post
 
-* data:*  client_id，client_secret，username，scope，password，grant_type
+*data:*  client_id，client_secret，username，scope，password，grant_type
 
 `参数含义:`
 
