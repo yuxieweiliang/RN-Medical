@@ -24,7 +24,7 @@ android/app/src/main/res/values/strings.xml
 android/app/src/main/AndroidManifest.xml
 
 
-
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### 获取token:
 
 __api:__  http://auth.kecoretest.com:81/connect/token
