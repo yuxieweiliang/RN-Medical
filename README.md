@@ -31,7 +31,7 @@ __api:__  http://auth.kecoretest.com:81/connect/token
 
 __type:__  post
 
-__data:__  client_id，client_secret，username，scope，password，grant_type
+__data:__  `client_id`，`client_secret`，`username`，`scope`，`password`，`grant_type`
 
 __参数含义:__
 
@@ -43,6 +43,7 @@ __参数含义:__
 * grant_type: // 这个是做什么的
 
 __示例:__
+
   {
       client_id: APPClient,
       client_secret: 4FA42C86ED02A2EB905E94F25D359C05,
@@ -53,6 +54,7 @@ __示例:__
   }
 
 __返回值:__
+
   {
       "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9......",
       "expires_in": 1296000,
