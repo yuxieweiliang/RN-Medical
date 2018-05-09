@@ -37,14 +37,14 @@ android/app/src/main/AndroidManifest.xml
 · password: // # 这个是做什么的
 · grant_type: // # 这个是做什么的
 `实例:`
-{
-    client_id: APPClient,
-    client_secret: 4FA42C86ED02A2EB905E94F25D359C05,
-    username: loginname|0|admin,
-    scope: offline_access,
-    password: admin888,
-    grant_type: password,
-}
+    {
+        client_id: APPClient,
+        client_secret: 4FA42C86ED02A2EB905E94F25D359C05,
+        username: loginname|0|admin,
+        scope: offline_access,
+        password: admin888,
+        grant_type: password,
+    }
 `返回值:`
 {
     "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9......",
