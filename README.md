@@ -29,11 +29,11 @@ android/app/src/main/AndroidManifest.xml
 
 __api:__  http://auth.kecoretest.com:81/connect/token
 
-**type:**  post
+__type:__  post
 
-**data:**  client_id，client_secret，username，scope，password，grant_type
+__data:__  client_id，client_secret，username，scope，password，grant_type
 
-`参数含义:`
+__参数含义:__
 
 * client_id: // 这个是做什么的
 * client_secret: // 这个是做什么的
@@ -42,7 +42,7 @@ __api:__  http://auth.kecoretest.com:81/connect/token
 * password: // 这个是做什么的
 * grant_type: // 这个是做什么的
 
-_示例:_
+__示例:__
   {
       client_id: APPClient,
       client_secret: 4FA42C86ED02A2EB905E94F25D359C05,
@@ -52,7 +52,7 @@ _示例:_
       grant_type: password,
   }
 
-`返回值:`
+__返回值:__
   {
       "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9......",
       "expires_in": 1296000,
@@ -60,7 +60,7 @@ _示例:_
       "refresh_token": "4ee848f59a905e87a3cc416e8d606ae82055036412a95642c0ecf3416717c9ee"
   }
 
-
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 
