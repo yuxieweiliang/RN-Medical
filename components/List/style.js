@@ -9,46 +9,52 @@ export default StyleSheet.create({
     width,
   },
   list: {
-    width: width,
+    width,
     height: 150,
     backgroundColor: '#fafafa',
     paddingLeft: 15,
     paddingBottom: 15,
     borderColor: 'red',
-    borderWidth: 1
+    borderWidth: 1,
   },
   list_row: {
-    flexDirection:  'row'
+    flexDirection:  'row',
   },
   list_column: {
-    flexDirection:  'column'
+    flexDirection:  'column',
   },
   avatar: {
     flex: 1,
-    height: '100%'
+    height: '100%',
   },
   listTextBox: {
-    paddingBottom: 15,
-    paddingLeft: 10,
-    paddingRight: 10,
+    // paddingBottom: 15,
+    borderColor: 'red',
+    borderWidth: 1,
     // borderColor: 'red',
     // borderWidth: 1
   },
   listTextBox_row: {
+    paddingLeft: 10,
+    paddingRight: 10,
     width:  '66.666%',
   },
   listTextBox_column: {
     width: '100%',
+    paddingBottom: 15,
   },
   listTextTitle: {
     width: '100%',
     fontSize: 20,
     fontWeight: 'bold',
+    borderColor: 'red',
+    borderWidth: 1,
   },
   listText: {
     width: '100%',
     fontSize: 16,
-    lineHeight: 30
+    borderColor: 'red',
+    borderWidth: 1,
   },
 
 });

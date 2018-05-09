@@ -8,20 +8,20 @@ import storage from '../../storage'
  */
 function login(option) {
 
-  console.log(login);
+  alert('aaaa');
 
   return dispatch => {
 
-    dispatch({ type: 'LOGIN_BEFORE' }); // 正在执行登录请求
+    dispatch({ type: system.LOGIN_BEFORE }); // 正在执行登录请求
 
     storage.load('token', option)
       .then(res => {
         if(res) {
           console.log('登录成功');
-          dispatch({ type: 'LOGIN_SUCCESS', data: res })
+          dispatch({ type: system.LOGIN_SUCCESS, data: res })
         } else {
           console.log('登录失败');
-          dispatch({ type: 'LOGIN_FAIL' })
+          dispatch({ type: system.LOGIN_FAIL })
         }
         return res
       })

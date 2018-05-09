@@ -9,6 +9,27 @@ import styles from './style'
 import ImageEnlarge from '../../../components/ImageEnlarge'
 const { width, height } = Dimensions.get('window');
 
+
+function InputView({icon, onChangeText, value, placeholder, secureTextEntry}) {
+  return (
+    <View style={styles.inputBox}>
+      <View style={styles.iconBox}>
+        <Icon style={styles.userIcon} name={icon}/>
+      </View>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        underlineColorAndroid="transparent"
+        placeholderTextColor='#fff'
+        secureTextEntry={secureTextEntry}
+        placeholder={placeholder}
+        value={value}
+      />
+    </View>
+  )
+}
+
+
 type Props = {};
 export default class extends Component<Props> {
   constructor(props) {
@@ -16,13 +37,13 @@ export default class extends Component<Props> {
     this.state = {
       logo: {
         url: require('../../../assets/images/icon.png'),
-        width: 300,
-        height: 300
+        width: 240,
+        height: 240
       },
       username: null,
       password: null
     }
-    this.imageHeight = new Animated.Value(300);
+    this.imageHeight = new Animated.Value(240);
   }
   _onPressButton() {
     ToastAndroid.show('A pikachu appeared nearby !', ToastAndroid.SHORT);
@@ -55,12 +76,12 @@ export default class extends Component<Props> {
 
   keyboardWillHide = (event) => {
     let { logo } = this.state
-    logo.height = 300
-    logo.width = 300
+    logo.height = 240
+    logo.width = 240
     this.setState({logo})
     Animated.timing(this.imageHeight, {
       duration: 200,
-      toValue: 300,
+      toValue: 240,
     }).start();
   };
   onBackAndroid = () => {
@@ -91,7 +112,7 @@ export default class extends Component<Props> {
         </View>
         <Animated.View style={[styles.logoBox, { height: this.imageHeight }]}>
           <ImageEnlarge
-            style={{height: 300, width: 300}}
+            style={{height: 240, width: 240}}
             width={this.state.logo.width}
             height={this.state.logo.height}
             source={this.state.logo.url}
@@ -99,49 +120,19 @@ export default class extends Component<Props> {
           />
         </Animated.View>
         <View style={styles.container}>
-          {/*<View style={styles.logoBox}>
-            <Image
-              style={styles.icon}
-              source={require('../../../assets/images/icon.png')}
-            />
-          </View>*/}
+          <InputView
+            icon="user"
+            placeholder="用户名"
+            onChangeText={(text) => this.setState({username: text})}
+            value={this.state.username}
+          />
+          <InputView
+            icon="lock"
+            placeholder="密码"
+            onChangeText={(text) => this.setState({password: text})}
+            value={this.state.password}
+          />
 
-          <View style={styles.inputBox}>
-            <View style={styles.iconBox}><Icon style={styles.userIcon} name="user"/></View>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => this.setState({text})}
-              underlineColorAndroid="transparent"
-              placeholderTextColor='#fff'
-              placeholder="用户名"
-              autoFocus={true}
-              value={this.state.username}
-            />
-          </View>
-          <View style={styles.inputBox}>
-            <View style={styles.iconBox}><Icon style={styles.userIcon} name="lock"/></View>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => this.setState({text})}
-              underlineColorAndroid="transparent"
-              placeholderTextColor='#fff'
-              secureTextEntry={true}
-              placeholder="密码"
-              value={this.state.username}
-            />
-          </View>
-          <View style={styles.inputBox}>
-            <View style={styles.iconBox}><Icon style={styles.userIcon} name="lock"/></View>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => this.setState({text})}
-              underlineColorAndroid="transparent"
-              placeholderTextColor='#fff'
-              secureTextEntry={true}
-              placeholder="重复密码"
-              value={this.state.username}
-            />
-          </View>
           <View style={styles.inputBox}>
             <View style={styles.iconBox}><Icon style={styles.userIcon} name="key"/></View>
             <TextInput
@@ -172,7 +163,7 @@ export default class extends Component<Props> {
           </TouchableHighlight>
           <View style={{display: 'flex', width, justifyContent: 'flex-end'}}>
             <Text style={styles.goRegister}>
-              注册 | 登陆
+              前往登陆
             </Text>
           </View>
         </View>

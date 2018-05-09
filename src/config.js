@@ -9,11 +9,12 @@ export const FONT = {
   BLACK: '#111', // 黑色文字
   WHITE: '#fafafa', // 白色文字
   GRAY: '#333', // 浅黑色文字
-  H1: 22, // 最大
-  H2: 20, // 大
-  H3: 18, // 中
-  H4: 16, // 小
-  H5: 14, // 最小
+  H1: 22, // 大
+  H2: 20, // 中
+  H3: 18, // 小
+  FONT_BG: 18, // 大
+  FONT_MD: 16, // 中
+  FONT_SM: 14, // 小
 }
 
 // background
@@ -24,11 +25,14 @@ export const BACKGROUND = {
 
 // card
 export const CARD = {
-  TITLE_BACKGROUND_COLOR: BACKGROUND.WHITE, // 标题背景色
-  BACKGROUND_COLOR: BACKGROUND.WHITE, // 卡片背景色
-  TITLE_FONT_COLOR: FONT.BLACK, // 标题文字颜色
-  TITLE_FONT_SIZE: FONT.H2, // 标题文字大小
-  CONTENT_FONT_SIZE: FONT.H4, // 内容文字大小
+  BACKGROUND_COLOR: BACKGROUND.WHITE, // 背景色
+  // 标题
+  TITLE_BACKGROUND_COLOR: BACKGROUND.WHITE, // 背景色
+  TITLE_FONT_COLOR: FONT.BLACK, // 文字颜色
+  TITLE_FONT_SIZE: FONT.H2, // 文字大小
+  // 内容
+  CONTENT_FONT_SIZE: FONT.H4, // 文字大小
+  CONTENT_FONT_COLOR: FONT.GRAY, // 文字大小
 }
 
 

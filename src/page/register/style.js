@@ -29,8 +29,8 @@ export default StyleSheet.create({
     fontSize: 20,
   },
   logoBox: {
-    paddingTop: 30,
-    paddingBottom: 30,
+    paddingTop: 20,
+    paddingBottom: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },

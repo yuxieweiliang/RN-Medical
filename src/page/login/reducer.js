@@ -38,10 +38,11 @@ let func = {
 
 // 不同类别的事件使用switch对应处理过程
 
-export default function loginIn(state=initialState, action) {
-  console.log(action)
-
-  if(func[action.type]) {
-    func[action.type].apply(null, arguments)
-  } else return state
-}
+export default (
+  state = initialState,
+  action
+) => (
+  func[action.type]
+    ? func[action.type].apply(null, arguments)
+    : state
+)

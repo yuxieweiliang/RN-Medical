@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, TextInput, View, Image, ScrollView, Dimensions } from 'react-native';
+import { Text, TouchableHighlight, TextInput, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -25,12 +25,12 @@ export default class extends React.Component {
     })
   }
   componentWillUnmount() {
-    // this._onPressButton.remove(); 'keyboardShouldPersistTaps={true}' is deprecated. Use '' instead
+    // this._onPressButton.remove();
   }
   render() {
     const tabItemStyle= {width, height: 200}
     return (
-      <ScrollView style={styles.container} keyboardShouldPersistTaps="always">
+      <View style={styles.container}>
 
         <View
           title="Go to Details"
@@ -119,7 +119,7 @@ export default class extends React.Component {
           </View>
         </View>
 
-      </ScrollView>
+      </View>
     );
   }
 }

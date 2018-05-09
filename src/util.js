@@ -71,12 +71,30 @@
     }
   }
 
+  /**
+   * 字母大写
+   * @param str
+   * @param start
+   * @param end
+   * @returns {string}
+   */
+  function toUppercase(str, start, end) {
+    if(end) {
+      return str.substring(0, start) + str.substring(start, end).toUpperCase() + str.substring(end);
+    } else if(start){
+      return str.substring(0, start).toUpperCase() + str.substring(start);
+    } else {
+      return str.substring(0,1).toUpperCase() + str.substring(1);
+    }
+  }
+
 module.exports = {
   extend: extend,
   typeOf: typeOf,
   b64Encode: b64Encode,
   b64Decode: b64Decode,
   createParams: createParams,
+  toUppercase: toUppercase,
 };
 
 

@@ -9,9 +9,9 @@ export default StyleSheet.create({
     backgroundColor: '#ccc'
   },
   tabCardText: {
-    ...title.font,
-    lineHeight: 40,
-    paddingBottom: 15,
+    fontSize: CARD.CONTENT_FONT_SIZE,
+    color: CARD.CONTENT_FONT_COLOR,
+    lineHeight: 30,
     height: '100%'
   },
   tabItemStyle: {
@@ -42,7 +42,7 @@ export default StyleSheet.create({
   },
   exposureHeaderFont: {
     width: width / 3,
-    fontSize: 16
+    fontSize: CARD.CONTENT_FONT_SIZE,
   },
   exposureBody: {
     flexDirection: 'row',

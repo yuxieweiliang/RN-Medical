@@ -5,6 +5,7 @@ import TabNavigator from './../TabNavigator'
 
 
 export default {
+
   TabNavigator: {
     screen: TabNavigator,
   },
@@ -42,6 +43,34 @@ export default {
   User: {
     screen: routes.User,
   },
+  // 设置
+  Setting: {
+    screen: routes.Setting,
+    navigationOptions: {
+      header: null
+    },
+  },
+  // 用户设置
+  UserSetting: {
+    screen: routes.UserSetting,
+    navigationOptions: {
+      header: null
+    },
+  },
+  // 系统
+  System: {
+    screen: routes.System,
+    navigationOptions: {
+      header: null
+    },
+  },
+  // 系统设置
+  SystemSetting: {
+    screen: routes.SystemSetting,
+    navigationOptions: {
+      header: null
+    },
+  },
 
   HistoryMedical: {
     screen: routes.HistoryMedical,
@@ -49,6 +78,18 @@ export default {
 
   HistoryIndicators: {
     screen: routes.HistoryIndicators,
+  },
+
+  HealthIndicators: {
+    screen: routes.HealthIndicators,
+  },
+
+  HealthStatus: {
+    screen: routes.HealthStatus,
+  },
+
+  GuideToLife: {
+    screen: routes.GuideToLife,
   },
 
   SignTrend: {
@@ -100,5 +141,8 @@ export default {
   },
   BodyParts: {
     screen: routes.BodyParts,
+  },
+  EditTextView: {
+    screen: routes.EditTextView,
   },
 }

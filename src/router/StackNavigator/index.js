@@ -18,7 +18,7 @@ const config =  {
 export default StackNavigator(
   routes,
   {
-    initialRouteName: 'Register',
+    initialRouteName: 'TabNavigator',
     navigationOptions: {
       ...config,
     },

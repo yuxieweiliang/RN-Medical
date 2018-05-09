@@ -8,6 +8,7 @@ import List from '../../../components/List'
 import { TouchButton } from '../../../components/TouchButton'
 import Card from '../../../components/Card'
 import { connect } from 'react-redux'
+import { toUppercase } from '../../util'
 import ac from './action'
 
 const navigation = ({ navigation, navigationOptions }) => {
@@ -37,6 +38,107 @@ const navigation = ({ navigation, navigationOptions }) => {
   }
 };
 
+const createBtn = (option, key) => (
+  <TouchButton {...{ key, ...this.props, router: routers[option] }}>
+    { option }
+  </TouchButton>
+)
+
+/**
+ * 健康指标
+ * @param option
+ */
+function healthIndicators(option) {
+  const { healthGuide, routers, list }= this.props
+  console.log(option.type, )
+  return option.context.text.map((items, i) => {
+    return (
+      <TouchableOpacity
+        key={i}
+        style={{flexDirection: 'row'}}
+        onPress={() => this.props.navigation.navigate('HealthIndicators')}>
+        <Text style={[styles.tabCardText, {flex: 3}]}>
+          { items.name }
+        </Text>
+        <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
+          { items.size }
+        </Text>
+        <Text style={[styles.tabCardText, {flex: 2, textAlign: 'right'}]}>
+          { items.default }
+        </Text>
+      </TouchableOpacity>
+    )
+  })
+}
+
+/**
+ * 生活指南
+ * @param option
+ */
+function guideToLife(option) {
+  return (
+    <Text style={styles.tabCardText}>
+      { option.context.text }
+    </Text>
+  )
+}
+
+/**
+ * 健康状况
+ * @param option
+ */
+function healthStatus(option) {
+  return (
+    <TouchableOpacity
+      onPress={() => this.props.navigation.navigate('SignTrend')}>
+      <View style={{flexDirection: 'row'}}>
+        <View style={{flex: 1, alignItems: 'center'}}><Text>4月</Text></View>
+        <View style={{flex: 1, alignItems: 'center'}}><Text>体温</Text></View>
+        <View style={{flex: 1, alignItems: 'center'}}><Text>呼吸</Text></View>
+        <View style={{flex: 1, alignItems: 'center'}}><Text>血氧</Text></View>
+        <View style={{flex: 2, alignItems: 'center'}}><Text>血压</Text></View>
+      </View>
+      {
+        option.context.text.map((items, i) => {
+          return (
+            <View
+              key={i}
+              style={{flexDirection: 'row'}}>
+              <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
+                { items.time }
+              </Text>
+              <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
+                { items.temperature }
+              </Text>
+              <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
+                { items.breathing }
+              </Text>
+              <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
+                { items.bloodOxygen }
+              </Text>
+              <Text style={[styles.tabCardText, {flex: 2, textAlign: 'center'}]}>
+                { items.bloodPressure }
+              </Text>
+            </View>
+          )
+        })
+      }
+    </TouchableOpacity>
+  )
+}
+
+/**
+ * 就医状况
+ * @param option
+ */
+function medicalStatus(option) {
+  return (
+    <Text style={styles.tabCardText}>
+      { option.context.text }
+    </Text>
+  )
+}
+
 type Props = {};
 class HomePage extends Component<Props> {
   static navigationOptions = navigation
@@ -61,7 +163,7 @@ class HomePage extends Component<Props> {
   }
   componentWillUnmount() {}
   render() {
-    const { healthGuide, routers, list }= this.props
+    const { healthGuide, navigation, list }= this.props
 
     return (
       <View style={styles.container}>
@@ -77,19 +179,25 @@ class HomePage extends Component<Props> {
               {
                 healthGuide.dataSource && healthGuide.dataSource.map((items, i) => {
                   const button = items.context.button
-                  const createBtn = (option, key) => (
-                    <TouchButton {...{ key, ...this.props, router: routers[option] }}>
-                      { option }
-                    </TouchButton>
-                  )
-
+                  let func = {
+                    healthIndicators,
+                    guideToLife,
+                    healthStatus,
+                    medicalStatus,
+                  }
+                  // onPress={() => navigation.navigate(toUppercase(items.type))}
                   return (
-                    <View key={i} style={styles.tabItemStyle}>
-                      <Text style={styles.tabCardText}>{items.context.text}</Text>
+                    <View
+                      key={i}
+                      style={styles.tabItemStyle}
+                      >
+                      {func[items.type].call(this, items)}
                       {
-                        (typeof button === 'object')
-                          ? button.map((child, i) => createBtn( child, i))
-                          : createBtn( button, items.context.text)
+                        button && (
+                          (typeof button === 'object')
+                            ? button.map((child, i) => createBtn( child, i))
+                            : createBtn( button, items.context.text)
+                        )
                       }
                     </View>
                   )
@@ -108,10 +216,10 @@ class HomePage extends Component<Props> {
                 return <List {...item.item}
                              title=""
                              avatar={null}
+                             horizontal={false}
                              listStyle={{width: width/3, paddingTop: 0}}
                              description="这里是晒健康的内容，这里是晒健康的内容，"
                              listTextStyle={{height: 40}}
-                             horizontal={false}
                              key={item.item.key}>
                   <Image source={item.item.avatar} style={styles.avatar}/>
                 </List>
@@ -128,7 +236,8 @@ class HomePage extends Component<Props> {
                 } renderItem={item => {
                 // console.log(item.item.title)
                 item.item.horizontal = true
-                return <List {...item.item} key={item.item.title}/>
+                return <List {...item.item}
+                             key={item.item.title}/>
               }}
               />
             }
@@ -139,7 +248,6 @@ class HomePage extends Component<Props> {
     );
   }
 }
-
 
 const createState = function(state) {
   return ({...state.home})

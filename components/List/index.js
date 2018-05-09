@@ -5,7 +5,6 @@ const { width, height } = Dimensions.get('window');
 
 type Props = {};
 class List extends Component<Props> {
-
   componentWillMount() {}
   componentDidMount() {}
   componentWillUnmount() {}
@@ -17,13 +16,20 @@ class List extends Component<Props> {
       underlayColor,
       title,
       description,
-      horizontal= true,
+      horizontal= true, // 这里的横竖是指卡片与文字的关系，不是列表的关系
       listTextStyle,
       children
     } = this.props
     let listTextBox = horizontal ? styles.listTextBox_row : styles.listTextBox_column
     let list = horizontal ? styles.list_row : styles.list_column
     // console.log(horizontal)
+    function createTitle(text) {
+      return (
+        <Text style={styles.listTextTitle}>
+          {text}
+        </Text>
+      )
+    }
     return (
       <TouchableOpacity
         activeOpacity={activeOpacity}
@@ -31,9 +37,9 @@ class List extends Component<Props> {
         underlayColor={underlayColor}>
         { avatar && <Image source={avatar} style={styles.avatar}/> }
         <View style={[styles.listTextBox, listTextBox]}>
-          <Text style={styles.listTextTitle}>
-            {title}
-          </Text>
+          {
+            title ? createTitle(title) : <View/>
+          }
           <Text style={[styles.listText, listTextStyle]}>
             {description}
           </Text>

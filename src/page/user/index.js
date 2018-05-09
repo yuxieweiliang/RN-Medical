@@ -1,34 +1,13 @@
 import React, { Component } from 'react';
 import { Text, SectionList, StatusBar, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
-import styles from './style'
+import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/dist/EvilIcons';
+import styles from './style'
+
+
 const { width, height } = Dimensions.get('window');
 
-const iconTemp  = ()=> (
-  <Image style={{width: 30, height: 30, borderRadius: 15, marginRight: 6}}source={require('../../../assets/images/a1.jpg')}/>
-)
-
-const listData = [
-  {key: 'user', data: [
-    {title: '张女士',icon: iconTemp() },
-  ]},
-  {key: 'test', data: [
-    {title: '检查',},
-    {title: '检验',},
-  ]},
-  {key: 'history', data: [
-    {title: '预约床位',},
-    {title: '咨询记录',},
-    {title: '随访记录',},
-    {title: '宣教记录',},
-  ]},
-  {key: 'myself', data: [
-    {title: '我的账户',},
-    {title: '推荐[智护康]给好友',},
-    {title: '帮助中心',},
-  ]},
-]
-export default class extends React.Component {
+class UserPage extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
     const { headerLeft, headerRight, headerTitle } = navigationOptions;
     const { params } = navigation.state;
@@ -52,11 +31,15 @@ export default class extends React.Component {
     // this._onPressButton.remove();
   }
   render() {
+    const { userListData } = this.props
+
+    console.log(this.props.navigation)
+    console.log(this.props.navigation.getParam('text'))
     return (
       <View style={styles.container}>
         <SectionList
           style={{width, height: height - 200}}
-          sections={listData}
+          sections={userListData}
           renderItem={(o) => this._renderItem(o)}
           renderSectionHeader={(o) => this._sectionComp(o)}
           keyExtractor = {(o) => this._extraUniqueKey(o)}
@@ -95,18 +78,24 @@ export default class extends React.Component {
       <View key="f"/>
     )
   }
-  _renderItem(option) {
-    console.log(option.item.icon)
-
+  _renderItem({ index, item, section }) {
+    let { navigation } = this.props
     return (
       <TouchableNativeFeedback
         title="Go to Details"
-        onPress={() => this.props.navigation.goBack()}
+        onPress={() => navigation.navigate(item.type)}
       >
         <View style={styles.list}>
-          <Text style={styles.label}>{option.item.title}</Text>
+          <Text style={styles.label}>{item.title}</Text>
           {
-            option.item.icon ? option.item.icon : <Icon name="chevron-right" style={{fontSize: 40}}/>
+            item.icon
+              ? item.icon
+              : (
+              <Icon
+                name="chevron-right"
+                style={{fontSize: 40}}
+              />
+            )
           }
         </View>
       </TouchableNativeFeedback>
@@ -121,4 +110,4 @@ export default class extends React.Component {
     return option.title
   }
 }
-
+export default connect((state) => ({...state.user}))(UserPage)

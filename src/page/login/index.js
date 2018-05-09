@@ -26,9 +26,7 @@ class LoginPage extends Component<Props> {
 
   _login() {
     const { dispatch } = this.props
-
     dispatch(ac.login(this.state))
-
   }
 
   componentWillMount () {
@@ -130,9 +128,4 @@ class LoginPage extends Component<Props> {
   }
 }
 
-
-const createState = function(state) {
-  return ({...state.loginIn})
-}
-
-export default connect(createState)(LoginPage)
+export default connect((state) => state.login)(LoginPage)
