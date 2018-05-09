@@ -43,24 +43,22 @@ android/app/src/main/AndroidManifest.xml
 * grant_type: // 这个是做什么的
 
 `示例:`
-
-    {
-        client_id: APPClient,
-        client_secret: 4FA42C86ED02A2EB905E94F25D359C05,
-        username: loginname|0|admin,
-        scope: offline_access,
-        password: admin888,
-        grant_type: password,
-    }
+  {
+      client_id: APPClient,
+      client_secret: 4FA42C86ED02A2EB905E94F25D359C05,
+      username: loginname|0|admin,
+      scope: offline_access,
+      password: admin888,
+      grant_type: password,
+  }
 
 `返回值:`
-
-    {
-        "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9......",
-        "expires_in": 1296000,
-        "token_type": "Bearer",
-        "refresh_token": "4ee848f59a905e87a3cc416e8d606ae82055036412a95642c0ecf3416717c9ee"
-    }
+  {
+      "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9......",
+      "expires_in": 1296000,
+      "token_type": "Bearer",
+      "refresh_token": "4ee848f59a905e87a3cc416e8d606ae82055036412a95642c0ecf3416717c9ee"
+  }
 
 
 
