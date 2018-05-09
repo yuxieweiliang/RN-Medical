@@ -35,14 +35,14 @@ android/app/src/main/AndroidManifest.xml
 
 `参数含义:`
 
-· client_id: // # 这个是做什么的
-· client_secret: // # 这个是做什么的
-· username: // # 登陆方式|医院ID|用户名 -> 比如：（loginname| mobilephone | email | mobilephonepsw）| 0 | admin
-· scope: // # 这个是做什么的
-· password: // # 这个是做什么的
-· grant_type: // # 这个是做什么的
+* client_id: // # 这个是做什么的
+* client_secret: // # 这个是做什么的
+* username: // # 登陆方式|医院ID|用户名 -> 比如：（loginname| mobilephone | email | mobilephonepsw）| 0 | admin
+* scope: // # 这个是做什么的
+* password: // # 这个是做什么的
+* grant_type: // # 这个是做什么的
 
-`实例:`
+`示例:`
 
     {
         client_id: APPClient,
