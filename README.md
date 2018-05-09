@@ -42,7 +42,7 @@ android/app/src/main/AndroidManifest.xml
 * password: // 这个是做什么的
 * grant_type: // 这个是做什么的
 
-`示例:`
+_示例:_
   {
       client_id: APPClient,
       client_secret: 4FA42C86ED02A2EB905E94F25D359C05,
