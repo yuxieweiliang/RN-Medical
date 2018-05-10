@@ -35,16 +35,16 @@ __data:__  `client_id`，`client_secret`，`username`，`scope`，`password`，`
 
 __参数含义:__
 
-* client_id: // 这个是做什么的
-* client_secret: // 这个是做什么的
-* username: // 登陆方式|医院ID|用户名 -> 比如：（loginname| mobilephone | email | mobilephonepsw）| 0 | admin
++ client_id: // 这个是做什么的
++ client_secret: // 这个是做什么的
++ username: // 登陆方式|医院ID|用户名 -> 比如：（loginname| mobilephone | email | mobilephonepsw）| 0 | admin
   - loginname: 账号
   - mobilephone: 手机号码
   - email: 邮箱
   - mobilephonepsw: 手机号码和密码
-* scope: // 这个是做什么的
-* password: // 这个是做什么的
-* grant_type: // 这个是做什么的
++ scope: // 这个是做什么的
++ password: // 这个是做什么的
++ grant_type: // 这个是做什么的
 
 __示例:__
 
