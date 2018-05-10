@@ -38,6 +38,10 @@ __参数含义:__
 * client_id: // 这个是做什么的
 * client_secret: // 这个是做什么的
 * username: // 登陆方式|医院ID|用户名 -> 比如：（loginname| mobilephone | email | mobilephonepsw）| 0 | admin
+  - loginname: 账号
+  - mobilephone: 账号
+  - email: 账号
+  - mobilephonepsw: 账号
 * scope: // 这个是做什么的
 * password: // 这个是做什么的
 * grant_type: // 这个是做什么的
@@ -75,7 +79,7 @@ __参数含义:__
 
 * client_id: // 这个是做什么的
 * client_secret: // 这个是做什么的
-* username: // 登陆方式|医院ID|用户名 -> 比如：（loginname| mobilephone | email | mobilephonepsw）| 0 | admin
+* username: // 登陆方式|医院ID|用户名 -> 比如：（loginname | mobilephone | email | mobilephonepsw）| 0 | admin
 * scope: // 这个是做什么的
 * password: // 这个是做什么的
 * grant_type: // 这个是做什么的
