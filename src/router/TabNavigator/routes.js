@@ -29,7 +29,7 @@ function headerTitle() {
 }
 
 export default {
-  InitStack: {
+  Home: {
     screen: routes.Home,
     // 这里可以设置所有的
     navigationOptions: {
@@ -62,8 +62,8 @@ export default {
     screen: routes.Appointment,
     navigationOptions: {
       // ...config,
-      title: '推荐',
-      tabBarLabel: '推荐',
+      title: '预约',
+      tabBarLabel: '预约',
       tabBarIcon: ({tintColor}) => (
         <Icon name="heart-o"
               style={[style.icon, {color: tintColor}]}

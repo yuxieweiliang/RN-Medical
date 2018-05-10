@@ -38,7 +38,7 @@ function headerTitle(option, nav, title) {
 
 const initConfig = {
   // 初始化
-  initialRouteName: 'InitStack',
+  initialRouteName: 'Appointment',
   // 是否懒加载
   lazy: true,
   // 使用图标

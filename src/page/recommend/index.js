@@ -8,14 +8,13 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 export default class extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
     const { params } = navigation.state;
+    const { headerLeft, headerRight, headerTitle } = navigationOptions
     return {
-      headerLeft: navigationOptions.headerLeft(navigation, navigationOptions),
-      headerRight: navigationOptions.headerRight(navigation, navigationOptions),
-      headerTitle: navigationOptions.headerTitle(navigation, navigationOptions, '推荐'),
+      headerLeft: headerLeft && headerLeft(navigation, navigationOptions),
+      headerRight: headerRight && headerRight(navigation, navigationOptions),
+      headerTitle: headerTitle && headerTitle(navigation, navigationOptions, '推荐'),
       // title: <View><Icon name="home"/><Text>推荐</Text></View>,
       // tabBarVisible: false,
-
-
     }
   };
 

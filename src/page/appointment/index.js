@@ -78,110 +78,23 @@ class Appointment extends React.Component {
         </TabCardView>
 
         <View>
-          <View style={{flexDirection: 'row', borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Text>fdsa</Text>
-            </View>
-            <View style={{flex: 3}}>
-              <View>
-                <Text>fdsa</Text>
+          {
+            [1,2,3,4,5,6,7,8].map((item, key) => (
+              <View key={key} style={{flexDirection: 'row', borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
+                <View style={{flex: 1}}>
+                  <Text>预约挂号：</Text>
+                </View>
+                <View style={{flex: 3}}>
+                  <View>
+                    <Text>陕西中医药大学附属医院</Text>
+                  </View>
+                  <View>
+                    <Text>2014-11-08 何大夫 下午</Text>
+                  </View>
+                </View>
               </View>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Text>fdsa</Text>
-            </View>
-            <View style={{flex: 3}}>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Text>fdsa</Text>
-            </View>
-            <View style={{flex: 3}}>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Text>fdsa</Text>
-            </View>
-            <View style={{flex: 3}}>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Text>fdsa</Text>
-            </View>
-            <View style={{flex: 3}}>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Text>fdsa</Text>
-            </View>
-            <View style={{flex: 3}}>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Text>fdsa</Text>
-            </View>
-            <View style={{flex: 3}}>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Text>fdsa</Text>
-            </View>
-            <View style={{flex: 3}}>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-              <View>
-                <Text>fdsa</Text>
-              </View>
-            </View>
-          </View>
+            ))
+          }
         </View>
       </ScrollView>
 
