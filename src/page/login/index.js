@@ -5,7 +5,7 @@ import { Image, TouchableOpacity, Text, TouchableHighlight, Dimensions, View, Im
 import ImageEnlarge from '../../../components/ImageEnlarge'
 import ac from './action'
 import styles from './style'
-
+import { SYSTEM } from '../../type'
 const { width, height } = Dimensions.get('window');
 
 type Props = {};
@@ -25,13 +25,12 @@ class LoginPage extends Component<Props> {
   }
 
   _login() {
-    const { dispatch } = this.props
-    dispatch(ac.login(this.state))
   }
 
   componentWillMount () {
     this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow);
     this.keyboardDidHide = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide);
+
   }
 
   componentWillUnmount() {
@@ -60,11 +59,46 @@ class LoginPage extends Component<Props> {
       toValue: 300,
     }).start();
   };
-  componentDidMount() { }
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(ac.login(this.state))
+  }
   returnIcon(){
     this.props.navigation.navigate('User')
   }
   render() {
+
+
+
+
+
+    /*fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: createSearch(data)
+    })
+      .then(response => response.json())
+      .then(res => console.log(res))
+      .catch(function (error) {
+        console.log(error);
+      });*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
       <ImageBackground style={styles.container} source={require('../../../assets/images/bg.jpg')} resizeMode='cover'>

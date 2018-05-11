@@ -1,7 +1,7 @@
 import storage from '../../storage'
-import { user } from '../../type'
+import { USER } from '../../type'
 
-let { TELEPHONE_BEFORE, TELEPHONE_SUCCESS, TELEPHONE_FAIL } = user
+let { TELEPHONE_BEFORE, TELEPHONE_SUCCESS, TELEPHONE_FAIL } = USER
 
 
 /**

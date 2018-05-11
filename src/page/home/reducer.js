@@ -1,5 +1,5 @@
 'use strict';
-import { system } from '../../type'
+import { SYSTEM } from '../../type'
 // 初始状态
 
 const initialState = {
@@ -108,7 +108,7 @@ const initialState = {
 
 
 let func = {
-  [system.HOME_LOAD_BEFORE](state, action) {
+  [SYSTEM.HOME_LOAD_BEFORE](state, action) {
 
     console.log('---------------------------home/正在登陆')
 
@@ -125,7 +125,6 @@ let func = {
 // 不同类别的事件使用switch对应处理过程
 
 export default function homeTabCardData(state=initialState, action) {
-
   if(func[action.type]) {
     return func[action.type].apply(null, arguments)
   } else return state

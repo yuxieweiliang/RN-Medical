@@ -1,5 +1,5 @@
-import { user } from '../../type'
-const { LOGIN_BEFORE, LOGIN_SUCCESS, LOGIN_FAIL } = user
+import { SYSTEM } from '../../type'
+const { LOGIN_BEFORE, LOGIN_SUCCESS, LOGIN_FAIL } = SYSTEM
 
 
 // 初始状态
@@ -27,6 +27,6 @@ let func = {
 export default function loginIn(state=initialState, action) {
 
   if(func[action.type]) {
-    func[action.type].apply(null, arguments)
+    return func[action.type].apply(null, arguments)
   } else return state
 }

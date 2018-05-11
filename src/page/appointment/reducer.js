@@ -1,8 +1,11 @@
 'use strict';
-import { system } from '../../type'
-// 初始状态
+import { SYSTEM } from '../../type'
 
+const data = new Date()
+const today = data.toISOString().split('T')[0]
+// 初始状态
 const initialState = {
+  markedDates: today,
   // 健康指南
   healthGuide: {
     headerStyle: {
@@ -18,28 +21,22 @@ const initialState = {
     dataSource: [
       {
         active: true,
-        title: '健康指标',
+        title: '预约挂号',
         context: {
           text: 'fdsafda生活生活生活生活sfdsafdsafdsafdsafdsa',
           button: '历时指标'
         }
       },{
-        title: '生活指南',
+        title: '视频问诊',
         context: {
           text: '运动运动运动运动运动运动运动运动运动运动运动',
           button: '生活数据'
         }
       },{
-        title: '健康状况',
+        title: '预约床位',
         context: {
           text: '体征体征体征体征体征体征体征体征体征体征',
           button: ['体征趋势', '体征填写']
-        }
-      },{
-        title: '就医情况',
-        context: {
-          text: '就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医',
-          button: '就医状况'
         }
       },
     ],
@@ -47,25 +44,16 @@ const initialState = {
       console.log(index, item)
     }
   },
-  status: '点击登录',
-
-  isSuccess: false,
-
-  user: null,
-
 }
 
-const LOGIN_IN_DOING = 'login/正在登陆'
-
-
 let func = {
-  [LOGIN_IN_DOING](state, action) {
-    console.log(system)
+  ['CALENDAR'](state, action) {
+    let { markedDates } = state
+    markedDates = action.data.dateString
+
     return {
       ...state,
-      status: '正在登陆',
-      isSuccess: false,
-      user: null,
+      ...{markedDates}
     }
   },
 }
@@ -75,6 +63,6 @@ let func = {
 export default function appointmentTabCardData(state=initialState, action) {
 
   if(func[action.type]) {
-    func[action.type].apply(null, arguments)
+    return func[action.type].apply(null, arguments)
   } else return state
 }

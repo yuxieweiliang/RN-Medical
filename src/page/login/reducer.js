@@ -1,26 +1,23 @@
-import { login } from '../../type'
+import { SYSTEM } from '../../type'
 
 // 初始状态
 
 const initialState = {
   status: '点击登录',
-
   isSuccess: false,
-
   user: null,
-
 }
 
 let func = {
-  ['LOGIN_BEFORE'](state, action) {
+  [SYSTEM.LOGIN_BEFORE](state, action) {
     return {
       ...state,
       status: '正在登陆',
       isSuccess: false,
-      user: null,
+      user: 'fffff',
     }
   },
-  ['LOGIN_SUCCESS'](state, action) {
+  [SYSTEM.LOGIN_SUCCESS](state, action) {
     return {
       ...state,
       status: '登陆成功',
@@ -28,7 +25,7 @@ let func = {
       user: action.user,
     }
   },
-  ['LOGIN_FAIL']: (state, action) => ({
+  [SYSTEM.LOGIN_FAIL]: (state, action) => ({
     ...state,
     status: '登陆成功',
     isSuccess: true,
@@ -38,11 +35,8 @@ let func = {
 
 // 不同类别的事件使用switch对应处理过程
 
-export default (
-  state = initialState,
-  action
-) => (
+export default( state = initialState, action) => (
   func[action.type]
-    ? func[action.type].apply(null, arguments)
+    ? func[action.type](state, action)
     : state
 )

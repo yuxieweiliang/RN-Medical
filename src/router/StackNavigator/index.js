@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
 
 import routes from './routes'
-import { color } from '../../config'
 
 const config =  {
   headerMode: 'screen',
   headerStyle: {
-    backgroundColor: color.header,
+    backgroundColor: '#fafafa',
   },
   /// headerTintColor: '#333',
   /*headerTitleStyle: {
@@ -18,7 +17,7 @@ const config =  {
 export default StackNavigator(
   routes,
   {
-    initialRouteName: 'TabNavigator',
+    initialRouteName: 'Login',
     navigationOptions: {
       ...config,
     },

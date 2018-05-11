@@ -1,18 +1,19 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { title, color, CARD } from '../../src/config'
+import config from '../../src/config'
 const { width, height } = Dimensions.get('window');
+const { color, component } = config
 
 export default StyleSheet.create({
   container: {
     marginTop: 10,
-    backgroundColor: CARD.BACKGROUND_COLOR,
+    backgroundColor: color.CARD.BACKGROUND_COLOR,
   },
 
   header: {
     height: 50,
     paddingLeft: 15,
     paddingRight: 15,
-    backgroundColor: CARD.BACKGROUND_COLOR,
+    backgroundColor: color.CARD.BACKGROUND_COLOR,
     flexDirection: 'row',
   },
 
@@ -26,7 +27,10 @@ export default StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
-  headerFont: title.h1,
+  headerFont: {
+    color: '#333',
+    fontSize: 20
+  },
   scroll: {
     flexDirection: 'row',
     height: 150,

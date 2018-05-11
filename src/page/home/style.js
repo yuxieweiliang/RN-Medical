@@ -1,8 +1,10 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { title, color, CARD } from '../../../src/config'
+import config from '../../../src/config'
 const { width, height } = Dimensions.get('window');
 
-export default StyleSheet.create({
+
+console.log(config)
+export default StyleSheet.create({/*
   container: {
     width,
     height: height - 120,
@@ -19,9 +21,9 @@ export default StyleSheet.create({
     height: 200,
     padding: 15
   },
-  /**
+  /!**
    * 晒健康样式
-   */
+   *!/
   exposureHeader: {
     height: 50,
     paddingLeft: 15,
@@ -48,9 +50,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     height: 180,
   },
-  /**
+  /!**
    * 健康日报样式
-   */
+   *!/
   dailyBody: {
     width,
   },
@@ -105,7 +107,7 @@ export default StyleSheet.create({
   avatar: {
     flex: 1,
   },
-});
+*/});
 
 
 

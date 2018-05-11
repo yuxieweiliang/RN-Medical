@@ -1,7 +1,9 @@
 import Storage from 'react-native-storage'
 import { AsyncStorage } from 'react-native'
 import { sync } from './sync'
+import config from './config'
 
+let root = config.server.api
 let oldStorage
 let newStorage
 let size = 1000
@@ -15,7 +17,13 @@ let defaultExpires = 1000 * 3600 * 24
 function CreateNewStorage(){
   this.init.apply(this, arguments)
 }
-
+function createSearch(data) {
+  let str = ''
+  for(let key in data) {
+    str +=  `${key}=${data[key]}&`
+  }
+  return str
+}
 CreateNewStorage.prototype = {
   /**
    * 初始化原先的 storage
@@ -42,14 +50,15 @@ CreateNewStorage.prototype = {
   /**
    * 使用key来保存数据。
    * 除非你手动移除，这些数据会被永久保存，而且默认不会过期。
-   * @param option { key, ...params }
+   * @param key { key, ...params }
+   * @param data { key, ...params }
    */
-  save(option) {
-
-    console.log('save', option)
+  save(key, data) {
+    console.log(key, data)
     oldStorage.save({
       expires: defaultExpires,
-      ...option
+      key,
+      data
     })
   },
 
@@ -61,7 +70,7 @@ CreateNewStorage.prototype = {
    * @returns {*|Promise.<T>}
    */
   load(key, option, sync = true) {
-    let data = oldStorage.load({
+    return oldStorage.load({
       key,
       // 默认为true
       // 在没有找到数据或数据过期时自动调用相应的sync方法
@@ -94,9 +103,6 @@ CreateNewStorage.prototype = {
           return err
       }
     })
-
-    console.log(key, data)
-    return data
   },
 
   // 获取某个key下的所有id(仅key-id数据)
@@ -130,21 +136,63 @@ CreateNewStorage.prototype = {
     oldStorage.clearMap()
   },
 
-  get(option) {
-    let url = 'http://47.94.97.210:8011/' + option
-    console.log(url)
-    return fetch(url).then(response => (response.status === 200) ? response.json() : {})
+  async get({api, syncParams, resolve, reject}) {
+    let _this = this
+    let url = root + api + createSearch(syncParams)
+    let token = await this.load('token')
+
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        // 'Accept': '*!/!*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': "Bearer " + token,
+        // 'Content-Type': 'text/plain',
+      }
+    })
+      .catch(this.error)
+      .then(this.json)
+      .then(response => {
+        console.log('get: -----------------------------------------------------')
+        resolve(response)
+        return response
+      })
   },
 
-  post(url, data) {
-    return fetch(url, {
+  post({api, query, resolve, reject}, data) {
+
+    // 如果时获取token
+    if (api.indexOf('token') > -1) {
+      root = config.server.auth
+    }
+
+    console.log(arguments)
+    return fetch(root + api + createSearch(query), {
       method: 'POST',
       headers: {
-        // 'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
+        // 'Accept': '*/*',
+        // 'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        // 'Content-Type': 'text/plain',
       },
-      body: JSON.stringify(data)
-    }).then(response => (response.status === 200) ? response.json() : {})
+      body: createSearch(data)
+    })
+      .catch(this.error)
+      .then(this.json)
+      .then(res => {
+        console.log('post: -----------------------------------------------------', res)
+      if (res.Data) {
+        resolve(res.Data)
+        return res.Data
+      }
+      return res
+    })
+  },
+  json(response) {
+    return response.json()
+  },
+  error(err) {
+    console.warn(err)
   }
 }
 

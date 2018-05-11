@@ -3,9 +3,10 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import { TouchableHighlight, View, Image, Text, Dimensions, TextInput,StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import Route from './routes'
-import { color } from '../../config'
+import config from '../../config'
 const { width, height } = Dimensions.get('window');
 
+const { color, component } = config
 function headerLeft(navigation) {
   return (
     <TouchableHighlight
@@ -48,9 +49,9 @@ const initConfig = {
   // 配置
   tabBarOptions: {
     // 选中色
-    activeTintColor: color.active,
+    activeTintColor: color.APP.THEME,
     // tab 选中时的背景色
-    activeBackgroundColor: color.tabBarActive,
+    activeBackgroundColor: 'rgba(255, 255, 255, 0)',
 
     style: {
       height: 50,
@@ -70,7 +71,7 @@ const initConfig = {
       paddingTop: 6
     },
     tabStyle: {
-      backgroundColor: color.tabBar,
+      backgroundColor: 'rgba(255, 255, 255, 0)',
     },
   },
   navigationOptions: {

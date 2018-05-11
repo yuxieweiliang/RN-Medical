@@ -2,34 +2,20 @@ import storage from '../storage'
 
 
 function token(params) {
-  let { id, resolve, reject, syncParams: { extraFetchOptions, someFlag } } = params
+  let option = {
+    api: '/connect/token',
+    ...params
+  }
 
-  console.log('get token', extraFetchOptions )
-  return storage.get('Common/GetLoginToken?loginName=user|0132&psw=a')
+  return storage.post(option)
     .then(res => {
-      let data = res && res.Data
 
-      console.log('create new token data: ', data)
+      console.log(res)
+      if(res.access_token){
 
-      if(data){
-        storage.save({key: 'token', data})
-
-        if (someFlag) {
-          // 根据syncParams中的额外参数做对应处理
-          // console.log()
-        }
-
-        // 成功则调用resolve
-        resolve && resolve(data)
-
-      } else {
-        // 失败则调用reject
-        reject && reject(new Error('data parse error'))
+        storage.save('token', res.access_token)
       }
-    }).catch(err => {
-    console.warn(err)
-    reject && reject(new Error(err))
-  })
+    })
 }
 
 

@@ -5,10 +5,16 @@ import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window');
+import CalendarStrip  from 'react-native-calendar-strip';
 import TabCardView from '../../../components/TabCardView/index'
 
 
 class Appointment extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.onDayPress = this.onDayPress.bind(this);
+  }
   static navigationOptions = ({ navigation : nav, navigationOptions: option }) => {
     const { headerLeft, headerRight, headerTitle } = option;
     return {
@@ -29,6 +35,11 @@ class Appointment extends React.Component {
     }
   };
 
+  onDayPress(day) {
+    this.setState({
+      selected: day.dateString
+    });
+  }
   componentDidMount() {}
 
   _onPressButton() {
@@ -54,24 +65,26 @@ class Appointment extends React.Component {
     return (
 
       <ScrollView style={styles.container}>
-        <View onPress={() => this._onPressTabCardButton()}>
+        <View>
           <View style={{borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa',  paddingTop: 10,paddingBottom: 10}}>
             <ImageBackground source={require('../../../assets/images/a3.jpg')} style={{width: '100%', height: 240, paddingRight: 15, paddingLeft: 15,}}>
               <Image style={{width: 100, height: 200}} source={require('../../../assets/images/a3.jpg')}/>
 
             </ImageBackground >
-            <View style={{flex: 3, paddingRight: 15, paddingLeft: 15,  }}>
-              <View>
-                <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>医院名称</Text>
-              </View>
-              <View>
-                <TouchableHighlight><Text>可预约</Text></TouchableHighlight>
-                <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
-              </View>
-            </View>
+            <CalendarStrip
+              onDayPress={this.onDayPress}
+              style={{backgroundColor: '#fff'}}
+              hideExtraDays
+              markedDates={{[this.state.selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}}}
+            />
+
           </View>
 
-          <TouchableHighlight onPress={() => this.props.navigation.navigate('RegisteredInformation')}><Text>预约</Text></TouchableHighlight>
+          <TouchableHighlight
+            style={{width, height: 40, backgroundColor: '#ccc'}}
+            onPress={() => this.props.navigation.navigate('RegisteredInformation')}>
+            <Text>预约</Text>
+          </TouchableHighlight>
           <View style={{flex: 3}}>
             <View style={{width: width, marginTop: 10, borderBottomWidth: 1, borderBottomColor: '#ccc', height: 50, backgroundColor: '#fafafa', paddingRight: 15, paddingLeft: 15, }}>
               <Text>预约挂号条款</Text>

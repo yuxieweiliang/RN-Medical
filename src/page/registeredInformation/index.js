@@ -1,25 +1,22 @@
 import React, { Component } from 'react';
-import { Text, SectionList, StatusBar, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
+import { Text, FlatList, TextInput, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
 import styles from './style'
 import Icon from 'react-native-vector-icons/dist/EvilIcons';
 const { width, height } = Dimensions.get('window');
 
 
-const listData = [
-  {key: 'test', data: [
-    {title: '就诊医院', text: '三桥'},
-    {title: '医生姓名', text: '张三医生'},
-    {title: '门诊类型', text: '主任医师'},
-    {title: '就诊日起', text: '2015、12、12'},
-    {title: '挂号费用', text: '￥1254'},
-  ]},
-  {key: 'history', data: [
-    {title: '就诊患者', text: '李四'},
-    {title: '证件号码', text: '61055476285985224885225562'},
-    {title: '联系电话', text: '186524785284'},
-    {title: '手机验证码', text: '1865'},
-  ]},
-
+const listData1 = [
+  {key: 'test1', title: '就诊医院', text: '三桥'},
+  {key: 'test2', title: '医生姓名', text: '张三医生'},
+  {key: 'test3', title: '门诊类型', text: '主任医师'},
+  {key: 'test4', title: '就诊日起', text: '2015、12、12'},
+  {key: 'test5', title: '挂号费用', text: '￥1254'},
+]
+const listData2 = [
+  {key: 'test6', title: '就诊患者', text: '李四'},
+  {key: 'test7', title: '证件号码', text: '61055476285985224885225562'},
+  {key: 'test8', title: '联系电话', text: '186524785284'},
+  {key: 'test9', title: '手机验证码', text: '1865'},
 ]
 export default class extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -52,62 +49,49 @@ export default class extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <SectionList
-          style={{width, height: height - 200}}
-          sections={listData}
-          renderItem={(o) => this._renderItem(o)}
-          renderSectionHeader={(o) => this._sectionComp(o)}
-          keyExtractor = {(o) => this._extraUniqueKey(o)}
-          ItemSeparatorComponent={(o) => this._renderSeparator(o)/*   列表每项间隔    */}
-          SectionSeparatorComponent={(o) => this._renderSectionSeparator(o)/*   列表分类间隔    */}
-
-          ListHeaderComponent={() => this._renderHeader()}
-
-          ListFooterComponent={() => this._renderFooter()}
-        />
-
+        <View style={styles.aa}>
+          <FlatList
+            style={{width, marginBottom: 15, paddingTop: 15}}
+            data={listData1}
+            renderItem={this._renderCardItem.bind(this)}
+          />
+        </View>
+        <View style={styles.contaer}>
+          <FlatList
+            keyboardShouldPersistTaps="always"
+            style={{width, height: height - 200}}
+            data={listData2}
+            renderItem={this._renderItem.bind(this)}
+          />
+        </View>
       </View>
     );
   }
-  // 列表每一项之间的间隔
-  _renderSeparator(option) {
+
+  _renderCardItem(option) {
     return (
-      <View key="f"/>
-    )
-  }
-  // 列表头部
-  _renderHeader(option) {
-    return (
-      <View/>
-    )
-  }
-  // 列表底部
-  _renderFooter(option) {
-    return (
-      <View/>
-    )
-  }
-  // 列表分组上下间隔
-  _renderSectionSeparator(option) {
-    return (
-      <View key="f"/>
+      <View style={styles.cardList}>
+        <View style={styles.label}>
+          <Text style={[styles.labelFont, {lineHeight: 40}]}>{option.item.title}</Text>
+        </View>
+        <View style={styles.content}><Text style={styles.contentFont}>{option.item.text}</Text></View>
+      </View>
     )
   }
   _renderItem(option) {
-    console.log(option.item.icon)
-
     return (
-      <TouchableNativeFeedback
-        title="Go to Details"
-        onPress={() => this.props.navigation.goBack()}
-      >
-        <View style={styles.list}>
-          <Text style={styles.label}>{option.item.title}</Text>
-          {
-            option.item.icon ? option.item.icon : <Icon name="chevron-right" style={{fontSize: 40}}/>
-          }
+      <View style={styles.list}>
+        <View style={styles.label}>
+          <Text style={styles.labelFont}>{option.item.title}</Text>
         </View>
-      </TouchableNativeFeedback>
+        <View style={styles.content}>
+          <TextInput
+            underlineColorAndroid="transparent"
+            style={styles.contentFont}
+            placeholder={option.item.text}
+          />
+        </View>
+      </View>
     )
   }
   _sectionComp() {

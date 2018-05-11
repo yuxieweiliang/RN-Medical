@@ -22,7 +22,7 @@ export default DrawerNavigator(Route, {
 
   // 配置共同样式设置
   navigationOptions: {
-    ...routeConfig,
+    // ...routeConfig,
   },
 
   // 抽屉的设置

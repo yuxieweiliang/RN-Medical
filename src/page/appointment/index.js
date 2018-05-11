@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Alert,ScrollView, View, Dimensions, TouchableHighlight } from 'react-native';
+import { Text, FlatList,ScrollView, View, Dimensions, TouchableHighlight } from 'react-native';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -16,15 +16,32 @@ LocaleConfig.locales['cn'] = {
 };
 LocaleConfig.defaultLocale = 'cn';
 
+const navigation = ({ navigation : nav, navigationOptions: option }) => {
+  const { headerLeft, headerRight, headerTitle } = option;
+  return {
+    headerLeft: headerLeft && headerLeft(nav, option),
+    headerRight: headerRight && headerRight(nav, option),
+    headerTitle: headerTitle && headerTitle(nav, option, '预约挂号'),
+  }
+};
+
+
+
+
+
+
 class Appointment extends React.Component {
-  static navigationOptions = ({ navigation : nav, navigationOptions: option }) => {
-    const { headerLeft, headerRight, headerTitle } = option;
-    return {
-      headerLeft: headerLeft && headerLeft(nav, option),
-      headerRight: headerRight && headerRight(nav, option),
-      headerTitle: headerTitle && headerTitle(nav, option, '预约挂号'),
+  constructor(props) {
+    super(props)
+    this.state = {
+      selected: '2018-05-14',
+      markedDates: {
+        '2018-05-14': {selected: true, selectedColor: 'blue'},
+        '2018-05-15': {selected: true, selectedColor: 'red'},
+      }
     }
-  };
+  }
+  static navigationOptions = navigation
 
   componentDidMount() {}
 
@@ -39,48 +56,55 @@ class Appointment extends React.Component {
       otherParam: 'anything you want here',
     })
   }
+
   componentWillUnmount() {
     // this._onPressButton.remove();
-
+  }
+  calendarDayChange(day) {
+    const { markedDates, dispatch } = this.props
+    dispatch({
+      type: 'CALENDAR',
+      data: day
+    })
   }
   render() {
-    const { healthGuide }= this.props
+    const { healthGuide, markedDates}= this.props
     const vacation = {key:'vacation', color: 'red', selectedDotColor: 'blue'};
     const massage = {key:'massage', color: 'blue', selectedDotColor: 'blue'};
     const workout = {key:'workout', color: 'green'};
+
     return (
-
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <TabCardView {...healthGuide}>
-
           <View>
             <CalendarList
-              // Initially visible month. Default = Date()
               horizontal={true}
+              selected={this.state.selected}
+              // 每次滑动一页
               pagingEnabled={true}
-              markedDates={{
-                '2018-04-25': {dots: [vacation, massage, workout], selected: true, selectedColor: 'red'},
-                '2018-04-12': { startingDay: true, color: 'red', textColor: '#fff',},
-                '2018-04-13': { endingDay: true, color: 'red', textColor: '#fff'},
-                '2018-04-16': {dots: [massage, workout], disabled: true},
-              }}
-              markingType={'period'}
+              // 是否有选中的日期
+              markedDates={{[markedDates]: {selected: true, selectedColor: 'blue'}}}
+              // 月份的格式
+              monthFormat={'yyyy/MM'}
+              // 当日期改变时
+              onDayChange={(day)=>{console.log('day changed')}}
+              onDayLongPress={(day) => {console.log('selected day', day)}}
+              onDayPress={this.calendarDayChange.bind(this)}
             />
             <TouchableHighlight
-              style={{width: width - 30, height: 40, backgroundColor: '#ccc', borderRadius: 10, alignItems: 'center', justifyContent: 'center', marginTop: 20, marginLeft: 15}}
-              onPress={(option) => this._onPressTabCardButton(option)}>
+              style={styles.touchButton}
+              onPress={this._onPressTabCardButton.bind(this)}>
               <Text>预约</Text>
             </TouchableHighlight>
           </View>
           <Text>fdsa</Text>
           <Text>fda</Text>
-          <Text>fda</Text>
         </TabCardView>
-
-        <View>
-          {
-            [1,2,3,4,5,6,7,8].map((item, key) => (
-              <View key={key} style={{flexDirection: 'row', borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
+        <ScrollView>
+          <FlatList
+            data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}, {key: 'g'}, {key: 'h'}, {key: 'i'}]}
+            renderItem={({item}) => (
+              <View style={styles.list}>
                 <View style={{flex: 1}}>
                   <Text>预约挂号：</Text>
                 </View>
@@ -93,13 +117,10 @@ class Appointment extends React.Component {
                   </View>
                 </View>
               </View>
-            ))
-          }
-        </View>
-      </ScrollView>
-
-
-
+            )}
+          />
+        </ScrollView>
+      </View>
     );
   }
 }

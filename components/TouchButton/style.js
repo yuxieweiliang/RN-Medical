@@ -1,19 +1,19 @@
 import { Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
-import { color, title } from '../../src/config'
-
-
+import config from '../../src/config'
+const { color, component } = config
+console.log(config)
 export default {
   btnStyle: {
     width: '100%',
     padding: 15,
-    backgroundColor: color.button,
+    backgroundColor: color.APP.THEME,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center'
   },
   fontStyle: {
-    ...title.font,
+    // ...title.font,
     color: '#fff'
   },
 };

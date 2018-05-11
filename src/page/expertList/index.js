@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Image,ScrollView, View, Dimensions, TouchableHighlight, TextInput } from 'react-native';
+import { Text, Image,ScrollView, View, Dimensions, TouchableHighlight, TextInput, FlatList } from 'react-native';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -15,9 +15,7 @@ class Appointment extends React.Component {
       headerTitle: function() {
        return (
          <View style={{width: width - 120, height: 50, alignItems: 'center', justifyContent: 'center',}}>
-           <TextInput underlineColorAndroid="transparent"
-                      style={{fontSize: 20, width: width - 120, height: 40, alignItems: 'center', justifyContent: 'center',backgroundColor: '#ccc', borderRadius: 8}}
-                      placeholder="医院列表"/>
+           <Text style={{fontSize: 20}}>专家列表</Text>
          </View>
        )
       },
@@ -54,87 +52,44 @@ class Appointment extends React.Component {
     return (
 
       <ScrollView style={styles.container}>
-        <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
-          <View style={{flexDirection: 'row',borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Image style={{width: '100%', height: 120}} source={require('../../../assets/images/a3.jpg')}/>
-            </View>
-            <View style={{flex: 3 }}>
-              <View>
-                <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>医院名称</Text>
-              </View>
-              <View>
-                <TouchableHighlight><Text>可预约</Text></TouchableHighlight>
-                <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
-          <View style={{flexDirection: 'row',borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Image style={{width: '100%', height: 120}} source={require('../../../assets/images/a3.jpg')}/>
-            </View>
-            <View style={{flex: 3 }}>
-              <View>
-                <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>医院名称</Text>
-              </View>
-              <View>
-                <TouchableHighlight><Text>可预约</Text></TouchableHighlight>
-                <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
-          <View style={{flexDirection: 'row',borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Image style={{width: '100%', height: 120}} source={require('../../../assets/images/a3.jpg')}/>
-            </View>
-            <View style={{flex: 3 }}>
-              <View>
-                <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>医院名称</Text>
-              </View>
-              <View>
-                <TouchableHighlight><Text>可预约</Text></TouchableHighlight>
-                <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
-          <View style={{flexDirection: 'row',borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Image style={{width: '100%', height: 120}} source={require('../../../assets/images/a3.jpg')}/>
-            </View>
-            <View style={{flex: 3 }}>
-              <View>
-                <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>医院名称</Text>
-              </View>
-              <View>
-                <TouchableHighlight><Text>可预约</Text></TouchableHighlight>
-                <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
-          <View style={{flexDirection: 'row',borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10}}>
-            <View style={{flex: 1}}>
-              <Image style={{width: '100%', height: 120}} source={require('../../../assets/images/a3.jpg')}/>
-            </View>
-            <View style={{flex: 3 }}>
-              <View>
-                <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>医院名称</Text>
-              </View>
-              <View>
-                <TouchableHighlight><Text>可预约</Text></TouchableHighlight>
-                <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableHighlight>
+        <View style={{width, height: 60, justifyContent: 'center', alignItems: 'center'}}>
+          <TextInput underlineColorAndroid="transparent"
+                     style={styles.search}
+                     placeholder="专家列表"/>
+        </View>
+        <FlatList
+          data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}, {key: 'g'}, {key: 'h'}, {key: 'i'}]}
+          renderItem={({item}) => (
+            <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
+              <View style={styles.list}>
+                <View style={{flex: 1}}>
+                  <Image style={{width: '100%', height: 120}} source={require('../../../assets/images/a3.jpg')}/>
+                </View>
+                <View style={{flex: 4, paddingLeft: 15 }}>
+                  <View>
+                    <Text style={{fontSize: 18, fontWeight: 'bold', color: '#111'}}>专家名字</Text>
+                  </View>
+                  <View>
+                    <Text style={{fontSize: 16,color: '#333'}}>
+                      下面是一个较复杂的例子，演示了利用Pure，来进一步优化性能和减少bug产生的可能。
+                    </Text>
+                  </View>
+                  <View style={{flexDirection: 'row', paddingTop: 10}}>
+                    <View style={{flex: 1}}>
+                      <View style={{backgroundColor: 'blue', borderRadius: 4, alignItems: 'center', justifyContent: 'center', padding: 4}}>
+                        <Text style={{color: '#fff', }}>可预约</Text>
+                      </View>
+                    </View>
+                    <View style={{flex: 4, paddingTop: 4, paddingLeft: 15}}>
+                      <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
+                    </View>
 
+                  </View>
+                </View>
+              </View>
+            </TouchableHighlight>
+          )}
+        />
       </ScrollView>
 
 

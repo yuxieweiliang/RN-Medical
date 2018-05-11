@@ -4,7 +4,7 @@ function createType(root) {
 
 //////////////////////////////////////////////////////////////// 平台
 const systemRoot = createType('system')
-export const system = {
+export const SYSTEM = {
   // 登陆
   LOGIN_BEFORE: systemRoot('login'),
   LOGIN_SUCCESS: systemRoot('login/成功'),
@@ -21,7 +21,7 @@ export const system = {
 
 //////////////////////////////////////////////////////////////// 用户
 const userRoot = createType('user')
-export const user = {
+export const USER = {
   // 用户信息
   MESSAGE_BEFORE: userRoot('message'),
   MESSAGE_SUCCESS: userRoot('message/成功'),
@@ -34,7 +34,7 @@ export const user = {
 
 //////////////////////////////////////////////////////////////// 医院
 const hospitalRoot = createType('hospital')
-export const hospital = {
+export const HOSPITAL = {
   // 医院信息
   MESSAGE_BEFORE: userRoot('message'),
   MESSAGE_SUCCESS: userRoot('message/成功'),

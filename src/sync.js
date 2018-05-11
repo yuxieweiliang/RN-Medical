@@ -10,6 +10,7 @@ import api from './api'
 const sync = {
   token: api.system.token,
   homeLoad: api.system.homeLoad,
+  user: api.user.getUser,
 }
 
 
