@@ -31,3 +31,46 @@ let router = {
 <List {...data}>
   <View>tab 1</View>
 </TabCardView>
+
+
+
+    function typeOf(obj, target) {
+      var _obj = Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+
+      if (target) {
+        return _obj === target
+      }
+      return _obj
+    }
+    function createParams(params) {
+      var string = ''
+      if(typeOf(params, 'object')) {
+        // 如果是 对象
+        for(var key in params) {
+          string += `${key}=${params[key]}&`
+        }
+      } else {
+        console.log('params is no string or object')
+      }
+      return string.substring(0, string.length -1)
+    }
+    let query = {
+      client_id: 'APPClient',
+      client_secret: '4FA42C86ED02A2EB905E94F25D359C05',
+      username: 'loginname|1001|xueyufei',
+      scope: 'offline_access',
+      password: 'xyf.3342',
+      grant_type: 'password'
+    }
+
+    alert('fffffffffffffffffffffffffffffff')
+    fetch('http://auth.koenn.cn:81/connect/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: createParams(query)
+    }).then(res => {
+      console.log(res)
+      return res.json()
+    }).then(res => console.log(res))

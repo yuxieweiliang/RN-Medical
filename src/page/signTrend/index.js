@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Text, WebView, StatusBar, View, Button, Dimensions } from 'react-native';
+import { Text, WebView, TouchableOpacity, View, Button, Dimensions } from 'react-native';
 import styles from './style'
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
 const { width, height } = Dimensions.get('window');
-
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default class extends React.Component {
   constructor(props) {
@@ -42,9 +40,23 @@ export default class extends React.Component {
   componentWillUnmount() {
     // this._onPressButton.remove();
   }
+
+  openImage() {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      console.log(image);
+    });
+  }
   render() {
     return (
       <View style={styles.slide1}>
+        <TouchableOpacity  onPress={() => {this.openImage()}}>
+          <Text>打开图片</Text>
+        </TouchableOpacity>
+
         <View style={{ flex: 1 }}>
           <WebView
             ref={'webview'}

@@ -13,7 +13,7 @@ function login(option) {
   }
 
   return async dispatch => {
-    dispatch({ type: SYSTEM.LOGIN_BEFORE }); // 正在执行登录请求
+    // dispatch({ type: SYSTEM.LOGIN_BEFORE }); // 正在执行登录请求
 
     storage.remove('token')
     storage.remove('user')

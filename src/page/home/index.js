@@ -1,121 +1,36 @@
 import React, { Component } from 'react';
 import { Text, FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions  } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import TabCardView from '../../../components/TabCardView'
-import List from '../../../components/List'
-import { TouchButton } from '../../../components/TouchButton'
-import Card from '../../../components/Card'
 import { connect } from 'react-redux'
+// 选项卡
+import TabCardView from '../../../components/TabCardView'
+// 栏目卡片
+import Card from '../../../components/Card'
+// 精灵
+import Spirit from '../../../components/Spirit'
+// 操作动作
 import ac from './action'
+// 数据
 import storage from '../../storage'
+// 样式
 import styles from './style'
 
+// 健康指标
+import healthIndicators from './healthIndicators'
+// 生活指南
+import guideToLife from './guideToLife'
+// 健康状况
+import healthStatus from './healthStatus'
+// 就医状况
+import medicalStatus from './medicalStatus'
 const { width, height } = Dimensions.get('window');
 
 
-const createBtn = (option, key) => (
-  <TouchButton {...{ key, ...this.props, router: routers[option] }}>
-    { option }
-  </TouchButton>
-)
-
-/**
- * 健康指标
- * @param option
- */
-function healthIndicators(option) {
-  const { healthGuide, routers, list }= this.props
-  console.log(option.type, )
-  return option.context.text.map((items, i) => {
-    return (
-      <TouchableOpacity
-        key={i}
-        style={{flexDirection: 'row'}}
-        onPress={() => this.props.navigation.navigate('HealthIndicators')}>
-        <Text style={[styles.tabCardText, {flex: 3, flexWrap: 'nowrap'}]}>
-          { items.name }
-        </Text>
-        <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
-          { items.size }
-        </Text>
-        <Text style={[styles.tabCardText, {flex: 2, textAlign: 'right'}]}>
-          { items.default }
-        </Text>
-      </TouchableOpacity>
-    )
-  })
-}
-
-/**
- * 生活指南
- * @param option
- */
-function guideToLife(option) {
-  return (
-    <Text style={styles.tabCardText}>
-      { option.context.text }
-    </Text>
-  )
-}
-
-/**
- * 健康状况
- * @param option
- */
-function healthStatus(option) {
-  return (
-    <TouchableOpacity
-      onPress={() => this.props.navigation.navigate('SignTrend')}>
-      <View style={{flexDirection: 'row'}}>
-        <View style={{flex: 1, alignItems: 'center'}}><Text>4月</Text></View>
-        <View style={{flex: 1, alignItems: 'center'}}><Text>体温</Text></View>
-        <View style={{flex: 1, alignItems: 'center'}}><Text>呼吸</Text></View>
-        <View style={{flex: 1, alignItems: 'center'}}><Text>血氧</Text></View>
-        <View style={{flex: 2, alignItems: 'center'}}><Text>血压</Text></View>
-      </View>
-      {
-        option.context.text.map((items, i) => {
-          return (
-            <View
-              key={i}
-              style={{flexDirection: 'row'}}>
-              <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
-                { items.time }
-              </Text>
-              <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
-                { items.temperature }
-              </Text>
-              <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
-                { items.breathing }
-              </Text>
-              <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
-                { items.bloodOxygen }
-              </Text>
-              <Text style={[styles.tabCardText, {flex: 2, textAlign: 'center'}]}>
-                { items.bloodPressure }
-              </Text>
-            </View>
-          )
-        })
-      }
-    </TouchableOpacity>
-  )
-}
-
-/**
- * 就医状况
- * @param option
- */
-function medicalStatus(option) {
-  return (
-    <Text style={styles.tabCardText}>
-      { option.context.text }
-    </Text>
-  )
-}
-
 type Props = {};
 class HomePage extends Component<Props> {
+  /**
+   * 检查是否登录
+   * */
   async beforeMount() {
     const { dispatch, navigation } = this.props
 
@@ -129,27 +44,18 @@ class HomePage extends Component<Props> {
 
   componentWillMount() {
     this.beforeMount()
-  }
-
-  componentDidMount() {
 
   }
 
-  _onPressButton() {
-    this.props.navigation.navigate('Product', {
-      itemId: 87,
-      otherParam: 'anything you want here',
-    })
-  }
+  componentDidMount() {}
   componentWillUnmount() {}
   render() {
     const { healthGuide, navigation, list }= this.props
 
     return (
       <View style={styles.container}>
-        <View style={{width: 40, height: 40, position: 'absolute', right: 20, top: 100, backgroundColor: 'rgba(0, 155, 155, .5)', borderRadius: 20, zIndex: 100}}>
-          <Image source={require('../../../assets/images/spirit.png')}/>
-        </View>
+        {/*    精灵    */}
+        <Spirit/>
         <ScrollView style={styles.container}>
 
           {/*  健康指南  */}

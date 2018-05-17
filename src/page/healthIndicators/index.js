@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Text, Dimensions,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
+import { Text, Dimensions,StatusBar, View, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
 import styles from './style'
 import { connect } from 'react-redux'
 import CalendarStrip  from 'react-native-calendar-strip';
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import Card from '../../../components/Card'
 const TITLE = '健康指标'
 const { width, height } = Dimensions.get('window');
 
@@ -35,26 +34,107 @@ class HealthIndicators extends React.Component {
     return (
 
       <View style={styles.container}>
-        <View style={{ height: 200, width, paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', marginTop: 10}}>
 
-          <CalendarStrip
-            onDayPress={this.onDayPress}
-            style={{backgroundColor: '#fff'}}
-            hideExtraDays
-            markedDates={{[this.state.selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}}}
-          />
-          <View style={{ width,  }}>
-            <TouchableNativeFeedback style={{ width }}>
-              <View style={{ width, flexDirection: 'row' }}>
-                <Text style={{ width: '20%',fontSize: 16 }}>种类</Text>
-                <Text style={{ width: '20%',fontSize: 16 }}>1255</Text>
-                <Text style={{ width: '60%',fontSize: 16 }}>建议的详情页面</Text>
+        <CalendarStrip style={{ height: 100, backgroundColor: '#fafafa'}}/>
+        <Card title="适宜类型">
+          <View style={styles.contentBox}>
+            <TouchableNativeFeedback style={styles.contentRow}>
+              <View style={styles.contentRow}>
+                <View style={styles.rowLeft}>
+                  <Text style={styles.rowFont}>种类</Text>
+                </View>
+                <View style={styles.rowMiddle}>
+                  <TouchableOpacity style={styles.rowMiddleButton}>
+                    <Text style={styles.rowFontSmall}>少量</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.rowMiddleButtonMD}>
+                    <Text style={styles.rowFontSmallWhite}>一般</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.rowMiddleButton}>
+                    <Text style={styles.rowFontSmall}>大量</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.rowRight}>
+
+                  <Text style={styles.rowFont}>建议的详情页面</Text>
+                </View>
+              </View>
+            </TouchableNativeFeedback>
+            <TouchableNativeFeedback style={styles.contentRow}>
+              <View style={styles.contentRow}>
+                <View style={styles.rowLeft}>
+                  <Text style={styles.rowFont}>种类</Text>
+                </View>
+                <View style={styles.rowMiddle}>
+                  <TouchableOpacity style={styles.rowMiddleButton}>
+                    <Text style={styles.rowFontSmall}>少量</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.rowMiddleButtonMD}>
+                    <Text style={styles.rowFontSmallWhite}>一般</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.rowMiddleButton}>
+                    <Text style={styles.rowFontSmall}>大量</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.rowRight}>
+
+                  <Text style={styles.rowFont}>建议的详情页面</Text>
+                </View>
               </View>
             </TouchableNativeFeedback>
 
           </View>
+        </Card>
+        <Card title="禁忌类型">
+          <View style={styles.contentBox}>
+            <TouchableNativeFeedback style={styles.contentRow}>
+              <View style={styles.contentRow}>
+                <View style={styles.rowLeft}>
+                  <Text style={styles.rowFont}>种类</Text>
+                </View>
+                <View style={styles.rowMiddle}>
+                  <TouchableOpacity style={styles.rowMiddleButton}>
+                    <Text style={styles.rowFontSmall}>少量</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.rowMiddleButtonMD}>
+                    <Text style={styles.rowFontSmallWhite}>一般</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.rowMiddleButton}>
+                    <Text style={styles.rowFontSmall}>大量</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.rowRight}>
 
-        </View>
+                  <Text style={styles.rowFont}>建议的详情页面</Text>
+                </View>
+              </View>
+            </TouchableNativeFeedback>
+            <TouchableNativeFeedback style={styles.contentRow}>
+              <View style={styles.contentRow}>
+                <View style={styles.rowLeft}>
+                  <Text style={styles.rowFont}>种类</Text>
+                </View>
+                <View style={styles.rowMiddle}>
+                  <TouchableOpacity style={styles.rowMiddleButton}>
+                    <Text style={styles.rowFontSmall}>少量</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.rowMiddleButtonMD}>
+                    <Text style={styles.rowFontSmallWhite}>一般</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.rowMiddleButton}>
+                    <Text style={styles.rowFontSmall}>大量</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.rowRight}>
+
+                  <Text style={styles.rowFont}>建议的详情页面</Text>
+                </View>
+              </View>
+            </TouchableNativeFeedback>
+
+          </View>
+        </Card>
+
       </View>
     );
   }

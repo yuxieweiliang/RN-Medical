@@ -3,7 +3,6 @@ import routes from '../routes'
 // tab nav
 import TabNavigator from './../TabNavigator'
 
-
 export default {
 
   TabNavigator: {

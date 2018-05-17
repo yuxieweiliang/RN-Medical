@@ -2,15 +2,7 @@ import { system } from '../../type'
 import storage from '../../storage'
 // 模拟用户信息
 
-/**
- * 处理同步
- * @returns {{type: *}}
- */
-function beforeHomeLoad() {
-  return {
-    type: system.HOME_LOAD_BEFORE
-  }
-}
+
 
 /**
  * 处理异步
@@ -41,15 +33,7 @@ function homeLoad() {
   }
 }
 
-/**
- * 处理同步
- * @returns {{type: *}}
- */
-function afterHomeLoad() {
-  return {
-    type: system.HOME_LOAD_FAIL
-  }
-}
+
 
 function onPressTabCardButton(option) {
   const routers = {
@@ -63,8 +47,6 @@ function onPressTabCardButton(option) {
 }
 
 export default {
-  beforeHomeLoad,
   homeLoad,
-  afterHomeLoad,
   onPressTabCardButton,
 }
