@@ -1,6 +1,12 @@
 import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
+const debug = false
+const borer = debug? {
+  borderColor: 'red',
+  borderWidth: 1,
+} : {}
+
 export default StyleSheet.create({
   /**
    * 健康日报样式
@@ -14,8 +20,7 @@ export default StyleSheet.create({
     backgroundColor: '#fafafa',
     paddingLeft: 15,
     paddingBottom: 15,
-    borderColor: 'red',
-    borderWidth: 1,
+    ...borer
   },
   list_row: {
     flexDirection:  'row',
@@ -29,8 +34,7 @@ export default StyleSheet.create({
   },
   listTextBox: {
     // paddingBottom: 15,
-    borderColor: 'red',
-    borderWidth: 1,
+    ...borer
     // borderColor: 'red',
     // borderWidth: 1
   },
@@ -47,14 +51,12 @@ export default StyleSheet.create({
     width: '100%',
     fontSize: 20,
     fontWeight: 'bold',
-    borderColor: 'red',
-    borderWidth: 1,
+    ...borer
   },
   listText: {
     width: '100%',
     fontSize: 16,
-    borderColor: 'red',
-    borderWidth: 1,
+    ...borer
   },
 
 });

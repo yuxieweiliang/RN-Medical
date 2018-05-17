@@ -1,42 +1,17 @@
 import React, { Component } from 'react';
-import { Text, FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions } from 'react-native';
-import styles from './style'
+import { Text, FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions  } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-const { width, height } = Dimensions.get('window');
 import TabCardView from '../../../components/TabCardView'
 import List from '../../../components/List'
 import { TouchButton } from '../../../components/TouchButton'
 import Card from '../../../components/Card'
 import { connect } from 'react-redux'
-import { toUppercase } from '../../util'
 import ac from './action'
+import storage from '../../storage'
+import styles from './style'
 
-const navigation = ({ navigation, navigationOptions }) => {
-  const { params } = navigation.state;
-  // console.log(navigationOptions)
-  return {
-    headerLeft: navigationOptions.headerLeft(navigation, navigationOptions),
-    headerRight: (
-      <View style={{width: 70, paddingRight: 15, alignItems: 'flex-end'}}>
-        <Icon name="commenting-o" style={{fontSize: 30, color: '#333'}}/>
-      </View>
-    ),
-    headerTitle: navigationOptions.headerTitle(navigation, navigationOptions, '首页'),
-    // title: <View><Icon name="home"/><Text>首页</Text></View>,
-    // tabBarVisible: false,
-    tabBarLabel: '首页',
-    tabBarIcon: ({tintColor}) => (
-      <View style={{width: 20, height: 20, borderWidth: 1, borderColor: 'red'}}>
-        <Image
-          source={require('../../../assets/images/a1.jpg')}
-          style={[styles.icon]}
-        />
-      </View>
-    ),
-    showIcon: true
+const { width, height } = Dimensions.get('window');
 
-  }
-};
 
 const createBtn = (option, key) => (
   <TouchButton {...{ key, ...this.props, router: routers[option] }}>
@@ -57,7 +32,7 @@ function healthIndicators(option) {
         key={i}
         style={{flexDirection: 'row'}}
         onPress={() => this.props.navigation.navigate('HealthIndicators')}>
-        <Text style={[styles.tabCardText, {flex: 3}]}>
+        <Text style={[styles.tabCardText, {flex: 3, flexWrap: 'nowrap'}]}>
           { items.name }
         </Text>
         <Text style={[styles.tabCardText, {flex: 1, textAlign: 'center'}]}>
@@ -141,19 +116,24 @@ function medicalStatus(option) {
 
 type Props = {};
 class HomePage extends Component<Props> {
-  static navigationOptions = navigation
+  async beforeMount() {
+    const { dispatch, navigation } = this.props
 
-  componentWillMount() {
-    const { dispatch } = this.props
-
-    dispatch(ac.beforeHomeLoad())
-
-    dispatch(ac.homeLoad())
-
-    dispatch(ac.afterHomeLoad())
+    let token = await storage.load('token')
+    if(token) {
+      dispatch(ac.homeLoad())
+    } else {
+      navigation.navigate('Login')
+    }
   }
 
-  componentDidMount() {}
+  componentWillMount() {
+    this.beforeMount()
+  }
+
+  componentDidMount() {
+
+  }
 
   _onPressButton() {
     this.props.navigation.navigate('Product', {
@@ -178,7 +158,6 @@ class HomePage extends Component<Props> {
             <TabCardView {...healthGuide}>
               {
                 healthGuide.dataSource && healthGuide.dataSource.map((items, i) => {
-                  const button = items.context.button
                   let func = {
                     healthIndicators,
                     guideToLife,
@@ -192,13 +171,6 @@ class HomePage extends Component<Props> {
                       style={styles.tabItemStyle}
                       >
                       {func[items.type].call(this, items)}
-                      {
-                        button && (
-                          (typeof button === 'object')
-                            ? button.map((child, i) => createBtn( child, i))
-                            : createBtn( button, items.context.text)
-                        )
-                      }
                     </View>
                   )
                 })
@@ -207,37 +179,54 @@ class HomePage extends Component<Props> {
           </View>
 
           {/*  晒健康  */}
-          <Card title="晒健康" horizontal={false}>
+          <Card title="晒健康" style={{paddingBottom: 10}}>
             {
               <FlatList
                 data={list}
                 horizontal={true}
                 renderItem={item => {
-                return <List {...item.item}
-                             title=""
-                             avatar={null}
-                             horizontal={false}
-                             listStyle={{width: width/3, paddingTop: 0}}
-                             description="这里是晒健康的内容，这里是晒健康的内容，"
-                             listTextStyle={{height: 40}}
-                             key={item.item.key}>
-                  <Image source={item.item.avatar} style={styles.avatar}/>
-                </List>
+                  return (
+                    <TouchableOpacity
+                      key={item.key}
+                      activeOpacity={.95}
+                      style={{width: width/3, paddingLeft: 10}}
+                      underlayColor={null}>
+                      <View style={{width: '100%'}}>
+                        <Text style={{width: '100%'}}>
+                          这里是晒健康的内容，这里是晒健康的内容
+                        </Text>
+                        <Image source={item.item.avatar} style={{width: '100%', height: 80}}/>
+                      </View>
+                    </TouchableOpacity>
+                  )
               }}
               />
             }
           </Card>
 
           {/*  健康日报  */}
-          <Card title="健康日报">
+          <Card title="健康日报" style={{paddingBottom: 10}}>
             {
               <FlatList
                 data={list
                 } renderItem={item => {
                 // console.log(item.item.title)
                 item.item.horizontal = true
-                return <List {...item.item}
-                             key={item.item.title}/>
+                return (
+                  <TouchableOpacity
+                    key={item.key}
+                    activeOpacity={.95}
+                    style={{width: width, paddingLeft: 10, paddingBottom: 10}}
+                    underlayColor={null}>
+                    <View style={{width: '100%', flexDirection: 'row'}}>
+                      <Image source={item.item.avatar} style={{flex: 1, height: 80}}/>
+                      <Text style={{width: '75%', paddingLeft: 10, paddingRight: 10}}>
+                        这里是晒健康的内容，这里是晒健康的内容
+                        这里是晒健康的内容，这里是晒健康的内容
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                )
               }}
               />
             }
@@ -249,6 +238,32 @@ class HomePage extends Component<Props> {
   }
 }
 
+HomePage.navigationOptions = ({ navigation, navigationOptions }) => {
+  const { params } = navigation.state;
+  // console.log(navigationOptions)
+  return {
+    headerLeft: navigationOptions.headerLeft(navigation, navigationOptions),
+    headerRight: (
+      <View style={{width: 70, paddingRight: 15, alignItems: 'flex-end',justifyContent: 'center', height: '100%'}}>
+        <Icon name="commenting-o" style={{fontSize: 30, color: '#555', top: -5}}/>
+      </View>
+    ),
+    headerTitle: navigationOptions.headerTitle(navigation, navigationOptions, '首页'),
+    // title: <View><Icon name="home"/><Text>首页</Text></View>,
+    // tabBarVisible: false,
+    tabBarLabel: '首页',
+    tabBarIcon: ({tintColor}) => (
+      <View style={{width: 20, height: 20, borderWidth: 1, borderColor: 'red'}}>
+        <Image
+          source={require('../../../assets/images/a1.jpg')}
+          style={[styles.icon]}
+        />
+      </View>
+    ),
+    showIcon: true,
+
+  }
+};
 const createState = function(state) {
   return ({...state.home})
 }

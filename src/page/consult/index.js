@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight,StatusBar, View, Button, TouchableNativeFeedback, Dimensions } from 'react-native';
-import styles from './style'
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import { connect } from 'react-redux'
 import TabCardView from '../../../components/TabCardView/index'
-const { width, height } = Dimensions.get('window');
+import ac from './action'
+import storage from '../../storage'
+import styles from './style'
 
+
+const { width, height } = Dimensions.get('window');
 
 const tabCardData = {
   headerStyle: {
@@ -40,7 +42,7 @@ const tabCardData = {
 }
 
 
-export default class extends React.Component {
+class ConsultPage extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
     const { params } = navigation.state;
     return {
@@ -51,6 +53,22 @@ export default class extends React.Component {
       // tabBarVisible: false,
     }
   };
+
+  async beforeMount() {
+    const { dispatch, navigation } = this.props
+    let token = await storage.load('token')
+    if(token) {
+      dispatch(ac.consultLoad())
+    } else {
+      navigation.navigate('Login')
+    }
+
+  }
+  componentWillMount() {
+    this.beforeMount()
+  }
+
+
 
   componentDidMount() {
 
@@ -72,7 +90,7 @@ export default class extends React.Component {
 
         <TouchableNativeFeedback
           title="Go to Details"
-          onPress={() => this.props.navigation.goBack()}
+          onPress={() => this.props.navigation.navigate('Hospital')}
         >
           <View style={{width, height: 50, flexDirection: 'row', backgroundColor: '#fff',alignItems: 'center', paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc'}}>
             <Text>医院：</Text>
@@ -140,3 +158,9 @@ export default class extends React.Component {
   }
 }
 
+const createState = function(state) {
+  return ({...state.consult})
+}
+
+export default connect(createState)(ConsultPage)
+//export default connect(state => ({...state.consult}))(ConsultPage)

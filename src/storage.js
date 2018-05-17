@@ -1,9 +1,7 @@
 import Storage from 'react-native-storage'
 import { AsyncStorage } from 'react-native'
-import { sync } from './sync'
-import config from './config'
+import sync from './api'
 
-let root = config.server.api
 let oldStorage
 let newStorage
 let size = 1000
@@ -16,13 +14,6 @@ let defaultExpires = 1000 * 3600 * 24
  */
 function CreateNewStorage(){
   this.init.apply(this, arguments)
-}
-function createSearch(data) {
-  let str = ''
-  for(let key in data) {
-    str +=  `${key}=${data[key]}&`
-  }
-  return str
 }
 CreateNewStorage.prototype = {
   /**
@@ -136,60 +127,51 @@ CreateNewStorage.prototype = {
     oldStorage.clearMap()
   },
 
-  async get({api, syncParams, resolve, reject}) {
-    let _this = this
-    let url = root + api + createSearch(syncParams)
+  async get(url) {
     let token = await this.load('token')
 
+    console.log('get: rul -> ', url)
     return fetch(url, {
       method: 'GET',
       headers: {
-        // 'Accept': '*!/!*',
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': "Bearer " + token,
-        // 'Content-Type': 'text/plain',
       }
     })
       .catch(this.error)
-      .then(this.json)
-      .then(response => {
-        console.log('get: -----------------------------------------------------')
-        resolve(response)
-        return response
+      .then(res => {
+        console.log('get: res ->', res)
+        return res.json()
       })
   },
 
-  post({api, query, resolve, reject}, data) {
+  async post(url, data, type) {
+    let token = null
+    let headers = {}
 
-    // 如果时获取token
-    if (api.indexOf('token') > -1) {
-      root = config.server.auth
+    if(type === 'token') {
+      headers['Content-Type'] = "application/x-www-form-urlencoded; charset=UTF-8"
+    } else if(!token){
+      token = await this.load('token')
+      headers['Authorization'] = "Bearer " + token
+      headers['Content-Type'] = "application/json; charset=UTF-8"
     }
 
-    console.log(arguments)
-    return fetch(root + api + createSearch(query), {
+    console.log('post: url ->', url, data, headers)
+    return fetch(url, {
       method: 'POST',
-      headers: {
-        // 'Accept': '*/*',
-        // 'Content-Type': 'application/json; charset=UTF-8',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        // 'Content-Type': 'text/plain',
-      },
-      body: createSearch(data)
+      headers,
+      body: data
     })
       .catch(this.error)
-      .then(this.json)
       .then(res => {
-        console.log('post: -----------------------------------------------------', res)
-      if (res.Data) {
-        resolve(res.Data)
-        return res.Data
-      }
-      return res
+        console.log('post: res ->', res)
+        if(res.ok) {
+          return res.json()
+        } else {
+          return res
+        }
     })
-  },
-  json(response) {
-    return response.json()
   },
   error(err) {
     console.warn(err)

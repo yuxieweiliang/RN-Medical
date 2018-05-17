@@ -15,16 +15,20 @@ class LoginPage extends Component<Props> {
     this.state = {
       logo: {
         url: require('../../../assets/images/icon.png'),
-        width: 300,
-        height: 300
+        width: 200,
+        height: 200
       },
       username: null,
       password: null,
     }
-    this.imageHeight = new Animated.Value(300);
+    this.imageHeight = new Animated.Value(200);
   }
 
   _login() {
+    const { dispatch, navigation } = this.props
+    dispatch(ac.login(this.state))
+      .then(res => navigation.navigate('Home'))
+      .catch(error => alert('登陆失败！'))
   }
 
   componentWillMount () {
@@ -40,66 +44,32 @@ class LoginPage extends Component<Props> {
 
   keyboardWillShow = (event) => {
     let { logo } = this.state
-    logo.height = 200
-    logo.width = 200
+    logo.height = 100
+    logo.width = 100
     this.setState({logo})
     Animated.timing(this.imageHeight, {
-      duration: 200,
-      toValue: 200,
+      duration: 100,
+      toValue: 100,
     }).start();
   };
 
   keyboardWillHide = (event) => {
     let { logo } = this.state
-    logo.height = 300
-    logo.width = 300
+    logo.height = 200
+    logo.width = 200
     this.setState({logo})
     Animated.timing(this.imageHeight, {
-      duration: 200,
-      toValue: 300,
+      duration: 100,
+      toValue: 200,
     }).start();
   };
   componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(ac.login(this.state))
+
   }
   returnIcon(){
-    this.props.navigation.navigate('User')
+    this.props.navigation.goBack()
   }
   render() {
-
-
-
-
-
-    /*fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: createSearch(data)
-    })
-      .then(response => response.json())
-      .then(res => console.log(res))
-      .catch(function (error) {
-        console.log(error);
-      });*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
       <ImageBackground style={styles.container} source={require('../../../assets/images/bg.jpg')} resizeMode='cover'>
         <View style={styles.returnBox}>
@@ -113,7 +83,7 @@ class LoginPage extends Component<Props> {
 
         <Animated.View style={[styles.logoBox, { height: this.imageHeight }]}>
           <ImageEnlarge
-            style={{height: 300, width: 300}}
+            style={{height: 200, width: 200}}
             width={this.state.logo.width}
             height={this.state.logo.height}
             source={this.state.logo.url}

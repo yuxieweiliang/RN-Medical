@@ -1,4 +1,4 @@
-import { setting } from '../../type'
+import { setting } from '../type'
 
 let initialState = {
   listData: [
@@ -39,11 +39,8 @@ let func = {
   }
 }
 
-export default (
-  state = initialState,
-  action
-) => (
+export default (state = initialState, action) => (
   func[action.type]
-    ? func[action.type].call(this, state, action)
+    ? func[action.type].apply(null, arguments)
     : state
 )

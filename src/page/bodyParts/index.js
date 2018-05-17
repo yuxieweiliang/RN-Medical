@@ -12,28 +12,16 @@ const bodyParts = {
     backgroundColor: '#fafafa',
   },
   containerStyle: {
-    height: 300
+    height: 500
   },
   dataSource: [
     {
       active: true,
-      title: '健康指标',
-      context: {
-        text: 'fdsafda生活生活生活生活sfdsafdsafdsafdsafdsa',
-        button: '历时指标'
-      }
+      title: '男性',
     },{
-      title: '生活指南',
-      context: {
-        text: '运动运动运动运动运动运动运动运动运动运动运动',
-        button: '生活数据'
-      }
+      title: '女性',
     },{
-      title: '健康状况',
-      context: {
-        text: '体征体征体征体征体征体征体征体征体征体征',
-        button: ['体征趋势', '体征填写']
-      }
+      title: '小孩',
     },
   ],
 }
@@ -57,53 +45,33 @@ export default class extends React.Component {
     // this._onPressButton.remove();
   }
   render() {
+    const webViewSet = {
+      automaticallyAdjustContentInsets: true,
+      javaScriptEnabled: true,
+      domStorageEnabled: true,
+      decelerationRate: 'normal',
+      startInLoadingState: true,
+    }
     return (
 
       <View style={styles.container}>
-        <View style={{ width, }}>
-          <View style={{ height, width, paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', marginTop: 10}}>
-            <View style={{ height: 50, width, flexDirection: 'row', alignItems: 'center' }}>
-              <Text>身体部位</Text>
-              <Text>身体部位</Text>
-            </View>
-
-            <View style={{ width, flex: 1 }}>
-
-              <TabCardView {...bodyParts}>
-                <WebView
-                  automaticallyAdjustContentInsets={false}
-                  style={styles.scroll}
-                  source={{uri: 'http://10.0.0.98:8011'}}
-                  javaScriptEnabled={true}
-                  domStorageEnabled={true}
-                  decelerationRate="normal"
-                  startInLoadingState={true}
-                />
-                <WebView
-                  automaticallyAdjustContentInsets={false}
-                  style={styles.scroll}
-                  source={{uri: 'http://10.0.0.98:8011'}}
-                  javaScriptEnabled={true}
-                  domStorageEnabled={true}
-                  decelerationRate="normal"
-                  startInLoadingState={true}
-                />
-                <WebView
-                  automaticallyAdjustContentInsets={false}
-                  style={styles.scroll}
-                  source={{uri: 'http://10.0.0.98:8011'}}
-                  javaScriptEnabled={true}
-                  domStorageEnabled={true}
-                  decelerationRate="normal"
-                  startInLoadingState={true}
-                />
-              </TabCardView>
-
-            </View>
-
-          </View>
-
-        </View>
+        <TabCardView {...bodyParts}>
+          <WebView
+            {...webViewSet}
+            style={styles.scroll}
+            source={{uri: 'http://10.0.0.98:8011/bodyParts/man.html'}}
+          />
+          <WebView
+            {...webViewSet}
+            style={styles.scroll}
+            source={{uri: 'http://10.0.0.98:8011/bodyParts/woman.html'}}
+          />
+          <WebView
+            {...webViewSet}
+            style={styles.scroll}
+            source={{uri: 'http://10.0.0.98:8011/bodyParts/boy.html'}}
+          />
+        </TabCardView>
       </View>
 
 

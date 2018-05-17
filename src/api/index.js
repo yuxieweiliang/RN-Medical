@@ -2,51 +2,58 @@ import system from './system'
 
 import user from './user'
 
-var aaa = {
-  fetch({api, resolve, reject}) {
+import userInfo from './userInfo'
 
-  }
+import hospital from './hospital'
+
+import department from './department'
+
+import consult from './consult'
+
+import position from './position'
+
+import friend from './friend'
+
+
+/**
+ * sync方法的名字必须和所存数据的key完全相同
+ * 方法接受的参数为一整个object，所有参数从object中解构取出
+ * 这里可以使用promise。或是使用普通回调函数，但需要调用resolve或reject
+ * @type {{user: ((params))}}
+ */
+const sync = {
+
+  /////////////////////////////////////  用户管理  //////////////////////////////////////
+  // 获取token
+  token: system.token,
+  // 获取用户信息
+  user: user.getUser,
+  // 修改用户信息
+  changeUser: user.changeUser,
+  // 删除用户信息
+  deleteUser: user.deleteUser,
+
+  // 获取咨询信息
+  consult: consult.getConsultList,
+
+
+  /////////////////////////////////////  用户数据  //////////////////////////////////////
+  // 获取用户体征信息
+  userInfo: userInfo.getUserInfo,
+  changeUserInfo: userInfo.changeUserInfo,
+
+  /////////////////////////////////////  系统  ///////////////////////////////////////////
+  // 获取医院列表
+  hospital: hospital.getHospital,
+  // 获取科室列表
+  department: department.getDepartment,
+  // 获取科室列表
+  departmentList: department.getDepartmentList,
+  // 获取部位列表
+  position: position.getPositionList,
+  // friend
+  friend: friend.getFriendList
 }
 
 
-function proms(resolve, reject) {
-  aaa.fetch({
-    api: '/api/ClientUsers/Get/877554311095878178',
-    resolve,
-    reject
-  })
-}
-
-
-new Promise(proms)
-
-function getUser(params) {
-  let { id, resolve, reject, syncParams } = params
-
-  return storage.get({
-    api: '/api/ClientUsers/Get/877554311095878178'
-  }, syncParams)
-    .then(res => {
-      let data = res && res.Data
-      console.log(res)
-      if(data){
-        storage.save({key: 'user', data})
-        // 根据syncParams中的额外参数做对应处理
-        if (syncParams.someFlag) {}
-
-        // 成功则调用resolve
-        resolve && resolve(data)
-
-      } else {
-        // 失败则调用reject
-        reject && reject(new Error('data parse error'))
-      }
-    })
-}
-
-
-
-export default {
-  system,
-  user,
-}
+export default sync

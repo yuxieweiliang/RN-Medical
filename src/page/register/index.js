@@ -37,13 +37,13 @@ export default class extends Component<Props> {
     this.state = {
       logo: {
         url: require('../../../assets/images/icon.png'),
-        width: 240,
-        height: 240
+        width: 140,
+        height: 140
       },
       username: null,
       password: null
     }
-    this.imageHeight = new Animated.Value(240);
+    this.imageHeight = new Animated.Value(140);
   }
   _onPressButton() {
     ToastAndroid.show('A pikachu appeared nearby !', ToastAndroid.SHORT);
@@ -65,23 +65,23 @@ export default class extends Component<Props> {
   }
   keyboardWillShow = (event) => {
     let { logo } = this.state
-    logo.height = 200
-    logo.width = 200
+    logo.height = 80
+    logo.width = 80
     this.setState({logo})
     Animated.timing(this.imageHeight, {
-      duration: 200,
-      toValue: 200,
+      duration: 140,
+      toValue: 80,
     }).start();
   };
 
   keyboardWillHide = (event) => {
     let { logo } = this.state
-    logo.height = 240
-    logo.width = 240
+    logo.height = 140
+    logo.width = 140
     this.setState({logo})
     Animated.timing(this.imageHeight, {
-      duration: 200,
-      toValue: 240,
+      duration: 80,
+      toValue: 140,
     }).start();
   };
   onBackAndroid = () => {
@@ -96,7 +96,7 @@ export default class extends Component<Props> {
   };
 
   returnIcon(){
-    this.props.navigation.navigate('User')
+    this.props.navigation.goBack()
   }
   render() {
 
@@ -112,7 +112,7 @@ export default class extends Component<Props> {
         </View>
         <Animated.View style={[styles.logoBox, { height: this.imageHeight }]}>
           <ImageEnlarge
-            style={{height: 240, width: 240}}
+            style={{height: 140, width: 140}}
             width={this.state.logo.width}
             height={this.state.logo.height}
             source={this.state.logo.url}

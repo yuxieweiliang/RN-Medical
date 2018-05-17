@@ -18,6 +18,7 @@ class List extends Component<Props> {
       description,
       horizontal= true, // 这里的横竖是指卡片与文字的关系，不是列表的关系
       listTextStyle,
+      TextBoxStyle,
       children
     } = this.props
     let listTextBox = horizontal ? styles.listTextBox_row : styles.listTextBox_column
@@ -36,7 +37,7 @@ class List extends Component<Props> {
         style={[styles.list, listStyle, list]}
         underlayColor={underlayColor}>
         { avatar && <Image source={avatar} style={styles.avatar}/> }
-        <View style={[styles.listTextBox, listTextBox]}>
+        <View style={[styles.listTextBox, listTextBox, TextBoxStyle]}>
           {
             title ? createTitle(title) : <View/>
           }

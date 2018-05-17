@@ -40,6 +40,10 @@ export default {
     screen: routes.Recommend,
   },
 
+  DepartmentList: {
+    screen: routes.DepartmentList,
+  },
+
   User: {
     screen: routes.User,
   },
@@ -49,6 +53,10 @@ export default {
     navigationOptions: {
       header: null
     },
+  },
+  // 用户信息
+  UserMessages: {
+    screen: routes.UserMessages,
   },
   // 用户设置
   UserSetting: {
@@ -120,6 +128,11 @@ export default {
   Appointment: {
     screen: routes.Appointment,
   },
+
+  Hospital: {
+    screen: routes.Hospital,
+  },
+
 
   HospitalList: {
     screen: routes.HospitalList,

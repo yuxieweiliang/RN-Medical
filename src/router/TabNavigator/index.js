@@ -32,14 +32,17 @@ function headerRight() {
 function headerTitle(option, nav, title) {
   // console.log(option, nav, title)
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text style={{fontSize: 20, color: '#333', fontWeight: 'bold'}}>{title}</Text></View>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text style={{fontSize: 18}}>
+        {title}</Text>
+    </View>
   )
 }
 
 
 const initConfig = {
   // 初始化
-  initialRouteName: 'Appointment',
+  initialRouteName: 'Home',
   // 是否懒加载
   lazy: true,
   // 使用图标
@@ -62,7 +65,7 @@ const initConfig = {
     // 文字的颜色
     labelStyle: {
       // color: '#000',
-      fontSize: 14,
+      fontSize: 12,
       paddingVertical: 0,
       marginTop: 0
     },

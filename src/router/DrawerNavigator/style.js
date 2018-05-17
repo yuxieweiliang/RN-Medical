@@ -1,22 +1,32 @@
 import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
+const borders = {
+  borderWidth: 1,
+  borderColor: 'red'
+}
+
 export default StyleSheet.create({
   container: {
-    height,
+    height: height - 20,
   },
+  // 人物肖像盒子
   photoBox: {
+    // height: 140,
     backgroundColor: '#6d9feb',
-    paddingVertical: 40,
-    paddingHorizontal: 40,
+    paddingVertical: 30,
+    /// paddingHorizontal: 30,
     alignItems: 'center',
     justifyContent: 'center',
+    // ...borders
   },
+  // 头像插件的样式 start
   boxStyle: {
-    height: 110,
+    // height: 110,
     width: 60,
     alignItems: 'center',
     justifyContent: 'center',
+    // ...borders
   },
   imageStyle: {
     height: 60,
@@ -28,26 +38,50 @@ export default StyleSheet.create({
     lineHeight: 40,
     color: '#fff'
   },
+  // 头像插件的样式 end
+
+  // 中间列表盒子
+  scrollBox: {
+    flex: 1,
+    // ...borders
+  },
+  listIconContent: {
+    flex: 1,
+    alignItems: 'flex-end'
+  },
+  // 按钮
   btnStyle: {
-    height: 40,
-    width: '100%',
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: '#eee',
-    paddingLeft: 20
+    borderRadius: 0,
+    backgroundColor: '#fff',
+    // ...borders
   },
+  // 文字
   fontStyle: {
+    color: '#333',
     fontSize: 16,
-    height: 40,
-    lineHeight: 40,
   },
+
+  // 底部盒子     文字
+  bottomBox: {
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
+    // borderTopWidth: 1,
+    // borderTopColor: '#ccc',
+  },
+  // 底部按钮
   bottomBtnStyle: {
+    width: 50,
     height: 40,
-    width: 70,
-    paddingLeft: 20
+    backgroundColor: '#fff',
+    paddingLeft: 15,
+    paddingRight: 0
   },
+  // 底部文字
   bottomFontStyle: {
-    fontSize: 16,
-    height: 40,
-    lineHeight: 40,
+    color: '#333',
+    fontSize: 14,
   },
 });

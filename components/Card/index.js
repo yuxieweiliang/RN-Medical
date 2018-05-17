@@ -10,9 +10,9 @@ class Card extends Component<Props> {
   componentDidMount() {}
   componentWillUnmount() {}
   render() {
-    const { title, more, children, horizontal = true, showsHorizontalScrollIndicator} = this.props
+    const { title, more, children, style} = this.props
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <Text style={styles.headerFont}>{title}</Text>

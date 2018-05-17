@@ -1,11 +1,12 @@
 'use strict';
-import { SYSTEM } from '../../type'
+import { APPOINTMENT } from '../type'
 
 const data = new Date()
 const today = data.toISOString().split('T')[0]
 // 初始状态
 const initialState = {
-  markedDates: today,
+  // 预约时间
+  appointTime: today,
   // 健康指南
   healthGuide: {
     headerStyle: {
@@ -47,22 +48,21 @@ const initialState = {
 }
 
 let func = {
-  ['CALENDAR'](state, action) {
-    let { markedDates } = state
-    markedDates = action.data.dateString
-
-    return {
-      ...state,
-      ...{markedDates}
-    }
-  },
+  /**
+   * 修改预约时间
+   * @param state
+   * @param action
+   */
+  [APPOINTMENT.TIME_CHANGE]: (state, action) =>  ({
+    ...state,
+    appointTime: action.data.dateString
+  }),
 }
 
 // 不同类别的事件使用switch对应处理过程
 
-export default function appointmentTabCardData(state=initialState, action) {
-
-  if(func[action.type]) {
-    return func[action.type].apply(null, arguments)
-  } else return state
-}
+export default (state = initialState, action) => (
+  func[action.type]
+    ? func[action.type].apply(null, arguments)
+    : state
+)

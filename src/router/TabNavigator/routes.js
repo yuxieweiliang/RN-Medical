@@ -6,23 +6,25 @@ import routes from '../routes'
 const style =  StyleSheet.create({
   icon: {
     // color: '#000',
-    fontSize: 20,
+    fontSize: 24,
     marginTop: 5,
   }
 });
 
 function headerTitle() {
   return (
-    <TextInput value="搜索"
+    <TextInput placeholder="高血压/冠心病"
                underlineColorAndroid="transparent"
                style={{
-                 color: '#333',
-                 fontSize: 18,
+                 fontSize: 14,
                  flex: 1,
                  marginRight: 15,
                  marginLeft: 15,
+                 paddingLeft: 10,
                  borderRadius: 10,
-                 height: 40,
+                 paddingTop: 5,
+                 paddingBottom: 5,
+                 height: 30,
                  backgroundColor: 'rgba(0, 0, 0, .1)'
                }}/>
   )

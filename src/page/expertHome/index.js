@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { Text, Image,ScrollView, View, Dimensions, TouchableHighlight, ImageBackground  } from 'react-native';
 import styles from './style'
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window');
 import CalendarStrip  from 'react-native-calendar-strip';
-import TabCardView from '../../../components/TabCardView/index'
-
 
 class Appointment extends React.Component {
   constructor(props) {
@@ -15,26 +11,6 @@ class Appointment extends React.Component {
     this.state = {};
     this.onDayPress = this.onDayPress.bind(this);
   }
-  static navigationOptions = ({ navigation : nav, navigationOptions: option }) => {
-    const { headerLeft, headerRight, headerTitle } = option;
-    return {
-      headerTitle: function() {
-       return (
-         <View style={{width: width - 120, height: 50, alignItems: 'center', justifyContent: 'center',}}>
-           <Text>
-             专家主页
-           </Text>
-         </View>
-       )
-      },
-      headerRight: <View style={{width: 60, height: 50, alignItems: 'center', justifyContent: 'center',}}>
-        <Text>
-          搜索
-        </Text>
-      </View>
-    }
-  };
-
   onDayPress(day) {
     this.setState({
       selected: day.dateString
@@ -48,20 +24,11 @@ class Appointment extends React.Component {
       otherParam: 'anything you want here',
     })
   }
-  _onPressTabCardButton() {
-    this.props.navigation.navigate('HospitalList', {
-      otherParam: 'anything you want here',
-    })
-  }
   componentWillUnmount() {
     // this._onPressButton.remove();
 
   }
   render() {
-    const { healthGuide }= this.props
-    const vacation = {key:'vacation', color: 'red', selectedDotColor: 'blue'};
-    const massage = {key:'massage', color: 'blue', selectedDotColor: 'blue'};
-    const workout = {key:'workout', color: 'green'};
     return (
 
       <ScrollView style={styles.container}>
@@ -94,19 +61,30 @@ class Appointment extends React.Component {
             </View>
           </View>
         </View>
-
-
-
-
-
       </ScrollView>
-
-
-
     );
   }
 }
 
+Appointment.navigationOptions = ({ navigation : nav, navigationOptions: option }) => {
+  const { headerLeft, headerRight, headerTitle } = option;
+  return {
+    headerTitle: function() {
+      return (
+        <View style={{width: width - 120, height: 50, alignItems: 'center', justifyContent: 'center',}}>
+          <Text>
+            专家主页
+          </Text>
+        </View>
+      )
+    },
+    headerRight: <View style={{width: 60, height: 50, alignItems: 'center', justifyContent: 'center',}}>
+      <Text>
+        搜索
+      </Text>
+    </View>
+  }
+};
 
 const createState = function(state) {
   return ({...state.appointment})

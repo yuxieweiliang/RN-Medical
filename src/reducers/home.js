@@ -1,5 +1,5 @@
 'use strict';
-import { SYSTEM } from '../../type'
+import { SYSTEM } from '../type'
 // 初始状态
 
 const initialState = {
@@ -13,11 +13,11 @@ const initialState = {
   // 健康指南
   healthGuide: {
     headerStyle: {
-      height: 50,
+      height: 40,
       backgroundColor: '#fafafa',
     },
     containerStyle: {
-      height: 300
+      height: 240
     },
     dataSource: [
       {
@@ -26,10 +26,10 @@ const initialState = {
         title: '健康指标',
         context: {
           text: [
-            {name: '(1) [article;essay]∶原指文辞,现指篇', size: 125, default: '(幅不很长而独立成篇)'},
-            {name: '(2) [literary works;writings]∶泛指', size: 1235, default: '(著作为文章)'},
-            {name: '(3) [hidden meaning]∶比喻曲折隐蔽的', size: 235, default: '(文字)'},
-            {name: '(1) [article;essay]∶原指文辞,现指篇得', size: 43, default: '(柳宗元《柳河东集》)'},
+            {name: '(1) [article;essay]∶', size: 125, default: '(独立成篇)'},
+            {name: '(2) [literary works]∶', size: 1235, default: '(著作为文章)'},
+            {name: '(3) [hidden meaning]∶', size: 235, default: '(文字)'},
+            {name: '(1) [article;essay]∶', size: 43, default: '(柳宗元)'},
           ],
           // button: '历时指标'
         }
@@ -68,37 +68,37 @@ const initialState = {
   list: [
     {
       description: '本组件用于封装视图，使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低，同时会有一个底层的颜色透过而被用户看到，使得视图变暗或变亮。',
-      avatar: require(`../../../assets/images/a1.jpg`),
+      avatar: require(`../../assets/images/a1.jpg`),
       title: '本组件用于封装视图',
       key: '本组件用于封装视图',
     },
     {
       description: '本组件用于封装视图，使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低，同时会有一个底层的颜色透过而被用户看到，使得视图变暗或变亮。',
-      avatar: require(`../../../assets/images/a2.jpg`),
+      avatar: require(`../../assets/images/a2.jpg`),
       title: '本组件用于封装视图6',
       key: '本组件用于封装视图6',
     },
     {
       description: '本组件用于封装视图，使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低，同时会有一个底层的颜色透过而被用户看到，使得视图变暗或变亮。',
-      avatar: require(`../../../assets/images/a3.jpg`),
+      avatar: require(`../../assets/images/a3.jpg`),
       title: '本组件用于封装视图5',
       key: '本组件用于封装视图5',
     },
     {
       description: '本组件用于封装视图，使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低，同时会有一个底层的颜色透过而被用户看到，使得视图变暗或变亮。',
-      avatar: require(`../../../assets/images/a4.jpg`),
+      avatar: require(`../../assets/images/a4.jpg`),
       title: '本组件用于封装视图2',
       key: '本组件用于封装视图2',
     },
     {
       description: '本组件用于封装视图，使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低，同时会有一个底层的颜色透过而被用户看到，使得视图变暗或变亮。',
-      avatar: require(`../../../assets/images/a5.jpg`),
+      avatar: require(`../../assets/images/a5.jpg`),
       title: '本组件用于封装视图3',
       key: '本组件用于封装视图3',
     },
     {
       description: '本组件用于封装视图，使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低，同时会有一个底层的颜色透过而被用户看到，使得视图变暗或变亮。',
-      avatar: require(`../../../assets/images/a7.jpg`),
+      avatar: require(`../../assets/images/a7.jpg`),
       title: '本组件用于封装视图4',
       key: '本组件用于封装视图4',
     },
@@ -124,8 +124,8 @@ let func = {
 
 // 不同类别的事件使用switch对应处理过程
 
-export default function homeTabCardData(state=initialState, action) {
-  if(func[action.type]) {
-    return func[action.type].apply(null, arguments)
-  } else return state
-}
+export default (state = initialState, action) => (
+  func[action.type]
+    ? func[action.type].apply(null, arguments)
+    : state
+)

@@ -1,4 +1,4 @@
-import { SYSTEM } from '../../type'
+import { SYSTEM } from '../type'
 const { LOGIN_BEFORE, LOGIN_SUCCESS, LOGIN_FAIL } = SYSTEM
 
 
@@ -24,9 +24,8 @@ let func = {
 
 // 不同类别的事件使用switch对应处理过程
 
-export default function loginIn(state=initialState, action) {
-
-  if(func[action.type]) {
-    return func[action.type].apply(null, arguments)
-  } else return state
-}
+export default (state = initialState, action) => (
+  func[action.type]
+    ? func[action.type].apply(null, arguments)
+    : state
+)

@@ -50,7 +50,6 @@ class Appointment extends React.Component {
     const massage = {key:'massage', color: 'blue', selectedDotColor: 'blue'};
     const workout = {key:'workout', color: 'green'};
     return (
-
       <ScrollView style={styles.container}>
         <View style={{width, height: 60, justifyContent: 'center', alignItems: 'center'}}>
           <TextInput underlineColorAndroid="transparent"
@@ -63,7 +62,7 @@ class Appointment extends React.Component {
             <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
               <View style={styles.list}>
                 <View style={{flex: 1}}>
-                  <Image style={{width: '100%', height: 120}} source={require('../../../assets/images/a3.jpg')}/>
+                  <Image style={{width: '100%', height: 100}} source={require('../../../assets/images/a3.jpg')}/>
                 </View>
                 <View style={{flex: 4, paddingLeft: 15 }}>
                   <View>

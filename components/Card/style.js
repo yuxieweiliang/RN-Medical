@@ -10,9 +10,9 @@ export default StyleSheet.create({
   },
 
   header: {
-    height: 50,
-    paddingLeft: 15,
-    paddingRight: 15,
+    height: 40,
+    paddingLeft: 10,
+    paddingRight: 10,
     backgroundColor: color.CARD.BACKGROUND_COLOR,
     flexDirection: 'row',
   },
@@ -29,11 +29,10 @@ export default StyleSheet.create({
   },
   headerFont: {
     color: '#333',
-    fontSize: 20
+    fontSize: 16
   },
   scroll: {
     flexDirection: 'row',
-    height: 150,
     width
   },
   body: {

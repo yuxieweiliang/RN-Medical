@@ -8,16 +8,27 @@ import styles from './style'
  * router: 路由
  * text: 文字
  */
-export function TouchButton({ children, btnStyle, fontStyle, router, navigation, onPress  }) {
+export function TouchButton({
+    children,
+    text,
+    btnStyle,
+    fontStyle,
+    router,
+    navigation,
+    onPress
+}) {
   return (
     <TouchableHighlight
       style={[ styles.btnStyle, btnStyle, ]}
       onPress={ onPress ? onPress : () => navigation.navigate(router)}>
-      {
-        (typeof children === 'string')
-          ? <Text style={[ styles.fontStyle, fontStyle,]}>{children}</Text>
-          : children
-      }
+      <View style={styles.btnContent}>
+        <Text style={[ styles.fontStyle, fontStyle,]}>{text}</Text>
+        {
+          (typeof children === 'string')
+            ? <Text style={[ styles.fontStyle, fontStyle,]}>{children}</Text>
+            : children
+        }
+      </View>
     </TouchableHighlight>
   )
 }

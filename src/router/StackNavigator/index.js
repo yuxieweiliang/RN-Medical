@@ -17,9 +17,15 @@ const config =  {
 export default StackNavigator(
   routes,
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'TabNavigator',
     navigationOptions: {
       ...config,
+      headerStyle:{
+        backgroundColor: '#fafafa',
+        // borderBottomWidth: 1,
+        // borderBottomColor: '#ccc',
+        elevation: 0,
+      }
     },
   }
 );

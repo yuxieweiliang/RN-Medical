@@ -18,16 +18,26 @@ function beforeHomeLoad() {
  */
 function homeLoad() {
 
-  return dispatch => {
+  return async dispatch => {
+    try{
+      let user,  hospital, department
+      // storage.remove('user')
+      user =  await storage.load('user')
+      console.log(user)
 
-    storage.load('homeLoad').then(res => {
+      if(user) {
+        hospital = await storage.load('hospital')
+        console.log(hospital)
+      }
 
-      dispatch({
-        type: system.HOME_LOAD_SUCCESS,
-        data: res.data
-      })
+      if(hospital) {
+        // department = await storage.load('department', hospital.id)
+        console.log(department)
+      }
 
-    })
+    }catch(error) {
+      console.log(error)
+    }
   }
 }
 

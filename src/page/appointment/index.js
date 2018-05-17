@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Text, FlatList,ScrollView, View, Dimensions, TouchableHighlight } from 'react-native';
-import styles from './style'
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window');
 import TabCardView from '../../../components/TabCardView/index'
 import { Calendar, CalendarList, Agenda, LocaleConfig } from 'react-native-calendars';
-import ImagePicker from 'react-native-image-crop-picker';
+import ac from './action'
+import { APPOINTMENT } from '../../type'
+import styles from './style'
+
 LocaleConfig.locales['cn'] = {
   monthNames: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
   monthNamesShort: ['1.','2.','3','4','5','6','7.','8','9.','10.','11.','12.'],
@@ -26,23 +26,19 @@ const navigation = ({ navigation : nav, navigationOptions: option }) => {
 };
 
 
-
-
-
-
 class Appointment extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: '2018-05-14',
-      markedDates: {
-        '2018-05-14': {selected: true, selectedColor: 'blue'},
-        '2018-05-15': {selected: true, selectedColor: 'red'},
-      }
+      selected: null,
     }
   }
   static navigationOptions = navigation
 
+  componentWillMount() {
+    const { dispatch } = this.props
+    dispatch(ac.getHospitalList())
+  }
   componentDidMount() {}
 
   _onPressButton() {
@@ -51,58 +47,53 @@ class Appointment extends React.Component {
       otherParam: 'anything you want here',
     })
   }
-  _onPressTabCardButton() {
-    this.props.navigation.navigate('HospitalList', {
+  _appointmentDoctor() {
+    this.props.navigation.navigate('DepartmentList', {
       otherParam: 'anything you want here',
+      time: this.state.selected
     })
   }
 
   componentWillUnmount() {
     // this._onPressButton.remove();
   }
-  calendarDayChange(day) {
-    const { markedDates, dispatch } = this.props
+  calendarDayChange(data) {
+    const {  dispatch } = this.props
     dispatch({
-      type: 'CALENDAR',
-      data: day
+      type: APPOINTMENT.TIME_CHANGE,
+      data
     })
+
   }
   render() {
-    const { healthGuide, markedDates}= this.props
-    const vacation = {key:'vacation', color: 'red', selectedDotColor: 'blue'};
-    const massage = {key:'massage', color: 'blue', selectedDotColor: 'blue'};
-    const workout = {key:'workout', color: 'green'};
-
+    const { healthGuide, appointTime}= this.props
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <TabCardView {...healthGuide}>
           <View>
             <CalendarList
               horizontal={true}
-              selected={this.state.selected}
               // 每次滑动一页
               pagingEnabled={true}
               // 是否有选中的日期
-              markedDates={{[markedDates]: {selected: true, selectedColor: 'blue'}}}
+              markedDates={{[appointTime]: {selected: true, selectedColor: 'blue'}}}
               // 月份的格式
               monthFormat={'yyyy/MM'}
               // 当日期改变时
-              onDayChange={(day)=>{console.log('day changed')}}
-              onDayLongPress={(day) => {console.log('selected day', day)}}
-              onDayPress={this.calendarDayChange.bind(this)}
+              onDayPress={(e) => this.calendarDayChange(e)}
             />
             <TouchableHighlight
               style={styles.touchButton}
-              onPress={this._onPressTabCardButton.bind(this)}>
+              onPress={this._appointmentDoctor.bind(this)}>
               <Text>预约</Text>
             </TouchableHighlight>
           </View>
           <Text>fdsa</Text>
           <Text>fda</Text>
         </TabCardView>
-        <ScrollView>
+        <View>
           <FlatList
-            data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}, {key: 'g'}, {key: 'h'}, {key: 'i'}]}
+            data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}]}
             renderItem={({item}) => (
               <View style={styles.list}>
                 <View style={{flex: 1}}>
@@ -119,8 +110,8 @@ class Appointment extends React.Component {
               </View>
             )}
           />
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     );
   }
 }

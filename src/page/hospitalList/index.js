@@ -3,7 +3,7 @@ import { Text, FlatList, ScrollView, View, Dimensions, TouchableHighlight, TextI
 import styles from './style'
 import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window')
-
+import ac from './action'
 
 class Appointment extends React.Component {
   static navigationOptions = ({ navigation : nav, navigationOptions: option }) => {
@@ -25,6 +25,10 @@ class Appointment extends React.Component {
     }
   };
 
+  componentWillMount() {
+    const { dispatch } = this.props
+    dispatch(ac.getHospitalList())
+  }
   componentDidMount() {}
 
   _onPressButton() {

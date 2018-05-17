@@ -1,4 +1,4 @@
-import { AppRegistry, View, Text } from 'react-native';
+import { AppRegistry, YellowBox, Text } from 'react-native';
 
 import App from './src/router';
 import React, { Component } from 'react';
@@ -18,4 +18,7 @@ class Root extends Component {
   }
 }
 
+// 禁止黄色警告
+// console.disableYellowBox = true;
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 AppRegistry.registerComponent('reactNative', () => Root);

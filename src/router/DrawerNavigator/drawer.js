@@ -3,7 +3,7 @@ import { ScrollView, Dimensions, Image, Text, View, TouchableHighlight } from 'r
 import { SafeAreaView, DrawerItems } from 'react-navigation';
 import { routeNames } from '../config'
 import styles from './style'
-import {TouchImageButton, TouchButton} from '../../../components/TouchButton'
+import {TouchButton} from '../../../components/TouchButton'
 const { width, height } = Dimensions.get('window');
 
 
@@ -20,15 +20,11 @@ export default props => {
     text: '用户名',
   }
 
-  const btnStyle = {
-    height: 40,
-    width: 70,
-    paddingLeft: 20
-  }
-  const fontStyle = {
-    fontSize: 16,
-    height: 40,
-    lineHeight: 40,
+  const bottomBtnData = {
+    ...props,
+    btnStyle: styles.bottomBtnStyle,
+    fontStyle: styles.bottomFontStyle,
+
   }
   //
   return (
@@ -36,9 +32,15 @@ export default props => {
 
       {/*    这里是人物头像   */}
       <View  style={styles.photoBox}>
-        <TouchImageButton {...imageData}/>
+        <TouchableHighlight
+          onPress={() => props.navigation && props.navigation.navigate('Setting')}>
+          <View style={styles.boxStyle}>
+            <Image style={styles.imageStyle} source={require('../../../assets/images/a1.jpg')}/>
+            <Text style={styles.textStyle}>用户名</Text>
+          </View>
+        </TouchableHighlight>
       </View>
-      <ScrollView style={{height: height - 300}}>
+      <ScrollView style={styles.scrollBox}>
         {/*     这里是自定义导航      */}
         <SafeAreaView >
           {
@@ -49,36 +51,33 @@ export default props => {
                 btnStyle: styles.btnStyle,
                 fontStyle: styles.fontStyle,
                 router: item.key,
+                text: routeNames[item.routeName]
               }
               if(Object.keys(routeNames).indexOf(item.key) < 0) return;
 
               return (
-                <TouchButton key={key} {...data}>{routeNames[item.routeName]}</TouchButton>
+                <TouchButton key={key} {...data}>
+                  <View style={styles.listIconContent}><Text>》</Text></View>
+                </TouchButton>
               )
             })
           }
         </SafeAreaView >
       </ScrollView>
-      <View style={{height: 180, flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#ccc'}}>
-        <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
-                     {...{
-                       ...props,
-                       router: 'Login',
-                       text: ''
-                     }}>登陆</TouchButton>
-        <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
-                     {...{
-                       ...props,
-                       router: 'Register',
-                       text: ''
-                     }}>注册</TouchButton>
-        <TouchButton btnStyle={btnStyle} fontStyle={fontStyle}
-                     {...{
-                       ...props,
-                       router: 'exit',
-                       text: ''
-                     }}>退出</TouchButton>
+      <View style={styles.bottomBox}>
+        <TouchButton {...bottomBtnData}
+                     router="Login"
+                     text="登陆"
+        />
+        <TouchButton {...bottomBtnData}
+                     router="Register"
+                     text="注册"
+        />
 
+        <TouchButton {...bottomBtnData}
+                     router="exit"
+                     text="退出"
+        />
       </View>
     </View>
   )

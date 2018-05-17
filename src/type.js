@@ -1,46 +1,49 @@
-function createType(root) {
-  return child => root + '/' + child
-}
-
 //////////////////////////////////////////////////////////////// 平台
-const systemRoot = createType('system')
+const system = 'system/'
 export const SYSTEM = {
   // 登陆
-  LOGIN_BEFORE: systemRoot('login'),
-  LOGIN_SUCCESS: systemRoot('login/成功'),
-  LOGIN_FAIL: systemRoot('login/失败'),
+  LOGIN_BEFORE: `${system}login`,
+  LOGIN_SUCCESS: `${system}login/成功`,
+  LOGIN_FAIL: `${system}login/失败`,
   // 注册
-  REGISTER_BEFORE: systemRoot('register'),
-  REGISTER_SUCCESS: systemRoot('register/成功'),
-  REGISTER_FAIL: systemRoot('register/失败'),
+  REGISTER_SUCCESS: `${system}register/成功`,
   // 首页
-  HOME_LOAD_BEFORE: systemRoot('home'),
-  HOME_LOAD_SUCCESS: systemRoot('home/成功'),
-  HOME_LOAD_FAIL: systemRoot('home/失败'),
+  HOME_LOAD_SUCCESS: `${system}home/成功`,
 }
 
 //////////////////////////////////////////////////////////////// 用户
-const userRoot = createType('user')
+const user = 'user/'
 export const USER = {
   // 用户信息
-  MESSAGE_BEFORE: userRoot('message'),
-  MESSAGE_SUCCESS: userRoot('message/成功'),
-  MESSAGE_FAIL: userRoot('message/失败'),
-  // 电话访谈
-  TELEPHONE_BEFORE: userRoot('telephoneInterview'),
-  TELEPHONE_SUCCESS: userRoot('telephoneInterview/成功'),
-  TELEPHONE_FAIL: userRoot('telephoneInterview/失败'),
+  MESSAGE_SUCCESS:  `${user}message/成功`,
 }
 
 //////////////////////////////////////////////////////////////// 医院
-const hospitalRoot = createType('hospital')
+const hospital = 'hospital/'
 export const HOSPITAL = {
-  // 医院信息
-  MESSAGE_BEFORE: userRoot('message'),
-  MESSAGE_SUCCESS: userRoot('message/成功'),
-  MESSAGE_FAIL: userRoot('message/失败'),
-  // 电话访谈
-  TELEPHONE_BEFORE: userRoot('telephoneInterview'),
-  TELEPHONE_SUCCESS: userRoot('telephoneInterview/成功'),
-  TELEPHONE_FAIL: userRoot('telephoneInterview/失败'),
+  // 医院列表
+  LIST_SUCCESS: `${hospital}list/成功`,
+}
+
+//////////////////////////////////////////////////////////////// 科室
+const department = 'department/'
+export const DEPARTMENT = {
+  // 科室列表
+  LIST_SUCCESS: `${department}list/成功`,
+  // 科室信息
+  INFO_SUCCESS: `${department}info/成功`,
+}
+
+//////////////////////////////////////////////////////////////// 预约
+const appointment = 'appointment/'
+export const APPOINTMENT = {
+  // 医院列表
+  TIME_CHANGE: `${appointment}time/改变`,
+}
+
+//////////////////////////////////////////////////////////////// 专家
+const expert = 'expert/'
+export const EXPERT = {
+  // 专家列表
+  LIST_SUCCESS: `${expert}list/成功`,
 }

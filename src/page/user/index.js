@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Text, SectionList, StatusBar, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/dist/EvilIcons';
+import ac from './action'
+import { system } from '../../type'
+import storage from '../../storage'
 import styles from './style'
 
 
@@ -27,11 +30,21 @@ class UserPage extends React.Component {
       otherParam: 'anything you want here',
     })
   }
-  componentWillUnmount() {
-    // this._onPressButton.remove();
+
+  async beforeMount() {
+    const { dispatch, navigation } = this.props
+    let token = await storage.load('token')
+    if(token) {
+      dispatch(ac.loadUser())
+    } else {
+      navigation.navigate('Login')
+    }
+  }
+  componentWillMount() {
+    this.beforeMount()
   }
   render() {
-    const { userListData } = this.props
+    const { userMessages } = this.props
 
     console.log(this.props.navigation)
     console.log(this.props.navigation.getParam('text'))
@@ -39,7 +52,7 @@ class UserPage extends React.Component {
       <View style={styles.container}>
         <SectionList
           style={{width, height: height - 200}}
-          sections={userListData}
+          sections={userMessages}
           renderItem={(o) => this._renderItem(o)}
           renderSectionHeader={(o) => this._sectionComp(o)}
           keyExtractor = {(o) => this._extraUniqueKey(o)}

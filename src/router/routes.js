@@ -20,8 +20,6 @@ import RecommendDefault from '../page/recommend-details'
 import HealthDaily from '../page/healthDaily'
 // 健康日报-文章页
 import HealthDailyDetails from '../page/healthDailyDetails'
-// 健康日报-文章页
-import HospitalList from '../page/hospitalList'
 // 编辑文本页面
 import EditTextView from '../page/editTextView'
 
@@ -31,6 +29,8 @@ import EditTextView from '../page/editTextView'
 import User from '../page/user'
 // 用户设置
 import UserSetting from '../page/userSetting'
+// 用户设置
+import UserMessages from '../page/userMessages'
 // 咨询
 import Consult from '../page/consult'
 // 历史就医
@@ -60,10 +60,18 @@ import BodyParts from '../page/bodyParts'
 
 // 产品
 import Product from '../page/products'
+// 医院
+import Hospital from '../page/hospital'
+// 医院列表
+import HospitalList from '../page/hospitalList'
 // 产品
 import Appointment from '../page/appointment'
 // 专家列表
 import ExpertList from '../page/expertList'
+// 科室
+import Department from '../page/department'
+// 科室列表
+import DepartmentList from '../page/departmentList'
 // 专家主页
 import ExpertHome from '../page/expertHome'
 // 电话访谈
@@ -94,8 +102,6 @@ export default {
   HealthDaily,
   // 健康日报-文章页
   HealthDailyDetails,
-  // 健康日报-文章页
-  HospitalList,
   // 编辑文本页面
   EditTextView,
 
@@ -104,6 +110,8 @@ export default {
   User,
   // 用户设置
   UserSetting,
+  // 用户设置
+  UserMessages,
   // 咨询
   Consult,
   // 体征趋势
@@ -132,10 +140,18 @@ export default {
   ///////////////////////////// 医院
   // 产品
   Product,
+  // 医院
+  Hospital,
+  // 医院列表
+  HospitalList,
   // 预约
   Appointment,
   // 专家列表
   ExpertList,
+  // 科室
+  Department,
+  // 科室列表
+  DepartmentList,
   // 专家主页
   ExpertHome,
   // 电话访谈

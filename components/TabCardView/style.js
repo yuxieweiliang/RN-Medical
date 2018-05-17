@@ -8,7 +8,7 @@ export default {
   },
   header: {
     width,
-    height: 80,
+    height: 50,
     flexDirection: 'row'
   },
   body: {
@@ -21,6 +21,6 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#aaa',
-    borderBottomWidth: 2
+    borderBottomWidth: 1
   }
 };

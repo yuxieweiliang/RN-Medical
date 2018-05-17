@@ -10,11 +10,11 @@ export default StyleSheet.create({
   },
   returnBox: {
     width,
-    height: 80,
+    height: 50,
     backgroundColor: 'rgba(0, 0, 0, .1)',
   },
   returnIconBox: {
-    height: 80,
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
   },
