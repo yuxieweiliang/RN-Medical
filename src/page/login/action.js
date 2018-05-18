@@ -1,6 +1,6 @@
 import { SYSTEM } from '../../type'
 import storage from '../../storage'
-import axios from 'axios'
+// import axios from 'axios'
 
 /**
  * 用户登录

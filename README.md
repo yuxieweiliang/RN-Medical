@@ -13,7 +13,7 @@ mkdir android/app/src/main/assets
 react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
 
 
-cd android && ./gradlew assembleDebug --info
+cd android && gradlew assembleDebug --info
 
 #### 打包
 cd android && ./gradlew assembleRelease
@@ -24,7 +24,10 @@ android/app/src/main/res/values/strings.xml
 #### 修改app图标
 android/app/src/main/AndroidManifest.xml
 
+npm cache clean && npm install
 
+cd android && gradlew clean
+cd .. && react-native run-android
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### 获取token:
 
