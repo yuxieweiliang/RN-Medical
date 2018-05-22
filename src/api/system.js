@@ -20,6 +20,8 @@ export default {
     }
     let data = util.createParams(query)
 
+    console.log('remove token------------------------')
+
     return storage.post(url, data, 'token')
       .then(res => {
         console.log(res)

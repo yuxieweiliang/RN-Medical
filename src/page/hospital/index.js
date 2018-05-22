@@ -89,7 +89,7 @@ class UserMessagePage extends React.Component {
           )
         }
         <TouchableHighlight
-          onPress={this.saveUserMessage.bind(this)}>
+          onPress={() => this.saveUserMessage()}>
           <Text>保存</Text>
         </TouchableHighlight>
       </View>

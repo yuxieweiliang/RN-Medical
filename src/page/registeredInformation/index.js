@@ -53,7 +53,7 @@ export default class extends React.Component {
           <FlatList
             style={{width, marginBottom: 15, paddingTop: 15}}
             data={listData1}
-            renderItem={this._renderCardItem.bind(this)}
+            renderItem={() => this._renderCardItem()}
           />
         </View>
         <View style={styles.contaer}>
@@ -61,7 +61,7 @@ export default class extends React.Component {
             keyboardShouldPersistTaps="always"
             style={{width, height: height - 200}}
             data={listData2}
-            renderItem={this._renderItem.bind(this)}
+            renderItem={() => this._renderItem()}
           />
         </View>
       </View>

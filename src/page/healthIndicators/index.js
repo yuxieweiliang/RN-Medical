@@ -11,7 +11,7 @@ class HealthIndicators extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.onDayPress = this.onDayPress.bind(this);
+   // this.onDayPress = this.onDayPress.bind(this);
   }
 
   componentDidMount() {}

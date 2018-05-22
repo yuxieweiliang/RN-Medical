@@ -9,7 +9,7 @@ class Appointment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.onDayPress = this.onDayPress.bind(this);
+    // this.onDayPress = this.onDayPress.bind(this);
   }
   onDayPress(day) {
     this.setState({
@@ -39,7 +39,7 @@ class Appointment extends React.Component {
 
             </ImageBackground >
             <CalendarStrip
-              onDayPress={this.onDayPress}
+              onDayPress={() => this.onDayPress()}
               style={{backgroundColor: '#fff'}}
               hideExtraDays
               markedDates={{[this.state.selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}}}

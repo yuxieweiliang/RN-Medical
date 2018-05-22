@@ -60,16 +60,18 @@ CreateNewStorage.prototype = {
    * @param sync
    * @returns {*|Promise.<T>}
    */
-  load(key, option, sync = true) {
+  load(key, option) {
+
+    console.log('remove token------------------------', key)
     return oldStorage.load({
       key,
       // 默认为true
       // 在没有找到数据或数据过期时自动调用相应的sync方法
-      autoSync: true,
+      autoSync: false,
       // 默认为true
       // 意味着如果数据过期，在调用sync方法的同时先返回已经过期的数据。
       // 否则始终强制返回最新数据。
-      syncInBackground: sync,
+      syncInBackground: true,
       // 你还可以给sync方法传递额外的参数
       syncParams: {
         /*extraFetchOptions: { },// 各种参数
@@ -179,4 +181,4 @@ CreateNewStorage.prototype = {
 }
 
 
-export default newStorage ? newStorage : new CreateNewStorage
+export default newStorage ? newStorage : newStorage = new CreateNewStorage

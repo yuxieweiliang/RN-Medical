@@ -32,8 +32,8 @@ class LoginPage extends Component<Props> {
   }
 
   componentWillMount () {
-    this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow);
-    this.keyboardDidHide = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide);
+    this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow.call(this));
+    this.keyboardDidHide = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide.call(this));
 
   }
 

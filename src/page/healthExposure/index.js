@@ -29,7 +29,7 @@ export default class extends React.Component {
     })
   }
   componentWillMount() {
-    this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow.bind(this));
+    this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow.call(this));
   }
   keyboardWillShow(event) {
     Animated.timing(

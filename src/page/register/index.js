@@ -50,17 +50,17 @@ export default class extends Component<Props> {
     // this.props.navigation.goBack()
   }
   componentWillMount () {
-    this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow);
-    this.keyboardDidHide = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide);
+    this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow.call(this));
+    this.keyboardDidHide = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide.call(this));
     if (Platform.OS === 'android') {
-      BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
+      BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid.call(this));
     }
   }
   componentWillUnmount() {
     this.keyboardDidShow.remove();
     this.keyboardDidHide.remove();
     if (Platform.OS === 'android') {
-      BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+      BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid.call(this));
     }
   }
   keyboardWillShow = (event) => {

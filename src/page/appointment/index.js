@@ -84,7 +84,7 @@ class Appointment extends React.Component {
             />
             <TouchableHighlight
               style={styles.touchButton}
-              onPress={this._appointmentDoctor.bind(this)}>
+              onPress={() => this._appointmentDoctor()}>
               <Text>预约</Text>
             </TouchableHighlight>
           </View>
