@@ -28,6 +28,7 @@ export default class extends React.Component {
 
   // 向 WebView 发送的数据
   handleMessage(e) {
+    alert(e)
     this.setState({webViewData: e.nativeEvent.data});
   }
 

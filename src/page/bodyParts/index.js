@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Text, Dimensions,WebView, View, Button, TouchableNativeFeedback } from 'react-native';
 import styles from './style'
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import { connect } from 'react-redux'
 import TabCardView from '../../../components/TabCardView/index'
 const { width, height } = Dimensions.get('window');
 
@@ -12,7 +11,13 @@ const bodyParts = {
     backgroundColor: '#fafafa',
   },
   containerStyle: {
-    height: 500
+    height: height - 80,
+    borderWidth: 1,
+  },
+  bodyStyle: {
+    height: height - 180,
+    paddingLeft: 15,
+    paddingRight: 15
   },
   dataSource: [
     {
@@ -25,13 +30,14 @@ const bodyParts = {
     },
   ],
 }
-export default class extends React.Component {
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
-    return {
-      title: '身体部位',
+class BodyParts extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      webViewData: ''
     }
-  };
+    this.data = 0;
+  }
 
   componentDidMount() {}
 
@@ -43,6 +49,17 @@ export default class extends React.Component {
   }
   componentWillUnmount() {
     // this._onPressButton.remove();
+  }
+
+  // 从 WebView 接收的数据
+  sendMessage() {
+    this.refs.webview.postMessage(++this.data);
+  }
+
+  // 向 WebView 发送的数据
+  handleMessage(e) {
+    this.props.navigation.navigate('Symptom')
+    this.setState({webViewData: e.nativeEvent.data});
   }
   render() {
     const webViewSet = {
@@ -59,24 +76,38 @@ export default class extends React.Component {
           <WebView
             {...webViewSet}
             style={styles.scroll}
-            source={{uri: 'http://10.0.0.98:8011/bodyParts/man.html'}}
+            source={{uri: 'http://10.0.0.33:8011/bodyParts/man.html?3'}}
+            onMessage={(e) => {
+              this.handleMessage(e)
+            }}
           />
           <WebView
             {...webViewSet}
             style={styles.scroll}
-            source={{uri: 'http://10.0.0.98:8011/bodyParts/woman.html'}}
+            source={{uri: 'http://10.0.0.33:8011/bodyParts/woman.html'}}
+            onMessage={(e) => {
+              this.handleMessage(e)
+            }}
           />
           <WebView
             {...webViewSet}
             style={styles.scroll}
-            source={{uri: 'http://10.0.0.98:8011/bodyParts/boy.html'}}
+            source={{uri: 'http://10.0.0.33:8011/bodyParts/boy.html'}}
+            onMessage={(e) => {
+              this.handleMessage(e)
+            }}
           />
         </TabCardView>
       </View>
-
-
-
     );
   }
 }
 
+BodyParts.navigationOptions = ({ navigation, navigationOptions }) => {
+  const { params } = navigation.state;
+  return {
+    title: '身体部位',
+  }
+};
+
+export default connect(state => ({}))(BodyParts)

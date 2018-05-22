@@ -96,10 +96,11 @@ class HomePage extends Component<Props> {
                       key={item.key}
                       activeOpacity={.95}
                       style={{width: width/3, paddingLeft: 10}}
+                      onPress={() => navigation.navigate('HealthExposure')}
                       underlayColor={null}>
                       <View style={{width: '100%'}}>
                         <Text style={{width: '100%'}}>
-                          这里是晒健康的内容，这里是晒健康的内容
+                          这里是晒健康的内容，这里是晒健h康的内容
                         </Text>
                         <Image source={item.item.avatar} style={{width: '100%', height: 80}}/>
                       </View>
@@ -123,6 +124,7 @@ class HomePage extends Component<Props> {
                     key={item.key}
                     activeOpacity={.95}
                     style={{width: width, paddingLeft: 10, paddingBottom: 10}}
+                    onPress={() => navigation.navigate('HealthDaily')}
                     underlayColor={null}>
                     <View style={{width: '100%', flexDirection: 'row'}}>
                       <Image source={item.item.avatar} style={{flex: 1, height: 80}}/>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight,StatusBar, View, Dimensions, TouchableNativeFeedback } from 'react-native';
+import { Text, TouchableHighlight, Image, View, Dimensions, TouchableNativeFeedback } from 'react-native';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -29,44 +29,29 @@ export default class extends React.Component {
     return (
 
       <View style={styles.container}>
-        <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('RecommendDefault')}
-                                 style={{ width}}>
-          <View style={{ width, padding: 15, backgroundColor: '#3cffeb' }}>
-            <View style={{ height: 40, flexDirection: 'row' }}>
-              <View style={{ flex: 3}}>
-                <Text>就医历史</Text>
+        <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('TelephoneInterview')}>
+          <View style={styles.list}>
+            <View style={styles.listHeader}>
+              <Image style={styles.userAvatar} source={require('../../../assets/images/a3.jpg')}/>
+              <Text style={styles.username}>名字</Text>
+            </View>
+            <View style={styles.listBody}>
+              <View style={styles.listBodyRow}>
+                <Text style={styles.listBodyLabel}>存在问题：</Text>
+                <Text style={styles.listBodyContent}>就医历史就医历史就医历史,就医历史就医历史就医历史,就医历史就医历史就,医历史就医历史就医历史,就医历史</Text>
               </View>
-              <View style={{ flex: 1}}>
-                <Text>就医历史</Text>
-              </View>
-              <View style={{ flex: 2}}>
-                <Text>就医历史</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={{ width: 100 }}>健康指导：</Text>
+                <Text style={{flex: 1}}>就医历史就医历,史就医历史就医历史,就医历史就医历史,就医历史就医历史就医,历史就医历史就医历,史就医历史</Text>
               </View>
             </View>
-            <View style={{  height: 40, flexDirection: 'row' }}>
-              <View style={{ flex: 3}}>
-                <Text>就医历史</Text>
-              </View>
-              <View style={{ flex: 1}}>
-                <Text>就医历史</Text>
-              </View>
-              <View style={{ flex: 2}}>
-                <Text>就医历史</Text>
-              </View>
-            </View>
-            <View style={{ height: 40, flexDirection: 'row' }}>
-              <View style={{ flex: 3}}>
-                <Text>就医历史</Text>
-              </View>
-              <View style={{ flex: 1}}>
-                <Text>就医历史</Text>
-              </View>
-              <View style={{ flex: 2}}>
-                <Text>就医历史</Text>
-              </View>
+            <View style={styles.listFooter}>
+              <Text style={{flex: 1}}>电话宣教</Text>
+              <Text style={{flex: 1, textAlign: 'right'}}>2018-12-12</Text>
             </View>
           </View>
         </TouchableNativeFeedback>
+
       </View>
 
 

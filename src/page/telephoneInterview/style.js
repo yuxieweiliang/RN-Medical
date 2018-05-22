@@ -2,34 +2,38 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-  wrapper: {
-    // backgroundColor: '#63d0b4'
-  },
   container: {
     width,
     height,
   },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  doctor: {
+    width,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#fafafa',
   },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  basicSituation: {
+    paddingLeft: 10,
+    paddingRight: 10
   },
-
-  btn: {
-    borderRadius: 10,
-    shadowColor:'green',
-    shadowOffset:{h:10,w:10},
-    shadowRadius:3,
-    shadowOpacity:0.8,
+  basicSituationRow: {
+    height: 30,
+    flexDirection: 'row',
   },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
+  basicSituationRowLabel: {
+    width: '40%',
+    fontSize: 14
+  },
+  basicSituationRowText: {
+    width: '60%',
+    fontSize: 14
+  },
+  detailedContent: {
+    paddingLeft: 10,
+    paddingRight: 10
   }
+
 });

@@ -5,13 +5,9 @@ import TabNavigator from './../TabNavigator'
 
 export default {
 
-  TabNavigator: {
-    screen: TabNavigator,
-  },
+  TabNavigator: { screen: TabNavigator, },
 
-  Product: {
-    screen: routes.Product,
-  },
+  Product: { screen: routes.Product, },
 
   Login: {
     screen: routes.Login,
@@ -27,25 +23,15 @@ export default {
     },
   },
 
-  Consult: {
-    screen: routes.Consult,
-  },
+  Consult: { screen: routes.Consult, },
 
-  RecommendDefault: {
-    screen: routes.RecommendDefault,
-  },
+  RecommendDefault: { screen: routes.RecommendDefault, },
 
-  Recommend: {
-    screen: routes.Recommend,
-  },
+  Recommend: { screen: routes.Recommend, },
 
-  DepartmentList: {
-    screen: routes.DepartmentList,
-  },
+  DepartmentList: { screen: routes.DepartmentList, },
 
-  User: {
-    screen: routes.User,
-  },
+  User: { screen: routes.User, },
   // 设置
   Setting: {
     screen: routes.Setting,
@@ -54,9 +40,7 @@ export default {
     },
   },
   // 用户信息
-  UserMessages: {
-    screen: routes.UserMessages,
-  },
+  UserMessages: { screen: routes.UserMessages, },
   // 用户设置
   UserSetting: {
     screen: routes.UserSetting,
@@ -79,82 +63,51 @@ export default {
     },
   },
 
-  HistoryMedical: {
-    screen: routes.HistoryMedical,
-  },
+  HistoryMedical: { screen: routes.HistoryMedical, },
 
-  HistoryIndicators: {
-    screen: routes.HistoryIndicators,
-  },
+  HistoryIndicators: { screen: routes.HistoryIndicators, },
 
-  HealthIndicators: {
-    screen: routes.HealthIndicators,
-  },
+  HealthIndicators: { screen: routes.HealthIndicators, },
 
-  HealthStatus: {
-    screen: routes.HealthStatus,
-  },
+  HealthStatus: { screen: routes.HealthStatus, },
 
-  GuideToLife: {
-    screen: routes.GuideToLife,
-  },
+  GuideToLife: { screen: routes.GuideToLife, },
 
-  SignTrend: {
-    screen: routes.SignTrend,
-  },
+  SignTrend: { screen: routes.SignTrend, },
 
-  SignOut: {
-    screen: routes.SignOut,
-  },
+  FillingFeature: { screen: routes.FillingFeature, },
 
-  MedicalStatus: {
-    screen: routes.MedicalStatus,
-  },
+  MedicalStatus: { screen: routes.MedicalStatus, },
 
-  HealthExposure: {
-    screen: routes.HealthExposure,
-  },
+  HealthExposure: { screen: routes.HealthExposure, },
 
-  HealthDaily: {
-    screen: routes.HealthDaily,
-  },
+  HealthDaily: { screen: routes.HealthDaily, },
 
+  HealthDailyDetails: { screen: routes.HealthDailyDetails, },
 
-  HealthDailyDetails: {
-    screen: routes.HealthDailyDetails,
-  },
+  Appointment: { screen: routes.Appointment, },
 
-  Appointment: {
-    screen: routes.Appointment,
-  },
+  Hospital: { screen: routes.Hospital, },
 
-  Hospital: {
-    screen: routes.Hospital,
-  },
+  HospitalList: { screen: routes.HospitalList, },
 
+  ExpertList: { screen: routes.ExpertList, },
 
-  HospitalList: {
-    screen: routes.HospitalList,
-  },
+  ExpertHome: { screen: routes.ExpertHome, },
 
-  ExpertList: {
-    screen: routes.ExpertList,
-  },
+  RegisteredInformation: { screen: routes.RegisteredInformation, },
 
-  ExpertHome: {
-    screen: routes.ExpertHome,
-  },
+  TelephoneInterview: { screen: routes.TelephoneInterview, },
 
-  RegisteredInformation: {
-    screen: routes.RegisteredInformation,
-  },
-  TelephoneInterview: {
-    screen: routes.TelephoneInterview,
-  },
-  BodyParts: {
-    screen: routes.BodyParts,
-  },
-  EditTextView: {
-    screen: routes.EditTextView,
-  },
+  BodyParts: { screen: routes.BodyParts, },
+
+  EditTextView: { screen: routes.EditTextView, },
+
+  Symptom: { screen: routes.Symptom, },
+
+  Pathological: { screen: routes.Pathological, },
+
+  Complication: { screen: routes.Complication, },
+
+  GiftedChat: { screen: routes.GiftedChat, },
 }

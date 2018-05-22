@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Text, Dimensions,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
+import { Text, Dimensions, ScrollView, View, TouchableNativeFeedback, Image } from 'react-native';
 import styles from './style'
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
 const { width, height } = Dimensions.get('window');
 import action from './action'
+import Card from '../../../components/Card'
 import { connect } from 'react-redux'
 import { system } from '../../type'
 
@@ -27,55 +26,65 @@ class TelephoneInterviewData extends React.Component {
   }
   componentWillUnmount() {
     // this._onPressButton.remove();
+    // <Image style={{width: 30, height: 30, borderRadius: 15}} source={require('../../../assets/images/a7.jpg')}/>
+
   }
   render() {
 
     console.log(system)
     return (
 
-      <View style={styles.container}>
-        <View style={{ width, }}>
-          <View style={{ width, padding: 15, borderBottomWidth: 1, borderColor: '#ccc', backgroundColor: '#fafafa', marginTop: 10}}>
-            <View style={{ height: 50, width, flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{flex: 1}}>姓名</Text>
-              <Text style={{flex: 1}}>电话</Text>
-              <Text style={{flex: 1}}>日期</Text>
-            </View>
-
-            <View style={{ width,  }}>
-              <Text style={{ width: width,fontSize: 20 }}>建议的详情页面</Text>
-              <View style={{ width, flexDirection: 'row' }}>
-                <Text style={{ width: '20%',fontSize: 16 }}>姓名</Text>
-                <Text style={{ width: '30%',fontSize: 16 }}>性别</Text>
-                <Text style={{ width: '20%',fontSize: 16 }}>类型</Text>
-                <Text style={{ width: '30%',fontSize: 16 }}>编号</Text>
-              </View>
-
-            </View>
-
-            <View style={{ width,  }}>
-              <View style={{ width, flexDirection: 'row' }}>
-                <Text style={{ width: '20%',fontSize: 16 }}>基恩情况</Text>
-                <Text style={{ width: '80%',fontSize: 16 }}>点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面</Text>
-              </View>
-              <View style={{ width, flexDirection: 'row' }}>
-                <Text style={{ width: '20%',fontSize: 16 }}>点击进入建议的详情页面</Text>
-                <Text style={{ width: '80%',fontSize: 16 }}>点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面</Text>
-              </View>
-              <View style={{ width, flexDirection: 'row' }}>
-                <Text style={{ width: '20%',fontSize: 16 }}>点击进入建议的详情页面</Text>
-                <Text style={{ width: '80%',fontSize: 16 }}>点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面</Text>
-              </View>
-              <View style={{ width, flexDirection: 'row' }}>
-                <Text style={{ width: '20%',fontSize: 16 }}>点击进入建议的详情页面</Text>
-                <Text style={{ width: '80%',fontSize: 16 }}>点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面</Text>
-              </View>
-            </View>
-
+      <ScrollView style={styles.container}>
+        <View style={styles.doctor}>
+          <View style={{ flexDirection: 'row', height: 30, alignItems: 'center'}}>
+            <Text style={{flex: 1}}>生活习惯第三次随访</Text>
+            <Text style={{flex: 1, textAlign: 'right'}}>张丫丫</Text>
           </View>
-
+          <View style={{ flexDirection: 'row'}}>
+            <Text style={{flex: 1}}>电话随访</Text>
+            <Text style={{flex: 1, textAlign: 'right'}}>2018-18-18</Text>
+          </View>
         </View>
-      </View>
+
+        <Card title="基本情况">
+          <View  style={styles.basicSituation}>
+            <View  style={styles.basicSituationRow}>
+              <Text style={styles.basicSituationRowLabel}>姓名</Text>
+              <Text style={styles.basicSituationRowText}>编号</Text>
+            </View>
+            <View  style={styles.basicSituationRow}>
+              <Text style={styles.basicSituationRowLabel}>性别</Text>
+              <Text style={styles.basicSituationRowText}>编号</Text>
+            </View>
+            <View  style={styles.basicSituationRow}>
+              <Text style={styles.basicSituationRowLabel}>类型</Text>
+              <Text style={styles.basicSituationRowText}>编号</Text>
+            </View>
+            <View  style={styles.basicSituationRow}>
+              <Text style={styles.basicSituationRowLabel}>编号</Text>
+              <Text style={styles.basicSituationRowText}>编号</Text>
+            </View>
+          </View>
+        </Card>
+
+        <Card title="存在问题">
+          <Text style={styles.detailedContent}>点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面</Text>
+        </Card>
+
+        <Card title="健康指导">
+          <View  style={styles.detailedContent}>
+            <Text style={{fontSize: 14 }}>点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面点击进入建议的详情页面</Text>
+          </View>
+        </Card>
+
+
+        <View style={styles.footer}>
+
+          <View style={{ width, flexDirection: 'row' }}>
+            <Text style={{fontSize: 14 }}>点击进入建议的详情页面</Text>
+          </View>
+        </View>
+      </ScrollView>
 
 
 

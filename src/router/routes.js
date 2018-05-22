@@ -46,7 +46,7 @@ import GuideToLife from '../page/guideToLife'
 // 体征趋势
 import SignTrend from '../page/signTrend'
 // 体征填写
-import SignOut from '../page/signOut'
+import FillingFeature from '../page/fillingFeature'
 // 就医状况
 import MedicalStatus from '../page/medicalStatus'
 // 晒健康
@@ -55,6 +55,14 @@ import HealthExposure from '../page/healthExposure'
 import RegisteredInformation from '../page/registeredInformation'
 // 身体部位
 import BodyParts from '../page/bodyParts'
+// 症状
+import Symptom from '../page/symptom'
+// 病理
+import Pathological from '../page/symptom/pathological'
+  // 并发症
+import Complication from '../page/symptom/complication'
+  // 即时资讯聊天室
+import GiftedChat from '../page/giftedChat'
 
 //////////////////////////////////   医院   ////////////////////////////////////////
 
@@ -117,7 +125,7 @@ export default {
   // 体征趋势
   SignTrend,
   // 体征填写
-  SignOut,
+  FillingFeature,
   // 就医情况
   MedicalStatus,
   // 就医历史
@@ -136,6 +144,12 @@ export default {
   RegisteredInformation,
   // 身体部位
   BodyParts,
+  // 症状
+  Symptom,
+  // 病理
+  Pathological,
+  // 并发症
+  Complication,
 
   ///////////////////////////// 医院
   // 产品
@@ -156,5 +170,7 @@ export default {
   ExpertHome,
   // 电话访谈
   TelephoneInterview,
+  // 电话访谈
+  GiftedChat,
 
 }

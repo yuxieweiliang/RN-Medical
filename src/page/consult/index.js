@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight,StatusBar, View, Button, TouchableNativeFeedback, Dimensions } from 'react-native';
+import { Text, TouchableHighlight, ScrollView, View, TextInput, TouchableNativeFeedback, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
 import TabCardView from '../../../components/TabCardView/index'
 import ac from './action'
@@ -68,8 +68,6 @@ class ConsultPage extends React.Component {
     this.beforeMount()
   }
 
-
-
   componentDidMount() {
 
   }
@@ -86,7 +84,7 @@ class ConsultPage extends React.Component {
   render() {
     const tabItemStyle= {width, height: 200, padding: 15}
     return (
-      <View style={styles.slide1}>
+      <ScrollView style={styles.slide1}>
 
         <TouchableNativeFeedback
           title="Go to Details"
@@ -125,7 +123,7 @@ class ConsultPage extends React.Component {
         <View style={{width, height: 200}}>
           <TouchableNativeFeedback
             title="Go to Details"
-            onPress={() => this.props.navigation.goBack()}
+            onPress={() => this.props.navigation.navigate('BodyParts')}
           >
             <View style={{width, height: 50, flexDirection: 'row', backgroundColor: '#fff',alignItems: 'center', paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc'}}>
               <Text>症状</Text>
@@ -147,13 +145,15 @@ class ConsultPage extends React.Component {
             </View>
           </View>
         </View>
+        <TouchableHighlight><Text>留言</Text></TouchableHighlight>
+
 
         <TabCardView {...tabCardData}>
-          <View style={tabItemStyle}><Text>1111111111111111111</Text></View>
-          <View style={tabItemStyle}><Text>222222222222222222222222</Text></View>
+          <View style={tabItemStyle}><TextInput multiline={true}>1111111111111111111</TextInput></View>
+          <View style={tabItemStyle}><TouchableNativeFeedback><Text>222222222222222222222222</Text></TouchableNativeFeedback></View>
           <View style={tabItemStyle}><Text>3333333333333333333333333333</Text></View>
         </TabCardView>
-      </View>
+      </ScrollView>
     );
   }
 }
