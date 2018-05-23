@@ -27,11 +27,16 @@ class LoginPage extends Component<Props> {
   _login() {
     const { dispatch, navigation } = this.props
     dispatch(ac.login(this.state))
-      .then(res => navigation.navigate('Home'))
+      .then(res => {
+        // navigation.navigate('Home')
+        console.log(res)
+      })
       .catch(error => alert('登陆失败！'))
   }
 
   componentWillMount () {
+
+    this._login()
     this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow.call(this));
     this.keyboardDidHide = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide.call(this));
 

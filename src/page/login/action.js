@@ -15,20 +15,21 @@ function login(option) {
   return async dispatch => {
     // dispatch({ type: SYSTEM.LOGIN_BEFORE }); // 正在执行登录请求
 
-    storage.remove('token')
-    storage.remove('user')
+    // storage.remove('system.token')
+    // storage.remove('user.info')
 
     try {
       console.log('remove token------------------------')
-      const token = await storage.load('token', query)
+      const token = await storage.load('system.token', {data: query})
 
       if(token) {
-        return storage.load('user')
+        // return storage.load('user.list', {params: {id: '877554311095878178'}})
         // storage.load('changeUser', user).then(res => console.log(res))
 
         // storage.load('userInfo', user).then(res => console.log(res))
       }
 
+      return 'fffffffffffff'
     }catch(err) {
       console.error(err)
     }

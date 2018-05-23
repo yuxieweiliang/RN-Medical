@@ -17,7 +17,7 @@ const config =  {
 export default StackNavigator(
   routes,
   {
-    initialRouteName: 'TabNavigator',
+    initialRouteName: 'Login',
     navigationOptions: {
       ...config,
       headerStyle:{

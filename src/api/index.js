@@ -1,18 +1,18 @@
-import system from './system'
+import system from './asynchronous/system'
 
-import user from './user'
+import user from './asynchronous/user'
 
-import userInfo from './userInfo'
+import userInfo from './asynchronous/userInfo'
 
-import hospital from './hospital'
+import hospital from './asynchronous/hospital'
 
-import department from './department'
+import department from './asynchronous/department'
 
-import consult from './consult'
+import consult from './asynchronous/consult'
 
-import position from './position'
+import position from './asynchronous/position'
 
-import friend from './friend'
+import friend from './asynchronous/friend'
 
 
 /**
@@ -21,39 +21,21 @@ import friend from './friend'
  * 这里可以使用promise。或是使用普通回调函数，但需要调用resolve或reject
  * @type {{user: ((params))}}
  */
-const sync = {
-
-  /////////////////////////////////////  用户管理  //////////////////////////////////////
+export default {
   // 获取token
-  token: system.token,
+  system,
   // 获取用户信息
-  user: user.getUser,
-  // 修改用户信息
-  changeUser: user.changeUser,
-  // 删除用户信息
-  deleteUser: user.deleteUser,
-
+  user,
   // 获取咨询信息
-  consult: consult.getConsultList,
-
-
-  /////////////////////////////////////  用户数据  //////////////////////////////////////
+  consult,
   // 获取用户体征信息
-  userInfo: userInfo.getUserInfo,
-  changeUserInfo: userInfo.changeUserInfo,
-
-  /////////////////////////////////////  系统  ///////////////////////////////////////////
+  userInfo,
   // 获取医院列表
-  hospital: hospital.getHospital,
+  hospital,
   // 获取科室列表
-  department: department.getDepartment,
-  // 获取科室列表
-  departmentList: department.getDepartmentList,
+  department,
   // 获取部位列表
-  position: position.getPositionList,
+  position,
   // friend
-  friend: friend.getFriendList
+  friend
 }
-
-
-export default sync

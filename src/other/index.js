@@ -1,6 +1,5 @@
 import Storage from './storage';
-import { AsyncStorage } from 'react-native'
-import syncAction from '../api'
+import syncAction from './syncAction'
 
 
 let oldStorage
@@ -8,31 +7,18 @@ let newStorage
 let size = 1000
 let defaultExpires = 1000 * 3600 * 24
 
-console.log(syncAction)
 let NewStorage = function() {
   this._init.apply(this, arguments)
 }
-// http://47.94.97.210:8011/Common/GetLoginToken?token=&loginName=user%7C0132&psw=a
-async function getItem() {
-  try{
-    console.log('1-------------', AsyncStorage)
-    // AsyncStorage.setItem('system.token', 'fdsafdsafdsafdsa')
-    let token =  await AsyncStorage.getAllKeys();
-    console.log('2-------------', token)
-  }catch (err) {
-    console.log(err)
-  }
-}
-getItem()
+
 NewStorage.prototype = {
   _init() {
-
     oldStorage = new Storage({
       size: size,
-      storageBackend: AsyncStorage,
+      storageBackend: localStorage,
       defaultExpires: defaultExpires,
       enableCache: true,
-      sync: syncAction
+      sync: syncAction.data
     })
   },
   load(key, option) {

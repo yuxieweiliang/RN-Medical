@@ -1,5 +1,4 @@
 let defaultExpires = 1000 * 3600 * 24 // one day
-
 export default class Storage {
   constructor(options = {}) {
     this._SIZE = options.size || 1000;   // maximum capacity 最大容量
@@ -27,18 +26,31 @@ export default class Storage {
       \nEither use localStorage(for web) or AsyncStorage(for React Native) as a storageBackend.`)
     }
   }
+  toPromise(item) {
+    let _this = this
+    return function(key, value) {
+      let data = { ok: true }
+      let promise = null
 
+      if(value) {
+        data.Data = value.data
+        promise = _this._storage[item](key, value)
+      } else {
+        promise = _this._storage[item](key)
+        data.Data = promise ? JSON.parse(promise).Data : promise
+      }
+
+      return _this.isPromise ? promise : Promise.resolve(JSON.stringify(data))
+    }
+  }
   getItem(key) {
-    return this._storage.getItem(key).then(res => {
-      console.log('getItem -> ',key,  res)
-      return res
-    })
+    return this.toPromise('getItem')(key)
   }
   setItem(key, value) {
-    return this._storage.setItem(key, JSON.stringify(value))
+    return this.toPromise('setItem')(key, JSON.stringify(value))
   }
   removeItem(key) {
-    return this._storage.removeItem(key)
+    return this.toPromise('removeItem')(key)
   }
 
   /**
@@ -85,41 +97,21 @@ export default class Storage {
    * @param option 参数
    * @returns {Promise}
    */
-  load({ key, autoSync = true, syncInBackground = true, option = {} }) {
-    // 获取当前时间
-    let now = new Date().getTime();
+  load({ key, autoSync = true, syncInBackground = true, option }) {
+
     if(autoSync) {// 同步
       return this.getItem(key).then(res => {
-
+        let data = JSON.parse(res).Data
         console.log('同步:', res)
-        if(res) {
-          let data = null
-
-          try {
-            data = JSON.parse(res).data
-            // 如果已经过期 则删除掉里面的数据， 然后异步获取
-            if(data.expires <= now) {
-              console.log('同步:', res)
-              this.remove(key)
-              return this.fetch(key, option)
-              // return this.sync[key](option)
-            }
-            return data
-          } catch(err) {
-
-            this.remove(key)
-            return this.fetch(key, option)
-          }
+        if(data) {
+          return data
         } else { // 没有数据时，异步获取
-          console.log('异步:', this.sync)
           return this.fetch(key, option)
-          // return this.sync[key](option)
         }
       })
     } else {// 异步
       console.log('异步:', this.sync)
       return this.fetch(key, option)
-      // return this.sync[key](option)
     }
   }
   fetch(key, option) {
@@ -129,17 +121,9 @@ export default class Storage {
       if(keys.length > 2) {
         console.warn('最多支持两级！')
       }
-      if(typeof this.sync[keys[0]][keys[1]] === 'function') {
-        return this.sync[keys[0]][keys[1]](option)
-      } else {
-        return Promise.resolve()
-      }
+      return this.sync[keys[0]][keys[1]](option)
     } else {
-      if(typeof this.sync[key] === 'function') {
-        return  this.sync[key](option)
-      } else {
-        return Promise.resolve()
-      }
+      return this.sync[key](option)
     }
   }
   clear(key) {
