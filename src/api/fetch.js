@@ -1,58 +1,40 @@
-function CreateFetch() {
-  this.data = {}
-  // this.init.apply(this, arguments)
-}
-
-CreateFetch.prototype = {
-  fetch(key, option) {
-    let _this = this
-    this.data[key] = function({params, data}) {
-
-      return new Promise((resolve, reject) => {
-        let url = option[key].url(params)
-        let _data = option[key].createData(data)
-
-        // 默认为 get 请求
-        let method = (option[key].method !== 'post')
-          ? _this.get(url)
-          : _this.post(url, _data)
-
-        return method.then(res => {
-          // 返回一个 Promise 对象
-          resolve(res)
-
-          // 将获取的值传回去
-          option[key].save(res)
-        })
-      })
+class CreateFetch {
+  constructor() {
+    this.headers = {
+      'Content-Type': "application/json; charset=UTF-8"
     }
-  },
-  createApi(option) {
-    this.data = {}
-    for(let key in option) {
-      this.fetch(key, option)
-    }
-    return this.data
-  },
-  post(url, data) {
-    let headers = {}
-    console.log('post url: ', url, data)
+  }
 
-    headers['Content-Type'] = "application/x-www-form-urlencoded; charset=UTF-8"
-
+  post(url, {body, headers = this.headers}) {
+    console.log('post: ---\n', url + '\n', body + '\n', headers)
     return fetch(url, {
       method: 'POST',
       headers,
-      body: data
-    }).then(res => res.json()).then(res => {
-      console.log(res)
-      return res
+      body,
     })
-  },
-  get(url, option) {
-    console.log('get: ---', url)
-    return fetch(url).then(res => res.json())
-  },
-}
+      .then(this.toJSON)
+      .catch(this.catch)
+  }
 
-export default CreateFetch
+  get(url) {
+    console.log('get: ---', url)
+    return fetch(url)
+      .then(this.toJSON)
+      .catch(this.catch)
+  }
+
+  toJSON(res) {
+    if(res.ok) {
+      return res.json()
+    } else {
+      console.error('response is error', res)
+      return res
+    }
+  }
+
+  catch(error) {
+    console.log(error)
+    return error
+  }
+}
+export default new CreateFetch()

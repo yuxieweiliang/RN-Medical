@@ -1,18 +1,18 @@
 import system from './asynchronous/system'
 
-import user from './asynchronous/user'
+// import user from './asynchronous/user'
 
-import userInfo from './asynchronous/userInfo'
+// import userInfo from './asynchronous/userInfo'
 
-import hospital from './asynchronous/hospital'
+// import hospital from './asynchronous/hospital'
 
-import department from './asynchronous/department'
+// import department from './asynchronous/department'
 
-import consult from './asynchronous/consult'
+// import consult from './asynchronous/consult'
 
-import position from './asynchronous/position'
+// import position from './asynchronous/position'
 
-import friend from './asynchronous/friend'
+// import friend from './asynchronous/friend'
 
 
 /**
@@ -25,17 +25,17 @@ export default {
   // 获取token
   system,
   // 获取用户信息
-  user,
+  // user,
   // 获取咨询信息
-  consult,
+  // consult,
   // 获取用户体征信息
-  userInfo,
+  // userInfo,
   // 获取医院列表
-  hospital,
+  // hospital,
   // 获取科室列表
-  department,
+  // department,
   // 获取部位列表
-  position,
+  // position,
   // friend
-  friend
+  // friend
 }

@@ -1,10 +1,9 @@
 import storage from '../../storage'
 import url from '../url'
-import CreateFetch from '../fetch'
+import createApi from '../_createApi'
 
 
-let api = new CreateFetch()
-export default api.createApi({
+export default createApi({
   /**
    * 请求角色信息
    * @param params

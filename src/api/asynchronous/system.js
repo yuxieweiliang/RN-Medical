@@ -1,7 +1,7 @@
 import storage from '../../storage'
 import util from '../../util'
 import url from '../url'
-import CreateFetch from '../fetch'
+import createApi from '../_createApi'
 
 let query = {
   client_id: 'APPClient',
@@ -10,12 +10,14 @@ let query = {
   grant_type: 'password',
 }
 
-let api = new CreateFetch()
-export default api.createApi({
+export default createApi({
   token: {
     url: url.getToken,
     method: 'post',
-    createData(data) {
+    headers: {
+      'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
+    },
+    data(data) {
       console.log('createParams', data)
       return util.createParams({
         ...data,
@@ -26,7 +28,7 @@ export default api.createApi({
       console.log('post:', option.access_token)
 
       console.log(option, storage)
-      storage.save('token', option).then(res => console.log(res))
+      storage.save('system.token', option).then(res => console.log(res))
     },
   },
 })
