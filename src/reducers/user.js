@@ -1,4 +1,4 @@
-import { user } from '../type'
+import { USER } from '../type'
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 const iconTemp  = ()=> (
@@ -41,32 +41,10 @@ const initialState = {
 }
 
 const func = {
-  ['CHANGE_USER'](state, action) {
-    state.user[0].value = 'fdsafdsafdsa'
-    console.log(state.user)
-
+  [USER.MESSAGE](state, action) {
     return {
       ...state,
-    }
-  },
-  ['USER_MESSAGE'](state, action) {
-
-   const data =  state.user.map((item, i) => {
-     if(!item.key || !action.data[item.key] || item.key === 'UserName') {
-       state.userMessages[0].data[0].title = action.data.UserName
-       return false
-     }
-
-     return {
-       ...item,
-       value: action.data[item.key] + ''
-     }
-    }).filter(item => item)
-    console.log(data)
-    return {
-      ...state,
-      user: data,
-      user_original: action.data
+      message: action.data
     }
   },
   ['CHANGE_USER_MESSAGE'](state, action) {
@@ -82,6 +60,6 @@ const func = {
 }
 export default (state = initialState, action) => (
   func[action.type]
-    ? func[action.type].apply(null, arguments)
+    ? func[action.type](state, action)
     : state
 )

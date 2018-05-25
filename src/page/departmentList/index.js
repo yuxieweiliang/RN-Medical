@@ -2,34 +2,19 @@ import React, { Component } from 'react'
 import { Text, FlatList, ScrollView, View, Dimensions, TouchableHighlight, TextInput } from 'react-native'
 import styles from './style'
 import { connect } from 'react-redux'
+import departmentAction from '../../action/department'
+
+const TITLE = '科室列表'
 const { width, height } = Dimensions.get('window')
-import ac from './action'
 
 class Appointment extends React.Component {
-  static navigationOptions = ({ navigation : nav, navigationOptions: option }) => {
-    const { headerLeft, headerRight, headerTitle } = option;
-    return {
-      headerTitle: function() {
-       return (
-         <View style={{width: width - 120, height: 50, alignItems: 'center', justifyContent: 'center',}}>
-           <Text style={{fontSize: 20}}>医院列表</Text>
-           {/*<TextInput underlineColorAndroid="transparent"
-                      style={{fontSize: 20, width: width - 120, height: 40, alignItems: 'center', justifyContent: 'center',backgroundColor: '#ccc', borderRadius: 8}}
-                      placeholder="医院列表"/>*/}
-         </View>
-       )
-      },
-      /*headerRight: <View style={{width: 60, height: 50, alignItems: 'center', justifyContent: 'center',}}>
-        <Text>搜索</Text>
-      </View>*/
-    }
-  };
 
   componentWillMount() {
     const { dispatch } = this.props
-    dispatch(ac.getDepartmentList())
+    dispatch(departmentAction.getDepartmentList({hospitalId: 1001}))
   }
   componentDidMount() {}
+  componentWillUnmount() {}
 
   _onPressButton() {
     this.props.navigation.navigate('Product', {
@@ -40,10 +25,6 @@ class Appointment extends React.Component {
     this.props.navigation.navigate('ExpertList', {
       otherParam: 'anything you want here',
     })
-  }
-  componentWillUnmount() {
-    // this._onPressButton.remove();
-
   }
   render() {
     const { departmentList }= this.props
@@ -68,7 +49,9 @@ class Appointment extends React.Component {
                   <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
                     <View style={styles.list}>
                       <View style={{flex: 1}}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>{item.Dept_Name}</Text>
+                        <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>
+                          {item.Dept_Name}
+                          </Text>
                       </View>
                       <View style={{flex: 3, flexDirection: 'row', }}>
                         <View>
@@ -83,16 +66,31 @@ class Appointment extends React.Component {
           )
         }
       </ScrollView>
-
-
-
     );
   }
 }
 
 
+Appointment.navigationOptions = ({ navigation : nav, navigationOptions: option }) => {
+  const { headerLeft, headerRight, headerTitle } = option;
+  return {
+    headerTitle: function() {
+      return (
+        <View style={{width: width - 120, height: 50, alignItems: 'center', justifyContent: 'center',}}>
+          <Text style={{fontSize: 20}}>{TITLE}</Text>
+          {/*<TextInput underlineColorAndroid="transparent"
+           style={{fontSize: 20, width: width - 120, height: 40, alignItems: 'center', justifyContent: 'center',backgroundColor: '#ccc', borderRadius: 8}}
+           placeholder="医院列表"/>*/}
+        </View>
+      )
+    },
+    /*headerRight: <View style={{width: 60, height: 50, alignItems: 'center', justifyContent: 'center',}}>
+     <Text>搜索</Text>
+     </View>*/
+  }
+};
 const createState = function(state) {
-  return ({...state.department})
+  return ({...state.hospital.department})
 }
 
 export default connect(createState)(Appointment)

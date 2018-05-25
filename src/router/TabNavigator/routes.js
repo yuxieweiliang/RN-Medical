@@ -61,7 +61,7 @@ export default {
     },
   },
   Appointment: {
-    screen: routes.Appointment,
+    screen: routes.Registration,
     navigationOptions: {
       // ...config,
       title: '预约',

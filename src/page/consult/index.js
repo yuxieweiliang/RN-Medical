@@ -7,6 +7,7 @@ import storage from '../../storage'
 import styles from './style'
 
 
+const title = '咨询'
 const { width, height } = Dimensions.get('window');
 
 const tabCardData = {
@@ -40,20 +41,7 @@ const tabCardData = {
     console.log(index, item)
   }
 }
-
-
 class ConsultPage extends React.Component {
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
-    return {
-      headerLeft: navigationOptions.headerLeft(navigation, navigationOptions),
-      headerRight: navigationOptions.headerRight(navigation, navigationOptions),
-      headerTitle: navigationOptions.headerTitle(navigation, navigationOptions, '咨询'),
-      // title: <View><Icon name="home"/><Text>咨询</Text></View>,
-      // tabBarVisible: false,
-    }
-  };
-
   async beforeMount() {
     const { dispatch, navigation } = this.props
     let token = await storage.load('token')
@@ -158,6 +146,18 @@ class ConsultPage extends React.Component {
   }
 }
 
+
+ConsultPage.navigationOptions = ({ navigation, navigationOptions }) => {
+  const { params } = navigation.state;
+  const { headerLeft, headerRight, headerTitle } = navigationOptions
+  return {
+    headerLeft: headerLeft && headerLeft(navigation, navigationOptions),
+    headerRight: headerRight && headerRight(navigation, navigationOptions),
+    headerTitle: headerTitle && headerTitle(navigation, navigationOptions, title),
+    // title: <View><Icon name="home"/><Text>咨询</Text></View>,
+    // tabBarVisible: false,
+  }
+};
 const createState = function(state) {
   return ({...state.consult})
 }

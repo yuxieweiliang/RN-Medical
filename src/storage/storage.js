@@ -30,7 +30,7 @@ export default class Storage {
 
   getItem(key) {
     return this._storage.getItem(key).then(res => {
-      console.log('getItem -> ',key,  res)
+      console.log('getItem -> ')
       return res
     })
   }
@@ -91,7 +91,7 @@ export default class Storage {
     if(autoSync) {// 同步
       return this.getItem(key).then(res => {
 
-        console.log('同步:', res)
+        console.log('同步:')
         if(res) {
           let data = null
 
@@ -99,7 +99,6 @@ export default class Storage {
             data = JSON.parse(res).data
             // 如果已经过期 则删除掉里面的数据， 然后异步获取
             if(data.expires <= now) {
-              console.log('同步:', res)
               this.remove(key)
               return this.fetch(key, option)
               // return this.sync[key](option)
@@ -111,13 +110,13 @@ export default class Storage {
             return this.fetch(key, option)
           }
         } else { // 没有数据时，异步获取
-          console.log('异步:', this.sync)
+          console.log('异步:')
           return this.fetch(key, option)
           // return this.sync[key](option)
         }
       })
     } else {// 异步
-      console.log('异步:', this.sync)
+      console.log('异步:')
       return this.fetch(key, option)
       // return this.sync[key](option)
     }
@@ -127,7 +126,7 @@ export default class Storage {
     if(key.indexOf('.') > -1) {
       let keys = key.split('.')
       if(keys.length > 2) {
-        console.warn('最多支持两级！')
+        console.warn('storage key 最多支持两级！')
       }
       if(typeof this.sync[keys[0]][keys[1]] === 'function') {
         return this.sync[keys[0]][keys[1]](option)

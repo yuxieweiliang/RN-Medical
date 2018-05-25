@@ -5,16 +5,20 @@ const { width, height } = Dimensions.get('window');
 
 /**
  * 就医状况 historyMedical
- * @param option
+ * @param medicalStatus
+ * @param style
  */
-export default function medicalStatus(option) {
+export default function medicalStatus({ medicalStatus, style}) {
   return (
-    <Text style={styles.tabCardText}
-          onPress={() => this.props.navigation.navigate('HistoryMedical')}>
+  <View style={style}>
+    <TouchableOpacity
+      style={{flexDirection: 'row'}}
+      onPress={() => this.props.navigation.navigate('HistoryMedical')}>
       <Text style={styles.tabCardText}>
-        { option.context.text }
+          { medicalStatus }
       </Text>
-    </Text>
+    </TouchableOpacity>
+  </View>
   )
 }
 

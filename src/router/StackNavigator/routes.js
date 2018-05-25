@@ -29,6 +29,8 @@ export default {
 
   Recommend: { screen: routes.Recommend, },
 
+  Registration: { screen: routes.Registration, },
+
   DepartmentList: { screen: routes.DepartmentList, },
 
   User: { screen: routes.User, },
@@ -84,8 +86,6 @@ export default {
   HealthDaily: { screen: routes.HealthDaily, },
 
   HealthDailyDetails: { screen: routes.HealthDailyDetails, },
-
-  Appointment: { screen: routes.Appointment, },
 
   Hospital: { screen: routes.Hospital, },
 

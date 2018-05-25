@@ -17,8 +17,8 @@ async function getItem() {
   try{
     console.log('1-------------', AsyncStorage)
     // AsyncStorage.setItem('system.token', 'fdsafdsafdsafdsa')
-    let token =  await AsyncStorage.getAllKeys();
-    console.log('2-------------', token)
+    let allKey =  await AsyncStorage.getAllKeys();
+    console.log('2-------------', allKey)
   }catch (err) {
     console.log(err)
   }

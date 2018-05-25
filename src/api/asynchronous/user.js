@@ -1,19 +1,17 @@
 import storage from '../../storage'
 import url from '../url'
-import createApi from '../_createApi'
 
 
-export default createApi({
+export default {
   /**
    * 请求角色信息
    * @param params
    * @returns {*|Promise.<TResult>}
    */
-  getUser: {
+  message: {
     url: url.getUser,
     save(option) {
-      console.log('post:', option.access_token)
-      storage.save('user.info', option).then(res => console.log(res))
+      storage.save('user.info', option)
     },
   },
   /**
@@ -21,7 +19,7 @@ export default createApi({
    * @param params
    * @returns {*|Promise.<TResult>}
    */
-  changeUser: {
+  changeMessage: {
     url: url.postUser,
     method: 'post',
     createData(option) {
@@ -39,7 +37,7 @@ export default createApi({
    * @param params
    * @returns {*|Promise.<TResult>}
    */
-  deleteUser: {
+  deleteMessage: {
     url: url.deleteUser,
     method: 'post',
     createData(option) {
@@ -52,4 +50,4 @@ export default createApi({
       storage.save('user.info', option).then(res => console.log(res))
     },
   },
-})
+}

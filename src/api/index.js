@@ -1,18 +1,26 @@
+import createApi from './_createApi'
+// 系统
 import system from './asynchronous/system'
 
-// import user from './asynchronous/user'
+// 用户
+import user from './asynchronous/user'
+// 预约挂号
+import registration from './asynchronous/registration'
+// 咨询
+import consult from './asynchronous/consult'
+// 体征
+import userInfo from './asynchronous/userInfo'
+// 部位列表
+import position from './asynchronous/position'
+// 好友
+import friend from './asynchronous/friend'
 
-// import userInfo from './asynchronous/userInfo'
-
-// import hospital from './asynchronous/hospital'
-
-// import department from './asynchronous/department'
-
-// import consult from './asynchronous/consult'
-
-// import position from './asynchronous/position'
-
-// import friend from './asynchronous/friend'
+// 医院
+import hospital from './asynchronous/hospital'
+// 科室
+import department from './asynchronous/department'
+// 科室
+import expert from './asynchronous/expert'
 
 
 /**
@@ -23,19 +31,30 @@ import system from './asynchronous/system'
  */
 export default {
   // 获取token
-  system,
-  // 获取用户信息
-  // user,
-  // 获取咨询信息
-  // consult,
-  // 获取用户体征信息
-  // userInfo,
-  // 获取医院列表
-  // hospital,
-  // 获取科室列表
-  // department,
-  // 获取部位列表
-  // position,
-  // friend
-  // friend
+  system: createApi({
+    ...system,
+  }),
+  // 用户信息
+  user: createApi({
+    // 用户
+    ...user,
+    // 好友
+    ...friend,
+    // 体征
+    ...userInfo,
+    // 预约挂号
+    ...registration,
+    // 咨询
+    ...consult,
+    // 部位列表
+    ...position,
+  }),
+  hospital: createApi({
+    // 医院
+    ...hospital,
+    // 科室
+    ...department,
+    // 专家
+    ...expert,
+  }),
 }

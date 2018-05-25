@@ -1,21 +1,29 @@
 'use strict';
-import { EXPERT } from '../type'
+import { HOSPITAL } from '../type'
 // 初始状态
 
 const initialState = {
+  // 专家列表
+  expert: null,
   // 专家列表
   expertList: null
 
 }
 
 let func = {
-  [EXPERT.LIST](state, action) {
-    console.log(system)
+  // 专家列表
+  [HOSPITAL.EXPERT](state, action) {
+    console.log(action)
     return {
       ...state,
-      status: '正在登陆',
-      isSuccess: false,
-      user: null,
+      expert: action.data
+    }
+  },
+  // 专家列表
+  [HOSPITAL.EXPERT_LIST](state, action) {
+    return {
+      ...state,
+      expertList: action.data
     }
   },
 }
@@ -23,6 +31,6 @@ let func = {
 // 不同类别的事件使用switch对应处理过程
 export default (state = initialState, action) => (
   func[action.type]
-    ? func[action.type].apply(null, arguments)
+    ? func[action.type](state, action)
     : state
 )

@@ -13,21 +13,33 @@ function save(res, resolve, key) {
 
 export default {
   /**
-   * 请求角色信息
+   * 科室
    * @param params
    * @returns {*|Promise.<TResult>}
    */
-
-  getDepartmentList(params) {
-    let {resolve, reject, syncParams } = params
-    let url = url.getDepartmentList({hospitalId: 1001})
-    return storage.get(url)
-      .then(res => save(res, resolve, 'department'))
-  },
   getDepartment(params) {
     let {resolve, reject, syncParams } = params
     let url = url.getDepartmentInfo({hospitalId: 1001, deptCode: 2})
     return storage.get(url)
       .then(res => save(res, resolve, 'department'))
   },
+
+  /**
+   * 科室列表
+   * @param params
+   * @returns {*|Promise.<TResult>}
+   */
+  departmentList: {
+    url: url.getDepartmentList,
+    save(option) {
+      console.log('getDepartmentList:', option.access_token)
+      // storage.save('system.token', option).then(res => console.log(res))
+    },
+  },
+  /*getDepartmentList(params) {
+    let {resolve, reject, syncParams } = params
+    let url = url.getDepartmentList()
+    return storage.get(url)
+      .then(res => save(res, resolve, 'department'))
+  },*/
 }

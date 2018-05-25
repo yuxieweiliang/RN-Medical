@@ -1,5 +1,5 @@
 'use strict';
-import { DEPARTMENT } from '../type'
+import { HOSPITAL } from '../type'
 
 // 初始状态
 const initialState = {
@@ -8,8 +8,9 @@ const initialState = {
 }
 
 let func = {
-  [DEPARTMENT.LIST_SUCCESS](state, action) {
+  [HOSPITAL.DEPARTMENT_LIST](state, action) {
     console.log(state, action)
+
     return {
       ...state,
       departmentList: action.data
@@ -22,7 +23,7 @@ let func = {
 
 export default (state = initialState, action) => (
   func[action.type]
-    ? func[action.type].apply(null, arguments)
+    ? func[action.type](state, action)
     : state
 )
 

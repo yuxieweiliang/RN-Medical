@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Text, SectionList, StatusBar, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/dist/EvilIcons';
-import ac from './action'
+import behavior from './behavior'
+import userAction from '../../action/user'
+import systemAction from '../../action/system'
 import { system } from '../../type'
 import storage from '../../storage'
 import styles from './style'
@@ -32,10 +34,13 @@ class UserPage extends React.Component {
   }
 
   async beforeMount() {
-    const { dispatch, navigation } = this.props
-    let token = await storage.load('token')
+    let { dispatch, navigation, token } = this.props
+    if(!token) {
+      token = await systemAction.loadToken()
+    }
+
     if(token) {
-      dispatch(ac.loadUser())
+      dispatch(userAction.loadUser('322717145007458'))
     } else {
       navigation.navigate('Login')
     }
@@ -44,15 +49,14 @@ class UserPage extends React.Component {
     this.beforeMount()
   }
   render() {
-    const { userMessages } = this.props
+    const { message } = this.props
+    const messageStructure = behavior.createStructure(message)
 
-    console.log(this.props.navigation)
-    console.log(this.props.navigation.getParam('text'))
     return (
       <View style={styles.container}>
         <SectionList
           style={{width, height: height - 200}}
-          sections={userMessages}
+          sections={messageStructure}
           renderItem={(o) => this._renderItem(o)}
           renderSectionHeader={(o) => this._sectionComp(o)}
           keyExtractor = {(o) => this._extraUniqueKey(o)}
@@ -93,6 +97,8 @@ class UserPage extends React.Component {
   }
   _renderItem({ index, item, section }) {
     let { navigation } = this.props
+
+
     return (
       <TouchableNativeFeedback
         title="Go to Details"
@@ -123,4 +129,7 @@ class UserPage extends React.Component {
     return option.title
   }
 }
-export default connect((state) => ({...state.user}))(UserPage)
+export default connect((state) => ({
+  ...state.user.message,
+  ...state.system
+}))(UserPage)

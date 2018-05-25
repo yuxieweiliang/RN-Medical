@@ -17,7 +17,7 @@ const config =  {
 export default StackNavigator(
   routes,
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'ExpertHome',
     navigationOptions: {
       ...config,
       headerStyle:{

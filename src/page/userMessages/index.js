@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, TextInput, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
-import ac from './action'
+import behavior from './behavior'
+import userAction from '../../action/user'
+import systemAction from '../../action/system'
 import styles from './style'
 import storage from '../../storage'
 const { width, height } = Dimensions.get('window');
@@ -44,23 +46,22 @@ class UserMessagePage extends React.Component {
   }
 
   async beforeMount() {
-    const { dispatch, navigation } = this.props
-    let token = await storage.load('token')
-    console.log('token', token)
+    let { dispatch, navigation, token } = this.props
+    if(!token) {
+      token = await dispatch(systemAction.loadToken())
+    }
+
+    console.log('token', token, this.props)
+
     if(token) {
-      dispatch(ac.loadUser())
+      dispatch(userAction.loadUser('322717145007458'))
     } else {
       navigation.navigate('Login')
     }
-
   }
   componentWillMount() {
     const { dispatch } = this.props
     this.beforeMount()
-
-    dispatch({
-      type: 'CHANGE_USER'
-    })
   }
   componentWillUnmount() {
     // this._onPressButton.remove();
@@ -74,10 +75,15 @@ class UserMessagePage extends React.Component {
     })
     // this._onPressButton.remove();
   }
+  saveUserMessage() {
+    const { dispatch, user } = this.props
+    dispatch(behavior.saveUserMessage(user))
+  }
   render() {
-    const { user, user_original } = this.props
-    const tabItemStyle= {width, height: 200}
-    console.log(this.props)
+    const { user, message = {} } = this.props
+    const userStructure = behavior.createStructure(message)
+
+    console.log(userStructure)
     return (
       <View style={styles.container}>
 
@@ -89,12 +95,12 @@ class UserMessagePage extends React.Component {
             <Image
               style={{width: 60, height: 60, borderRadius: 30}}
               source={require('../../../assets/images/a1.jpg')}/>
-            <Text style={styles.label}>{user_original.UserName}</Text>
+            <Text style={styles.label}>{message.UserName}</Text>
           </View>
         </View>
         {
-          user && (
-            user.map((items, key) => {
+          userStructure && (
+            userStructure.map((items, key) => {
             return (
               <InputList
                 key={items.key+ key}
@@ -114,10 +120,6 @@ class UserMessagePage extends React.Component {
       </View>
     );
   }
-  saveUserMessage() {
-    const { dispatch, user } = this.props
-    dispatch(ac.saveUserMessage(user))
-  }
 }
 
 UserMessagePage.navigationOptions = ({ navigation, navigationOptions }) => {
@@ -133,6 +135,9 @@ UserMessagePage.navigationOptions = ({ navigation, navigationOptions }) => {
 }
 
 const createState = state => {
-  return state.user
+  return {
+    ...state.user.message,
+    ...state.system
+  }
 }
 export default connect(createState)(UserMessagePage)

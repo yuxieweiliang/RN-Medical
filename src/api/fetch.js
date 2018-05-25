@@ -1,24 +1,31 @@
+
 class CreateFetch {
   constructor() {
     this.headers = {
       'Content-Type': "application/json; charset=UTF-8"
     }
   }
+  async post(url, {body, headers}) {
 
-  post(url, {body, headers = this.headers}) {
     console.log('post: ---\n', url + '\n', body + '\n', headers)
     return fetch(url, {
       method: 'POST',
-      headers,
+      headers: Object.assign(this.headers, headers ),
       body,
     })
       .then(this.toJSON)
       .catch(this.catch)
   }
 
-  get(url) {
-    console.log('get: ---', url)
-    return fetch(url)
+  async get(url, headers) {
+
+    console.log('get: ---', url, Object.assign(this.headers, headers ))
+
+    return fetch(url, {
+      method: 'GET',
+      headers: Object.assign(this.headers, headers ),
+
+    })
       .then(this.toJSON)
       .catch(this.catch)
   }

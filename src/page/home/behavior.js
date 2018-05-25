@@ -14,7 +14,7 @@ function homeLoad() {
     try{
       let user,  hospital, department
       // storage.remove('user')
-      user =  await storage.load('user')
+      user =  await storage.load('user.message', {path: {id: '322717145007458'}})
       console.log(user)
 
       if(user) {

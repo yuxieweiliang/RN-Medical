@@ -1,5 +1,5 @@
 'use strict';
-import { APPOINTMENT } from '../type'
+import { USER } from '../type'
 
 const data = new Date()
 const today = data.toISOString().split('T')[0]
@@ -23,10 +23,6 @@ const initialState = {
       {
         active: true,
         title: '预约挂号',
-        context: {
-          text: 'fdsafda生活生活生活生活sfdsafdsafdsafdsafdsa',
-          button: '历时指标'
-        }
       },{
         title: '视频问诊',
         context: {
@@ -45,17 +41,27 @@ const initialState = {
       console.log(index, item)
     }
   },
+  registrationList: null
 }
 
 let func = {
   /**
-   * 修改预约时间
+   * 预约
    * @param state
    * @param action
    */
-  [APPOINTMENT.TIME_CHANGE]: (state, action) =>  ({
+  [USER.REGISTRATION]: (state, action) =>  ({
     ...state,
     appointTime: action.data.dateString
+  }),
+  /**
+   * 预约列表
+   * @param state
+   * @param action
+   */
+  [USER.REGISTRATION_LIST]: (state, action) =>  ({
+    ...state,
+    registrationList: action.data
   }),
 }
 
@@ -63,7 +69,7 @@ let func = {
 
 export default (state = initialState, action) => (
   func[action.type]
-    ? func[action.type].apply(null, arguments)
+    ? func[action.type](state, action)
     : state
 )
 

@@ -21,7 +21,7 @@ function getHospitalList() {
 
 
 
-    storage.load('department').then((res)=>{
+    /*storage.load('department').then((res)=>{
 
       console.log(res)
       dispatch({
@@ -34,8 +34,8 @@ function getHospitalList() {
 
 
 
-    })
-    storage.load('hospital').then((res)=>{
+    })*/
+    /*storage.load('hospital').then((res)=>{
 
       console.log(res)
       dispatch({
@@ -48,7 +48,7 @@ function getHospitalList() {
 
 
 
-      })
+      })*/
 
   }
 

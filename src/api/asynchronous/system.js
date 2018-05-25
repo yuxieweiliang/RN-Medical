@@ -1,7 +1,6 @@
 import storage from '../../storage'
 import util from '../../util'
 import url from '../url'
-import createApi from '../_createApi'
 
 let query = {
   client_id: 'APPClient',
@@ -10,7 +9,7 @@ let query = {
   grant_type: 'password',
 }
 
-export default createApi({
+export default {
   token: {
     url: url.getToken,
     method: 'post',
@@ -31,4 +30,4 @@ export default createApi({
       storage.save('system.token', option).then(res => console.log(res))
     },
   },
-})
+}

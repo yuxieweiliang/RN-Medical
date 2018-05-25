@@ -8,21 +8,22 @@ import TabCardView from '../../../components/TabCardView'
 import Card from '../../../components/Card'
 // 精灵
 import Spirit from '../../../components/Spirit'
-// 操作动作
-import ac from './action'
-// 数据
-import storage from '../../storage'
 // 样式
 import styles from './style'
 
 // 健康指标
-import healthIndicators from './healthIndicators'
+import HealthIndicators from './healthIndicators'
 // 生活指南
-import guideToLife from './guideToLife'
+import GuideToLife from './guideToLife'
 // 健康状况
-import healthStatus from './healthStatus'
+import HealthStatus from './healthStatus'
 // 就医状况
-import medicalStatus from './medicalStatus'
+import MedicalStatus from './medicalStatus'
+
+// 操作动作
+import userAction from '../../action/user'
+import systemAction from '../../action/system'
+
 const { width, height } = Dimensions.get('window');
 
 
@@ -32,26 +33,27 @@ class HomePage extends Component<Props> {
    * 检查是否登录
    * */
   async beforeMount() {
-    const { dispatch, navigation } = this.props
-
-    let token = await storage.load('token')
+    let { dispatch, navigation, token } = this.props
+    if(!token) {
+      token = await systemAction.loadToken()
+    }
     if(token) {
-      dispatch(ac.homeLoad())
+      dispatch(userAction.loadUser('322717145007458'))
     } else {
       navigation.navigate('Login')
     }
   }
-
   componentWillMount() {
     this.beforeMount()
-
   }
 
   componentDidMount() {}
   componentWillUnmount() {}
   render() {
-    const { healthGuide, navigation, list }= this.props
+    const { healthGuide, tabCardData,  navigation, list }= this.props
+    const { healthIndicators, guideToLife,  healthStatus, medicalStatus }= tabCardData
 
+    console.log(this.props, 'this.props')
     return (
       <View style={styles.container}>
         {/*    精灵    */}
@@ -60,28 +62,16 @@ class HomePage extends Component<Props> {
 
           {/*  健康指南  */}
           <View style={{ flex: 1 ,borderColor: 'transparent' }}>
-
-            <TabCardView {...healthGuide}>
-              {
-                healthGuide.dataSource && healthGuide.dataSource.map((items, i) => {
-                  let func = {
-                    healthIndicators,
-                    guideToLife,
-                    healthStatus,
-                    medicalStatus,
-                  }
-                  // onPress={() => navigation.navigate(toUppercase(items.type))}
-                  return (
-                    <View
-                      key={i}
-                      style={styles.tabItemStyle}
-                      >
-                      {func[items.type].call(this, items)}
-                    </View>
-                  )
-                })
-              }
-            </TabCardView>
+            {
+              healthGuide && (
+                <TabCardView {...healthGuide}>
+                  <HealthIndicators healthIndicators={healthIndicators} style={styles.tabItemStyle}/>
+                  <GuideToLife guideToLife={guideToLife} style={styles.tabItemStyle}/>
+                  <HealthStatus healthStatus={healthStatus} style={styles.tabItemStyle}/>
+                  <MedicalStatus medicalStatus={medicalStatus} style={styles.tabItemStyle}/>
+                </TabCardView>
+              )
+            }
           </View>
 
           {/*  晒健康  */}
@@ -173,7 +163,8 @@ HomePage.navigationOptions = ({ navigation, navigationOptions }) => {
   }
 };
 const createState = function(state) {
-  return ({...state.home})
+
+  return ({...state.home, ...state.system})
 }
 
 export default connect(createState)(HomePage)

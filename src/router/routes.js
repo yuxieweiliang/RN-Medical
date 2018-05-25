@@ -73,7 +73,7 @@ import Hospital from '../page/hospital'
 // 医院列表
 import HospitalList from '../page/hospitalList'
 // 产品
-import Appointment from '../page/appointment'
+import Registration from '../page/registration'
 // 专家列表
 import ExpertList from '../page/expertList'
 // 科室
@@ -159,7 +159,7 @@ export default {
   // 医院列表
   HospitalList,
   // 预约
-  Appointment,
+  Registration,
   // 专家列表
   ExpertList,
   // 科室

@@ -20,50 +20,30 @@ const initialState = {
       height: 240
     },
     dataSource: [
-      {
-        type: 'healthIndicators',
-        active: true,
-        title: '健康指标',
-        context: {
-          text: [
-            {name: '(1) [article;essay]∶', size: 125, default: '(独立成篇)'},
-            {name: '(2) [literary works]∶', size: 1235, default: '(著作为文章)'},
-            {name: '(3) [hidden meaning]∶', size: 235, default: '(文字)'},
-            {name: '(1) [article;essay]∶', size: 43, default: '(柳宗元)'},
-          ],
-          // button: '历时指标'
-        }
-      },{
-        type: 'guideToLife',
-        title: '生活指南',
-        context: {
-          text: '运动运动运动运动运动运动运动运动运动运动运动',
-          // button: '生活数据'
-        }
-      },{
-        type: 'healthStatus',
-        title: '健康状况',
-        context: {
-          text: [
-            {time: '1日', temperature: 38.2, breathing: 38, bloodOxygen: 97, bloodPressure: '122/85'},
-            {time: '2日', temperature: 37, breathing: 30, bloodOxygen: 102, bloodPressure: '122/102'},
-            {time: '3日', temperature: 38, breathing: 28, bloodOxygen: 82, bloodPressure: '122/82'},
-            {time: '4日', temperature: 37, breathing: 34, bloodOxygen: 96, bloodPressure: '122/96'},
-          ],
-          // button: ['体征趋势', '体征填写'] //
-        }
-      },{
-        type: 'medicalStatus',
-        title: '就医情况',
-        context: {
-          text: '就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医',
-          // button: '就医状况'
-        }
-      },
-    ],
+      {active: true, title: '健康指标',},
+      {title: '生活指南',},
+      {title: '健康状况',},
+      {title: '就医情况',},
+  ],
     tabChange(index, item) {
       console.log(index, item)
     }
+  },
+  tabCardData: {
+    healthIndicators: [
+      {name: '(1) [article;essay]∶', size: 125, default: '(独立成篇)'},
+      {name: '(2) [literary works]∶', size: 1235, default: '(著作为文章)'},
+      {name: '(3) [hidden meaning]∶', size: 235, default: '(文字)'},
+      {name: '(1) [article;essay]∶', size: 43, default: '(柳宗元)'},
+    ],
+    guideToLife: '运动运动运动运动运动运动运动运动运动运动运动',
+    healthStatus: [
+      {time: '1日', temperature: 38.2, breathing: 38, bloodOxygen: 97, bloodPressure: '122/85'},
+      {time: '2日', temperature: 37, breathing: 30, bloodOxygen: 102, bloodPressure: '122/102'},
+      {time: '3日', temperature: 38, breathing: 28, bloodOxygen: 82, bloodPressure: '122/82'},
+      {time: '4日', temperature: 37, breathing: 34, bloodOxygen: 96, bloodPressure: '122/96'},
+    ],
+    medicalStatus: '就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医就医',
   },
   list: [
     {

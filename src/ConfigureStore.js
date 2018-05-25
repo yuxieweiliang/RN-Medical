@@ -6,37 +6,54 @@ import { combineReducers } from 'redux';
 // 导入登录
 import loginData from './reducers/login'
 // 个人中心
-import userData from './reducers/user'
+import userMessage from './reducers/user'
 // 设置
 import userSettingData from './reducers/userSetting'
+// 设置
+import system from './reducers/system'
 
 
 // 导入首页
 import homeTabCardData from './reducers/home'
 // 导入预约挂号
-import appointmentTabCardData from './reducers/appointment'
+import registration from './reducers/registration'
 // 导入电话访谈
 import telephoneInterData from './reducers/telephoneInter'
 // 咨询
 import consultData from './reducers/consult'
 // 科室数据
-import departmentData from './reducers/department'
+import department from './reducers/department'
 // 医院数据
-import hospitalData from './reducers/hospital'
+import hospitalMessage from './reducers/hospital'
 // 健康指标
 import healthIndicatorsData from './reducers/healthIndicators'
+// 健康指标
+import expert from './reducers/expert'
+
+
+const user = combineReducers({
+  message: userMessage,
+  registration,
+})
+
+
+const hospital = combineReducers({
+  message: hospitalMessage,
+  department,
+  expert,
+})
+
 
 // 所有页面的数据分发
 const rootReducer = combineReducers({ // 将所有的redux处理逻辑包装在一起
   login: loginData,
+  user,
+  hospital,
   home: homeTabCardData,
-  appointment: appointmentTabCardData,
+  system,
   interview: telephoneInterData,
-  user: userData,
   userSetting: userSettingData,
   consult: consultData,
-  department: departmentData,
-  hospital: hospitalData,
   healthIndicators: healthIndicatorsData,
 
 });

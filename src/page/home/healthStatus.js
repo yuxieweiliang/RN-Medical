@@ -6,10 +6,12 @@ const { width, height } = Dimensions.get('window');
 
 /**
  * 健康状况
- * @param option
+ * @param healthStatus
+ * @param style
  */
-export default function healthStatus(option) {
+export default function healthStatus({ healthStatus, style }) {
   return (
+  <View style={style}>
     <TouchableOpacity
       onPress={() => this.props.navigation.navigate('SignTrend')}>
       <View style={{flexDirection: 'row'}}>
@@ -20,7 +22,7 @@ export default function healthStatus(option) {
         <View style={{flex: 2, alignItems: 'center'}}><Text>血压</Text></View>
       </View>
       {
-        option.context.text.map((items, i) => {
+        healthStatus.map((items, i) => {
           return (
             <View
               key={i}
@@ -45,5 +47,6 @@ export default function healthStatus(option) {
         })
       }
     </TouchableOpacity>
+  </View>
   )
 }

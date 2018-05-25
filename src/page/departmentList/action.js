@@ -15,10 +15,10 @@ function getDepartmentList() {
   console.log('登录方法');
 
   return dispatch => {
-    storage.remove('departmentList')
+    storage.remove('hospital.departmentList')
 
 
-    storage.load('departmentList').then((res)=>{
+    /*storage.load('hospital.departmentList').then((res)=>{
 
       console.log(res)
       dispatch({
@@ -31,7 +31,7 @@ function getDepartmentList() {
 
 
 
-      })
+      })*/
 
   }
 

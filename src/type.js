@@ -1,6 +1,7 @@
 //////////////////////////////////////////////////////////////// 平台
 const system = 'system/'
 export const SYSTEM = {
+  TOKEN: `${system}token`,
   // 登陆
   LOGIN_BEFORE: `${system}login`,
   LOGIN_SUCCESS: `${system}login/成功`,
@@ -15,23 +16,24 @@ export const SYSTEM = {
 const user = 'user/'
 export const USER = {
   // 用户信息
-  MESSAGE_SUCCESS:  `${user}message/成功`,
+  MESSAGE:  `${user}message/成功`,
+  // 预约挂号列表
+  REGISTRATION:  `${user}registration/成功`,
+  REGISTRATION_LIST:  `${user}预约挂号/列表`,
 }
 
 //////////////////////////////////////////////////////////////// 医院
-const hospital = 'hospital/'
+const hospital = '医院/'
 export const HOSPITAL = {
+  MESSAGE: `${hospital}信息`,
   // 医院列表
-  LIST_SUCCESS: `${hospital}list/成功`,
-}
+  LIST_SUCCESS: `${hospital}列表`,
+  // 科室 ExpertList
+  DEPARTMENT: `${hospital}科室`,
+  DEPARTMENT_LIST: `${hospital}科室/列表`,
 
-//////////////////////////////////////////////////////////////// 科室
-const department = 'department/'
-export const DEPARTMENT = {
-  // 科室列表
-  LIST_SUCCESS: `${department}list/成功`,
-  // 科室信息
-  INFO_SUCCESS: `${department}info/成功`,
+  EXPERT: `${hospital}专家`,
+  EXPERT_LIST: `${hospital}专家/列表`,
 }
 
 //////////////////////////////////////////////////////////////// 预约

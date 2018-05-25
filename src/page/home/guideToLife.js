@@ -6,13 +6,20 @@ const { width, height } = Dimensions.get('window');
 
 /**
  * 生活指南
- * @param option
+ * @param guideToLife
+ * @param style
  */
-export default function guideToLife(option) {
+export default function guideToLife({ guideToLife, style }) {
   return (
-    <Text style={styles.tabCardText}>
-      { option.context.text }
-    </Text>
+  <View style={style}>
+    <TouchableOpacity
+      style={{flexDirection: 'row'}}
+      onPress={() => this.props.navigation.navigate('HealthIndicators')}>
+      <Text style={styles.tabCardText}>
+        { guideToLife }
+      </Text>
+    </TouchableOpacity>
+  </View>
   )
 }
 
