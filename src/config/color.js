@@ -1,6 +1,7 @@
 // app
 export const APP = {
   THEME: '#5a77e9', // 主题色
+  THEME_DEEP: '#4573E9', // 主题色
   BACKGROUND: '#eee', // 背景
 }
 

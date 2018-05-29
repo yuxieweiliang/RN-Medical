@@ -10,19 +10,25 @@ export default {
    * @param params
    * @returns {*|Promise.<TResult>}
    */
-  getHospital(params) {
-    let {resolve, reject, syncParams } = params
-    let url = url.getHospitalList()
-    console.log('getHospitalList', url);
-    return storage.get(url)
-      .then(res => {
-        let data = res && res.Data
-        console.log(res)
-        if(data){
-          storage.save('user', data)
-          // 成功则调用resolve
-          resolve && resolve(data)
-        }
-      })
-  }
+  hospital: {
+    url: url.getHospitalInfo,
+    save(option) {
+      console.log('post:', option.access_token)
+
+      console.log(option, storage)
+    },
+  },
+  /**
+   * 请求医院列表
+   * @param params
+   * @returns {*|Promise.<TResult>}
+   */
+  hospitalList: {
+    url: url.getHospitalList,
+    save(option) {
+      console.log('post:', option.access_token)
+
+      console.log(option, storage)
+    },
+  },
 }

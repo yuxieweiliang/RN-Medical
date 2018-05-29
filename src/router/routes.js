@@ -22,6 +22,8 @@ import HealthDaily from '../page/healthDaily'
 import HealthDailyDetails from '../page/healthDailyDetails'
 // 编辑文本页面
 import EditTextView from '../page/editTextView'
+// 病种列表
+import IllnessTypeList from '../page/illnessTypeList'
 
 //////////////////////////////////   用户   ////////////////////////////////////////
 
@@ -51,8 +53,6 @@ import FillingFeature from '../page/fillingFeature'
 import MedicalStatus from '../page/medicalStatus'
 // 晒健康
 import HealthExposure from '../page/healthExposure'
-// 挂号信息
-import RegisteredInformation from '../page/registeredInformation'
 // 身体部位
 import BodyParts from '../page/bodyParts'
 // 症状
@@ -72,8 +72,10 @@ import Product from '../page/products'
 import Hospital from '../page/hospital'
 // 医院列表
 import HospitalList from '../page/hospitalList'
-// 产品
+// 预约挂号
 import Registration from '../page/registration'
+// 预约挂号信息
+import RegistrationInformation from '../page/registrationInformation'
 // 专家列表
 import ExpertList from '../page/expertList'
 // 科室
@@ -112,6 +114,8 @@ export default {
   HealthDailyDetails,
   // 编辑文本页面
   EditTextView,
+  // 病种列表
+  IllnessTypeList,
 
   //////////////////////////////////   用户
   // 用户
@@ -141,7 +145,7 @@ export default {
   // 晒健康
   HealthExposure,
   // 挂号信息
-  RegisteredInformation,
+  RegistrationInformation,
   // 身体部位
   BodyParts,
   // 症状

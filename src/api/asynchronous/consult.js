@@ -14,13 +14,70 @@ function save(res, resolve, key) {
 
 export default {
   /**
-   * 请求角色信息
-   * @param params
-   * @returns {*|Promise.<TResult>}
+   * 新建咨询留言
    */
-  getConsultList: {
-    url: url.getConsultList({start: '2017-05-10 00:00', end: '2017-05-15 : 23:59'}),
-    func: function(data) {
+  postAdviceMessage: {
+    url: url.postAdviceMessage,
+    method: 'post',
+    save: function(data) {
+      console.log(data)
+      // storage.save()
+    }
+  },
+
+  /**
+   * 咨询留言
+   */
+  adviceMessage: {
+    url: url.adviceMessage,
+    save: function(data) {
+      console.log(data)
+      // storage.save()
+    }
+  },
+
+  /**
+   * 新建咨询
+   */
+  postConsult: {
+    url: url.postConsult,
+    method: 'post',
+    save: function(data) {
+      console.log(data)
+      // storage.save()
+    }
+  },
+
+  /**
+   * 咨询列表
+   */
+  consultList: {
+    url: url.consultList,
+    save: function(data) {
+      console.log(data)
+      // storage.save()
+    }
+  },
+
+  /**
+   * 症状
+   */
+  postSymptom: {
+    url: url.postSymptom,
+    method: 'post',
+    save: function(data) {
+      console.log(data)
+      // storage.save()
+    }
+  },
+
+  /**
+   * 咨询列表
+   */
+  symptomList: {
+    url: url.getSymptomListByConsult,
+    save: function(data) {
+      console.log(data)
       // storage.save()
     }
   },

@@ -3,7 +3,7 @@ import { ScrollView, Dimensions, Image, Text, View, TouchableHighlight } from 'r
 import { SafeAreaView, DrawerItems } from 'react-navigation';
 import { routeNames } from '../config'
 import styles from './style'
-import {TouchButton} from '../../../components/TouchButton'
+import Button from '../../../components/Button'
 const { width, height } = Dimensions.get('window');
 
 
@@ -22,7 +22,7 @@ export default props => {
 
   const bottomBtnData = {
     ...props,
-    btnStyle: styles.bottomBtnStyle,
+    style: styles.bottomBtnStyle,
     fontStyle: styles.bottomFontStyle,
 
   }
@@ -48,7 +48,7 @@ export default props => {
 
               const data = {
                 ...props,
-                btnStyle: styles.btnStyle,
+                style: styles.btnStyle,
                 fontStyle: styles.fontStyle,
                 router: item.key,
                 text: routeNames[item.routeName]
@@ -56,25 +56,25 @@ export default props => {
               if(Object.keys(routeNames).indexOf(item.key) < 0) return;
 
               return (
-                <TouchButton key={key} {...data}>
+                <Button key={key} {...data}>
                   <View style={styles.listIconContent}><Text>》</Text></View>
-                </TouchButton>
+                </Button>
               )
             })
           }
         </SafeAreaView >
       </ScrollView>
       <View style={styles.bottomBox}>
-        <TouchButton {...bottomBtnData}
+        <Button {...bottomBtnData}
                      router="Login"
                      text="登陆"
         />
-        <TouchButton {...bottomBtnData}
+        <Button {...bottomBtnData}
                      router="Register"
                      text="注册"
         />
 
-        <TouchButton {...bottomBtnData}
+        <Button {...bottomBtnData}
                      router="exit"
                      text="退出"
         />

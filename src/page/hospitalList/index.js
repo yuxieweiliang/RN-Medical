@@ -4,53 +4,28 @@ import styles from './style'
 import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window')
 import ac from './action'
-
-class Appointment extends React.Component {
-  static navigationOptions = ({ navigation : nav, navigationOptions: option }) => {
-    const { headerLeft, headerRight, headerTitle } = option;
-    return {
-      headerTitle: function() {
-       return (
-         <View style={{width: width - 120, height: 50, alignItems: 'center', justifyContent: 'center',}}>
-           <Text style={{fontSize: 20}}>医院列表</Text>
-           {/*<TextInput underlineColorAndroid="transparent"
-                      style={{fontSize: 20, width: width - 120, height: 40, alignItems: 'center', justifyContent: 'center',backgroundColor: '#ccc', borderRadius: 8}}
-                      placeholder="医院列表"/>*/}
-         </View>
-       )
-      },
-      headerRight: <View style={{width: 60, height: 50, alignItems: 'center', justifyContent: 'center',}}>
-        <Text>搜索</Text>
-      </View>
-    }
-  };
-
+class HospitalList extends React.Component {
   componentWillMount() {
     const { dispatch } = this.props
     dispatch(ac.getHospitalList())
   }
   componentDidMount() {}
+  componentWillUnmount() {}
 
-  _onPressButton() {
-    this.props.navigation.navigate('Product', {
-      itemId: 87,
-      otherParam: 'anything you want here',
-    })
-  }
-  _onPressTabCardButton() {
-    this.props.navigation.navigate('ExpertList', {
-      otherParam: 'anything you want here',
-    })
-  }
-  componentWillUnmount() {
-    // this._onPressButton.remove();
+  _onPressHospitalList(hospital) {
+    const { navigation }= this.props
 
+    if(navigation.getParam('router') === 'HospitalList') {
+      this.props.navigation.goBack()
+    } else {
+      this.props.navigation.navigate('ExpertList', {
+        hospital,
+      })
+    }
   }
   render() {
-    const { healthGuide }= this.props
-    const vacation = {key:'vacation', color: 'red', selectedDotColor: 'blue'};
-    const massage = {key:'massage', color: 'blue', selectedDotColor: 'blue'};
-    const workout = {key:'workout', color: 'green'};
+    const { navigation }= this.props
+
     return (
 
       <ScrollView style={styles.container}>
@@ -62,7 +37,7 @@ class Appointment extends React.Component {
         <FlatList
           data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}, {key: 'g'}, {key: 'h'}, {key: 'i'}]}
           renderItem={({item}) => (
-            <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
+            <TouchableHighlight onPress={() => this._onPressHospitalList(item)}>
               <View style={styles.list}>
                 <View style={{flex: 1}}>
                   <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>医院名称</Text>
@@ -84,9 +59,27 @@ class Appointment extends React.Component {
   }
 }
 
+HospitalList.navigationOptions = ({ navigation : nav, navigationOptions: option }) => {
+  const { headerLeft, headerRight, headerTitle } = option;
+  return {
+    headerTitle: function() {
+      return (
+        <View style={{width: width - 120, height: 50, alignItems: 'center', justifyContent: 'center',}}>
+          <Text style={{fontSize: 20}}>医院列表</Text>
+          {/*<TextInput underlineColorAndroid="transparent"
+           style={{fontSize: 20, width: width - 120, height: 40, alignItems: 'center', justifyContent: 'center',backgroundColor: '#ccc', borderRadius: 8}}
+           placeholder="医院列表"/>*/}
+        </View>
+      )
+    },
+    headerRight: <View style={{width: 60, height: 50, alignItems: 'center', justifyContent: 'center',}}>
+      <Text>搜索</Text>
+    </View>
+  }
+};
 
 const createState = function(state) {
-  return ({...state.appointment})
+  return ({...state.hospital})
 }
 
-export default connect(createState)(Appointment)
+export default connect(createState)(HospitalList)

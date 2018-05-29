@@ -5,6 +5,7 @@ import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { connect } from 'react-redux'
 import TabCardView from '../../../components/TabCardView/index'
+import systemAction from '../../action/system'
 import expertAction from '../../action/expert'
 
 const TITLE = '专家列表'
@@ -13,7 +14,7 @@ const { width, height } = Dimensions.get('window');
 class ExpertList extends React.Component {
   componentWillMount() {
     const { dispatch } = this.props
-    dispatch(expertAction.getExpertList({hospitalId: 1001, deptCode: '001'}))
+    dispatch(systemAction.illnessList({hospitalId: 1001, deptCode: '001'}))
   }
   componentDidMount() {}
   componentWillUnmount() {}

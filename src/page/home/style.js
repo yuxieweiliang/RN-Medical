@@ -9,7 +9,6 @@ const borer = debug? {
   borderWidth: 1,
 } : {}
 
-console.log(config)
 export default StyleSheet.create({
   container: {
     width,

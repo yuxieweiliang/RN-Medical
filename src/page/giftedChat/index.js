@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import { Text, Image,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
-import styles from './style'
+import { connect } from 'react-redux'
 import { GiftedChat } from 'react-native-gifted-chat'
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import styles from './style'
 
 
-export default class extends React.Component {
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
-    return {
-      title: '即时资讯',
-    }
-  };
+const TITLE = '即时资讯'
+class GiftedChatPage extends React.Component {
   state = {
     messages: [],
   }
@@ -29,6 +23,13 @@ export default class extends React.Component {
   }
 
   componentWillMount() {
+
+    /*const { dispatch, user, consult, consultMessage } = this.props
+    if(user && !consultMessage) {
+      dispatch(consultAction.postConsult(user.UserID))
+    } else {
+      dispatch(consultAction.postAdviceMessage('7ff26839b0cf4e0ea4e6c9f35fe15960'))
+    }*/
     this.setState({
       messages: [
         {
@@ -64,3 +65,14 @@ export default class extends React.Component {
   }
 }
 
+GiftedChat.navigationOptions = ({ navigation, navigationOptions }) => {
+  const { params } = navigation.state;
+  return {
+    title: TITLE,
+  }
+};
+
+export default connect(state => ({
+  ...state.user.user,
+  ...state.consult,
+}))(GiftedChatPage)

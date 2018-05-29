@@ -44,7 +44,7 @@ class Registration extends React.Component {
     console.log(data)
   }
   render() {
-    let { healthGuide, appointTime, registrationList }= this.props
+    let { healthGuide, registration, registrationList }= this.props
     registrationList = registrationList && registrationList.map(item => ({...item, key: item.UserName + item.ID}))
 
     console.log(registrationList)
@@ -57,7 +57,7 @@ class Registration extends React.Component {
               // 每次滑动一页
               pagingEnabled={true}
               // 是否有选中的日期
-              markedDates={{[appointTime]: {selected: true, selectedColor: 'blue'}}}
+              markedDates={{[registration.appointTime]: {selected: true, selectedColor: 'blue'}}}
               // 月份的格式
               monthFormat={'yyyy/MM'}
               // 当日期改变时

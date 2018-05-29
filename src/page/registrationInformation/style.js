@@ -5,7 +5,9 @@ export default StyleSheet.create({
   container: {
     width,
     height: height - 140,
-    paddingTop: 15,
+  },
+  registration: {
+
   },
   list: {
     width,
@@ -39,9 +41,13 @@ export default StyleSheet.create({
     paddingRight: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: 'red',
-    borderWidth: 1
 
+  },
+  messageContent: {
+    flex: 1,
+    paddingRight: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   contentFont: {
     fontSize: 18,
@@ -55,5 +61,13 @@ export default StyleSheet.create({
     width: 30,
     height: 30
   }
-
 });
+
+
+
+
+
+
+
+
+

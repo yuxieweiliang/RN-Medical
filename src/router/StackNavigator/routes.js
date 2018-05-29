@@ -95,7 +95,7 @@ export default {
 
   ExpertHome: { screen: routes.ExpertHome, },
 
-  RegisteredInformation: { screen: routes.RegisteredInformation, },
+  RegistrationInformation: { screen: routes.RegistrationInformation, },
 
   TelephoneInterview: { screen: routes.TelephoneInterview, },
 
@@ -110,4 +110,6 @@ export default {
   Complication: { screen: routes.Complication, },
 
   GiftedChat: { screen: routes.GiftedChat, },
+
+  IllnessTypeList: { screen: routes.IllnessTypeList, },
 }

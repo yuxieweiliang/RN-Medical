@@ -10,8 +10,6 @@ export default {
     return async dispatch => {
       try{
         const expert = await storage.load('hospital.expert', {path})
-
-        console.log(expert)
         dispatch({
           type: HOSPITAL.EXPERT,
           data: expert.Data
@@ -29,7 +27,6 @@ export default {
       try{
         const expertList = await storage.load('hospital.expertList', {path})
 
-        console.log(expertList)
         dispatch({
           type: HOSPITAL.EXPERT_LIST,
           data: expertList.Data

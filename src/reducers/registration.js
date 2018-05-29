@@ -5,8 +5,6 @@ const data = new Date()
 const today = data.toISOString().split('T')[0]
 // 初始状态
 const initialState = {
-  // 预约时间
-  appointTime: today,
   // 健康指南
   healthGuide: {
     headerStyle: {
@@ -41,19 +39,39 @@ const initialState = {
       console.log(index, item)
     }
   },
+  registration: {
+    // 预约时间
+    appointTime: today,
+  },
   registrationList: null
 }
 
 let func = {
   /**
-   * 预约
+   * 预约详细信息查询
    * @param state
    * @param action
    */
   [USER.REGISTRATION]: (state, action) =>  ({
     ...state,
-    appointTime: action.data.dateString
+    registration: {
+      appointTime: action.data.dateString
+    }
   }),
+
+  /**
+   * 新建预约挂号
+   * @param state
+   * @param action
+   */
+  [USER.REGISTRATION_NEW]: (state, action) =>  ({
+    ...state,
+    registration: {
+      ...state.registration,
+      ...action.data
+    }
+  }),
+
   /**
    * 预约列表
    * @param state

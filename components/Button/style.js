@@ -1,7 +1,7 @@
-import { Dimensions } from 'react-native';
-const { width, height } = Dimensions.get('window');
 import config from '../../src/config'
-const { color, component } = config
+const {
+  color: { APP }
+} = config
 
 
 export default {
@@ -11,7 +11,7 @@ export default {
     paddingRight: 15,
     paddingTop: 10,
     paddingBottom: 10,
-    backgroundColor: color.APP.THEME,
+    backgroundColor: APP.THEME,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center'
@@ -19,6 +19,7 @@ export default {
   btnContent: {
     flexDirection: 'row',
     width: '100%',
+    justifyContent: 'center',
     // borderColor: 'red',
     // borderWidth: 1
   },

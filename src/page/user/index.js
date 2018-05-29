@@ -49,8 +49,8 @@ class UserPage extends React.Component {
     this.beforeMount()
   }
   render() {
-    const { message } = this.props
-    const messageStructure = behavior.createStructure(message)
+    const { user } = this.props
+    const messageStructure = user && behavior.createStructure(user)
 
     return (
       <View style={styles.container}>
@@ -130,6 +130,6 @@ class UserPage extends React.Component {
   }
 }
 export default connect((state) => ({
-  ...state.user.message,
+  ...state.user.user,
   ...state.system
 }))(UserPage)

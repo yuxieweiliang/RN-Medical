@@ -30,4 +30,11 @@ export default {
       storage.save('system.token', option).then(res => console.log(res))
     },
   },
+  illnessList: {
+    url: url.getIllnessList,
+    save(option) {
+      console.log('get:', option)
+    },
+
+  },
 }

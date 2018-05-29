@@ -5,8 +5,10 @@ const iconTemp  = ()=> (
   <Image style={{width: 30, height: 30, borderRadius: 15, marginRight: 6}} source={require('../../assets/images/a1.jpg')}/>
 )
 const initialState = {
-  user_original: {},
-  user: [
+  user: null,
+  /*
+   user_original: {},
+   user: [
     {title: '姓名', key: 'UserName', value: null, show: true},
     {title: 'ID', key: 'ID', value: null, show: false},
     {title: 'UserID', key: 'UserID', value: null, show: false},
@@ -37,17 +39,17 @@ const initialState = {
       {title: '推荐[智护康]给好友', type: 'EditTextView'},
       {title: '帮助中心', type: 'EditTextView'},
     ]},
-  ]
+  ]*/
 }
 
 const func = {
   [USER.MESSAGE](state, action) {
     return {
       ...state,
-      message: action.data
+      user: action.data
     }
   },
-  ['CHANGE_USER_MESSAGE'](state, action) {
+  [USER.MESSAGE_CHANGE](state, action) {
     const data = {...state}
     data.user[action.key].value = action.text
     console.log(data.user)

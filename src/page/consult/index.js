@@ -2,81 +2,70 @@ import React, { Component } from 'react';
 import { Text, TouchableHighlight, ScrollView, View, TextInput, TouchableNativeFeedback, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
 import TabCardView from '../../../components/TabCardView/index'
-import ac from './action'
-import storage from '../../storage'
 import styles from './style'
+import Button from '../../../components/Button'
+// 操作动作
+import userAction from '../../action/user'
+import systemAction from '../../action/system'
+import consultAction from '../../action/consult'
+
 
 
 const title = '咨询'
 const { width, height } = Dimensions.get('window');
 
-const tabCardData = {
-  headerStyle: {
-    height: 40,
-    backgroundColor: '#fafafa',
-  },
-  containerStyle: {
-    height: 400
-  },
-  dataSource: [
-    {
-      active: true,
-      title: '留言',
-      context: {
-        text: 'fdsafdasfdsafdsafdsafdsafdsa'
-      }
-    },{
-      title: '即时消息',
-      context: {
-        text: 'ddddddddddddddddddd'
-      }
-    },{
-      title: '视频问诊',
-      context: {
-        text: 'aaaaaaaaaaaaaaaaaaa'
-      }
-    },
-  ],
-  tabChange(index, item) {
-    console.log(index, item)
-  }
-}
+
 class ConsultPage extends React.Component {
+  /**
+   * 检查是否登录
+   * */
   async beforeMount() {
-    const { dispatch, navigation } = this.props
-    let token = await storage.load('token')
+    let { dispatch, navigation, token, user } = this.props
+    if(!token) {
+      token = await dispatch(systemAction.loadToken())
+    }
+
     if(token) {
-      dispatch(ac.consultLoad())
+      if(!user) {
+        user = await dispatch(userAction.loadUser('322717145007458'))
+      }
+      // 获取当前用户的咨询列表
+      dispatch(consultAction.getConsultList(user.UserID))
+      // dispatch(systemAction.getIllnessList({hospitalId: }))
+
+
+      //
+      /*dispatch(consultAction.getAdviceMessage({
+        userId: '322717145007458',
+        adviceId: '7ff26839b0cf4e0ea4e6c9f35fe15960',
+        messageType: 'text'
+      }))*/
     } else {
       navigation.navigate('Login')
     }
-
   }
   componentWillMount() {
     this.beforeMount()
   }
 
-  componentDidMount() {
+  componentDidMount() {}
+  componentWillUnmount() {}
 
-  }
+  leavingMessage() {
+    const { navigation } = this.props
 
-  _onPressButton() {
-    this.props.navigation.navigate('Product', {
-      itemId: 87,
-      otherParam: 'anything you want here',
-    })
-  }
-  componentWillUnmount() {
-    // this._onPressButton.remove();
+    navigation.navigate('GiftedChat')
   }
   render() {
     const tabItemStyle= {width, height: 200, padding: 15}
+
+    console.log(this.props)
     return (
       <ScrollView style={styles.slide1}>
 
         <TouchableNativeFeedback
           title="Go to Details"
-          onPress={() => this.props.navigation.navigate('Hospital')}
+          onPress={() => this.props.navigation.navigate('HospitalList')}
         >
           <View style={{width, height: 50, flexDirection: 'row', backgroundColor: '#fff',alignItems: 'center', paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc'}}>
             <Text>医院：</Text>
@@ -87,7 +76,7 @@ class ConsultPage extends React.Component {
 
         <TouchableNativeFeedback
           title="Go to Details"
-          onPress={() => this.props.navigation.goBack()}
+          onPress={() => this.props.navigation.navigate('IllnessTypeList')}
         >
           <View style={{width, height: 50, flexDirection: 'row', backgroundColor: '#fff',alignItems: 'center', paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc'}}>
             <Text>病种：</Text>
@@ -98,7 +87,7 @@ class ConsultPage extends React.Component {
 
         <TouchableNativeFeedback
           title="Go to Details"
-          onPress={() => this.props.navigation.goBack()}
+          onPress={() => this.props.navigation.navigate('ExpertList')}
         >
           <View style={{width, height: 50, flexDirection: 'row', backgroundColor: '#fff',alignItems: 'center', paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc'}}>
             <Text>专家：</Text>
@@ -133,14 +122,11 @@ class ConsultPage extends React.Component {
             </View>
           </View>
         </View>
-        <TouchableHighlight><Text>留言</Text></TouchableHighlight>
 
-
-        <TabCardView {...tabCardData}>
-          <View style={tabItemStyle}><TextInput multiline={true}>1111111111111111111</TextInput></View>
-          <View style={tabItemStyle}><TouchableNativeFeedback><Text>222222222222222222222222</Text></TouchableNativeFeedback></View>
-          <View style={tabItemStyle}><Text>3333333333333333333333333333</Text></View>
-        </TabCardView>
+        <View style={{flexDirection: 'row', width}}>
+          <Button style={{flex: 1}} onPress={() => this.leavingMessage()}>即时咨询</Button>
+          <Button style={{flex: 1}}>视频问诊</Button>
+        </View>
       </ScrollView>
     );
   }
@@ -159,7 +145,10 @@ ConsultPage.navigationOptions = ({ navigation, navigationOptions }) => {
   }
 };
 const createState = function(state) {
-  return ({...state.consult})
+  return ({
+    ...state.user.user,
+    ...state.consult,
+  })
 }
 
 export default connect(createState)(ConsultPage)

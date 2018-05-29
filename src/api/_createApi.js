@@ -32,7 +32,8 @@ export default function(option) {
     }
 
 
-    data[key] = async function({params, data, path}) {
+    data[key] = async function(asyncFunc) {
+      const {params, data, path} = asyncFunc
       // 只有不是获取token的方法才会给headers添加token
       if(key.indexOf('token') < 0) {
         await getToken()

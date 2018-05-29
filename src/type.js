@@ -17,8 +17,10 @@ const user = 'user/'
 export const USER = {
   // 用户信息
   MESSAGE:  `${user}message/成功`,
+  MESSAGE_CHANGE:  `${user}message/修改`,
   // 预约挂号列表
   REGISTRATION:  `${user}registration/成功`,
+  REGISTRATION_NEW:  `${user}预约挂号/新建`,
   REGISTRATION_LIST:  `${user}预约挂号/列表`,
 }
 

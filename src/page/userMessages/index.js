@@ -80,10 +80,9 @@ class UserMessagePage extends React.Component {
     dispatch(behavior.saveUserMessage(user))
   }
   render() {
-    const { user, message = {} } = this.props
-    const userStructure = behavior.createStructure(message)
+    const { user = {} } = this.props
+    const userStructure = behavior.createStructure(user)
 
-    console.log(userStructure)
     return (
       <View style={styles.container}>
 
@@ -136,7 +135,7 @@ UserMessagePage.navigationOptions = ({ navigation, navigationOptions }) => {
 
 const createState = state => {
   return {
-    ...state.user.message,
+    ...state.user.user,
     ...state.system
   }
 }

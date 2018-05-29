@@ -32,13 +32,13 @@ import expert from './reducers/expert'
 
 
 const user = combineReducers({
-  message: userMessage,
+  user: userMessage,
   registration,
 })
 
 
 const hospital = combineReducers({
-  message: hospitalMessage,
+  hospital: hospitalMessage,
   department,
   expert,
 })

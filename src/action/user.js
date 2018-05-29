@@ -12,13 +12,14 @@ export default {
     console.log(this)
     return async dispatch => {
       const user = await storage.load('user.message', option)
-      console.log('-------------------')
+      console.log('-------------------', user)
       // storage.remove('user')
 
       dispatch({
         type: USER.MESSAGE,
         data: user.Data,
       })
+      return user.Data
     }
   },
 }

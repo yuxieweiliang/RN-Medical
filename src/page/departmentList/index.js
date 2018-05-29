@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { Text, FlatList, ScrollView, View, Dimensions, TouchableHighlight, TextInput } from 'react-native'
+import { Text, FlatList, ScrollView, View, Dimensions, TouchableHighlight } from 'react-native'
 import styles from './style'
 import { connect } from 'react-redux'
 import departmentAction from '../../action/department'
+import hospitalAction from '../../action/hospital'
+import Search from '../../../components/Search'
+import Card from '../../../components/Card'
 
 const TITLE = '科室列表'
 const { width, height } = Dimensions.get('window')
@@ -11,7 +14,11 @@ class Appointment extends React.Component {
 
   componentWillMount() {
     const { dispatch } = this.props
+    // 获取科室列表
     dispatch(departmentAction.getDepartmentList({hospitalId: 1001}))
+    // 获取默认医院
+    dispatch(hospitalAction.getHospital({hospitalId: 1001}))
+
   }
   componentDidMount() {}
   componentWillUnmount() {}
@@ -27,44 +34,54 @@ class Appointment extends React.Component {
     })
   }
   render() {
-    const { departmentList }= this.props
+    const { departmentList, hospital, navigation }= this.props
 
     const list = departmentList ? departmentList.map((item, i) => ({...item, key: item.Dept_Name+i})) : false
 
     console.log('departmentList', this.props)
     return (
       <ScrollView style={styles.container}>
-        <View style={{width, height: 60, justifyContent: 'center', alignItems: 'center'}}>
-          <TextInput underlineColorAndroid="transparent"
-                     style={{fontSize: 20, width: width - 120, height: 40, alignItems: 'center', justifyContent: 'center',backgroundColor: '#ccc', borderRadius: 8}}
-                     placeholder="医院列表"/>
-        </View>
-        {
-          list && (
-            <FlatList
-              data={list}
-              renderItem={({item}) => {
-                console.log(item)
-                return (
-                  <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
-                    <View style={styles.list}>
-                      <View style={{flex: 1}}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>
-                          {item.Dept_Name}
+        <Search/>
+
+        <TouchableHighlight onPress={() => navigation.navigate('HospitalList', {router: 'HospitalList'})}>
+          <View style={styles.hospital}>
+            <View style={{ flex: 2, height: 40, justifyContent: 'center'}}>
+              <Text>{hospital && hospital.MerchantName}</Text>
+            </View>
+            <View style={{ flex: 1, height: 40, justifyContent: 'center', alignItems: 'flex-end'}}>
+              <Text>》</Text>
+            </View>
+          </View>
+        </TouchableHighlight>
+
+        <Card title="科室列表">
+          {
+            list && (
+              <FlatList
+                data={list}
+                renderItem={({item}) => {
+                  console.log(item)
+                  return (
+                    <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
+                      <View style={styles.list}>
+                        <View style={{flex: 1}}>
+                          <Text style={{fontSize: 16, color: '#333'}}>
+                            {item.Dept_Name}
                           </Text>
-                      </View>
-                      <View style={{flex: 3, flexDirection: 'row', }}>
-                        <View>
-                          <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
+                        </View>
+                        <View style={{flex: 3, flexDirection: 'row', }}>
+                          <View>
+                            <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
-                  </TouchableHighlight>
-                )
-              }}
-            />
-          )
-        }
+                    </TouchableHighlight>
+                  )
+                }}
+              />
+            )
+          }
+        </Card>
       </ScrollView>
     );
   }
@@ -89,8 +106,12 @@ Appointment.navigationOptions = ({ navigation : nav, navigationOptions: option }
      </View>*/
   }
 };
+
 const createState = function(state) {
-  return ({...state.hospital.department})
+  return ({
+    ...state.hospital.department,
+    ...state.hospital.hospital
+  })
 }
 
 export default connect(createState)(Appointment)

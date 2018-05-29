@@ -35,7 +35,7 @@ class HomePage extends Component<Props> {
   async beforeMount() {
     let { dispatch, navigation, token } = this.props
     if(!token) {
-      token = await systemAction.loadToken()
+      token = await dispatch(systemAction.loadToken())
     }
     if(token) {
       dispatch(userAction.loadUser('322717145007458'))
@@ -53,7 +53,6 @@ class HomePage extends Component<Props> {
     const { healthGuide, tabCardData,  navigation, list }= this.props
     const { healthIndicators, guideToLife,  healthStatus, medicalStatus }= tabCardData
 
-    console.log(this.props, 'this.props')
     return (
       <View style={styles.container}>
         {/*    精灵    */}

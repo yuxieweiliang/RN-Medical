@@ -10,18 +10,8 @@ export default StyleSheet.create({
     width,
     height: '100%',
   },
-
-  hospital: {
-    width,
-    height: 40,
-    flexDirection: 'row',
-    backgroundColor: '#fafafa',
-    paddingLeft: 10,
-    paddingRight: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc'
-  },
   list: {
+    flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#ccc',
     backgroundColor: '#fafafa',
@@ -29,5 +19,15 @@ export default StyleSheet.create({
     paddingRight: 15,
     paddingTop: 10,
     paddingBottom: 10
+  },
+  search: {
+    fontSize: 20,
+    width: width - 120,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ccc',
+    borderRadius: 8
   }
+
 });

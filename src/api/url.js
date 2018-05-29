@@ -44,8 +44,31 @@ export default {
 
 
 
+  // -新增一个咨询信息
+  postConsult: createApi(`${userData}/api/Data_User_Advice/Post`),
+  // 获取当前用户指定时间段的咨询列表
+  consultList: createApi(`${userData}/api/Data_User_Advice/GetListByUser/{start}/{end}`),
 
 
+
+  // 咨询留言
+  postAdviceMessage: createApi(`${userData}/api/Data_User_AdviceMessage/Post`),
+  // 咨询留言
+  adviceMessage: createApi(`${userData}/api/Data_User_AdviceMessage/GetByAdviceID/{userId}/{adviceId}/{messageType}`),
+
+  // 删除
+  deleteAdviceMessage: createApi(`${userData}/api/Data_User_AdviceMessage/Delete/{id}`),
+
+
+
+  // 新增一个症状列表
+  postSymptom: createApi(`${userData}/api/Data_User_ZhengZhuang/Post`),
+  // 根据咨询ID获取病人的症状列表
+  getSymptomListByConsult: createApi(`${userData}/api/Data_User_ZhengZhuang/GetByAdviceID/{userId}/{consultId}`),
+
+
+  // 获取指定医院的所有疾病基本信息列表
+  getIllnessList: createApi(`${system}/api/Sys_Illness_Info/Get/{hospitalId}`),
 
 
 
@@ -114,31 +137,20 @@ export default {
   // 删除...
   deleteUserInfo: createApi(`${userData}/api/Data_User_Info/Delete/{iD}`),
 
-  // 获取当前用户指定时间段的咨询列表
-  getConsultList: createApi(`${userData}/api/Data_User_Advice/GetListByUser/{start}/{end}`),
   // 获取当前用户指定咨询的ID（AdviceID）的咨询信息
   getConsultInfo: createApi(`${userData}/api/Data_User_Advice/GetByAdviceID/{consultId}`),
-  // -新增一个咨询信息
-  postConsult: createApi(`${userData}/api/Data_User_Advice/Post`),
   // -删除....
   deleteConsult: createApi(`${userData}/api/Data_User_Advice/Delete/{consultId}`),
-
-  // 根据咨询ID获取病人的症状列表
-  getSymptomListByConsult: createApi(`${userData}/api/Data_User_ZhengZhuang/GetByAdviceID/{userID}/{consultId}`),
-
-  // 新增一个症状列表
-  postSymptomList: createApi(`${userData}/api/Data_User_ZhengZhuang/Post`),
-
 
   // 获取朋友圈数据
   getFriendList: createApi(`${userData}/api/Data_User_CircleMessage/GetList`),
 
 
   ///////////////////////////////////////// 系统  ///////////////////////////////////////
+  // 根据医院ID获取一个医院信息
+  getHospitalInfo: createApi(`${system}/api/Sys_Mer_Info/Get/{hospitalId}`),
   // 医院 -获取全部医院信息
   getHospitalList: createApi(`${system}/api/Sys_Mer_Info/Get`),
-  // 根据医院ID获取一个医院信息
-  getHospitalInfo: createApi(`${system}/api/Sys_Mer_Info/Get/{merchantID}`),
 
   /**
    * 科室
@@ -156,8 +168,6 @@ export default {
   // 删除...
   deleteDepartmentInfo: createApi(`${system}/api/Sys_Dept_Info/Delete/{deptCode}`),
 
-  // 获取指定医院的所有疾病基本信息列表
-  getIllnessList: createApi(`${system}/api/Sys_Illness_Info/Get/{hospitalID}`),
   // 获取指定医院，指定疾病ID的基本信息
   getIllnessInfo: createApi(`${system}/api/Sys_Illness_Info/Get/{hospitalID}/{illnessCode}`),
 
