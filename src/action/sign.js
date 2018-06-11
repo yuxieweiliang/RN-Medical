@@ -69,7 +69,14 @@ export default {
     return async dispatch => {
 
       // storage.remove('user')
-     const sign = await storage.load('user.signList', {path: {start: '2018-05-01 12:12:00', end: '2018-05-12 23:59:59'}})
+     const sign = await storage.load('user.signList', {
+       path: {start: '2018-05-01 12:12:00',
+         end: '2018-05-12 23:59:59'
+       },
+       /*params: {
+         names: 'HX,MB,TW,XYL,XYH,XYBHD'
+       }*/
+     })
 
       console.log('sign', sign)
       dispatch({
