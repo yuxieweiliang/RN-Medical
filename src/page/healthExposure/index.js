@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Text, ScrollView, Image, View, TextInput, KeyboardAvoidingView, Animated, Dimensions, Keyboard, TouchableNativeFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/EvilIcons';
+import { connect } from 'react-redux'
 import styles from './style'
 const { width, height } = Dimensions.get('window');
 
-export default class extends React.Component {
+const TITLE = '晒健康'
+
+class HealthExposure extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -13,12 +16,7 @@ export default class extends React.Component {
       focus: false,
     }
   }
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
-    return {
-      title: '晒健康',
-    }
-  };
+
 
   componentDidMount() {}
 
@@ -29,15 +27,27 @@ export default class extends React.Component {
     })
   }
   componentWillMount() {
-    this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow.call(this));
+    this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow.bind(this));
+
+    this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
   }
-  keyboardWillShow(event) {
-    Animated.timing(
-      this.state.height,
-      {
-        toValue: event.endCoordinates.height - 50,
-      }
-    ).start();
+
+
+  keyboardDidShow(event) {
+
+    console.log(event)
+    if(event && event.endCoordinates) {
+      Animated.timing(
+        this.state.height,
+        {
+          toValue: height - event.endCoordinates.height - 130,
+        }
+      ).start();
+    }
+  }
+
+  keyboardDidHide(event) {
+    this.inputBlur()
   }
   inputBlur() {
     let _this = this
@@ -60,20 +70,12 @@ export default class extends React.Component {
   }
   componentWillUnmount() {
     this.keyboardDidShowSub.remove();
+    this.keyboardDidHideSub.remove();
   }
   render() {
 
     return (
       <View behavior="padding" style={styles.container}>
-        {/*<WebView
-          automaticallyAdjustContentInsets={false}
-          style={styles.scroll}
-          source={{uri: 'http://10.0.0.98:8011/healthExposure/view.html'}}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          decelerationRate="normal"
-          startInLoadingState={true}
-        />*/}
         <Animated.View style={[styles.animated, {height: this.state.height}]}>
           <ScrollView keyboardDismissMode="on-drag">
 
@@ -218,3 +220,13 @@ export default class extends React.Component {
   }
 }
 
+
+HealthExposure.navigationOptions = ({ navigation, navigationOptions }) => {
+  const { params } = navigation.state;
+  return {
+    title: TITLE,
+  }
+}
+
+
+export default connect(state => ({}))(HealthExposure)

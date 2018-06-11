@@ -19,11 +19,20 @@ class ExpertList extends React.Component {
   componentWillUnmount() {}
 
   _onPressExpertList(option) {
+    const { navigation, dispatch }= this.props
+    const router = navigation.getParam('router')
+    const data = { key: 'expert', value: option }
+
+    dispatch({type: 'CHANGE_CONSULT_ITEM', data: data})
 
     console.log('doctor', option)
-    this.props.navigation.navigate('ExpertHome', {
-      doctor: option,
-    })
+    if(router === 'Consult') {
+      navigation.goBack()
+    } else {
+      this.props.navigation.navigate('ExpertHome', {
+        doctor: option,
+      })
+    }
   }
   render() {
     let { expertList }= this.props

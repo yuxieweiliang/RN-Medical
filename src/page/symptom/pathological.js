@@ -3,6 +3,7 @@ import { Text, TouchableHighlight, TextInput, View, FlatList, TouchableNativeFee
 import styles from './style'
 import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window');
+import systemAction from '../../action/system'
 function randomString(len) {
   len = len || 32;
   let $chars = 'ABCDEFGHIJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
@@ -29,6 +30,19 @@ class Symptom extends React.Component {
 
 
   componentDidMount() { }
+  async componentWillMount() {
+    const { dispatch, consult } = this.props
+    const data = {
+      hospitalId: consult.symptom.MerchantID,
+      clayCode: 'man',
+      positionCode: consult.position.ItemCode,
+      symptomCode: consult.symptom.ItemCode
+    }
+
+    // 获取症状
+    await dispatch(systemAction.getCourseOfDiseaseList(data))
+  }
+  componentWillUnmount() { }
 
   _onPressButton() {
     this.props.navigation.navigate('Product', {
@@ -36,16 +50,37 @@ class Symptom extends React.Component {
       otherParam: 'anything you want here',
     })
   }
-  componentWillUnmount() { }
+
+  addListDataKey(option, key = 'ItemName') {
+    return option && option.map(item => ({...item, key: item[key]}))
+  }
+
+  complicationOnPress(complication) {
+    const { navigation, dispatch } = this.props
+
+    dispatch({
+      type: 'CHANGE_CONSULT_ITEM',
+      data: {
+        key: 'pathological',
+        value: complication
+      }
+    })
+    navigation.navigate('Complication')
+  }
   render() {
+    let { courseDiseaseList } = this.props
+    courseDiseaseList = this.addListDataKey(courseDiseaseList)
+
+
+    console.log(this.props)
     return (
       <View style={styles.container}>
         <View style={styles.rightContent}>
           <FlatList
-            data={this.state.data}
+            data={courseDiseaseList}
             renderItem={({item, index}) => (
               <TouchableNativeFeedback
-                                       onPress={() => this.props.navigation.navigate('Complication')}
+                                       onPress={() => this.complicationOnPress(item)}
                                        background={TouchableNativeFeedback.SelectableBackground()}>
                 <View style={[styles.list, styles.listRight]}>
                   <Text style={styles.text}>病理病程{index}</Text>
@@ -67,4 +102,7 @@ Symptom.navigationOptions = ({ navigation, navigationOptions }) => {
   }
 };
 
-export default connect(state => ({}))(Symptom)
+export default connect(state => ({
+  ...state.system,
+  consult: state.user.consult
+}))(Symptom)

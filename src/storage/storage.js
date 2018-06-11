@@ -30,7 +30,7 @@ export default class Storage {
 
   getItem(key) {
     return this._storage.getItem(key).then(res => {
-      console.log('getItem -> ')
+      // console.log('getItem -> ')
       return res
     })
   }
@@ -91,7 +91,7 @@ export default class Storage {
     if(autoSync) {// 同步
       return this.getItem(key).then(res => {
 
-        console.log('同步:')
+       //  console.log('同步:')
         if(res) {
           let data = null
 
@@ -110,13 +110,13 @@ export default class Storage {
             return this.fetch(key, option)
           }
         } else { // 没有数据时，异步获取
-          console.log('异步:')
+          // console.log('异步:')
           return this.fetch(key, option)
           // return this.sync[key](option)
         }
       })
     } else {// 异步
-      console.log('异步:')
+      // console.log('异步:')
       return this.fetch(key, option)
       // return this.sync[key](option)
     }

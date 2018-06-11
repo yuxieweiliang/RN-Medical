@@ -26,6 +26,7 @@ export default function(option) {
       const token = await storage.load('system.token'),
         { token_type, access_token} = token
 
+      // console.log('system.token', token)
       if(token) {
         headers.Authorization =  `${token_type} ${access_token}`
       }

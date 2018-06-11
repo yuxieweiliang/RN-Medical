@@ -8,12 +8,16 @@ const { width, height } = Dimensions.get('window');
  * 健康状况
  * @param healthStatus
  * @param style
+ * @param navigation
  */
-export default function healthStatus({ healthStatus, style }) {
+export default function healthStatus({ healthStatus, style, navigation }) {
+
+  console.log(this.props)
+
   return (
   <View style={style}>
     <TouchableOpacity
-      onPress={() => this.props.navigation.navigate('SignTrend')}>
+      onPress={() => navigation.navigate('SignTrend')}>
       <View style={{flexDirection: 'row'}}>
         <View style={{flex: 1, alignItems: 'center'}}><Text>4月</Text></View>
         <View style={{flex: 1, alignItems: 'center'}}><Text>体温</Text></View>

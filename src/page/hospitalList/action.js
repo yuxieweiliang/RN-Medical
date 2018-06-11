@@ -12,18 +12,12 @@ let user = {
 
 function getHospitalList() {
 
-  console.log('登录方法');
-
   return dispatch => {
-    storage.remove('hospital')
+    storage.load('hospital.hospitalList').then((res)=>{
 
-
-    storage.load('hospital').then((res)=>{
-
-      console.log(res)
       dispatch({
         type: HOSPITAL.LIST_SUCCESS,
-        data: res
+        data: res.Data
       })
 
 

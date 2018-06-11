@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, TextInput, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
+import { Text, TouchableHighlight, TextInput, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import ac from './action'
 import styles from './style'
 import storage from '../../storage'
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window')
 
 
 const InputList = ({title, onChangeText, value, placeholder, isRequest}) => {
@@ -22,9 +22,7 @@ const InputList = ({title, onChangeText, value, placeholder, isRequest}) => {
 }
 
 class UserMessagePage extends React.Component {
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   _onPressButton() {
     this.props.navigation.navigate('Product', {
@@ -37,12 +35,12 @@ class UserMessagePage extends React.Component {
     const { dispatch, navigation } = this.props
     let token = await storage.load('token')
     console.log('token', token)
+    // 获取用户信息
     if(token) {
       dispatch(ac.loadUser())
     } else {
       navigation.navigate('Login')
     }
-
   }
   componentWillMount() {
     const { dispatch } = this.props
@@ -54,11 +52,14 @@ class UserMessagePage extends React.Component {
   }
   componentWillUnmount() {
     // this._onPressButton.remove();
+
+    //
   }
   render() {
     const { hospital, hospital_original } = this.props
-    const tabItemStyle= {width, height: 200}
+
     console.log(this.props)
+
     return (
       <View style={styles.container}>
 
@@ -114,6 +115,7 @@ UserMessagePage.navigationOptions = ({ navigation, navigationOptions }) => {
 }
 
 const createState = state => {
+  console.log()
   return state.hospital
 }
 export default connect(createState)(UserMessagePage)

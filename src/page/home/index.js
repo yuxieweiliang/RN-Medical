@@ -64,10 +64,22 @@ class HomePage extends Component<Props> {
             {
               healthGuide && (
                 <TabCardView {...healthGuide}>
-                  <HealthIndicators healthIndicators={healthIndicators} style={styles.tabItemStyle}/>
-                  <GuideToLife guideToLife={guideToLife} style={styles.tabItemStyle}/>
-                  <HealthStatus healthStatus={healthStatus} style={styles.tabItemStyle}/>
-                  <MedicalStatus medicalStatus={medicalStatus} style={styles.tabItemStyle}/>
+
+                  <HealthStatus
+                    navigation={navigation}
+                    healthStatus={healthStatus}
+                    style={styles.tabItemStyle}/>
+
+                  <GuideToLife
+                    navigation={navigation}
+                    guideToLife={guideToLife}
+                    style={styles.tabItemStyle}/>
+
+                  <MedicalStatus
+                    navigation={navigation}
+                    medicalStatus={medicalStatus}
+                    style={styles.tabItemStyle}/>
+
                 </TabCardView>
               )
             }

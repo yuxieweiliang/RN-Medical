@@ -14,6 +14,8 @@ import userInfo from './asynchronous/userInfo'
 import position from './asynchronous/position'
 // 好友
 import friend from './asynchronous/friend'
+// 体征
+import sign from './asynchronous/sign'
 
 // 医院
 import hospital from './asynchronous/hospital'
@@ -48,6 +50,8 @@ export default {
     ...consult,
     // 部位列表
     ...position,
+    // 体征
+    ...sign,
   }),
   hospital: createApi({
     // 医院

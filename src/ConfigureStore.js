@@ -8,7 +8,7 @@ import loginData from './reducers/login'
 // 个人中心
 import userMessage from './reducers/user'
 // 设置
-import userSettingData from './reducers/userSetting'
+import userSetting from './reducers/userSetting'
 // 设置
 import system from './reducers/system'
 
@@ -20,22 +20,32 @@ import registration from './reducers/registration'
 // 导入电话访谈
 import telephoneInterData from './reducers/telephoneInter'
 // 咨询
-import consultData from './reducers/consult'
+import consult from './reducers/consult'
 // 科室数据
 import department from './reducers/department'
 // 医院数据
 import hospitalMessage from './reducers/hospital'
 // 健康指标
-import healthIndicatorsData from './reducers/healthIndicators'
+import healthIndicators from './reducers/healthIndicators'
 // 健康指标
 import expert from './reducers/expert'
+
+import sign from './reducers/sign'
 
 
 const user = combineReducers({
   user: userMessage,
+  // 预约挂号
   registration,
+  // 咨询
+  consult,
+  // 用户设置
+  userSetting,
+  // 健康指标
+  healthIndicators,
+  // 体征
+  sign,
 })
-
 
 const hospital = combineReducers({
   hospital: hospitalMessage,
@@ -43,19 +53,13 @@ const hospital = combineReducers({
   expert,
 })
 
-
 // 所有页面的数据分发
-const rootReducer = combineReducers({ // 将所有的redux处理逻辑包装在一起
+const rootReducer = combineReducers({
   login: loginData,
   user,
   hospital,
   home: homeTabCardData,
   system,
-  interview: telephoneInterData,
-  userSetting: userSettingData,
-  consult: consultData,
-  healthIndicators: healthIndicatorsData,
-
 });
 
 // 添加中间件

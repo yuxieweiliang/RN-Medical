@@ -10,6 +10,18 @@ export const SYSTEM = {
   REGISTER_SUCCESS: `${system}register/成功`,
   // 首页
   HOME_LOAD_SUCCESS: `${system}home/成功`,
+  // 疾病列表
+  ILLNESS_LIST: `${system}疾病/列表`,
+  // 病种列表
+  POSITION_LIST: `${system}病种/列表`,
+  // 症状列表
+  SYMPTOM_LIST: `${system}症状/列表`,
+  // 病理病程列表
+  COURSE_DISEASE_LIST: `${system}病理病程/列表`,
+  // 并发症列表
+  COMPLICATION_LIST: `${system}并发症/列表`,
+  // 身体部位列表
+  BODY_PARTS_LIST: `${system}身体部位/列表`,
 }
 
 //////////////////////////////////////////////////////////////// 用户
@@ -22,6 +34,8 @@ export const USER = {
   REGISTRATION:  `${user}registration/成功`,
   REGISTRATION_NEW:  `${user}预约挂号/新建`,
   REGISTRATION_LIST:  `${user}预约挂号/列表`,
+  CHANGE_CONSULT_ITEM:  `${user}咨询/修改`,
+  SIGN_LIST:  `${user}SIGN_LIST/体征信息`,
 }
 
 //////////////////////////////////////////////////////////////// 医院

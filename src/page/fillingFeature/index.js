@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, TextInput, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
+import { connect } from 'react-redux'
+import behavior from './behavior'
+import signAction from '../../action/sign'
 import styles from './style'
 
 
-export default class FillingFeature extends React.Component {
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
-    return {
-      title: '体征填写',
-    }
-  };
+const EditInput = ({title, value, placeholder, onPress}) => (
+  <View style={styles.list}>
+    <Text style={styles.label}>{title}：</Text>
+    <TextInput
+      style={styles.text}
+      underlineColorAndroid="transparent"
+      defaultValue={value}
+      placeholder={placeholder}
+      onChangeText={onPress}
+    />
+    <Text style={styles.goto}>*</Text>
+  </View>
+)
 
+class FillingFeature extends React.Component {
   componentDidMount() {}
 
   _onPressButton() {
@@ -22,103 +32,81 @@ export default class FillingFeature extends React.Component {
   componentWillUnmount() {
     // this._onPressButton.remove();
   }
+  addSign() {
+    const { dispatch } = this.props
+    dispatch(signAction.postSign())
+  }
+  signItemChange(value, key) {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'SIGN_ITEM_CHANGE',
+      data: { key, value }
+    })
+  }
   render() {
+    console.log(this.props)
     return (
 
       <View style={styles.container}>
 
-        <View
-          onPress={() => this.props.navigation.goBack()}>
-          <View style={styles.list}>
-            <Text style={styles.label}>高压：</Text>
-            <TextInput
-              style={styles.text}
-              underlineColorAndroid="transparent"
-              placeholder="请输入"/>
-            <Text style={styles.goto}>*</Text>
-          </View>
-        </View>
+        <EditInput
+          title="血压（高）"
+          value=""
+          placeholder="请输入"
+          onPress={(e) => this.signItemChange(e, 'XYH')}
+        />
+        <EditInput
+          title="血压（低）"
+          value=""
+          placeholder="请输入"
+          onPress={(e) => this.signItemChange(e, 'XYL')}
+        />
 
-        <View
-          onPress={() => this.props.navigation.goBack()}>
-          <View style={styles.list}>
-            <Text style={styles.label}>低压：</Text>
-            <TextInput
-              style={styles.text}
-              underlineColorAndroid="transparent"
-              placeholder="请输入"/>
-            <Text style={styles.goto}>*</Text>
-          </View>
-        </View>
+        <EditInput
+          title="血氧"
+          value=""
+          placeholder="请输入"
+          onPress={(e) => this.signItemChange(e, 'XY')}
+        />
 
-        <View
-          onPress={() => this.props.navigation.goBack()}>
-          <View style={styles.list}>
-            <Text style={styles.label}>血氧：</Text>
-            <TextInput
-              style={styles.text}
-              underlineColorAndroid="transparent"
-              placeholder="请输入"/>
-            <Text style={styles.goto}>*</Text>
-          </View>
-        </View>
+        <EditInput
+          title="呼吸"
+          value=""
+          placeholder="请输入"
+          onPress={(e) => this.signItemChange(e, 'HX')}
+        />
 
-        <View
-          onPress={() => this.props.navigation.goBack()}
-        >
-          <View style={styles.list}>
-            <Text style={styles.label}>呼吸：</Text>
-            <TextInput
-              style={styles.text}
-              underlineColorAndroid="transparent"
-              placeholder="请输入"/>
-            <Text style={styles.goto}>*</Text>
-          </View>
-        </View>
-        <View
-          onPress={() => this.props.navigation.goBack()}
-        >
-          <View style={styles.list}>
-            <Text style={styles.label}>心率：</Text>
-            <TextInput
-              style={styles.text}
-              underlineColorAndroid="transparent"
-              placeholder="请输入"/>
-            <Text style={styles.goto}></Text>
-          </View>
-        </View>
+        <EditInput
+          title="心率"
+          value=""
+          placeholder="请输入"
+          onPress={(e) => this.signItemChange(e, 'XL')}
+        />
 
-        <View
-          onPress={() => this.props.navigation.goBack()}
-        >
-          <View style={styles.list}>
-            <Text style={styles.label}>体温：</Text>
-            <TextInput
-              style={styles.text}
-              underlineColorAndroid="transparent"
-              placeholder="请输入"/>
-            <Text style={styles.goto}></Text>
-          </View>
-        </View>
+        <EditInput
+          title="体温"
+          value=""
+          placeholder="请输入"
+          onPress={(e) => this.signItemChange(e, 'TW')}
+        />
 
-        <View
-          onPress={() => this.props.navigation.goBack()}
-        >
-          <View style={styles.list}>
-            <Text style={styles.label}>脉搏：</Text>
-            <TextInput
-              style={styles.text}
-              underlineColorAndroid="transparent"
-              placeholder="请输入"/>
-            <Text style={styles.goto}></Text>
-          </View>
-        </View>
-
+        <EditInput
+          title="脉搏"
+          value=""
+          placeholder="请输入"
+          onPress={(e) => this.signItemChange(e, 'MB')}
+        />
+        <TouchableHighlight onPress={() => this.addSign()}><Text>添加</Text></TouchableHighlight>
       </View>
-
-
-
     );
   }
 }
 
+FillingFeature.navigationOptions = ({ navigation, navigationOptions }) => {
+  const { params } = navigation.state;
+  return {
+    title: '体征填写',
+  }
+};
+
+export default connect(state => ({}))(FillingFeature)

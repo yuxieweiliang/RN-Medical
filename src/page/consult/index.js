@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Text, TouchableHighlight, ScrollView, View, TextInput, TouchableNativeFeedback, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
 import TabCardView from '../../../components/TabCardView/index'
+import util from '../../util'
 import styles from './style'
 import Button from '../../../components/Button'
+import Card from '../../../components/Card'
 // 操作动作
 import userAction from '../../action/user'
 import systemAction from '../../action/system'
@@ -14,6 +16,47 @@ import consultAction from '../../action/consult'
 const title = '咨询'
 const { width, height } = Dimensions.get('window');
 
+
+const ConsultItem = ({itemTitle, itemName, onPress}) => (
+  <TouchableNativeFeedback
+    title="Go to Details"
+    onPress={onPress}
+  >
+    <View style={styles.listItem}>
+      <Text>{itemTitle}：</Text>
+      <Text style={{flex:1}}>{itemName}</Text>
+      <Text>》</Text>
+    </View>
+  </TouchableNativeFeedback>
+)
+
+const PathologicalCardItem = ({itemTitle, itemName}) => {
+  let ItemContent = null
+  let createItem = (text, key) => (
+    <View style={styles.listChildRight} key={key}>
+      <Text style={styles.listChildRightTextColor}>
+        {text}
+      </Text>
+    </View>
+  )
+
+  if(itemName) {
+    ItemContent = util.typeOf(itemName, 'array')
+      ? itemName.map((item, key) => createItem(itemName, key))
+      : createItem(itemName)
+  }
+
+  return (
+    <View style={styles.listChildItem}>
+      <View style={{width: 100}}>
+        <Text>{itemTitle}：</Text>
+      </View>
+      <View style={{}}>
+        {ItemContent}
+      </View>
+    </View>
+  )
+}
 
 class ConsultPage extends React.Component {
   /**
@@ -26,13 +69,14 @@ class ConsultPage extends React.Component {
     }
 
     if(token) {
+      // 获取当前用户信息
       if(!user) {
         user = await dispatch(userAction.loadUser('322717145007458'))
       }
-      // 获取当前用户的咨询列表
-      dispatch(consultAction.getConsultList(user.UserID))
-      // dispatch(systemAction.getIllnessList({hospitalId: }))
 
+      dispatch(userAction.loadUser('322717145007458'))
+      // 获取当前用户的咨询列表
+      // dispatch(systemAction.getIllnessList({hospitalId: }))
 
       //
       /*dispatch(consultAction.getAdviceMessage({
@@ -53,77 +97,87 @@ class ConsultPage extends React.Component {
 
   leavingMessage() {
     const { navigation } = this.props
-
     navigation.navigate('GiftedChat')
   }
+
+  getOptionOfKey(option, key1, key2) {
+    if(option && option[key1]) {
+      return  option[key1][key2]
+    }
+  }
+
+  onPressItem(router) {
+    let { navigation } = this.props
+    navigation.navigate(router, {router: 'Consult'})
+  }
   render() {
-    const tabItemStyle= {width, height: 200, padding: 15}
+    let { consult, navigation } = this.props
+    let { complication, symptom, position, pathological } = consult
 
-    console.log(this.props)
+    let hospitalName = this.getOptionOfKey(consult, 'hospital', 'MerchantName')
+    let illnessName = this.getOptionOfKey(consult, 'illness', 'Illness_Name')
+    let expertName = this.getOptionOfKey(consult, 'expert', 'UserName')
+
     return (
-      <ScrollView style={styles.slide1}>
+      <ScrollView style={styles.container}>
 
-        <TouchableNativeFeedback
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('HospitalList')}
+        <ConsultItem
+          itemTitle="医院"
+          itemName={hospitalName}
+          onPress={() => this.onPressItem('HospitalList')}
+        />
+        <ConsultItem
+          itemTitle="病种"
+          itemName={illnessName}
+          onPress={() => this.onPressItem('IllnessTypeList')}
+        />
+        <ConsultItem
+          itemTitle="专家"
+          itemName={expertName}
+          onPress={() => this.onPressItem('ExpertList')}
+        />
+
+
+        <TouchableHighlight
+          onPress={() => this.onPressItem('BodyParts')}
         >
-          <View style={{width, height: 50, flexDirection: 'row', backgroundColor: '#fff',alignItems: 'center', paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc'}}>
-            <Text>医院：</Text>
-            <Text style={{flex:1}}>西京医院</Text>
-            <Text>》</Text>
-          </View>
-        </TouchableNativeFeedback>
+          <Card title="症状"
+                style={styles.listChildCard}>
+            <View style={{padding: 15}}>
 
-        <TouchableNativeFeedback
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('IllnessTypeList')}
-        >
-          <View style={{width, height: 50, flexDirection: 'row', backgroundColor: '#fff',alignItems: 'center', paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc'}}>
-            <Text>病种：</Text>
-            <Text style={{flex:1}}>心脑血管疾病</Text>
-            <Text>》</Text>
-          </View>
-        </TouchableNativeFeedback>
-
-        <TouchableNativeFeedback
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('ExpertList')}
-        >
-          <View style={{width, height: 50, flexDirection: 'row', backgroundColor: '#fff',alignItems: 'center', paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc'}}>
-            <Text>专家：</Text>
-            <Text style={{flex:1}}>张三</Text>
-            <Text>》</Text>
-          </View>
-        </TouchableNativeFeedback>
+              <PathologicalCardItem
+                itemTitle="身体部位"
+                itemName={position && position.ItemName}
+              />
+              <PathologicalCardItem
+                itemTitle="状态症状"
+                itemName={symptom && symptom.ItemName}
+              />
+              <PathologicalCardItem
+                itemTitle="病例病程"
+                itemName={complication && complication.ItemName}
+              />
+              <PathologicalCardItem
+                itemTitle="并发症状"
+                itemName={pathological && pathological.ItemName}
+              />
 
 
-        <View style={{width, height: 200}}>
-          <TouchableNativeFeedback
-            title="Go to Details"
-            onPress={() => this.props.navigation.navigate('BodyParts')}
-          >
-            <View style={{width, height: 50, flexDirection: 'row', backgroundColor: '#fff',alignItems: 'center', paddingLeft: 15, paddingRight: 15, borderBottomWidth: 1, borderColor: '#ccc'}}>
-              <Text>症状</Text>
-              <Text style={{flex:1}}/>
+              {
+                [1,2,3].map(item => (
+                  <View>
+                    <Text>{item}</Text>
+                  </View>
+                ))
+              }
             </View>
-          </TouchableNativeFeedback>
-          <View style={{padding: 15}}>
-            <View>
-              <Text>症状一：fdsafdsafdsa</Text>
-            </View>
-            <View>
-              <Text>症状一：fdsafdsafdsa,fdsafdsa</Text>
-            </View>
-            <View>
-              <Text>症状一：fdsafdsafdsafdsafdsafdsafdsafdsa</Text>
-            </View>
-            <View>
-              <Text>症状一：fdsafdsafds</Text>
-            </View>
-          </View>
-        </View>
+          </Card>
+        </TouchableHighlight>
 
-        <View style={{flexDirection: 'row', width}}>
+
+
+
+        <View style={{flexDirection: 'row', width, marginTop: 10}}>
           <Button style={{flex: 1}} onPress={() => this.leavingMessage()}>即时咨询</Button>
           <Button style={{flex: 1}}>视频问诊</Button>
         </View>
@@ -131,7 +185,6 @@ class ConsultPage extends React.Component {
     );
   }
 }
-
 
 ConsultPage.navigationOptions = ({ navigation, navigationOptions }) => {
   const { params } = navigation.state;
@@ -147,7 +200,7 @@ ConsultPage.navigationOptions = ({ navigation, navigationOptions }) => {
 const createState = function(state) {
   return ({
     ...state.user.user,
-    ...state.consult,
+    consult: state.user.consult,
   })
 }
 

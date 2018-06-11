@@ -18,10 +18,10 @@ export default StyleSheet.create({
     borderColor: '#ccc'
   },
   label: {
-    fontSize: 18,
+    fontSize: 16,
   },
   text: {
-    fontSize: 18,
+    fontSize: 16,
     flex: 1,
   },
   goto: {

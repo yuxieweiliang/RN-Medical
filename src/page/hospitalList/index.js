@@ -13,19 +13,39 @@ class HospitalList extends React.Component {
   componentWillUnmount() {}
 
   _onPressHospitalList(hospital) {
-    const { navigation }= this.props
-
-    if(navigation.getParam('router') === 'HospitalList') {
-      this.props.navigation.goBack()
+    const { navigation, dispatch }= this.props
+    const router = navigation.getParam('router')
+    dispatch({
+      type: 'CHANGE_CONSULT_ITEM',
+      data: {
+        key: 'hospital',
+        value: hospital
+      }
+    })
+    console.log(router)
+    // 咨询
+    if(router === 'Consult') {
+      navigation.goBack()
+    } else if(router === 'HospitalList') {
+      // 医院列表
+      navigation.goBack()
     } else {
-      this.props.navigation.navigate('ExpertList', {
+      navigation.navigate('ExpertList', {
         hospital,
       })
     }
   }
+  createHospitalList(item) {
+    console.log(item)
+    return item.map((item, i) => ({
+      key: item.MerchantName + i,
+      ...item
+    }))
+  }
   render() {
-    const { navigation }= this.props
-
+    let { hospitalList, navigation }= this.props
+    hospitalList = hospitalList && this.createHospitalList(hospitalList)
+    console.log(this.props)
     return (
 
       <ScrollView style={styles.container}>
@@ -35,12 +55,12 @@ class HospitalList extends React.Component {
                      placeholder="医院列表"/>
         </View>
         <FlatList
-          data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}, {key: 'g'}, {key: 'h'}, {key: 'i'}]}
+          data={hospitalList}
           renderItem={({item}) => (
             <TouchableHighlight onPress={() => this._onPressHospitalList(item)}>
               <View style={styles.list}>
                 <View style={{flex: 1}}>
-                  <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>医院名称</Text>
+                  <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>{item.MerchantName}</Text>
                 </View>
                 <View style={{flex: 3, flexDirection: 'row', }}>
                   <View>
@@ -79,7 +99,7 @@ HospitalList.navigationOptions = ({ navigation : nav, navigationOptions: option 
 };
 
 const createState = function(state) {
-  return ({...state.hospital})
+  return ({...state.hospital.hospital})
 }
 
 export default connect(createState)(HospitalList)

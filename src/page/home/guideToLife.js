@@ -8,13 +8,14 @@ const { width, height } = Dimensions.get('window');
  * 生活指南
  * @param guideToLife
  * @param style
+ * @param navigation
  */
-export default function guideToLife({ guideToLife, style }) {
+export default function guideToLife({ guideToLife, style, navigation }) {
   return (
   <View style={style}>
     <TouchableOpacity
       style={{flexDirection: 'row'}}
-      onPress={() => this.props.navigation.navigate('HealthIndicators')}>
+      onPress={() => navigation.navigate('HealthIndicators')}>
       <Text style={styles.tabCardText}>
         { guideToLife }
       </Text>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, Dimensions,WebView, View, Button, TouchableNativeFeedback } from 'react-native';
 import styles from './style'
 import { connect } from 'react-redux'
+import systemAction from '../../action/system'
 import TabCardView from '../../../components/TabCardView/index'
 const { width, height } = Dimensions.get('window');
 
@@ -40,6 +41,14 @@ class BodyParts extends React.Component {
   }
 
   componentDidMount() {}
+  componentWillMount() {
+    const { dispatch } = this.props
+    dispatch(systemAction.getCommonDicList({
+      merchantId: 1001,
+      itemType: '部位',
+      parentItemCode: 0
+    }))
+  }
 
   _onPressButton() {
     this.props.navigation.navigate('Product', {
@@ -58,7 +67,24 @@ class BodyParts extends React.Component {
 
   // 向 WebView 发送的数据
   handleMessage(e) {
-    this.props.navigation.navigate('Symptom')
+    const { navigation, dispatch, bodyPartsList } = this.props
+
+    console.log(bodyPartsList)
+    dispatch({
+      type: 'CHANGE_CONSULT_ITEM',
+      data: {
+        key: 'position',
+        value: bodyPartsList[0]
+      }
+    })
+    dispatch({
+      type: 'CHANGE_CONSULT_ITEM',
+      data: {
+        key: 'clayCode',
+        value: 'man'
+      }
+    })
+    navigation.navigate('Symptom')
     this.setState({webViewData: e.nativeEvent.data});
   }
   render() {
@@ -69,6 +95,7 @@ class BodyParts extends React.Component {
       decelerationRate: 'normal',
       startInLoadingState: true,
     }
+    console.log( this.props)
     return (
 
       <View style={styles.container}>
@@ -110,4 +137,4 @@ BodyParts.navigationOptions = ({ navigation, navigationOptions }) => {
   }
 };
 
-export default connect(state => ({}))(BodyParts)
+export default connect(state => ({...state.system, ...state.hospital.hospital}))(BodyParts)

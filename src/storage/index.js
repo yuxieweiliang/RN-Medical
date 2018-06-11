@@ -23,7 +23,7 @@ async function getItem() {
     console.log(err)
   }
 }
-getItem()
+// getItem()
 NewStorage.prototype = {
   _init() {
 

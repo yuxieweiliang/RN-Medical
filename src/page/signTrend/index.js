@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { Text, WebView, TouchableOpacity, View, Button, Dimensions } from 'react-native';
-import styles from './style'
-const { width, height } = Dimensions.get('window');
+import { connect } from 'react-redux'
 import ImagePicker from 'react-native-image-crop-picker';
+import styles from './style'
+import signAction from '../../action/sign'
 
-export default class extends React.Component {
+
+const { width, height } = Dimensions.get('window');
+
+
+class SignTrend extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,26 +17,21 @@ export default class extends React.Component {
     }
     this.data = 0;
   }
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
-    return {
-      title: '体征趋势',
-    }
-  };
+  componentWillMount() {
+    const { dispatch } = this.props
+    dispatch(signAction.signList())
+    dispatch(signAction.sign(3))
+  }
 
   componentDidMount() {}
+  componentWillReceiveProps(nextProps) {
+    const { signList } = nextProps
+    if(signList) {
+      console.log('componentDidMount', this.createSignData(signList))
 
-  // 从 WebView 接收的数据
-  sendMessage() {
-    this.refs.webview.postMessage(++this.data);
+      this.refs.webview.postMessage(JSON.stringify(this.createSignData(signList)));
+    }
   }
-
-  // 向 WebView 发送的数据
-  handleMessage(e) {
-    alert(e)
-    this.setState({webViewData: e.nativeEvent.data});
-  }
-
   _onPressButton() {
     this.props.navigation.navigate('Product', {
       itemId: 87,
@@ -51,9 +51,34 @@ export default class extends React.Component {
       console.log(image);
     });
   }
+  createSignData(option) {
+    let data = {}
+    option.map(function(list) {
+
+      for(i in list) {
+        if(['HX', 'MB', 'TW', 'XYL', 'XYH'].indexOf(i) > -1) {
+          data[i] = data[i] || []
+          data[i].push(list[i])
+        }
+      }
+
+    })
+    return data
+  }
+
+  // 从 WebView 接收的数据
+  sendMessage() {
+  }
+
+  // 向 WebView 发送的数据
+  handleMessage(e) {
+    console.log(e.nativeEvent)
+    this.setState({webViewData: e.nativeEvent.data});
+  }
+
   render() {
     return (
-      <View style={styles.slide1}>
+      <View style={styles.container}>
         <TouchableOpacity  onPress={() => {this.openImage()}}>
           <Text>打开图片</Text>
         </TouchableOpacity>
@@ -62,8 +87,8 @@ export default class extends React.Component {
           <WebView
             ref={'webview'}
             automaticallyAdjustContentInsets={false}
-            style={{width, height: 200, }}
-            source={{uri: 'http://10.0.0.98:8011/index.html'}}
+            style={{width, height, }}
+            source={{uri: 'http://10.0.0.33:8011/index.html'}}
             javaScriptEnabled={true}
             domStorageEnabled={true}
             decelerationRate="normal"
@@ -72,7 +97,7 @@ export default class extends React.Component {
               this.handleMessage(e)
             }}
           />
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <View style={{ flex: 1, height: 100, alignItems: 'center', justifyContent: 'center' }}>
             <Text>来自webview的数据 : {this.state.webViewData}</Text>
             <Text onPress={() => {
               this.sendMessage()
@@ -80,10 +105,14 @@ export default class extends React.Component {
           </View>
         </View>
       </View>
-
-
-
     );
   }
 }
 
+SignTrend.navigationOptions = ({ navigation, navigationOptions }) => {
+  const { params } = navigation.state;
+  return {
+    title: '体征趋势',
+  }
+};
+export default connect(state => ({...state.user.sign}))(SignTrend)

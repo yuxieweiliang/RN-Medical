@@ -9,10 +9,10 @@ export default {
   loadUser(id) {
     let option = {path: {id}}
 
-    console.log(this)
+    // console.log(this)
     return async dispatch => {
       const user = await storage.load('user.message', option)
-      console.log('-------------------', user)
+      // console.log('-------------------', user)
       // storage.remove('user')
 
       dispatch({

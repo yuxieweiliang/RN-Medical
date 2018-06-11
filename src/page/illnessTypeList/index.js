@@ -14,22 +14,34 @@ const { width, height } = Dimensions.get('window');
 class ExpertList extends React.Component {
   componentWillMount() {
     const { dispatch } = this.props
-    dispatch(systemAction.illnessList({hospitalId: 1001, deptCode: '001'}))
+    dispatch(systemAction.illnessList({hospitalId: 1001}))
   }
   componentDidMount() {}
   componentWillUnmount() {}
 
-  _onPressExpertList(option) {
+  _onPressList(option) {
+    const { navigation, dispatch } = this.props
+    let router = navigation.getParam('router')
+    console.log(option)
 
-    console.log('doctor', option)
-    this.props.navigation.navigate('ExpertHome', {
-      doctor: option,
+    dispatch({
+      type: 'CHANGE_CONSULT_ITEM',
+      data: {
+        key: 'illness',
+        value: option
+      }
     })
+    if(router === 'Consult') {
+      navigation.goBack()
+    } else {
+      this.props.navigation.navigate('ExpertHome', {
+        doctor: option,
+      })
+    }
   }
   render() {
-    let { expertList }= this.props
-    expertList = expertList && expertList.map(item => ({...item, key: item.UserName + item.UserID}))
-    console.log()
+    let { illnessList }= this.props
+    illnessList = illnessList && illnessList.map(item => ({...item, key: item.Illness_Name + item.ID}))
 
     return (
       <ScrollView style={styles.container}>
@@ -39,34 +51,11 @@ class ExpertList extends React.Component {
                      placeholder="专家列表"/>
         </View>
         <FlatList
-          data={expertList}
+          data={illnessList}
           renderItem={({item}) => (
-            <TouchableHighlight onPress={() => this._onPressExpertList(item)}>
+            <TouchableHighlight onPress={() => this._onPressList(item)}>
               <View style={styles.list}>
-                <View style={{flex: 1}}>
-                  <Image style={{width: '100%', height: 100}} source={require('../../../assets/images/a3.jpg')}/>
-                </View>
-                <View style={{flex: 4, paddingLeft: 15 }}>
-                  <View>
-                    <Text style={{fontSize: 18, fontWeight: 'bold', color: '#111'}}>{item.UserName}</Text>
-                  </View>
-                  <View>
-                    <Text style={{fontSize: 16,color: '#333'}}>
-                      下面是一个较复杂的例子，演示了利用Pure，来进一步优化性能和减少bug产生的可能。
-                    </Text>
-                  </View>
-                  <View style={{flexDirection: 'row', paddingTop: 10}}>
-                    <View style={{flex: 1}}>
-                      <View style={{backgroundColor: 'blue', borderRadius: 4, alignItems: 'center', justifyContent: 'center', padding: 4}}>
-                        <Text style={{color: '#fff', }}>可预约</Text>
-                      </View>
-                    </View>
-                    <View style={{flex: 4, paddingTop: 4, paddingLeft: 15}}>
-                      <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
-                    </View>
-
-                  </View>
-                </View>
+                <Text style={{fontSize: 18, fontWeight: 'bold', color: '#111'}}>{item.Illness_Name}</Text>
               </View>
             </TouchableHighlight>
           )}
@@ -98,7 +87,7 @@ ExpertList.navigationOptions = ({ navigation : nav, navigationOptions: option })
 };
 
 const createState = function(state) {
-  return ({...state.hospital.expert})
+  return ({...state.system})
 }
 
 export default connect(createState)(ExpertList)

@@ -2,34 +2,38 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-  wrapper: {
-    // backgroundColor: '#63d0b4'
-  },
-  slide1: {
+  container: {
     width,
     height,
   },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
+  listItem: {
+    width,
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: '#fafafa',
     alignItems: 'center',
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderBottomWidth: 1,
+    borderColor: '#ccc'
   },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  listChildCard: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc'
   },
-
-  btn: {
-    borderRadius: 10,
-    shadowColor:'green',
-    shadowOffset:{h:10,w:10},
-    shadowRadius:3,
-    shadowOpacity:0.8,
+  listChildItem: {
+    flexDirection: 'row',
+    paddingBottom: 10
   },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
+  listChildRight: {
+    backgroundColor: '#57aeff',
+    borderRadius: 4,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingTop: 2,
+    paddingBottom: 2
+  },
+  listChildRightTextColor: {
+    color: '#fafafa'
   }
 });

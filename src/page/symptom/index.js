@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { Text, TouchableHighlight, TextInput, View, FlatList, TouchableNativeFeedback, Dimensions } from 'react-native';
 import styles from './style'
 import { connect } from 'react-redux'
+import systemAction from '../../action/system'
+import behavior from './behavior'
 const { width, height } = Dimensions.get('window');
+
+
+
 function randomString(len) {
   len = len || 32;
-  let $chars = 'ABCDEFGHIJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
-  let maxPos = $chars.length;
+  let $chars = 'ABCDEFGHIJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
+  let maxPos = $chars.length
   let pwd = '';
   for (i = 0; i < len; i++) {
     pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
@@ -16,19 +21,25 @@ function randomString(len) {
 
 class Symptom extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       data: []
     }
     for(let key = 0; key < 40; key ++) {
       this.state.data.push({key: randomString(4)})
     }
-    console.log(this.state)
   }
 
 
 
   componentDidMount() { }
+  async componentWillMount() {
+    const { dispatch } = this.props
+    dispatch(systemAction.getSymptomList({hospitalId: 1001, clayCode: 'man', positionCode: 1}))
+
+    console.log(this.props)
+  }
+  componentWillUnmount() { }
 
   _onPressButton() {
     this.props.navigation.navigate('Product', {
@@ -36,19 +47,34 @@ class Symptom extends React.Component {
       otherParam: 'anything you want here',
     })
   }
-  componentWillUnmount() { }
+
+  _onPressSymptomList(symptom) {
+    const { navigation, dispatch } = this.props
+    dispatch({
+      type: 'CHANGE_CONSULT_ITEM',
+      data: {
+        key: 'symptom',
+        value: symptom
+      }
+    })
+    navigation.navigate('Pathological')
+  }
   render() {
+    let { bodyPartsList, symptomList } = this.props
+    bodyPartsList = bodyPartsList && bodyPartsList.map(item => ({...item, key: item.ItemName}))
+    symptomList = symptomList && symptomList.map(item => ({...item, key: item.ItemName}))
+
     return (
       <View style={styles.container}>
         <View style={styles.leftContent}>
           <FlatList
-            data={this.state.data}
+            data={bodyPartsList}
             renderItem={({item, index}) => (
               <TouchableNativeFeedback
                                        onPress={() => this.props.navigation.goBack()}
                                        background={TouchableNativeFeedback.SelectableBackground()}>
                 <View style={[styles.list, styles.listLeft]}>
-                  <Text style={styles.label}>分类{index}</Text>
+                  <Text style={styles.label}>{item.ItemName}</Text>
                 </View>
               </TouchableNativeFeedback>
             )}
@@ -56,13 +82,13 @@ class Symptom extends React.Component {
         </View>
         <View style={styles.rightContent}>
           <FlatList
-            data={this.state.data}
+            data={symptomList}
             renderItem={({item, index}) => (
               <TouchableNativeFeedback
-                                       onPress={() => this.props.navigation.navigate('Pathological')}
+                                       onPress={() => this._onPressSymptomList(item)}
                                        background={TouchableNativeFeedback.SelectableBackground()}>
                 <View style={[styles.list, styles.listRight]}>
-                  <Text style={styles.text}>选项{index}</Text>
+                  <Text style={styles.text}>{item.ItemName}</Text>
                 </View>
               </TouchableNativeFeedback>
             )}
@@ -81,4 +107,4 @@ Symptom.navigationOptions = ({ navigation, navigationOptions }) => {
   }
 };
 
-export default connect(state => ({}))(Symptom)
+export default connect(state => ({...state.system}))(Symptom)

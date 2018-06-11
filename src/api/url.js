@@ -67,13 +67,39 @@ export default {
   getSymptomListByConsult: createApi(`${userData}/api/Data_User_ZhengZhuang/GetByAdviceID/{userId}/{consultId}`),
 
 
-  // 获取指定医院的所有疾病基本信息列表
+  // 获取指定医院的所有疾病基本信息列表  http://sysdataapi.kecoretest.com:81/
   getIllnessList: createApi(`${system}/api/Sys_Illness_Info/Get/{hospitalId}`),
 
 
 
 
+  // 症状自查-根据医院ID、人体代码、获取部位列表
+  getPositionList: createApi(`${system}/api/Sys_Complication_Rela/GetBuWei/{hospitalId}/{clayCode}`),
+  // 根据医院ID、人体代码、部位代码，获取症状列表
+  getSymptomList: createApi(`${system}/api/Sys_Complication_Rela/GetZhengZhuang/{hospitalId}/{clayCode}/{positionCode}`),
+  // 根据医院ID、人体代码、部位代码、症状代码，获取病程列表
+  getCourseOfDiseaseList: createApi(`${system}/api/Sys_Complication_Rela/GetBingCheng/{hospitalId}/{clayCode}/{positionCode}/{symptomCode}`),
+  // 根据医院ID、人体代码、部位代码、症状代码、病程代码，获取并发症列表
+  getComplicationList: createApi(`${system}/api/Sys_Complication_Rela/GetBingFaZheng/{hospitalId}/{clayCode}/{positionCode}/{symptomCode}/{complicationCode}`),
 
+
+
+
+  // 查询公共自定义片段
+  getCommonDicList: createApi(`${system}/api/Sys_Common_Dic/GetByParentItemCode/{merchantId}/{itemType}/{parentItemCode}`),
+
+
+
+  // 获取指定体征ID的体征信息  ?name=TW,MB,HX
+  getUserInfo: createApi(`${userData}/api/Data_User_Info/Get/{signId}`),
+  // 获取当前用户指定时段的所有体征信息
+  getUserInfoList: createApi(`${userData}/api/Data_User_Info/Get/{start}/{end}`),
+  // 新增一个用户体征信息
+  postUserInfo: createApi(`${userData}/api/Data_User_Info/Post`),
+  // 修改...
+  putUserInfo: createApi(`${userData}/api/Data_User_Info/Put`),
+  // 删除...
+  deleteUserInfo: createApi(`${userData}/api/Data_User_Info/Delete/{iD}`),
 
 
 
@@ -126,17 +152,6 @@ export default {
   /**
    * id：用户id
    */
-  // 获取当前用户指定ID的所有体征信息，如果不行，就用params方式
-  getUserInfo: createApi(`${userData}/api/Data_User_Info/Get/{id}/{names}`),
-  // 获取当前用户指定时段的所有体征信息
-  getUserInfoList: createApi(`${userData}/api/Data_User_Info/Get/{start}/{end}`),
-  // 新增一个用户体征信息
-  postUserInfo: createApi(`${userData}/api/Data_User_Info/Post`),
-  // 修改...
-  putUserInfo: createApi(`${userData}/api/Data_User_Info/Put`),
-  // 删除...
-  deleteUserInfo: createApi(`${userData}/api/Data_User_Info/Delete/{iD}`),
-
   // 获取当前用户指定咨询的ID（AdviceID）的咨询信息
   getConsultInfo: createApi(`${userData}/api/Data_User_Advice/GetByAdviceID/{consultId}`),
   // -删除....
@@ -193,15 +208,6 @@ export default {
   uploadFiles: createApi(`${file}/api/UserMainImages/UploadFiles`),
   // 上传用户证件照
   uploadUserCredentials: createApi(`${file}/api/UserMainImages/UploadUserCredentials`),
-
-  // 症状自查-根据医院ID、人体代码、获取部位列表
-  getPositionList: createApi(`${file}/api/Sys_Complication_Rela/GetBuWei/{hospitalID}/{clayCode}`),
-  // 根据医院ID、人体代码、部位代码，获取症状列表
-  getSymptomList: createApi(`${file}/api/Sys_Complication_Rela/GetZhengZhuang/{hospitalID}/{clayCode}/{positionCode}`),
-  // 根据医院ID、人体代码、部位代码、症状代码，获取病程列表
-  getCourseOfDiseaseList: createApi(`${file}/api/Sys_Complication_Rela/GetBingCheng/{hospitalID}/{clayCode}/{positionCode}/{symptomCode}`),
-  // 根据医院ID、人体代码、部位代码、症状代码、病程代码，获取并发症列表
-  getComplicationList: createApi(`${file}/api/Sys_Complication_Rela/GetBingFaZheng/{merchantID}/{renTiCode}/{buWeiCode}/{zhengZhuangCode}`),
 }
 
 
