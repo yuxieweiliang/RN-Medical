@@ -79,18 +79,18 @@ class ConsultPage extends React.Component {
       // 获取当前用户的咨询列表
       // dispatch(systemAction.getIllnessList({hospitalId: }))
 
-      console.log(NimSession.login)
-      NimSession.login('test', 'asdf1234').then((data)=>{
+      // console.log(NimSession.login)
+      /*NimSession.login('test', 'asdf1234').then((data)=>{
         // global.imaccount = this.state.name;
 
         console.log(data)
-        /*navigator.resetTo({
+        /!*navigator.resetTo({
           screen:'ImDemo.ChatList',
           title:"消息"
-        });*/
+        });*!/
       },(err)=>{
         console.warn(err);
-      })
+      })*/
       //
       /*dispatch(consultAction.getAdviceMessage({
         userId: '322717145007458',
@@ -122,6 +122,11 @@ class ConsultPage extends React.Component {
   onPressItem(router) {
     let { navigation } = this.props
     navigation.navigate(router, {router: 'Consult'})
+  }
+  leavingVideo() {
+    const { navigation } = this.props
+    navigation.navigate('InterrogationVideo')
+
   }
   render() {
     let { consult, navigation } = this.props
@@ -177,13 +182,9 @@ class ConsultPage extends React.Component {
             </View>
           </Card>
         </TouchableHighlight>
-
-
-
-
         <View style={{flexDirection: 'row', width, marginTop: 10}}>
           <Button style={{flex: 1}} onPress={() => this.leavingMessage()}>即时咨询</Button>
-          <Button style={{flex: 1}}>视频问诊</Button>
+          <Button onPress={() => this.leavingVideo()} style={{flex: 1}}>视频问诊</Button>
         </View>
       </ScrollView>
     );

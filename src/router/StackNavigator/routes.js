@@ -111,5 +111,7 @@ export default {
 
   GiftedChat: { screen: routes.GiftedChat, },
 
+  InterrogationVideo: { screen: routes.InterrogationVideo, },
+
   IllnessTypeList: { screen: routes.IllnessTypeList, },
 }

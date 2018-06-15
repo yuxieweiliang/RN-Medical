@@ -54,6 +54,7 @@
 		CAA20A55360A471A91AA9381 /* RCTAuroraIMUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1C2481A30544F49996E3F43 /* RCTAuroraIMUI.framework */; };
 		57CEA89785874AC88A61BE23 /* RCTAuroraIMUITests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 2EFA5C699CEE42FE98AA4543 /* RCTAuroraIMUITests.xctest */; };
 		0602A1892FC94ED59EE023A8 /* libRNNeteaseIm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D08623A7807C42E58EA5675C /* libRNNeteaseIm.a */; };
+		BC3D55A1719B4BC7BDC1D9C3 /* libRCTAgora.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D28ED0ADC3194D6E9F854AB6 /* libRCTAgora.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -380,6 +381,8 @@
 		2EFA5C699CEE42FE98AA4543 /* RCTAuroraIMUITests.xctest */ = {isa = PBXFileReference; name = "RCTAuroraIMUITests.xctest"; path = "RCTAuroraIMUITests.xctest"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.cfbundle; explicitFileType = undefined; includeInIndex = 0; };
 		7010B3A5489A433F9F1CEB65 /* RNNeteaseIm.xcodeproj */ = {isa = PBXFileReference; name = "RNNeteaseIm.xcodeproj"; path = "../node_modules/react-native-netease-im/ios/RNNeteaseIm/RNNeteaseIm.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		D08623A7807C42E58EA5675C /* libRNNeteaseIm.a */ = {isa = PBXFileReference; name = "libRNNeteaseIm.a"; path = "libRNNeteaseIm.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		CAF156EA1C074F7F8597327D /* RCTAgora.xcodeproj */ = {isa = PBXFileReference; name = "RCTAgora.xcodeproj"; path = "../node_modules/react-native-agora/ios/RCTAgora.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		D28ED0ADC3194D6E9F854AB6 /* libRCTAgora.a */ = {isa = PBXFileReference; name = "libRCTAgora.a"; path = "libRCTAgora.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +417,7 @@
 				CAA20A55360A471A91AA9381 /* RCTAuroraIMUI.framework in Frameworks */,
 				57CEA89785874AC88A61BE23 /* RCTAuroraIMUITests.xctest in Resources */,
 				0602A1892FC94ED59EE023A8 /* libRNNeteaseIm.a in Frameworks */,
+				BC3D55A1719B4BC7BDC1D9C3 /* libRCTAgora.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +608,7 @@
 				E50975AAF41F42C2BBBC1508 /* RNVectorIcons.xcodeproj */,
 				EBD013185E404EBE93C9CDFD /* RCTAuroraIMUI.xcodeproj */,
 				7010B3A5489A433F9F1CEB65 /* RNNeteaseIm.xcodeproj */,
+				CAF156EA1C074F7F8597327D /* RCTAgora.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1267,6 +1272,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1274,6 +1280,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
+					"$(SRCROOT)\..\node_modules\react-native-agora\ios\RCTAgora/**",
 				);
 			};
 			name = Debug;
@@ -1300,6 +1307,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1307,6 +1315,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
+					"$(SRCROOT)\..\node_modules\react-native-agora\ios\RCTAgora/**",
 				);
 			};
 			name = Release;
@@ -1332,6 +1341,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
+					"$(SRCROOT)\..\node_modules\react-native-agora\ios\RCTAgora/**",
 				);
 			};
 			name = Debug;
@@ -1356,6 +1366,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
+					"$(SRCROOT)\..\node_modules\react-native-agora\ios\RCTAgora/**",
 				);
 			};
 			name = Release;
@@ -1391,6 +1402,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1398,6 +1410,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
+					"$(SRCROOT)\..\node_modules\react-native-agora\ios\RCTAgora/**",
 				);
 			};
 			name = Debug;
@@ -1433,6 +1446,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1440,6 +1454,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
+					"$(SRCROOT)\..\node_modules\react-native-agora\ios\RCTAgora/**",
 				);
 			};
 			name = Release;
@@ -1474,6 +1489,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1481,6 +1497,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
+					"$(SRCROOT)\..\node_modules\react-native-agora\ios\RCTAgora/**",
 				);
 			};
 			name = Debug;
@@ -1515,6 +1532,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1522,6 +1540,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
+					"$(SRCROOT)\..\node_modules\react-native-agora\ios\RCTAgora/**",
 				);
 			};
 			name = Release;

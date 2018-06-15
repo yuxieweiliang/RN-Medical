@@ -63,6 +63,8 @@ import Pathological from '../page/symptom/pathological'
 import Complication from '../page/symptom/complication'
   // 即时资讯聊天室
 import GiftedChat from '../page/giftedChat'
+  // 视频问诊
+import InterrogationVideo from '../page/interrogationVideo'
 
 //////////////////////////////////   医院   ////////////////////////////////////////
 
@@ -174,7 +176,9 @@ export default {
   ExpertHome,
   // 电话访谈
   TelephoneInterview,
-  // 电话访谈
+  // 即时咨询 -》 文字聊天
   GiftedChat,
+  // 视频问诊 -》 视频通话
+  InterrogationVideo,
 
 }

@@ -4,6 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android",
+    "android-release": "cd android && ./gradlew assembleRelease",
+    "android-release-manual-install": "cd android/app/build/outputs/apk && adb install app-release.apk",
+    "android-debug-manual-install": "cd android/app/build/outputs/apk && adb install app-debug.apk",
     "test": "jest"
   },
   "dependencies": {
@@ -12,6 +17,7 @@
     "moment": "^2.22.1",
     "react": "16.3.1",
     "react-native": "0.55.4",
+    "react-native-agora": "^1.1.1",
     "react-native-calendar-strip": "^1.3.3",
     "react-native-calendars": "^1.19.3",
     "react-native-charts-wrapper": "^0.4.3",
