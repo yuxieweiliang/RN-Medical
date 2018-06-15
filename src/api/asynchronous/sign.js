@@ -18,7 +18,7 @@ export default {
   sign: {
     url: url.getUserInfo,
     save: function(data) {
-      console.log(data)
+      // console.log(data)
       // storage.save()
     }
   },
@@ -28,7 +28,7 @@ export default {
   signList: {
     url: url.getUserInfoList,
     save: function(data) {
-      console.log(data)
+      // console.log(data)
       // storage.save()
     }
   },

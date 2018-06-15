@@ -8,6 +8,7 @@ class CreateFetch {
   async post(url, {body, headers}) {
 
     console.log('post: ---\n', url + '\n')
+
     return fetch(url, {
       method: 'POST',
       headers: Object.assign({}, this.headers, headers ),
@@ -19,7 +20,7 @@ class CreateFetch {
 
   async get(url, headers) {
 
-    console.log('get: ---', url, Object.assign({}, this.headers, headers ))
+    console.log('get: ---', url)
 
     return fetch(url, {
       method: 'GET',

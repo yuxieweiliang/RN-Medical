@@ -31,13 +31,13 @@ import expert from './asynchronous/expert'
  * 这里可以使用promise。或是使用普通回调函数，但需要调用resolve或reject
  * @type {{user: ((params))}}
  */
-export default {
-  // 获取token
-  system: createApi({
-    ...system,
-  }),
+export default createApi({
+  system: {
+    // 获取token
+    ...system
+  },
   // 用户信息
-  user: createApi({
+  user: {
     // 用户
     ...user,
     // 好友
@@ -52,13 +52,13 @@ export default {
     ...position,
     // 体征
     ...sign,
-  }),
-  hospital: createApi({
+  },
+  hospital: {
     // 医院
     ...hospital,
     // 科室
     ...department,
     // 专家
     ...expert,
-  }),
-}
+  },
+})

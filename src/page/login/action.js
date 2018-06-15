@@ -1,6 +1,5 @@
 import { SYSTEM } from '../../type'
 import storage from '../../storage'
-// import axios from 'axios'
 
 /**
  * 用户登录
@@ -15,13 +14,12 @@ function login(option) {
   return async dispatch => {
     // dispatch({ type: SYSTEM.LOGIN_BEFORE }); // 正在执行登录请求
 
-    // storage.remove('system.token')
-    // storage.remove('user.info')
-
+    storage.remove('system.token')
     try {
       console.log('remove token------------------------')
       const token = await storage.load('system.token', {data: query})
 
+      console.log('token：', token)
       if(token) {
         // return storage.load('user.list', {params: {id: '877554311095878178'}})
         // storage.load('changeUser', user).then(res => console.log(res))

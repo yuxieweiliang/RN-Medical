@@ -14,7 +14,7 @@ function save(res, resolve, key) {
 
 export default {
   /**
-   * 请求角色信息
+   * 请求身体部位信息
    * @param params
    * @returns {*|Promise.<TResult>}
    */

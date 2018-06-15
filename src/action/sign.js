@@ -15,25 +15,25 @@ export default {
         AddTime: "2018-06-12T00:00:00",
         AddFrom: "app",
         TW: 11,
-        TWDesc: "tttt",
+        TWDesc: "TW",
         MB: 22,
-        MBDesc: "mmmmm",
+        MBDesc: "MB",
         XYH: 33,
-        XYHDesc: "xxx",
+        XYHDesc: "XYH",
         XYL: 44,
-        XYLDesc: "xxxx",
+        XYLDesc: "XYL",
         HX: 55,
-        HXDesc: "hhhh",
+        HXDesc: "HX",
         XL: 66,
-        XLDesc: "xxx",
+        XLDesc: "XL",
         XYBHD: 77,
-        XYBHDDesc: "xx"
+        XYBHDDesc: "XYBHD"
       }
-      console.log('-------------------')
+      // console.log('-------------------')
       // storage.remove('user')
      const sign = await storage.load('user.postSign', {data: data})
 
-      console.log(sign)
+      // console.log(sign)
       /*dispatch({
         type: 'SIGN_ITEM_CHANGE',
         data: data,
@@ -52,7 +52,7 @@ export default {
       // storage.remove('user')
      const sign = await storage.load('user.sign', {path: {signId: option}})
 
-      console.log(sign)
+      // console.log(sign)
       /*dispatch({
         type: 'SIGN_ITEM_CHANGE',
         data: data,

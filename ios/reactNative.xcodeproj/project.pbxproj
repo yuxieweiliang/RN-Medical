@@ -50,6 +50,10 @@
 		1BF842E6AC3445969AD81A95 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61B7A1C4F971471480809E41 /* Octicons.ttf */; };
 		C2178895F4144C00B2035F5D /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEE156CA5801497DBF089823 /* SimpleLineIcons.ttf */; };
 		95DB146D9E27466F892355F5 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC578FE55799426B951514B5 /* Zocial.ttf */; };
+		0E66D88CC7724B1C89081B59 /* libAuroraIMUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAAF85453954D24BB29ABEC /* libAuroraIMUI.a */; };
+		CAA20A55360A471A91AA9381 /* RCTAuroraIMUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1C2481A30544F49996E3F43 /* RCTAuroraIMUI.framework */; };
+		57CEA89785874AC88A61BE23 /* RCTAuroraIMUITests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 2EFA5C699CEE42FE98AA4543 /* RCTAuroraIMUITests.xctest */; };
+		0602A1892FC94ED59EE023A8 /* libRNNeteaseIm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D08623A7807C42E58EA5675C /* libRNNeteaseIm.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -370,6 +374,12 @@
 		61B7A1C4F971471480809E41 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		EEE156CA5801497DBF089823 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		EC578FE55799426B951514B5 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EBD013185E404EBE93C9CDFD /* RCTAuroraIMUI.xcodeproj */ = {isa = PBXFileReference; name = "RCTAuroraIMUI.xcodeproj"; path = "../node_modules/react-native-imui/ios/RCTAuroraIMUI.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		9EAAF85453954D24BB29ABEC /* libAuroraIMUI.a */ = {isa = PBXFileReference; name = "libAuroraIMUI.a"; path = "libAuroraIMUI.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		E1C2481A30544F49996E3F43 /* RCTAuroraIMUI.framework */ = {isa = PBXFileReference; name = "RCTAuroraIMUI.framework"; path = "System/Library/Frameworks/RCTAuroraIMUI.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		2EFA5C699CEE42FE98AA4543 /* RCTAuroraIMUITests.xctest */ = {isa = PBXFileReference; name = "RCTAuroraIMUITests.xctest"; path = "RCTAuroraIMUITests.xctest"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.cfbundle; explicitFileType = undefined; includeInIndex = 0; };
+		7010B3A5489A433F9F1CEB65 /* RNNeteaseIm.xcodeproj */ = {isa = PBXFileReference; name = "RNNeteaseIm.xcodeproj"; path = "../node_modules/react-native-netease-im/ios/RNNeteaseIm/RNNeteaseIm.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		D08623A7807C42E58EA5675C /* libRNNeteaseIm.a */ = {isa = PBXFileReference; name = "libRNNeteaseIm.a"; path = "libRNNeteaseIm.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -400,6 +410,10 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				5C23489E269C422D98706F2C /* libimageCropPicker.a in Frameworks */,
 				84E236177A2748158D3335F0 /* libRNVectorIcons.a in Frameworks */,
+				0E66D88CC7724B1C89081B59 /* libAuroraIMUI.a in Frameworks */,
+				CAA20A55360A471A91AA9381 /* RCTAuroraIMUI.framework in Frameworks */,
+				57CEA89785874AC88A61BE23 /* RCTAuroraIMUITests.xctest in Resources */,
+				0602A1892FC94ED59EE023A8 /* libRNNeteaseIm.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +602,8 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				FB55B30D5B93475A8F7F48A7 /* imageCropPicker.xcodeproj */,
 				E50975AAF41F42C2BBBC1508 /* RNVectorIcons.xcodeproj */,
+				EBD013185E404EBE93C9CDFD /* RCTAuroraIMUI.xcodeproj */,
+				7010B3A5489A433F9F1CEB65 /* RNNeteaseIm.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1247,11 +1263,17 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
+					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 				);
 			};
 			name = Debug;
@@ -1274,11 +1296,17 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
+					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 				);
 			};
 			name = Release;
@@ -1302,6 +1330,8 @@
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
+					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 				);
 			};
 			name = Debug;
@@ -1324,6 +1354,8 @@
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
+					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 				);
 			};
 			name = Release;
@@ -1355,11 +1387,17 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
+					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 				);
 			};
 			name = Debug;
@@ -1391,11 +1429,17 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
+					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 				);
 			};
 			name = Release;
@@ -1426,11 +1470,17 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
+					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 				);
 			};
 			name = Debug;
@@ -1461,11 +1511,17 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-imui\ios\RCTAuroraIMUI/**",
+					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 				);
 			};
 			name = Release;

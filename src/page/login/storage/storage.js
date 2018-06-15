@@ -88,9 +88,11 @@ export default class Storage {
   load({ key, autoSync = true, syncInBackground = true, option = {} }) {
     // 获取当前时间
     let now = new Date().getTime();
-    if(autoSync) {// 同步
+    // 同步
+    if(autoSync) {
       return this.getItem(key).then(res => {
 
+       //  console.log('同步:')
         if(res) {
           let data = null
 
@@ -99,24 +101,24 @@ export default class Storage {
             // 如果已经过期 则删除掉里面的数据， 然后异步获取
             if(data.expires <= now) {
               this.remove(key)
-              return this.sync[key](option)
+              return this.sync.get(key, option)
               // return this.sync[key](option)
             }
             return data
           } catch(err) {
 
             this.remove(key)
-            return this.sync[key](option)
+            return this.sync.get(key, option)
           }
         } else { // 没有数据时，异步获取
           // console.log('异步:')
-          return this.sync[key](option)
+          return this.sync.get(key, option)
           // return this.sync[key](option)
         }
       })
     } else {// 异步
       // console.log('异步:')
-      return this.sync[key](option)
+      return this.sync.get(key, option)
       // return this.sync[key](option)
     }
   }

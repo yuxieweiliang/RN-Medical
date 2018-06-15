@@ -12,6 +12,7 @@ let NewStorage = function() {
   this._init.apply(this, arguments)
 }
 
+
 NewStorage.prototype = {
   _init() {
     oldStorage = new Storage({
@@ -29,6 +30,20 @@ NewStorage.prototype = {
       syncInBackground: true,
       option
     })
+  },
+
+  get(key, option) {
+    return syncAction.get(key, option)
+    // oldStorage.fetch(key, option)
+  },
+  post(key, option) {
+    return syncAction.post(key, option)
+  },
+  put() {
+
+  },
+  delete() {
+
   },
   save(key, data) {
     return oldStorage.save(key, data)

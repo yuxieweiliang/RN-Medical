@@ -17,7 +17,7 @@ const config =  {
 export default StackNavigator(
   routes,
   {
-    initialRouteName: 'SignTrend',
+    initialRouteName: 'TabNavigator',
     navigationOptions: {
       ...config,
       headerStyle:{

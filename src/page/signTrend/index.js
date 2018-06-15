@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { Text, WebView, TouchableOpacity, View, Button, Dimensions } from 'react-native';
+import { Text, ScrollView, TouchableOpacity, View, processColor, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
-import ImagePicker from 'react-native-image-crop-picker';
 import styles from './style'
 import signAction from '../../action/sign'
+import update from 'immutability-helper';
+import Card from '../../../components/Card'
+import {LineChart} from 'react-native-charts-wrapper';
 
+
+const greenBlue = "rgb(26, 182, 151)";
+const petrel = "rgb(59, 145, 153)";
+const colors = [processColor('red'), processColor('blue'), processColor('green'), processColor('yellow'), processColor('purple'), processColor('pink')];
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,202 +18,235 @@ const { width, height } = Dimensions.get('window');
 class SignTrend extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      webViewData: ''
+    let data = {
+      values: [0],
+      label: '血压（高）',
+      config: {
+        // 边框宽度
+        lineWidth: 1,
+        // 边框颜色
+        color: processColor('blue'),
+        // 点击时，坐标线的颜色
+        highlightColor: processColor("blue"),
+        // 文字大小
+        valueTextSize: 10,
+
+        // 贝塞尔曲线
+        mode: "CUBIC_BEZIER",
+
+        // 描点 默认 true
+        drawCircles: true,
+        // 描点值
+        drawValues: true,
+        // 描点大小
+        circleRadius: 5,
+
+        // 区域颜色 默认 false
+        drawFilled: false,
+        // 填充梯形区域 只有当 drawFilled = true 时， 有作用
+        fillGradient: {
+          colors: [processColor(petrel), processColor(greenBlue)],
+          positions: [0, 0.5],
+          angle: 90, // 角
+          orientation: "TOP_BOTTOM"
+        },
+        // 填充透明度
+        fillAlpha: 1000,
+      }
     }
-    this.data = 0;
+    let xAxis = {
+      axisLineWidth: 0,
+      drawLabels: true,
+      position: 'BOTTOM',
+      legend: false,
+      drawAxisLine: true,
+      drawGridLines: false,
+      right: {
+        enabled: false
+      }
+    }
+
+    this.state = {
+      dataStructure: data,
+      xAxis,
+      bloodPressure: {
+        data: {dataSets: [data, data]},
+        xAxis,
+        // 触控 默认 false  有值时， 交叉线不显示
+        // touchEnabled: true,
+        // 放大缩小
+        autoScaleMinMaxEnabled: false,
+        // chartDescription: { text: "" },
+        dragDecelerationEnabled: true,
+        /**
+         * 对数据有特殊要求，{x: 0, y: 0, marker: 'show 0'}
+         */
+        /*marker: {
+          enabled: true,
+          markerColor: processColor("white"),
+          textColor: processColor("black")
+        },*/
+
+
+        onSelect: this.handleSelect.bind(this),
+        onChange: event => console.log(event.nativeEvent),
+      },
+      temperature: {data: {dataSets: [data]}, xAxis},
+      breathing: {data: {dataSets: [data]}, xAxis},
+      pulse: {data: {dataSets: [data]}, xAxis},
+      bloodOxygenSaturation: {data: {dataSets: [data]}, xAxis},
+    }
   }
   componentWillMount() {
     const { dispatch } = this.props
     dispatch(signAction.signList())
     dispatch(signAction.sign(3))
   }
+  handleSelect(event) {
+    let entry = event.nativeEvent;
+    if (entry == null) {
+      this.setState({ ...this.state, selectedEntry: null });
+    } else {
+      this.setState({ ...this.state, selectedEntry: JSON.stringify(entry) });
+    }
 
+    console.log(event.nativeEvent);
+  }
   componentDidMount() {}
+  createSignData(option) {
+    let data = {}
+    option.map(item => {
+      ['HX', 'MB', 'TW', 'XL', 'XYBHD',  'XYH',  'XYL'].map(key => {
+        if(!data[key]) {
+          data[key] = []
+        }
+        data[key].push(item[key])
+      })
+    })
+    return data
+  }
   componentWillReceiveProps(nextProps) {
     const { signList } = nextProps
+    const { dataStructure, xAxis } = this.state
     if(signList) {
       let data = this.createSignData(signList)
-      let option = {
-        title: {
-          text: null
-        },
-        yAxis: {
-          title: {
-            enabled: false
-          }
-        },
-        legend: {
-          // 关闭图列
-          enabled: false
-        },
-        plotOptions: {
-          line: {
-            dataLabels: {
-              // 开启数据标签
-              enabled: true
-            },
-            // 关闭鼠标跟踪，对应的提示框、点击事件会失效
-            enableMouseTracking: false
+
+      console.log('nextProps', nextProps)
+
+      this.setState({
+        bloodPressure: {
+          data: {
+            dataSets: [{
+              ...dataStructure,
+              values: data.XYH
+            },{
+              ...dataStructure,
+              values: data.XYL
+            }]
           },
-          series: {
-            label: {
-              connectorAllowed: false
-            },
-            pointStart: 1
-          }
-        },
-        responsive: {
-          rules: [{
-            condition: {
-              maxWidth: 500
-            },
-            chartOptions: {
-              legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-              }
-            }
-          }]
+          xAxis
         }
-      }
-
-
-
-      // 血压
-      let bloodPressure = Object.assign({ series: [{
-        name: 'fdafa',
-        data: data.XYH
-      },{
-        name: 'fdafa',
-        data: data.XYL
-      }] }, option)
-
-      // 体温
-      let temperature = Object.assign({ series: [{
-        name: 'fdafa',
-        data: data.TW
-      }] }, option)
-
-      // 呼吸
-      let breathing = Object.assign({ series: [{
-        name: 'fdafa',
-        data: data.HX
-      }] }, option)
-
+      })
+      this.setState({
+        temperature: {
+          data: {
+            dataSets: [{
+              ...dataStructure,
+              values: data.TW
+            }]
+          },
+          xAxis
+        }
+      })
+      this.setState({
+        breathing: {
+          data: {
+            dataSets: [{
+              ...dataStructure,
+              values: data.HX
+            }]
+          },
+          xAxis
+        }
+      })
       // 脉搏
-      let pulse = Object.assign({ series: [{
-        name: 'fdafa',
-        data: data.MB
-      }] }, option)
-
+      this.setState({
+        pulse: {
+          data: {
+            dataSets: [{
+              ...dataStructure,
+              values: data.MB
+            }]
+          },
+          xAxis
+        }
+      })
       // 血氧饱和度
-      let bloodOxygenSaturation = Object.assign({ series: [{
-        name: 'fdafa',
-        data: data.XYBHD
-      }] }, option)
-
-      this.refs.bloodPressure.postMessage(JSON.stringify(bloodPressure));
-      this.refs.temperature.postMessage(JSON.stringify(temperature));
-      this.refs.breathing.postMessage(JSON.stringify(breathing));
-      this.refs.pulse.postMessage(JSON.stringify(pulse));
-      this.refs.bloodOxygenSaturation.postMessage(JSON.stringify(bloodOxygenSaturation));
+      this.setState({
+        bloodOxygenSaturation: {
+          data: {
+            dataSets: [{
+              ...dataStructure,
+              values: data.XYBHD
+            }]
+          },
+          xAxis
+        }
+      })
     }
   }
   componentWillUnmount() {}
 
-  openImage() {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true
-    }).then(image => {
-      console.log(image);
-    });
-  }
-  createSignData(option) {
-    let data = {}
-    option.map(function(list) {
-
-      for(i in list) {
-        if(['HX', 'MB', 'TW', 'XYL', 'XYH', 'XYBHD'].indexOf(i) > -1) {
-          data[i] = data[i] || []
-          data[i].push(list[i])
-        }
-      }
-
-    })
-    return data
-  }
-
-  // 从 WebView 接收的数据
-  sendMessage() {}
-
-  // 向 WebView 发送的数据
-  handleMessage(e) {
-    console.log(e.nativeEvent)
-    this.setState({webViewData: e.nativeEvent.data});
-  }
-
   render() {
+    const {
+      bloodPressure,
+      temperature,
+      breathing,
+      pulse,
+      bloodOxygenSaturation
+    } = this.state;
 
-    const webViewStyle = {
-      automaticallyAdjustContentInsets: false,
-      style: {width, height: 300, },
-      source: {uri: 'http://10.0.0.33:8011/index.html'},
-      javaScriptEnabled: true,
-      domStorageEnabled: true,
-      decelerationRate: "normal",
-      startInLoadingState: true
-    }
-
+    console.log(this.state)
     return (
-      <View style={styles.container}>
-        <TouchableOpacity  onPress={() => {this.openImage()}}>
-          <Text>打开图片</Text>
-        </TouchableOpacity>
+      <ScrollView style={styles.container}>
 
-        <View style={{ flex: 1 }}>
-
-          {/*   血压  */}
-          <WebView
-            ref={'bloodPressure'}
-            {...webViewStyle}
+        <Card title="血压" style={styles.card}>
+          <LineChart
+            {...bloodPressure}
+            style={styles.bloodPressure}
           />
+        </Card>
 
-          {/*   体温  */}
-          <WebView
-            ref={'temperature'}
-            {...webViewStyle}
+        <Card title="体温" style={styles.card}>
+          <LineChart
+            {...temperature}
+            style={styles.temperature}
           />
+        </Card>
 
-          {/*   呼吸  */}
-          <WebView
-            ref={'breathing'}
-            {...webViewStyle}
+        <Card title="呼吸" style={styles.card}>
+          <LineChart
+            {...breathing}
+            style={styles.breathing}
           />
+        </Card>
 
-          {/*   脉搏  */}
-          <WebView
-            ref={'pulse'}
-            {...webViewStyle}
+        <Card title="脉搏" style={styles.card}>
+          <LineChart
+            {...pulse}
+            style={styles.pulse}
           />
+        </Card>
 
-          {/*   血氧饱和度  */}
-          <WebView
-            ref={'bloodOxygenSaturation'}
-            {...webViewStyle}
+        <Card title="血氧饱和度" style={styles.card}>
+          <LineChart
+            {...bloodOxygenSaturation}
+            style={styles.bloodOxygenSaturation}
           />
+        </Card>
 
-        </View>
-        <View style={{ height: 100, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>来自webview的数据 : {this.state.webViewData}</Text>
-          <Text onPress={() => {
-            this.sendMessage()
-          }}>发送数据到WebView</Text>
-        </View>
-      </View>
+
+      </ScrollView>
     );
   }
 }

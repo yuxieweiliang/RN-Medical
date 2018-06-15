@@ -9,6 +9,7 @@ import Card from '../../../components/Card'
 // 操作动作
 import userAction from '../../action/user'
 import systemAction from '../../action/system'
+// import { NimSession } from 'react-native-netease-im';
 import consultAction from '../../action/consult'
 
 
@@ -78,6 +79,18 @@ class ConsultPage extends React.Component {
       // 获取当前用户的咨询列表
       // dispatch(systemAction.getIllnessList({hospitalId: }))
 
+      console.log(NimSession.login)
+      NimSession.login('test', 'asdf1234').then((data)=>{
+        // global.imaccount = this.state.name;
+
+        console.log(data)
+        /*navigator.resetTo({
+          screen:'ImDemo.ChatList',
+          title:"消息"
+        });*/
+      },(err)=>{
+        console.warn(err);
+      })
       //
       /*dispatch(consultAction.getAdviceMessage({
         userId: '322717145007458',
@@ -161,15 +174,6 @@ class ConsultPage extends React.Component {
                 itemTitle="并发症状"
                 itemName={pathological && pathological.ItemName}
               />
-
-
-              {
-                [1,2,3].map(item => (
-                  <View>
-                    <Text>{item}</Text>
-                  </View>
-                ))
-              }
             </View>
           </Card>
         </TouchableHighlight>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, Image,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
 import { connect } from 'react-redux'
-import { GiftedChat } from 'react-native-gifted-chat'
+// import { GiftedChat } from 'react-native-gifted-chat' // 聊天插件
 import styles from './style'
 
 
@@ -47,11 +47,22 @@ class GiftedChatPage extends React.Component {
   }
 
   onSend(messages = []) {
-    this.setState(previousState => ({
+    /*this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
-    }))
+    }))*/
   }
   render() {
+    return (
+
+      <View
+        messages={this.state.messages}
+        onSend={messages => this.onSend(messages)}
+        user={{
+          _id: 1,
+        }}
+      />
+    );
+    /*
     return (
 
       <GiftedChat
@@ -61,11 +72,11 @@ class GiftedChatPage extends React.Component {
           _id: 1,
         }}
       />
-    );
+    );*/
   }
 }
 
-GiftedChat.navigationOptions = ({ navigation, navigationOptions }) => {
+GiftedChatPage.navigationOptions = ({ navigation, navigationOptions }) => {
   const { params } = navigation.state;
   return {
     title: TITLE,

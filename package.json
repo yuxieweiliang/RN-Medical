@@ -7,16 +7,15 @@
     "test": "jest"
   },
   "dependencies": {
+    "immutability-helper": "^2.7.0",
     "immutable": "^3.8.2",
     "moment": "^2.22.1",
     "react": "16.3.1",
     "react-native": "0.55.4",
     "react-native-calendar-strip": "^1.3.3",
-    "react-native-calendars": "^1.18.2",
-    "react-native-gifted-chat": "^0.4.3",
+    "react-native-calendars": "^1.19.3",
+    "react-native-charts-wrapper": "^0.4.3",
     "react-native-image-crop-picker": "^0.20.3",
-    "react-native-root-modal": "^3.1.1",
-    "react-native-storage": "^0.2.2",
     "react-native-swiper": "^1.5.13",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.8",
@@ -31,9 +30,7 @@
     "babel-preset-react-native": "4.0.0",
     "jest": "22.4.3",
     "react-test-renderer": "16.3.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1"
+    "babel-preset-es2015": "^6.24.1"
   },
   "jest": {
     "preset": "react-native"

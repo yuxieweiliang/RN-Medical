@@ -8,6 +8,7 @@ import styles from './style'
 import { SYSTEM } from '../../type'
 const { width, height } = Dimensions.get('window');
 
+
 type Props = {};
 class LoginPage extends Component<Props> {
   constructor(props) {
@@ -26,6 +27,7 @@ class LoginPage extends Component<Props> {
 
   _login() {
     const { dispatch, navigation } = this.props
+
     dispatch(ac.login(this.state))
       .then(res => {
         // navigation.navigate('Home')
