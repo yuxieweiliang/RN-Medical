@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, TouchableOpacity, View, processColor, Dimensions } from 'react-native';
+import { Text, ScrollView, TouchableOpacity, Modal, FlatList, View, Dimensions } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { connect } from 'react-redux'
 import styles from './style'
 import signAction from '../../action/sign'
 import update from 'immutability-helper';
 import Card from '../../../components/Card'
 import {LineChart} from 'react-native-charts-wrapper';
+import { data, xAxis } from './dataConfig'
 
-
-const greenBlue = "rgb(26, 182, 151)";
-const petrel = "rgb(59, 145, 153)";
-const colors = [processColor('red'), processColor('blue'), processColor('green'), processColor('yellow'), processColor('purple'), processColor('pink')];
 
 const { width, height } = Dimensions.get('window');
 
@@ -18,54 +16,6 @@ const { width, height } = Dimensions.get('window');
 class SignTrend extends React.Component {
   constructor(props) {
     super(props);
-    let data = {
-      values: [0],
-      label: '血压（高）',
-      config: {
-        // 边框宽度
-        lineWidth: 1,
-        // 边框颜色
-        color: processColor('blue'),
-        // 点击时，坐标线的颜色
-        highlightColor: processColor("blue"),
-        // 文字大小
-        valueTextSize: 10,
-
-        // 贝塞尔曲线
-        mode: "CUBIC_BEZIER",
-
-        // 描点 默认 true
-        drawCircles: true,
-        // 描点值
-        drawValues: true,
-        // 描点大小
-        circleRadius: 5,
-
-        // 区域颜色 默认 false
-        drawFilled: false,
-        // 填充梯形区域 只有当 drawFilled = true 时， 有作用
-        fillGradient: {
-          colors: [processColor(petrel), processColor(greenBlue)],
-          positions: [0, 0.5],
-          angle: 90, // 角
-          orientation: "TOP_BOTTOM"
-        },
-        // 填充透明度
-        fillAlpha: 1000,
-      }
-    }
-    let xAxis = {
-      axisLineWidth: 0,
-      drawLabels: true,
-      position: 'BOTTOM',
-      legend: false,
-      drawAxisLine: true,
-      drawGridLines: false,
-      right: {
-        enabled: false
-      }
-    }
-
     this.state = {
       dataStructure: data,
       xAxis,
@@ -149,47 +99,28 @@ class SignTrend extends React.Component {
       })
       this.setState({
         temperature: {
-          data: {
-            dataSets: [{
-              ...dataStructure,
-              values: data.TW
-            }]
-          },
+          data: {dataSets: [{...dataStructure, values: data.TW}]},
           xAxis
         }
       })
       this.setState({
         breathing: {
-          data: {
-            dataSets: [{
-              ...dataStructure,
-              values: data.HX
-            }]
-          },
+          data: {dataSets: [{...dataStructure, values: data.HX}]},
           xAxis
         }
       })
+
       // 脉搏
       this.setState({
         pulse: {
-          data: {
-            dataSets: [{
-              ...dataStructure,
-              values: data.MB
-            }]
-          },
+          data: {dataSets: [{...dataStructure, values: data.MB}]},
           xAxis
         }
       })
       // 血氧饱和度
       this.setState({
         bloodOxygenSaturation: {
-          data: {
-            dataSets: [{
-              ...dataStructure,
-              values: data.XYBHD
-            }]
-          },
+          data: {dataSets: [{...dataStructure, values: data.XYBHD}]},
           xAxis
         }
       })
@@ -197,16 +128,16 @@ class SignTrend extends React.Component {
   }
   componentWillUnmount() {}
 
+  onMenuPress() {
+    const { navigation, dispatch } = this.props;
+    dispatch({type: 'SignTrendModel'})
+    navigation.navigate('FillingFeature')
+  }
   render() {
-    const {
-      bloodPressure,
-      temperature,
-      breathing,
-      pulse,
-      bloodOxygenSaturation
-    } = this.state;
+    const { bloodPressure, temperature, breathing, pulse, bloodOxygenSaturation } = this.state;
+    const { SignTrendModel, navigation: { dispatch } } = this.props;
 
-    console.log(this.state)
+    console.log(this.props)
     return (
       <ScrollView style={styles.container}>
 
@@ -246,14 +177,65 @@ class SignTrend extends React.Component {
         </Card>
 
 
+        <Modal
+          transparent={true}
+          animationType={"fade"}
+          onRequestClose={() => {console.log(false)}}
+          visible={SignTrendModel}>
+          <TouchableOpacity
+            onPress={() => dispatch({type: 'SignTrendModel'})}
+            style={{
+              top: 60,
+              width,
+              height: height - 60,
+              backgroundColor: 'rgba(0, 0, 0, .2)',
+            }}>
+            <Icon name="sort-asc" style={{position: 'absolute',top: 0, right: 20, fontSize: 24, color: '#fafafa'}}/>
+            <View style={{
+              width: width/3,
+              position: 'absolute',
+              top: 10, right: 5,
+              backgroundColor: '#fafafa',
+              borderWidth: 1,
+              borderColor: '#eee',
+              borderRadius: 10,
+              paddingLeft: 20,
+              paddingRight: 20,
+            }}>
+              <FlatList
+                data={[{key: '编辑'}, {key: '添加'}]}
+                style={{}}
+                renderItem={({item}) => (
+                  <TouchableOpacity
+                    style={{
+                      width: '100%',
+                      paddingTop: 10,
+                      paddingBottom: 10,
+                    }}
+                    onPress={() => this.onMenuPress()}>
+                    <Text>{item.key}</Text>
+                  </TouchableOpacity>
+                )}/>
+            </View>
+          </TouchableOpacity>
+        </Modal>
+
       </ScrollView>
     );
   }
 }
 
-SignTrend.navigationOptions = ({ navigation, navigationOptions }) => {
-  const { params } = navigation.state;
+SignTrend.navigationOptions = ({ navigation, navigationOptions, screenProps }) => {
+  const { params, dispatch } = navigation;
   return {
+    headerRight: (
+      <View style={{width: 70, paddingRight: 15, alignItems: 'flex-end', justifyContent: 'center', height: '100%'}}>
+        <Icon name="plus"
+              style={{fontSize: 20, color: '#555',}}
+              onPress={() => dispatch({type: 'SignTrendModel'})}
+        />
+      </View>
+    ),
     title: '体征趋势',
   }
 };

@@ -12,8 +12,6 @@ const { width, height } = Dimensions.get('window');
  */
 export default function healthStatus({ healthStatus, style, navigation }) {
 
-  console.log(this.props)
-
   return (
   <View style={style}>
     <TouchableOpacity

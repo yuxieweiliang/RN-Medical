@@ -1,6 +1,6 @@
 import { USER } from '../type'
 import storage from '../storage'
-
+import moment from 'moment'
 export default {
   /**
    * 添加体征信息
@@ -8,36 +8,29 @@ export default {
    */
   postSign(option) {
     return async dispatch => {
+
       const data = {
+        ...option,
         UserID: "322717145007458",
-        TimePoint: "2018-06-12T00:00:00",
-        TimePosition: "2018-06-12T00:00:00",
-        AddTime: "2018-06-12T00:00:00",
+        TimePoint: moment().format('YYYY-MM-DD HH:mm:ss'), // 时间点
+        TimePosition: moment().format('YYYY-MM-DD HH:mm:ss'), // 时间戳
+        AddTime: moment().format('YYYY-MM-DD HH:mm:ss'), // 创建时间
         AddFrom: "app",
-        TW: 11,
         TWDesc: "TW",
-        MB: 22,
         MBDesc: "MB",
-        XYH: 33,
         XYHDesc: "XYH",
-        XYL: 44,
         XYLDesc: "XYL",
-        HX: 55,
         HXDesc: "HX",
-        XL: 66,
         XLDesc: "XL",
-        XYBHD: 77,
         XYBHDDesc: "XYBHD"
       }
-      // console.log('-------------------')
-      // storage.remove('user')
-     const sign = await storage.load('user.postSign', {data: data})
+      const sign = await storage.load('user.postSign', {data: data})
 
       // console.log(sign)
       /*dispatch({
-        type: 'SIGN_ITEM_CHANGE',
-        data: data,
-      })*/
+       type: 'SIGN_ITEM_CHANGE',
+       data: data,
+       })*/
       return sign
     }
   },
@@ -46,19 +39,8 @@ export default {
    * 获取体征列表
    * @returns {{type: *}}
    */
-  sign(option) {
-    return async dispatch => {
-
-      // storage.remove('user')
-     const sign = await storage.load('user.sign', {path: {signId: option}})
-
-      // console.log(sign)
-      /*dispatch({
-        type: 'SIGN_ITEM_CHANGE',
-        data: data,
-      })*/
-      return sign
-    }
+  sign(signId) {
+    return async dispatch => await storage.load('user.sign', {path: { signId }})
   },
 
   /**
@@ -68,16 +50,20 @@ export default {
   signList(option) {
     return async dispatch => {
 
-      // storage.remove('user')
-     const sign = await storage.load('user.signList', {
-       path: {start: '2018-05-01 12:12:00',
-         end: '2018-05-12 23:59:59'
-       },
-       /*params: {
-         names: 'HX,MB,TW,XYL,XYH,XYBHD'
-       }*/
-     })
+      var start = moment().add(-30, 'days').format('YYYY-MM-DD HH:mm:ss')
+      let end = moment().format('YYYY-MM-DD HH:mm:ss')
 
+      // storage.remove('user')
+      const sign = await storage.load('user.signList', {
+        path: {start: '2018-05-01 12:12:00',
+          end: '2018-05-12 23:59:59'
+        },
+        /*params: {
+         names: 'HX,MB,TW,XYL,XYH,XYBHD'
+         }*/
+      })
+
+      console.log('sign', start,end)
       console.log('sign', sign)
       dispatch({
         type: USER.SIGN_LIST,

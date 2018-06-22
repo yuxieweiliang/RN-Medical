@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions  } from 'react-native';
+import { Text, FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions , StatusBar  } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { connect } from 'react-redux'
 // 选项卡
@@ -34,17 +34,14 @@ class HomePage extends Component<Props> {
    * */
   async beforeMount() {
     let { dispatch, navigation, token } = this.props
-    if(!token) {
-      token = await dispatch(systemAction.loadToken())
-    }
     if(token) {
       dispatch(userAction.loadUser('322717145007458'))
-    } else {
-      navigation.navigate('Login')
     }
   }
   componentWillMount() {
     this.beforeMount()
+
+    console.log('****************|||||||||||     home page    |||||||||||****************')
   }
 
   componentDidMount() {}
@@ -55,6 +52,7 @@ class HomePage extends Component<Props> {
 
     return (
       <View style={styles.container}>
+        <StatusBar  barStyle="default" backgroundColor="blue" translucent={true} setTranslucent={true}/>
         {/*    精灵    */}
         <Spirit/>
         <ScrollView style={styles.container}>
@@ -85,7 +83,7 @@ class HomePage extends Component<Props> {
             }
           </View>
 
-          {/*  晒健康  */}
+          {/*   晒健康  */}
           <Card title="晒健康" style={{paddingBottom: 10}}>
             {
               <FlatList
@@ -116,26 +114,27 @@ class HomePage extends Component<Props> {
           <Card title="健康日报" style={{paddingBottom: 10}}>
             {
               <FlatList
-                data={list
-                } renderItem={item => {
-                // console.log(item.item.title)
-                item.item.horizontal = true
-                return (
-                  <TouchableOpacity
-                    key={item.key}
-                    activeOpacity={.95}
-                    style={{width: width, paddingLeft: 10, paddingBottom: 10}}
-                    onPress={() => navigation.navigate('HealthDaily')}
-                    underlayColor={null}>
-                    <View style={{width: '100%', flexDirection: 'row'}}>
-                      <Image source={item.item.avatar} style={{flex: 1, height: 80}}/>
-                      <Text style={{width: '75%', paddingLeft: 10, paddingRight: 10}}>
-                        这里是晒健康的内容，这里是晒健康的内容
-                        这里是晒健康的内容，这里是晒健康的内容
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                )
+                data={list}
+                renderItem={item => {
+
+                  // console.log(item.item.title)
+                  item.item.horizontal = true
+                  return (
+                    <TouchableOpacity
+                      key={item.key}
+                      activeOpacity={.95}
+                      style={{width: width, paddingLeft: 10, paddingBottom: 10}}
+                      onPress={() => navigation.navigate('HealthDaily')}
+                      underlayColor={null}>
+                      <View style={{width: '100%', flexDirection: 'row'}}>
+                        <Image source={item.item.avatar} style={{flex: 1, height: 80}}/>
+                        <Text style={{width: '75%', paddingLeft: 10, paddingRight: 10}}>
+                          这里是晒健康的内容，这里是晒健康的内容
+                          这里是晒健康的内容，这里是晒健康的内容
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  )
               }}
               />
             }
@@ -170,7 +169,6 @@ HomePage.navigationOptions = ({ navigation, navigationOptions }) => {
       </View>
     ),
     showIcon: true,
-
   }
 };
 const createState = function(state) {

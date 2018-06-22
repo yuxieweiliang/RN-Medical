@@ -8,6 +8,8 @@ const borders = {
 
 export default StyleSheet.create({
   container: {
+    borderWidth: 1,
+    borderColor: 'red',
     height: height - 20,
   },
   // 人物肖像盒子

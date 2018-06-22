@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView, Dimensions, Image, Text, View, TouchableHighlight } from 'react-native';
-import { SafeAreaView, DrawerItems } from 'react-navigation';
+import { ScrollView, Dimensions, Image, Text, View, TouchableHighlight, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { routeNames } from '../config'
 import styles from './style'
 import Button from '../../../components/Button'

@@ -3,6 +3,7 @@ import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { combineReducers } from 'redux';
 
+import navigator from './reducers/navigator'
 // 导入登录
 import loginData from './reducers/login'
 // 个人中心
@@ -55,6 +56,7 @@ const hospital = combineReducers({
 
 // 所有页面的数据分发
 const rootReducer = combineReducers({
+  navigator: navigator,
   login: loginData,
   user,
   hospital,

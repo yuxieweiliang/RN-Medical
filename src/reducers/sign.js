@@ -1,12 +1,8 @@
 import { USER } from '../type'
 import React, { Component } from 'react';
-
-const initialState = {
-  sign: null,
-  signList: null,
-
-  // 体温
-  TW: null,
+/*
+// 体温
+TW: null,
   // 脉搏
   MB: null,
   // 血压高
@@ -19,6 +15,11 @@ const initialState = {
   XL: null,
   // 血氧饱和度
   XYBHD: null,
+*/
+const initialState = {
+  sign: null,
+  signList: null,
+  SignTrendModel: false,
 }
 
 const func = {
@@ -42,6 +43,13 @@ const func = {
     return {
       ...state,
       signList: action.data,
+    }
+  },
+  // SignTrendModel
+  ['SignTrendModel'](state, action) {
+    return {
+      ...state,
+      SignTrendModel: !state.SignTrendModel,
     }
   },
 }

@@ -26,7 +26,7 @@ export default DrawerNavigator(Route, {
   },
 
   // 抽屉的设置
-  contentOptions: {
+  /*contentOptions: {
     // 默认页面组件
     initialRouteName: 'Home',
     // 正在活动的路由的key
@@ -48,7 +48,7 @@ export default DrawerNavigator(Route, {
       // 垂直间距
       marginVertical: 0,
     },
-  },
+  },*/
   contentComponent: DrawerView,
 });
 

@@ -31,6 +31,8 @@ export default {
 
   Registration: { screen: routes.Registration, },
 
+  Department: { screen: routes.Department, },
+
   DepartmentList: { screen: routes.DepartmentList, },
 
   User: { screen: routes.User, },

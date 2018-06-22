@@ -4,14 +4,18 @@ const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
   container: {
     flex: 1,
+    position: 'absolute',
+    top: 0,
     paddingBottom: 140,
     // justifyContent: 'center',
     alignItems: 'center',
+    /*borderWidth: 1,
+    borderColor: 'red',*/
   },
   returnBox: {
     width,
     height: 50,
-    backgroundColor: 'rgba(0, 0, 0, .1)',
+    // backgroundColor: 'rgba(0, 0, 0, .1)',
   },
   returnIconBox: {
     height: 50,

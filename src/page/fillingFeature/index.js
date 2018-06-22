@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, TextInput, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
-import behavior from './behavior'
 import signAction from '../../action/sign'
 import styles from './style'
+import moment from 'moment'
 
 
 const EditInput = ({title, value, placeholder, onPress}) => (
@@ -33,8 +33,8 @@ class FillingFeature extends React.Component {
     // this._onPressButton.remove();
   }
   addSign() {
-    const { dispatch } = this.props
-    dispatch(signAction.postSign())
+    const { dispatch, sign } = this.props
+    dispatch(signAction.postSign(sign))
   }
   signItemChange(value, key) {
     const { dispatch } = this.props
@@ -44,7 +44,7 @@ class FillingFeature extends React.Component {
     })
   }
   render() {
-    console.log(this.props)
+
     return (
 
       <View style={styles.container}>
@@ -109,4 +109,4 @@ FillingFeature.navigationOptions = ({ navigation, navigationOptions }) => {
   }
 };
 
-export default connect(state => ({}))(FillingFeature)
+export default connect(state => ({...state.user.sign}))(FillingFeature)
