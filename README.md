@@ -1,9 +1,14 @@
+列出当前模拟器列表:
+netstat -ano |findstr 620
+
 夜神调试:
 adb connect 127.0.0.1:62001
 
 显示当前链接 移动设备:
 adb devices
 
+### 清除缓存
+gradlew.bat clean
 
 #### 打包配置过程
 · 在 android/app/src/main 目录下创建一个 assets空文件夹

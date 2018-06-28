@@ -33,13 +33,6 @@ import com.android.build.OutputFile
  *   // bundleInPaidRelease: true,
  *   // bundleInBeta: true,
  *
- *   // whether to disable dev mode in custom build variants (by default only disabled in release)
- *   // for example: to disable dev mode in the staging build type (if configured)
- *   devDisabledInStaging: true,
- *   // The configuration property can be in the following formats
- *   //         'devDisabledIn${productFlavor}${buildType}'
- *   //         'devDisabledIn${buildType}'
- *
  *   // the root of your project, i.e. where "package.json" lives
  *   root: "../../",
  *
@@ -72,10 +65,6 @@ import com.android.build.OutputFile
  * ]
  */
 
-project.ext.react = [
-    entryFile: "index.js"
-]
-
 apply from: "../../node_modules/react-native/react.gradle"
 
 /**
@@ -94,12 +83,13 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 
     defaultConfig {
-        vectorDrawables.useSupportLibrary = true
-        applicationId "com.reactnative"
+        applicationId "com.imdemo"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -107,6 +97,15 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        multiDexEnabled true
+        manifestPlaceholders = [
+           "NIM_KEY": "4057e946492159a20b43abac8f8f29d1"//云信appId
+        ]
+    }
+    dexOptions {//添加dex编译设置
+        preDexLibraries false
+        jumboMode true
+        javaMaxHeapSize "4g"
     }
     splits {
         abi {
@@ -116,10 +115,19 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            storeFile file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
+        }
+    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -138,12 +146,18 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-agora')
-    compile project(':react-native-charts-wrapper')
-    compile project(':react-native-vector-icons')
+    compile project(':react-native-svg')
+    compile project(':react-native-amap-geolocation')
+    compile project(':react-native-amap3d')
+    compile project(':react-native-imui')
     compile project(':react-native-image-crop-picker')
+    compile project(':react-native-netease-im')
+    compile project(':react-native-navigation')
+    compile project(':react-native-vector-icons')
+    compile 'com.facebook.fresco:animated-gif:0.14.1'
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:22.2.1"
+    compile "com.android.support:appcompat-v7:23.0.1"
+    compile "com.android.support:multidex:1.0.0"
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 

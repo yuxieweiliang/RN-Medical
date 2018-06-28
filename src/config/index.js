@@ -16,7 +16,7 @@ const server = {
   file: `http://fileserver.api.${root}:${port}`,
 }
 
-
+let koe = null
 export default {
   server,
   color,
