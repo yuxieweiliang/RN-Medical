@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, ScrollView, View, TextInput, TouchableNativeFeedback, Dimensions } from 'react-native';
+import { Text, TouchableHighlight, ScrollView, View, TextInput,
+  TouchableNativeFeedback, Dimensions, NativeAppEventEmitter } from 'react-native';
 import { connect } from 'react-redux'
-import TabCardView from '../../../components/TabCardView/index'
 import { typeOf } from '../../../utils'
 import styles from './style'
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
+import { initState } from '../../../reducers/consult/actions'
+import { registerNetEase } from '../../../reducers/app/actions'
 // 操作动作
-// import userAction from '../../../action/user'
-// import systemAction from '../../../action/system'
-// import { NimSession } from 'react-native-netease-im';
-// import consultAction from '../../../action/consult'
+ import { NimSession, NimFriend } from 'react-native-netease-im';
 
 
 
@@ -52,7 +51,7 @@ const PathologicalCardItem = ({itemTitle, itemName}) => {
       <View style={{width: 100}}>
         <Text>{itemTitle}：</Text>
       </View>
-      <View style={{height: 100}}>
+      <View style={{height: 30}}>
         {ItemContent}
       </View>
     </View>
@@ -63,120 +62,116 @@ class ConsultPage extends React.Component {
   /**
    * 检查是否登录
    * */
-  async beforeMount() {
-    let { dispatch, navigation, token, user } = this.props
-    if(!token) {
-      token = await dispatch(systemAction.loadToken())
-    }
-
-    if(token) {
-      // 获取当前用户信息
-      if(!user) {
-        user = await dispatch(userAction.loadUser('322717145007458'))
-      }
-
-      dispatch(userAction.loadUser('322717145007458'))
-      // 获取当前用户的咨询列表
-      // dispatch(systemAction.getIllnessList({hospitalId: }))
-
-      // console.log(NimSession.login)
-      /*NimSession.login('test', 'asdf1234').then((data)=>{
-        // global.imaccount = this.state.name;
-
-        console.log(data)
-        /!*navigator.resetTo({
-          screen:'ImDemo.ChatList',
-          title:"消息"
-        });*!/
-      },(err)=>{
-        console.warn(err);
-      })*/
-      //
-      /*dispatch(consultAction.getAdviceMessage({
-        userId: '322717145007458',
-        adviceId: '7ff26839b0cf4e0ea4e6c9f35fe15960',
-        messageType: 'text'
-      }))*/
-    } else {
-      navigation.navigate('Login')
-    }
-  }
   componentWillMount() {
-    // this.beforeMount()
+    let { dispatch, navigator, token, user } = this.props
+    dispatch(initState())
+    NimFriend.startFriendList();
   }
 
-  componentDidMount() {}
-  componentWillUnmount() {}
+  componentDidMount() {
+    this.friendListener = NativeAppEventEmitter.addListener("observeFriend",(data)=>{
+      this.setState({friend: data})
+      console.log('observeFriend', data)
+    });
+  }
+  componentWillUnmount() {
+    NimFriend.stopFriendList();
+    this.friendListener && this.friendListener.remove();
+  }
 
   leavingMessage() {
-    const { navigation } = this.props
-    navigation.navigate('GiftedChat')
-  }
-
-  getOptionOfKey(option, key1, key2) {
-    if(option && option[key1]) {
-      return  option[key1][key2]
+    const { navigator } = this.props
+    let bool = true;
+    for(let i in this.state.friend) {
+      if(bool) {
+        navigator.push({
+          screen:'Koe.Chat',
+          title:this.state.friend[i][0].name,
+          passProps:{
+            session: {
+              ...this.state.friend[i][0],
+              sessionType:'1'
+            }
+          },
+          rightButton:{
+            id: 'setting',
+            color: '#fff',
+            buttonColor:'#fff',
+            title:'设置'
+          }
+        });
+        console.log('observeFriend', this.state.friend[i][0])
+        bool = false
+      }
     }
+    /*navigator.push({
+      screen:"Koe.FriendList",
+      title:'朋友'
+    });*/
+    // navigator.push({screen: 'Koe.Chat'})
   }
 
   onPressItem(router) {
-    let { navigation } = this.props
-    // navigation.navigate(router, {router: 'Consult'})
+    let { navigator } = this.props
+    navigator.push({
+      screen: router,
+      passProps: {
+        router: 'pop'
+      }})
   }
   leavingVideo() {
-    const { navigation } = this.props
-    // navigation.navigate('InterrogationVideo')
-
+    const { navigator } = this.props
+    navigator.push({screen: 'Koe.InterrogationVideo'})
   }
   render() {
-    let { consult = {}, navigation } = this.props
-    let { complication, symptom, position, pathological } = consult
-
-    let hospitalName = this.getOptionOfKey(consult, 'hospital', 'MerchantName')
-    let illnessName = this.getOptionOfKey(consult, 'illness', 'Illness_Name')
-    let expertName = this.getOptionOfKey(consult, 'expert', 'UserName')
+    let { complication, symptom, position,
+      pathological, hospital, expert, illness } = this.props
 
     return (
       <ScrollView style={styles.container}>
 
         <ConsultItem
           itemTitle="医院"
-          itemName={'hospitalName'}
-          onPress={() => this.onPressItem('HospitalList')}
+          itemName={hospital && hospital.MerchantName}
+          onPress={() => this.onPressItem('Koe.HospitalList')}
         />
         <ConsultItem
           itemTitle="病种"
-          itemName={'illnessName'}
-          onPress={() => this.onPressItem('IllnessTypeList')}
+          itemName={illness && illness.Illness_Name}
+          onPress={() => this.onPressItem('Koe.IllnessTypeList')}
         />
         <ConsultItem
           itemTitle="专家"
-          itemName={'expertName'}
-          onPress={() => this.onPressItem('ExpertList')}
+          itemName={expert && expert.UserName}
+          onPress={() => this.onPressItem('Koe.ExpertList')}
         />
 
 
         <Card title="症状"
+              onPress={() => this.onPressItem('Koe.BodyParts')}
               style={styles.listChildCard}>
-          <View style={{padding: 15}}>
+          <TouchableHighlight
+            onPress={() => this.onPressItem('Koe.BodyParts')}>
+            <View style={{padding: 15}}>
 
-            <PathologicalCardItem
-              itemTitle="身体部位"
-              itemName={position && position.ItemName}
-            />
-            <PathologicalCardItem
-              itemTitle="状态症状"
-              itemName={symptom && symptom.ItemName}
-            />
-            <PathologicalCardItem
-              itemTitle="病例病程"
-              itemName={complication && complication.ItemName}
-            />
-            <PathologicalCardItem
-              itemTitle="并发症状"
-              itemName={pathological && pathological.ItemName}
-            />
-          </View>
+              <PathologicalCardItem
+                itemTitle="身体部位"
+                itemName={position && position.ItemName}
+              />
+              <PathologicalCardItem
+                itemTitle="状态症状"
+                itemName={symptom && symptom.ItemName}
+              />
+              <PathologicalCardItem
+                itemTitle="病例病程"
+                itemName={complication && complication.ItemName}
+              />
+              <PathologicalCardItem
+                itemTitle="并发症状"
+                itemName={pathological && pathological.ItemName}
+              />
+            </View>
+          </TouchableHighlight>
         </Card>
         <View style={{flexDirection: 'row', width, marginTop: 10}}>
           <Button style={{flex: 1}} onPress={() => this.leavingMessage()}>即时咨询</Button>
@@ -201,6 +196,7 @@ class ConsultPage extends React.Component {
 const createState = function(state) {
   return ({
     ...state.user,
+    ...state.consult,
   })
 }
 

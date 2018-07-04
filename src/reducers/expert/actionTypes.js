@@ -1,2 +1,2 @@
-export const LOGIN = 'koe.system.LOGIN';
-export const DECREMENT = 'example.counter.DECREMENT';
+export const EXPERT_MESSAGE = 'expert.message/专家信息';
+export const EXPERT_LIST = 'expert.list/专家列表';

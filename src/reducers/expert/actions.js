@@ -1,28 +1,51 @@
 import * as types from './actionTypes';
-import fetch from '../../../utils/fetch'
-import storage from '../../../utils/storage'
-import url from '../../../api/url'
+import fetch from '../../utils/fetch'
+import storage from '../../utils/storage'
+import api from '../../url'
 
 /**
  * 医护人员列表
  * @returns {{type}}
  */
-export function getHospitalDoctor() {
-  let url = url.getHospitalDoctor()
+export function getHospitalDoctor(option) {
+  let url = api.getHospitalDoctor(option)
 
-  fetch.post(url)
-
-  return {type: types.LOGIN};
+  return (dispatch => {
+    fetch.get(url).then(res => {
+      console.log('hospital: ', res)
+      if(res) {
+        dispatch({type: types.EXPERT_MESSAGE, data: res.Data})
+      }
+    })
+  })
 }
 
 /**
- * 专家详细信息
+ * 专家列表
  * @returns {{type}}
  */
-export function getDepartmentDoctorList() {
-  let url = url.getDepartmentDoctorList()
+export function getExportList(option) {
+  let url = api.getDepartmentDoctorList(option)
 
-  fetch.post(url)
+  return (dispatch => {
+    fetch.get(url).then(res => {
+      console.log('hospital: ', res)
+      if(res) {
+        dispatch({type: types.EXPERT_LIST, data: res.Data})
+      }
+    })
+  })
+}
 
-  return {type: types.LOGIN};
+
+/**
+ * 更改专家
+ * @returns {{type}}
+ */
+export function changeExport(option) {
+  return ({
+    type: types.EXPERT_MESSAGE,
+    data: option
+  })
+
 }

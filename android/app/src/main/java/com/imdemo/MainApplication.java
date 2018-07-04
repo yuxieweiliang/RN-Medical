@@ -1,6 +1,8 @@
 package com.imdemo;
 import android.app.Application;
 import com.facebook.react.ReactApplication;
+import com.syan.agora.AgoraPackage;
+import com.github.wuxudong.rncharts.MPAndroidChartPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.netease.im.RNNeteaseImPackage;
 import com.horcrux.svg.SvgPackage;
@@ -29,12 +31,16 @@ public class MainApplication extends NavigationApplication {
 
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
+                new MainReactPackage(),
+                new AgoraPackage(),
                 new SvgPackage(),
                 new RNNeteaseImPackage(),
                 new ReactIMUIPackage(),
                 new PickerPackage(),
                 new AMap3DPackage(),
-                new AMapLocationReactPackage()
+                new AMapLocationReactPackage(),
+                new MPAndroidChartPackage(),
+                new VectorIconsPackage()
         );
     }
 

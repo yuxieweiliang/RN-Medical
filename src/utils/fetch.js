@@ -7,12 +7,12 @@ class CreateFetch {
   }
   async post(url, {body, headers}) {
 
-    if(token) {
+    if(global.token) {
       let { token_type, access_token} = global.token
       this.headers.Authorization =  `${token_type} ${access_token}`
     }
 
-    console.log('post: ---\n', url + '\n')
+    console.log('post: ---\n', url + '\n', Object.assign({}, this.headers, headers ) , body)
     return fetch(url, {
       method: 'POST',
       headers: Object.assign({}, this.headers, headers ),
@@ -24,7 +24,7 @@ class CreateFetch {
 
   async get(url, headers) {
 
-    if(token) {
+    if(global.token) {
       let { token_type, access_token} = global.token
       this.headers.Authorization =  `${token_type} ${access_token}`
     }
@@ -43,13 +43,12 @@ class CreateFetch {
     if(res.ok) {
       return res.json()
     } else {
-      // console.error('response is error', res)
       return res
     }
   }
 
   catch(error) {
-    console.log(error)
+    console.warn('error', error)
     return error
   }
 }

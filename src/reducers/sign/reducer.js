@@ -2,20 +2,29 @@ import * as types from './actionTypes';
 import Immutable from 'seamless-immutable';
 
 const initialState = Immutable({
-  count: 0
+  SignTrendModel: false,
+  signList: null,
 });
 
-export default function counter(state = initialState, action = {}) {
-  switch (action.type) {
-    case types.INCREMENT:
-      return state.merge({
-        count: state.count + 1
-      });
-    case types.DECREMENT:
-      return state.merge({
-        count: state.count - 1
-      });
-    default:
-      return state;
-  }
+const func = {
+  ['SignTrendModel'](state, action) {
+    // storage.setItem('system.token', action.data)
+    return state.merge({
+      SignTrendModel: ! state.SignTrendModel
+    });
+  },
+  [types.SIGN_LIST](state, action) {
+    // storage.setItem('system.token', action.data)
+    return state.merge({
+      signList: action.data
+    });
+  },
 }
+
+
+export default (state = initialState, action = {}) => (
+  func[action.type]
+    ? func[action.type](state, action)
+    : state
+)
+

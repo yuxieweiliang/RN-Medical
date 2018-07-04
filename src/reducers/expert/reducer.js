@@ -2,20 +2,26 @@ import * as types from './actionTypes';
 import Immutable from 'seamless-immutable';
 
 const initialState = Immutable({
-  count: 0
+  expert: null,
+  expertList: null,
 });
 
-export default function counter(state = initialState, action = {}) {
-  switch (action.type) {
-    case types.INCREMENT:
-      return state.merge({
-        count: state.count + 1
-      });
-    case types.DECREMENT:
-      return state.merge({
-        count: state.count - 1
-      });
-    default:
-      return state;
-  }
+const func = {
+  [types.EXPERT_MESSAGE](state, action) {
+    return state.merge({
+      expert: action.data
+    });
+  },
+  [types.EXPERT_LIST](state, action) {
+    return state.merge({
+      expertList: action.data
+    });
+  },
 }
+
+
+export default (state = initialState, action = {}) => (
+  func[action.type]
+    ? func[action.type](state, action)
+    : state
+)

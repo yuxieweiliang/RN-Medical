@@ -18,7 +18,7 @@ export function typeOf(obj, target) {
 }
 
 /**
- * 将字符串转换为 base64    -> 不支持  encodeURIComponent
+ * 转码
  * @param str
  * @returns {string}
  */
@@ -30,7 +30,7 @@ export function b64Encode(str) {
   );
 }
 /**
- * 将base64转为中文    -> 不支持  decodeURIComponent
+ * 解码
  * @param str
  * @returns {string}
  */
@@ -127,4 +127,46 @@ export function pySegSort(arr) {
     }
   });
   return segments;
+}
+
+export function randomString(len) {
+  len = len || 32;
+  let $chars = 'ABCDEFGHIJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
+  let maxPos = $chars.length
+  let pwd = '';
+  for (i = 0; i < len; i++) {
+    pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+  }
+  return pwd;
+}
+
+/**
+ * 将 userId 每两位分割成数组，并且取模32
+ * 比如 242500262711 => [24, 25, 0, 0, 1, 11]
+ * 然后取当前数字位置对应的英文字母 "yzaabl" 。
+ * 密码是先将 userId 反转
+ * 117262005242 => "lukaaq"
+ * @param option
+ * @returns {string}
+ */
+export function changeIdToString(option) {
+  let en = 'ABCDEFGHIJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
+  let string = ''
+
+  for(let i = 0; i < option.length; i+=2) {
+    let item = option.substring(i, i + 2)
+
+    let index = (item < 32 ? item : item % 32) * 1
+
+    string += en[index]
+  }
+  return string
+}
+
+export function establishUsnPsw(userId) {
+  let reverseId = userId.split('').reverse().join('')
+  return {
+    username: changeIdToString(userId),
+    password: changeIdToString(reverseId)
+  }
 }

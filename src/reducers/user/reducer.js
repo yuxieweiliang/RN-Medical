@@ -3,14 +3,14 @@ import Immutable from 'seamless-immutable';
 import storage from '../../utils/storage'
 
 const initialState = Immutable({
-  messages: null
+  user: null
 });
 
 const func = {
   [types.GET_USER_MESSAGE](state, action) {
     storage.setItem('user', action.data)
     return state.merge({
-      messages: action.data
+      user: action.data
     });
   }
 }

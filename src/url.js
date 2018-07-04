@@ -1,6 +1,6 @@
 import config from './config'
 import template from 'url-template'
-let {server: { auth, user, userData, system, file }} = config
+let {server: { auth, user, userData, system, file, register }} = config
 
 function createApi(url) {
   return (option) => template.parse(url).expand(option);
@@ -66,7 +66,7 @@ const consult = {
  * deptCode：科室ID
  * userId：用户ID
  */
-const hos = `${userData}/api/Sys_User_Info/`
+const hos = `${system}/api/Sys_User_Info/`
 const hospitalUser = {
   // 医护人员列表
   getDepartmentDoctorList: createApi(`${hos}/GetByDeptCode/{hospitalId}/{deptCode}`),
@@ -82,7 +82,7 @@ const hospitalUser = {
  * symptomCode：症状代码
  * complicationCode：症状代码
  */
-const position = `${userData}/api/Sys_Complication_Rela/`
+const position = `${system}/api/Sys_Complication_Rela/`
 const systemData = {
   // 部位列表
   getPositionList: createApi(`${position}/GetBuWei/{hospitalId}/{clayCode}`),
@@ -95,6 +95,7 @@ const systemData = {
 }
 
 export default {
+  register: `${register}/api/reg/post`,
   // 授权
   getToken,
 
@@ -200,7 +201,7 @@ export default {
 
   ///////////////////////////////////////// 系统  ///////////////////////////////////////
   // 根据医院ID获取一个医院信息
-  getHospitalInfo: createApi(`${system}/api/Sys_Mer_Info/Get/{hospitalId}`),
+  getHospital: createApi(`${system}/api/Sys_Mer_Info/Get/{hospitalId}`),
   // 医院 -获取全部医院信息
   getHospitalList: createApi(`${system}/api/Sys_Mer_Info/Get`),
 
@@ -212,9 +213,9 @@ export default {
   // 根据医院ID获取医院所有科室列表
   getDepartmentList: createApi(`${system}/api/Sys_Dept_Info/Get/{hospitalId}`),
   // 根据医院ID和科室Code获取一条科室信息
-  getDepartmentInfo: createApi(`${system}/api/Sys_Dept_Info/Get/{hospitalId}/{deptCode}`),
+  getDepartment: createApi(`${system}/api/Sys_Dept_Info/Get/{hospitalId}/{deptCode}`),
   // 新增一个科室，只能增加当前用户所在医院的科室
-  postDepartmentInfo: createApi(`${system}/api/Sys_Dept_Info/Post`),
+  postDepartment: createApi(`${system}/api/Sys_Dept_Info/Post`),
   // 修改...
   putDepartmentInfo: createApi(`${system}/api/Sys_Dept_Info/Put/{deptCode}`),
   // 删除...

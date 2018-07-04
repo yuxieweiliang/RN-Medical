@@ -15,7 +15,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      name:"",
+      username:"",
       password: ''
     };
   }
@@ -23,49 +23,25 @@ class Login extends Component {
     //清除密码
     this.setState({password: ''});
   }
-  componentWillReceiveProps(nextProps) {
-    const { token, navigator } = nextProps
+  componentWillReceiveProps(nextProps) {}
 
-    /**
-     * 如果token值存在
-     * 证明登陆成功
-     */
-    /*if(token) {
-      navigator.resetTo({
-        screen:'Koe.AppHome',
-        title:"主页"
-      });
-    }*/
-  }
-  async loginIn() {
-    const { navigator } = this.props;
-    let query = {
-      username: 'loginname|1001|xueyufei',
-      password: 'xyf.3342',
-    }
-    // let nim = await NimSession.login(this.state.name,this.state.password)
+  /**
+   * 如果token值存在
+   * 证明登陆成功
+   */
+  login() {
+    const { navigator, dispatch } = this.props;
+    const { username, password } = this.state;
 
+    dispatch(login(username, password)).then(res => {
 
-
-    NimSession
-      .login('test', 'asdf1234')
-      .then(() => {
-
-        global.imaccount = this.state.name;
-
-        /**
-         * 登陆
-         */
-        login(query).then(res => {
-          console.log(res)
-          navigator.resetTo({
-            screen:'Koe.AppHome',
-            title:"主页"
-          });
-        })
-
-      })
-      .catch(error => console.log(error))
+      if(res) {
+        navigator.resetTo({
+          screen:'Koe.AppHome',
+          title:"主页"
+        });
+      }
+    })
   }
   _renderContent(){
     return (
@@ -80,8 +56,8 @@ class Login extends Component {
             autoCapitalize="none"
             autoCorrect={false}
             clearButtonMode="while-editing"
-            onChangeText={name => {
-              this.setState({name});
+            onChangeText={username => {
+              this.setState({username});
             }}
           />
         </View>
@@ -105,15 +81,22 @@ class Login extends Component {
     );
   }
   render() {
-    console.log(this.props)
-    console.log('-----------------')
+    const { showModal, push } = this.props.navigator
     return (
       <Container>
         <Content alwaysBounceVertical={false}>
           {this._renderContent()}
           <View style={styles.bottom}>
-            <Button block onPress={() => this.loginIn()}>
+            <Button style={styles.button} block
+                    onPress={() => this.login()}>
               <Text style={styles.buttonText}>登录</Text>
+            </Button>
+            <Button style={styles.button} block
+                    onPress={() => showModal({
+                      screen: 'Koe.Register',
+                      title: '注册',
+                    })}>
+              <Text style={styles.buttonText}>前往注册</Text>
             </Button>
           </View>
         </Content>
@@ -122,7 +105,7 @@ class Login extends Component {
   }
 }
 
-export default connect(state => ({...state.system}))(Login)
+export default connect(state => ({...state.app}))(Login)
 
 
 const borderWidth = StyleSheet.hairlineWidth;
@@ -159,6 +142,9 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     justifyContent: 'center'
+  },
+  button: {
+    marginBottom: 10
   },
   buttonText: {
     color: '#fff'

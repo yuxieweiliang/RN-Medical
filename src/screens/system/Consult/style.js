@@ -31,9 +31,13 @@ export default StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 8,
     paddingTop: 2,
-    paddingBottom: 2
+    paddingBottom: 2,
+    borderColor: 'red',
+    borderWidth: 1
   },
   listChildRightTextColor: {
-    color: '#fafafa'
+    color: '#fafafa',
+    borderColor: 'red',
+    borderWidth: 1
   }
 });

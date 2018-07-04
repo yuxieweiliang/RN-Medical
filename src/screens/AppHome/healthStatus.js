@@ -15,7 +15,7 @@ export default function healthStatus({ healthStatus, style, navigator }) {
   return (
   <View style={style}>
     <TouchableOpacity
-      onPress={() => navigator.resetTo('SignTrend')}>
+      onPress={() => navigator.push({screen:'Koe.SignTrend'})}>
       <View style={{flexDirection: 'row'}}>
         <View style={{flex: 1, alignItems: 'center'}}><Text>4月</Text></View>
         <View style={{flex: 1, alignItems: 'center'}}><Text>体温</Text></View>

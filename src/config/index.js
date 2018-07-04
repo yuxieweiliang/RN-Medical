@@ -4,6 +4,8 @@ import * as component from './component'
 const root = 'koenn.cn'
 const port = 81
 const server = {
+  // 注册
+  register: `http://reg.${root}:${port}`,
   // 登陆
   auth: `http://auth.${root}:${port}`,
   // 用户

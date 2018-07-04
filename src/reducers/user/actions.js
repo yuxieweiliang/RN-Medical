@@ -1,5 +1,7 @@
+import Toast from 'react-native-simple-toast'
 import * as types from './actionTypes';
 import fetch from '../../utils/fetch'
+import { b64Decode } from '../../utils'
 import storage from '../../utils/storage'
 import api from '../../url'
 
@@ -7,15 +9,23 @@ import api from '../../url'
  * 获取角色信息
  * @returns {{type}}
  */
-export function getUser(id) {
-  let url = api.getUser({id})
-  return (async dispatch => {
+export function getUser() {
+  let token = global.token.access_token
+  let start = token.indexOf('.') + 1, end = token.lastIndexOf('.')
+  let tokenData = JSON.parse(b64Decode(token.substring(start, end)))
+  let url = api.getUser({ id: tokenData.UserID })
 
-    fetch.get(url).then(res => {
-      dispatch({type: types.GET_USER_MESSAGE, data: res.Data})
-    })
-  })
-  // storage.save('user.info', option)
+  return async dispatch => {
+    let user = await storage.getItem(`user.${tokenData.UserID}`)
+
+      if(!user) {
+        await fetch.get(url).then(res => user = res.Data)
+      }
+
+    storage.setItem(`user.${user.UserID}`, user)
+    dispatch({type: types.GET_USER_MESSAGE, data: user})
+
+  }
 }
 
 /**

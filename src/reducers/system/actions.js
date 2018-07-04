@@ -9,90 +9,139 @@ import api from '../../url'
  * 病种 { 列表 }
  * @returns {{type}}
  */
-export function getIllnessList() {
-  let url = api.getIllnessList()
+export function getIllnessList(option) {
+  let url = api.getIllnessList(option)
 
-  fetch.post(url)
-    .then(function (data) {
+  return (dispatch => {
+    fetch.get(url)
+      .then(function (res) {
 
+        console.log(res)
+
+        if(res) {
+          dispatch({
+            type: types.ILLNESS_LIST,
+            data: res.Data
+          })
+        }
+      })
   })
 
-  return {type: types.LOGIN};
 }
 
 /**
  * 部位 { 列表 }
  * @returns {{type}}
  */
-export function getPositionList() {
-  let url = api.getPositionList()
+export function getPositionList(option) {
+  let url = api.getCommonDicList(option)
 
-  fetch.post(url)
-    .then(function (data) {
+  return (dispatch => {
+    fetch.get(url)
+      .then(function (res) {
 
+        console.log(res)
+
+        if(res) {
+          dispatch({
+            type: types.BODY_PARTS_LIST,
+            data: res.Data
+          })
+        }
+      })
   })
-
-  return {type: types.LOGIN};
 }
 
 /**
  * 症状 { 列表 }
  * @returns {{type}}
  */
-export function getSymptomList() {
-  let url = api.getSymptomList()
+export function getSymptomList(option) {
+  let url = api.getSymptomList(option)
 
-  fetch.post(url)
-    .then(function (data) {
+  return (dispatch => {
+    fetch.get(url)
+      .then(function (res) {
 
+        console.log(res)
+
+        if(res) {
+          dispatch({
+            type: types.SYMPTOM_LIST,
+            data: res.Data
+          })
+        }
+      })
   })
-
-  return {type: types.LOGIN};
 }
 
 /**
  * 病理病程 { 列表 }
  * @returns {{type}}
  */
-export function getCourseOfDiseaseList() {
-  let url = api.getCourseOfDiseaseList()
+export function getCourseOfDiseaseList(option) {
+  let url = api.getCourseOfDiseaseList(option)
 
-  fetch.post(url)
-    .then(function (data) {
+  return (dispatch => {
+    fetch.get(url)
+      .then(function (res) {
 
+        console.log(res)
+
+        if(res) {
+          dispatch({
+            type: types.COURSE_DISEASE_LIST,
+            data: res.Data
+          })
+        }
+      })
   })
-
-  return {type: types.LOGIN};
 }
 
 /**
  * 并发症 { 列表 }
  * @returns {{type}}
  */
-export function getComplicationList() {
-  let url = url.getComplicationList()
+export function getComplicationList(option) {
+  let url = api.getComplicationList(option)
 
-  fetch.post(url)
-    .then(function (data) {
+  return (dispatch => {
+    fetch.get(url)
+      .then(function (res) {
 
+        console.log(res)
+
+        if(res) {
+          dispatch({
+            type: types.COMPLICATION_LIST,
+            data: res.Data
+          })
+        }
+      })
   })
-
-  return {type: types.LOGIN};
 }
 
 /**
  * 并发症
  * @returns {{type}}
  */
-export function getCommonDicList() {
-  let url = api.getCommonDicList()
+export function getCommonDicList(option) {
+  let url = api.getCommonDicList(option)
 
-  fetch.post(url)
-    .then(function (data) {
+  return (dispatch => {
+    fetch.get(url)
+      .then(function (res) {
 
+        console.log(res)
+
+        if(res) {
+          dispatch({
+            type: types.COMPLICATION_LIST,
+            data: res.Data
+          })
+        }
+      })
   })
-
-  return {type: types.LOGIN};
 }
 
 

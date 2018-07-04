@@ -10,7 +10,7 @@ class Card extends Component {
   componentWillUnmount() {}
   render() {
     const { title, more, children, style = {}} = this.props
-    console.log(children)
+    // console.log(children)
     return (
       <View style={[styles.container, style]}>
         <View style={styles.header}>

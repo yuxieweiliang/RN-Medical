@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Text, FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions , StatusBar  } from 'react-native';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import { Container, Header, Content, Tab, Tabs } from 'native-base';
 import { connect } from 'react-redux'
+import Icon from 'react-native-vector-icons/FontAwesome'
 // 选项卡
 import TabCardView from '../../components/TabCardView'
 // 栏目卡片
@@ -17,8 +18,6 @@ import GuideToLife from './guideToLife'
 import HealthStatus from './healthStatus'
 // 就医状况
 import MedicalStatus from './medicalStatus'
-// 操作动作
-import { getUser } from '../../reducers/user/actions'
 import defaultData from './behavior'
 // 样式
 import styles from './style'
@@ -27,23 +26,27 @@ const { width, height } = Dimensions.get('window');
 
 type Props = {};
 class HomePage extends Component<Props> {
-  /**
-   * 检查是否登录
-   * */
-  async beforeMount() {
-    let { dispatch, navigator } = this.props
 
+  constructor(props) {
+    super(props);
+    this.state = {}
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
 
-    console.log(this.props)
-    if(token) {
-      dispatch(getUser('322717145007458'))
+  onNavigatorEvent(event) {
+    // console.log(event, this.props)
+    if (event.type === 'DeepLink') {
+      const parts = event.link.split('/');
+      if (parts[0] === 'tab1') {
+        this.props.navigator.push({
+          screen: parts[1]
+        });
+      }
     }
   }
   componentWillMount() {
-    this.beforeMount()
 
     console.log('****************|||||||||||     home page    |||||||||||****************')
-    console.log(global)
   }
 
   componentDidMount() {}
@@ -53,7 +56,7 @@ class HomePage extends Component<Props> {
     const { healthGuide, tabCardData={}, list }= defaultData
     const { healthIndicators, guideToLife,  healthStatus, medicalStatus }= tabCardData
 
-    console.log('defaultData: ', defaultData)
+    // console.log('defaultData: ', defaultData)
     return (
       <View style={styles.container}>
        {/* <StatusBar  barStyle="default" animated={'backgroundColor'} translucent={true}/>
@@ -64,28 +67,27 @@ class HomePage extends Component<Props> {
 
           {/*  健康指南  */}
           <View style={{ flex: 1 ,borderColor: 'transparent' }}>
-            {
-              healthGuide && (
-                <TabCardView {...healthGuide}>
+            <Tabs initialPage={0}>
+              <Tab heading="健康状况" style={{height: 200}}>
+                <HealthStatus
+                  navigator={navigator}
+                  healthStatus={healthStatus}
+                  style={styles.tabItemStyle}/>
+              </Tab>
+              <Tab heading="生活指南" style={{height: 200}}>
+                <GuideToLife
+                  navigator={navigator}
+                  guideToLife={guideToLife}
+                  style={styles.tabItemStyle}/>
+              </Tab>
+              <Tab heading="就医情况" style={{height: 200}}>
+                <MedicalStatus
+                  navigator={navigator}
+                  medicalStatus={medicalStatus}
+                  style={styles.tabItemStyle}/>
+              </Tab>
+            </Tabs>
 
-                  <HealthStatus
-                    navigator={navigator}
-                    healthStatus={healthStatus}
-                    style={styles.tabItemStyle}/>
-
-                  <GuideToLife
-                    navigator={navigator}
-                    guideToLife={guideToLife}
-                    style={styles.tabItemStyle}/>
-
-                  <MedicalStatus
-                    navigator={navigator}
-                    medicalStatus={medicalStatus}
-                    style={styles.tabItemStyle}/>
-
-                </TabCardView>
-              )
-            }
           </View>
 
           {/*   晒健康  */}
