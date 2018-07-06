@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Text, SectionList, StatusBar, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
+import React, { Component } from 'react'
+import { Text, SectionList, StatusBar, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
-import Icon from 'react-native-vector-icons/dist/EvilIcons';
+import Icon from 'react-native-vector-icons/dist/EvilIcons'
 import behavior from './behavior'
 import { getUser } from '../../reducers/user/actions'
 import { registerForWY } from '../../reducers/app/actions'
@@ -14,9 +14,9 @@ class UserPage extends React.Component {
   componentDidMount() {}
 
   componentWillMount() {
-      this.props.dispatch(getUser()).then(res => {
+      this.props.dispatch(getUser())/*.then(res => {
         // this.props.dispatch(registerForWY())
-      })
+      })*/
   }
   render() {
     const { user } = this.props

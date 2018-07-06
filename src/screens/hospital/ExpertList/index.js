@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, Image,ScrollView, View, Dimensions, TouchableHighlight, TextInput, FlatList } from 'react-native';
+import { Text, Image,ScrollView, View, Dimensions, TouchableHighlight, NativeAppEventEmitter, FlatList } from 'react-native';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import {NimFriend, NimUtils, NimSession} from 'react-native-netease-im';
 import { connect } from 'react-redux'
 import Card from '../../../components/Card'
 import TabCardView from '../../../components/TabCardView/index'
@@ -16,25 +17,46 @@ const { width, height } = Dimensions.get('window');
 class ExpertList extends React.Component {
   componentWillMount() {
     const { dispatch } = this.props
+
+    NimFriend.startFriendList();
     dispatch(getExportList({hospitalId: 1001, deptCode: '001'}))
   }
-  componentDidMount() {}
-  componentWillUnmount() {}
+  componentDidMount() {
+    this.friendListener = NativeAppEventEmitter.addListener("observeFriend",(data)=>{
+
+      console.log("observeFriend", data)
+    });
+
+  }
+  componentWillUnmount() {
+    NimFriend.stopFriendList();
+    this.friendListener && this.friendListener.remove();
+  }
 
   async _onPressExpertList(option) {
     const { navigator, dispatch, router, user }= this.props
     const data = { key: 'expert', value: option }
 
-    dispatch({type: 'CHANGE_CONSULT_ITEM', data: data})
-    dispatch(changeExport(data))
 
     if(router === 'pop') {
-      const self = establishUsnPsw(user.UserID)
-      const friend = establishUsnPsw(option.UserID)
+      const self = user.UserID
+      const friend = option.UserID
 
-      addFriendNetEase(self.username, friend.username)
+      // console.log(user.UserID, option.UserID)
+      // 添加好友
+      addFriendNetEase(self, friend)
         .then(res => {
-          console.log(res)
+
+          console.log('添加好友', res)
+          if(res.code === 200) {
+            // 添加好友成功，可以去 export 获取当前医生的信息
+            dispatch({type: 'CHANGE_CONSULT_ITEM', data: data})
+
+            console.log('export: ',data)
+
+            dispatch(changeExport(data))
+
+          }
         })
 
       navigator.pop()

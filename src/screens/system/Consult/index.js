@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, ScrollView, View, TextInput,
-  TouchableNativeFeedback, Dimensions, NativeAppEventEmitter } from 'react-native';
+  TouchableNativeFeedback, Dimensions, NativeAppEventEmitter, ListView } from 'react-native';
 import { connect } from 'react-redux'
-import { typeOf } from '../../../utils'
+import { typeOf, establishUsnPsw } from '../../../utils'
 import styles from './style'
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
@@ -59,51 +59,73 @@ const PathologicalCardItem = ({itemTitle, itemName}) => {
 }
 
 class ConsultPage extends React.Component {
+  constructor (props) {
+    super(props);
+    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      rowOpen:false,
+      dataSource: ds.cloneWithRows([])
+    };
+  }
   /**
    * 检查是否登录
    * */
   componentWillMount() {
     let { dispatch, navigator, token, user } = this.props
+
     dispatch(initState())
-    NimFriend.startFriendList();
   }
 
   componentDidMount() {
-    this.friendListener = NativeAppEventEmitter.addListener("observeFriend",(data)=>{
-      this.setState({friend: data})
-      console.log('observeFriend', data)
+
+    this.sessionListener = NativeAppEventEmitter.addListener("observeRecentContact",(data)=>{
+      this.setState({
+        dataSource:this.state.dataSource.cloneWithRows(data.recents)
+      });
+      console.info('会话列表',data)
     });
+
   }
   componentWillUnmount() {
-    NimFriend.stopFriendList();
-    this.friendListener && this.friendListener.remove();
+    this.sessionListener && this.sessionListener.remove();
   }
 
   leavingMessage() {
-    const { navigator } = this.props
-    let bool = true;
-    for(let i in this.state.friend) {
-      if(bool) {
-        navigator.push({
-          screen:'Koe.Chat',
-          title:this.state.friend[i][0].name,
-          passProps:{
-            session: {
-              ...this.state.friend[i][0],
-              sessionType:'1'
-            }
-          },
-          rightButton:{
-            id: 'setting',
-            color: '#fff',
-            buttonColor:'#fff',
-            title:'设置'
+    const { navigator, expert } = this.props
+
+    NimFriend.getUserInfo(expert.UserID).then((data)=> {
+
+      navigator.push({
+        screen:'Koe.Chat',
+        title: '咨询',
+        passProps:{
+          session: {
+            ...data,
+            sessionType:'0',
           }
-        });
-        console.log('observeFriend', this.state.friend[i][0])
-        bool = false
+        }
+      });
+      console.log(data)
+
+/*      this.props.navigator.push({
+        screen:'ImDemo.FriendDetail',
+        title:'详细资料',
+        passProps:{
+          friendData:data
+        }
+      });*/
+    })
+
+
+
+
+
+ /*   for(let i in this.state.friend) {
+      const item = this.state.friend[i]
+      if(item.contactId === username.toLowerCase()) {
+
       }
-    }
+    }*/
     /*navigator.push({
       screen:"Koe.FriendList",
       title:'朋友'
@@ -197,6 +219,7 @@ const createState = function(state) {
   return ({
     ...state.user,
     ...state.consult,
+    ...state.export,
   })
 }
 

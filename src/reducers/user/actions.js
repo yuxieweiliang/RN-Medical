@@ -1,7 +1,7 @@
 import Toast from 'react-native-simple-toast'
 import * as types from './actionTypes';
 import fetch from '../../utils/fetch'
-import { b64Decode } from '../../utils'
+import buffer from 'buffer'
 import storage from '../../utils/storage'
 import api from '../../url'
 
@@ -10,18 +10,26 @@ import api from '../../url'
  * @returns {{type}}
  */
 export function getUser() {
-  let token = global.token.access_token
-  let start = token.indexOf('.') + 1, end = token.lastIndexOf('.')
-  let tokenData = JSON.parse(b64Decode(token.substring(start, end)))
+  let Buffer = buffer.Buffer
+  let access_token = global.token.access_token
+  let start = access_token.indexOf('.') + 1, end = access_token.lastIndexOf('.')
+   let base64Str = new Buffer(access_token.substring(start, end), 'base64').toString()
+  let tokenData = JSON.parse(base64Str)
   let url = api.getUser({ id: tokenData.UserID })
 
+  console.log(base64Str)
   return async dispatch => {
     let user = await storage.getItem(`user.${tokenData.UserID}`)
 
-      if(!user) {
-        await fetch.get(url).then(res => user = res.Data)
-      }
+    if(!user) {
+      await fetch.get(url).then(res => {
+        console.log(res)
+        user = res.Data
 
+      })
+    }
+
+    console.log('user: ', user)
     storage.setItem(`user.${user.UserID}`, user)
     dispatch({type: types.GET_USER_MESSAGE, data: user})
 

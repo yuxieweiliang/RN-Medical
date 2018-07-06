@@ -10,6 +10,9 @@ adb devices
 ### 清除缓存
 gradlew.bat clean
 
+## 查看错误
+react-native run-android installDebug failed
+
 #### 打包配置过程
 · 在 android/app/src/main 目录下创建一个 assets空文件夹
 mkdir android/app/src/main/assets
@@ -21,8 +24,8 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 cd android && gradlew assembleDebug --info
 
 #### 打包
-cd android && ./gradlew assembleRelease
-
+cd android && gradlew assembleRelease
+gradlew.bat assembleRelease --console plain
 #### 修改app名称
 android/app/src/main/res/values/strings.xml
 
@@ -121,4 +124,4 @@ JavaScript version: 0.54.2
 Native version: 0.55.3
 
 
-
+keytool -genkey -v -keystore koe-release-key.keystore -alias koe-key-alias -keyalg RSA -keysize 2048 -validity 10000

@@ -1,5 +1,5 @@
 {
-  "name": "ImDemo",
+  "name": "KonDome",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "buffer": "^5.1.0",
     "crypto": "^1.0.1",
     "immutability-helper": "^2.7.1",
     "moment": "^2.22.2",

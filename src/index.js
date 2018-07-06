@@ -6,7 +6,6 @@ import { Navigation } from 'react-native-navigation';
 import { Theme } from "native-base-shoutem-theme"; // 主题
 import getTheme from '../native-base-theme/components';
 import platform from '../native-base-theme/variables/platform';
-import { NimSession } from 'react-native-netease-im';
 import { Provider } from "react-redux";
 import * as appActions from "./reducers/app/actions";
 import store from './reducers'
@@ -36,6 +35,7 @@ export default class App extends Component{
     super(props);
     this._populateIcons()
       .then(res => {
+
         if(res) {
           store.subscribe(this.onStoreUpdate.bind(this));
           store.dispatch(appActions.appInitialized());
@@ -43,13 +43,6 @@ export default class App extends Component{
         }
       })
 
-    NimSession.login('huang', 'asdf1234').then((data)=>{
-      // global.imaccount = this.state.name;
-      // console.log('data: ', data)
-
-    },(err)=>{
-      console.warn(err);
-    })
 
   }
 
@@ -110,6 +103,7 @@ export default class App extends Component{
         }
       });
     } else {
+
       Navigation.startTabBasedApp({
         tabs: [
           {
@@ -156,18 +150,26 @@ export default class App extends Component{
           tabFontFamily: 'BioRhyme-Bold',
         },
         appStyle: {
-          // 显示 tab 菜单上的 label 文字
+
+          // 强制显示底部菜单上的文字
           forceTitlesDisplay: true,
+          // 不现实头部地下的阴影
           topBarElevationShadowEnabled: false,
-          tabBarBackgroundColor: '#3f51b5',
-          navBarButtonColor: '#ffffff',
-          tabBarButtonColor: '#ffffff',
-          navBarTextColor: '#ffffff',
-          tabBarSelectedButtonColor: '#fffcbe',
-          navigationBarColor: '#4754bb',
-          navBarBackgroundColor: '#3f51b5',
-          statusBarColor: '#3f51b5',
+
+          // 底部导航条样式
+          tabBarBackgroundColor: '#fafafa',
+          tabBarButtonColor: '#666',
+          tabBarSelectedButtonColor: '#4754bb',
           tabFontFamily: 'BioRhyme-Bold',
+
+          // 头部样式
+          navBarButtonColor: '#fff',
+          navBarTextColor: '#fff',
+          navigationBarColor: '#3f51b5',
+          navBarBackgroundColor: '#3f51b5',
+
+          // 手机状态栏背景色
+          statusBarColor: '#3f51b5',
         },
         /*drawer: {
           left: { // optional, define if you want a drawer from the left

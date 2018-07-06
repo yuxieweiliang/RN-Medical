@@ -1,4 +1,6 @@
 import Toast from 'react-native-simple-toast'
+import { NimSession } from 'react-native-netease-im';
+import buffer from 'buffer'
 import * as types from './actionTypes';
 import storage from '../../utils/storage'
 import { createParams, randomString, establishUsnPsw } from '../../utils'
@@ -15,10 +17,23 @@ export function appInitialized() {
   // storage.removeItem('system.token')
   return async function(dispatch, getState) {
     let token = await storage.getItem('system.token')
+    let Buffer = buffer.Buffer
 
-    console.log(token)
     if(token) {
       global.token = token
+      let access_token = token.access_token
+      let start = access_token.indexOf('.') + 1 , end = access_token.lastIndexOf('.')
+      let base64Str = new Buffer(access_token.substring(start, end), 'base64').toString()
+      let tokenData = JSON.parse(base64Str)
+
+      console.log(tokenData)
+
+      NimSession.login(tokenData.UserID, '123456').then((data)=>{
+        console.log('网易登陆， data: ', data)
+      },(err)=>{
+        console.warn(err);
+      })
+
       dispatch({type: types.ROOT_CHANGED, data: 'home'});
     } else {
       dispatch({type: types.ROOT_CHANGED, data: 'login'});
@@ -89,21 +104,9 @@ export function login(username, password, navigator) {
     }
   })
 }
+
 /**
- *  if (type == "loginname")     //支持登录名+密码登陆
- {
-     user.LoginName = model.UserName;
-     user.LoginPsw = MathUtils.Md5(model.Password.Trim());
- }
- else if (type == "mobilephone")//支持手机+验证码登陆
- {
-     user.MobilePhone = model.UserName;
- }
- else if (type == "email")//支持Email+密码登陆
- {
-     user.Email = model.UserName;
- }
- else if (type == "mobilephonepsw")//支持手机+密码登陆
+ *
  * @param UserName
  * @param Password
  * @param RePassword
@@ -111,7 +114,6 @@ export function login(username, password, navigator) {
  * @param RegType loginname | mobilephonepsw
  * @returns {function(*)}
  */
-
 export async function register(UserName, Password, RePassword, UserType = '患者', RegType = 'mobilephonepsw') {
   const option = {
     body: JSON.stringify({ UserName, Password, RePassword, UserType, RegType, })
@@ -199,10 +201,9 @@ export async function registerNetEase(userId) {
 
     console.log(checkSum)
     // 注册数据
-    let { username, password } = establishUsnPsw(userId)
     let formdata = new FormData()
-    formdata.append("accid", username)
-    formdata.append("token", password)
+    formdata.append("accid", userId)
+    formdata.append("token", '123456')
 
     return fetch.post(url, {
       headers: {

@@ -120,6 +120,8 @@ class Chat extends React.Component {
   }
   componentDidMount() {
     const {session = {}} = this.props;
+
+    console.log('新消息通知', this.props)
     NimSession.startSession(session.contactId, session.sessionType);
     this.sessionListener = NativeAppEventEmitter.addListener("observeReceiveMessage", (data) => {
       console.info('新消息通知', data);
@@ -150,6 +152,11 @@ class Chat extends React.Component {
         }
       }
     });
+
+
+    NimSession.getRecentContactList().then(res => {
+      console.log('getRecentContactList', res)
+    })
 
     NimSession.queryMessageListEx("", 20).then((data) => {
       console.info('首次加载', data);

@@ -4,6 +4,7 @@ import { Container, Content, Button, Icon,ListItem,Left,Right } from 'native-bas
 import {NimSession} from 'react-native-netease-im';
 import { connect } from 'react-redux'
 import md5 from '../utils/md5';
+import { getUser } from '../reducers/user/actions'
 import { login } from '../reducers/app/actions'
 
 const {height,width} = Dimensions.get('window');
@@ -34,7 +35,7 @@ class Login extends Component {
     const { username, password } = this.state;
 
     dispatch(login(username, password)).then(res => {
-
+      dispatch(getUser())
       if(res) {
         navigator.resetTo({
           screen:'Koe.AppHome',
