@@ -48,6 +48,7 @@
 -keepclassmembers class *  { @com.facebook.react.uimanager.annotations.ReactProp <methods>; }
 -keepclassmembers class *  { @com.facebook.react.uimanager.annotations.ReactPropGroup <methods>; }
 
+-keep class com.facebook.** { *; }
 -dontwarn com.facebook.react.**
 
 # TextLayoutBuilder uses a non-public Android constructor within StaticLayout.

@@ -36,12 +36,12 @@ class Login extends Component {
 
     dispatch(login(username, password)).then(res => {
       dispatch(getUser())
-      if(res) {
+      /*if(res) {
         navigator.resetTo({
           screen:'Koe.AppHome',
           title:"主页"
         });
-      }
+      }*/
     })
   }
   _renderContent(){

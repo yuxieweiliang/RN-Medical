@@ -4,6 +4,15 @@ import Login from './Login';
 import Register from './Register';
 import AppHome from './AppHome';
 
+import HealthDaily from './HealthDaily';
+import HealthDailyDetails from './HealthDailyDetails';
+import HealthExposure from './HealthExposure';
+import HealthIndicators from './HealthIndicators';
+import HistoryMedical from './HistoryMedical';
+import TelephoneInterview from './TelephoneInterview';
+import Examination from './Examination';
+import CollapsingHeader from './UserMessages/CollapsingHeader';
+
 import Consult from './system/Consult';
 import HospitalList from './hospital/HospitalList';
 import IllnessTypeList from './system/IllnessTypeList';
@@ -38,6 +47,16 @@ export  function registerScreens(store, Provider) {
   RegisterComponent('Koe.Login', () => Login, store, Provider);
   RegisterComponent('Koe.Register', () => Register, store, Provider);
   RegisterComponent('Koe.AppHome', () => AppHome, store, Provider);
+  RegisterComponent('Koe.HealthDaily', () => HealthDaily, store, Provider);
+  RegisterComponent('Koe.HealthDailyDetails', () => HealthDailyDetails, store, Provider);
+  RegisterComponent('Koe.HealthExposure', () => HealthExposure, store, Provider);
+  RegisterComponent('Koe.HealthIndicators', () => HealthIndicators, store, Provider);
+  RegisterComponent('Koe.HistoryMedical', () => HistoryMedical, store, Provider);
+  RegisterComponent('Koe.TelephoneInterview', () => TelephoneInterview, store, Provider);
+  RegisterComponent('Koe.Examination', () => Examination, store, Provider);
+  RegisterComponent('Koe.CollapsingHeader', () => CollapsingHeader, store, Provider);
+
+
   RegisterComponent('Koe.Consult', () => Consult, store, Provider);
   RegisterComponent('Koe.SignTrend', () => SignTrend, store, Provider);
   RegisterComponent('Koe.SignTrendEdit', () => SignTrendEdit, store, Provider);

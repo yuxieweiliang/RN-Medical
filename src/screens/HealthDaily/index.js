@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { Text, Image,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
 import styles from './style'
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
-
 
 export default class extends React.Component {
-  static navigationOptions = ({ navigation, navigationOptions }) => {
+  /*static navigationOptions = ({ navigation, navigationOptions }) => {
     const { params } = navigation.state;
     return {
       title: '健康日报',
     }
-  };
+  };*/
 
   componentDidMount() {}
 
@@ -28,7 +25,9 @@ export default class extends React.Component {
     return (
 
       <View style={styles.container}>
-        <TouchableNativeFeedback style={styles.card} onPress={() => this.props.navigation.navigate('HealthDailyDetails')}>
+        <TouchableNativeFeedback
+          style={styles.card}
+          onPress={() => this.props.navigator.push({screen: 'Koe.HealthDailyDetails'})}>
           <View style={styles.card}>
             <View style={styles.cardLeft}>
               <View style={styles.cardLeftTitle}>

@@ -15,6 +15,7 @@ import api from '../../url'
 export function appInitialized() {
   // storage.clear()
   // storage.removeItem('system.token')
+
   return async function(dispatch, getState) {
     let token = await storage.getItem('system.token')
     let Buffer = buffer.Buffer
@@ -90,7 +91,7 @@ export function login(username, password, navigator) {
 
       global.token = token
       storage.setItem('system.token', token)
-
+      dispatch({type: types.ROOT_CHANGED, data: 'home'})
       dispatch({
         type: types.LOGIN,
         data: true

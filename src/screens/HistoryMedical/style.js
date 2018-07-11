@@ -9,19 +9,11 @@ export default StyleSheet.create({
   },
   list: {
     width,
-    paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 15,
-    paddingRight: 15,
     backgroundColor: '#fafafa',
   },
 
 
-  listHeader: {
-    height: 30,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   userAvatar: {
     width: 30,
     height: 30,
@@ -32,21 +24,25 @@ export default StyleSheet.create({
   },
 
   listBody: {
-    minHeight: 100,
-    paddingTop: 10,
-  },
-  listBodyRow: {
-    flexDirection: 'row',
-    paddingBottom: 10,
-  },
-  listBodyLabel: {
-    width: 100,
-  },
-  listBodyContent: {
-    flex: 1,
+    padding: 10,
   },
   listFooter: {
     height: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+
     flexDirection: 'row'
+  },
+  listFooterLeft: {
+    flex: 1,
+    height: 30,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  listFooterRight: {
+    flex: 1,
+    height: 30,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 });

@@ -6,13 +6,15 @@ import styles from './style'
 import moment from 'moment'
 
 
-const EditInput = ({title, value, placeholder, onPress}) => (
+const EditInput = ({title, value, placeholder, onPress, onFocus, onBlur}) => (
   <View style={styles.list}>
     <Text style={styles.label}>{title}：</Text>
     <TextInput
       style={styles.text}
       underlineColorAndroid="transparent"
       defaultValue={value}
+      onFocus={onFocus}
+      onBlur={onBlur}
       placeholder={placeholder}
       onChangeText={onPress}
     />
@@ -21,10 +23,9 @@ const EditInput = ({title, value, placeholder, onPress}) => (
 )
 
 class SignTrendEdit extends React.Component {
-
-  componentDidMount() {
+  constructor(props) {
+    super(props)
     const { navigator, dispatch } = this.props;
-
     /**
      * 点击右上角按钮执行函数
      */
@@ -37,11 +38,7 @@ class SignTrendEdit extends React.Component {
     });
   }
 
-  _onPressButton() {
-    this.props.navigation.navigate('Product', {
-      itemId: 87,
-      otherParam: 'anything you want here',
-    })
+  componentDidMount() {
   }
   componentWillUnmount() {
     // this._onPressButton.remove();
@@ -51,10 +48,26 @@ class SignTrendEdit extends React.Component {
     dispatch(signAction.postSign(sign))
   }
   signItemChange(value, key) {
-    const { dispatch } = this.props
+    const { dispatch, navigator } = this.props
+
     dispatch({
       type: 'SIGN_ITEM_CHANGE',
       data: { key, value }
+    })
+  }
+  inputFocus() {
+    this.props.navigator.toggleTabs({
+      to: 'hidden', // required, 'hidden' = hide tab bar, 'shown' = show tab bar
+      animated: true // does the toggle have transition animation or does it happen immediately (optional)
+    })
+    /**
+     *
+     */
+  }
+  inputBlur() {
+    this.props.navigator.toggleTabs({
+      to: 'show', // required, 'hidden' = hide tab bar, 'shown' = show tab bar
+      animated: true // does the toggle have transition animation or does it happen immediately (optional)
     })
   }
   render() {
@@ -67,12 +80,16 @@ class SignTrendEdit extends React.Component {
           title="血压（高）"
           value=""
           placeholder="请输入"
+          onFocus={this.inputFocus.bind(this)}
+          onBlur={this.inputBlur.bind(this)}
           onPress={(e) => this.signItemChange(e, 'XYH')}
         />
         <EditInput
           title="血压（低）"
           value=""
           placeholder="请输入"
+          onFocus={this.inputFocus.bind(this)}
+          onBlur={this.inputBlur.bind(this)}
           onPress={(e) => this.signItemChange(e, 'XYL')}
         />
 
@@ -80,6 +97,8 @@ class SignTrendEdit extends React.Component {
           title="血氧"
           value=""
           placeholder="请输入"
+          onFocus={this.inputFocus.bind(this)}
+          onBlur={this.inputBlur.bind(this)}
           onPress={(e) => this.signItemChange(e, 'XY')}
         />
 
@@ -87,6 +106,8 @@ class SignTrendEdit extends React.Component {
           title="呼吸"
           value=""
           placeholder="请输入"
+          onFocus={this.inputFocus.bind(this)}
+          onBlur={this.inputBlur.bind(this)}
           onPress={(e) => this.signItemChange(e, 'HX')}
         />
 
@@ -94,6 +115,8 @@ class SignTrendEdit extends React.Component {
           title="心率"
           value=""
           placeholder="请输入"
+          onFocus={this.inputFocus.bind(this)}
+          onBlur={this.inputBlur.bind(this)}
           onPress={(e) => this.signItemChange(e, 'XL')}
         />
 
@@ -101,6 +124,8 @@ class SignTrendEdit extends React.Component {
           title="体温"
           value=""
           placeholder="请输入"
+          onFocus={this.inputFocus.bind(this)}
+          onBlur={this.inputBlur.bind(this)}
           onPress={(e) => this.signItemChange(e, 'TW')}
         />
 
@@ -108,17 +133,13 @@ class SignTrendEdit extends React.Component {
           title="脉搏"
           value=""
           placeholder="请输入"
+          onFocus={this.inputFocus.bind(this)}
+          onBlur={this.inputBlur.bind(this)}
           onPress={(e) => this.signItemChange(e, 'MB')}
         />
       </View>
     );
   }
 }
-
-SignTrendEdit.navigatorButtons = {
-  rightButtons: [
-    { id: 'save', title: '保存' }
-  ],
-};
 
 export default connect(state => ({...state.user.sign}))(SignTrendEdit)

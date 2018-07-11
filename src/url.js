@@ -1,6 +1,6 @@
 import config from './config'
 import template from 'url-template'
-let {server: { auth, user, userData, system, file, register }} = config
+let {server: { auth, user, userData, system, file, register, cms }} = config
 
 function createApi(url) {
   return (option) => template.parse(url).expand(option);
@@ -94,6 +94,12 @@ const systemData = {
   getComplicationList: createApi(`${position}/GetBingFaZheng/{hospitalId}/{clayCode}/{positionCode}/{symptomCode}/{complicationCode}`),
 }
 
+const paper = `${cms}/api/Sys_Paper_Template/`
+const paperData = {
+  getPaperList: createApi(`${paper}/GetList/{merchantId}`),
+}
+
+
 export default {
   register: `${register}/api/reg/post`,
   // 授权
@@ -110,6 +116,9 @@ export default {
 
   // 咨询
   ...consult,
+
+  // 咨询
+  ...paperData,
 
   // 新增一个症状列表
   postSymptom: createApi(`${userData}/api/Data_User_ZhengZhuang/Post`),

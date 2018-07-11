@@ -2,28 +2,13 @@ import React, { Component } from 'react';
 import { Text, Dimensions, ScrollView, View, TouchableNativeFeedback, Image } from 'react-native';
 import styles from './style'
 const { width, height } = Dimensions.get('window');
-import action from './action'
-import Card from '../../../components/Card'
+import Card from '../../components/Card'
 import { connect } from 'react-redux'
-import { system } from '../../type'
 
 
 class TelephoneInterviewData extends React.Component {
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
-    return {
-      title: '电话访谈',
-    }
-  };
 
   componentDidMount() {}
-
-  _onPressButton() {
-    this.props.navigation.navigate('Product', {
-      itemId: 87,
-      otherParam: 'anything you want here',
-    })
-  }
   componentWillUnmount() {
     // this._onPressButton.remove();
     // <Image style={{width: 30, height: 30, borderRadius: 15}} source={require('../../../assets/images/a7.jpg')}/>
@@ -31,7 +16,6 @@ class TelephoneInterviewData extends React.Component {
   }
   render() {
 
-    console.log(system)
     return (
 
       <ScrollView style={styles.container}>

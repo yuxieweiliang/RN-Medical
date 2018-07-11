@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Text, Image,StatusBar, View, Button, TouchableNativeFeedback } from 'react-native';
 import styles from './style'
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 
 export default class extends React.Component {

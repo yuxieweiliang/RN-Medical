@@ -20,12 +20,6 @@ class HealthExposure extends React.Component {
 
   componentDidMount() {}
 
-  _onPressButton() {
-    this.props.navigation.navigate('Product', {
-      itemId: 87,
-      otherParam: 'anything you want here',
-    })
-  }
   componentWillMount() {
     this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow.bind(this));
 
@@ -79,7 +73,7 @@ class HealthExposure extends React.Component {
         <Animated.View style={[styles.animated, {height: this.state.height}]}>
           <ScrollView keyboardDismissMode="on-drag">
 
-            <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('HealthDailyDetails')}>
+            <TouchableNativeFeedback onPress={() => this.props.navigator.push({screen: 'Koe.HealthDailyDetails'})}>
               <View style={styles.list}>
                 <View style={styles.header}>
                   <View style={styles.headerLeft}>
@@ -221,12 +215,12 @@ class HealthExposure extends React.Component {
 }
 
 
-HealthExposure.navigationOptions = ({ navigation, navigationOptions }) => {
+/*HealthExposure.navigationOptions = ({ navigation, navigationOptions }) => {
   const { params } = navigation.state;
   return {
     title: TITLE,
   }
-}
+}*/
 
 
 export default connect(state => ({}))(HealthExposure)

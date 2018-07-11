@@ -19,7 +19,6 @@ export default StyleSheet.create({
     fontSize: CARD.CONTENT_FONT_SIZE,
     color: CARD.CONTENT_FONT_COLOR,
     lineHeight: 30,
-    height: '100%'
   },
   tabItemStyle: {
     width,

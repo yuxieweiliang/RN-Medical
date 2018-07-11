@@ -3,7 +3,7 @@ import { Text, Dimensions,StatusBar, View, TouchableOpacity, TouchableNativeFeed
 import styles from './style'
 import { connect } from 'react-redux'
 import CalendarStrip  from 'react-native-calendar-strip';
-import Card from '../../../components/Card'
+import Card from '../../components/Card'
 const TITLE = '健康指标'
 const { width, height } = Dimensions.get('window');
 
@@ -16,20 +16,10 @@ class HealthIndicators extends React.Component {
 
   componentDidMount() {}
 
-  _onPressButton() {
-    this.props.navigation.navigate('Product', {
-      itemId: 87,
-      otherParam: 'anything you want here',
-    })
-  }
   componentWillUnmount() {
     // this._onPressButton.remove();
   }
-  onDayPress() {
-    this.props.navigation.navigate('HospitalList', {
-      otherParam: 'anything you want here',
-    })
-  }
+
   render() {
     return (
 
@@ -140,15 +130,15 @@ class HealthIndicators extends React.Component {
   }
 }
 
-HealthIndicators.navigationOptions = ({ navigation, navigationOptions }) => {
+/*HealthIndicators.navigationOptions = ({ navigation, navigationOptions }) => {
   const { params } = navigation.state;
   return {
     title: TITLE,
   }
-};
+};*/
 
 
 export default connect(state => {
   console.log(state)
-  return state.healthIndicators
+  return state
 })(HealthIndicators)

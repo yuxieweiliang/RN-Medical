@@ -63,7 +63,8 @@ class HomePage extends Component<Props> {
         <View style={{height: 25, backgroundColor: 'red'}}/>*/}
         {/*    精灵    */}
         <Spirit/>
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container}
+                    onScroll={(e) => console.log(e.nativeEvent.contentOffset)}>
 
           {/*  健康指南  */}
           <View style={{ flex: 1 ,borderColor: 'transparent' }}>
@@ -74,16 +75,16 @@ class HomePage extends Component<Props> {
                   healthStatus={healthStatus}
                   style={styles.tabItemStyle}/>
               </Tab>
-              <Tab heading="生活指南" style={{height: 200}}>
-                <GuideToLife
-                  navigator={navigator}
-                  guideToLife={guideToLife}
-                  style={styles.tabItemStyle}/>
-              </Tab>
               <Tab heading="就医情况" style={{height: 200}}>
                 <MedicalStatus
                   navigator={navigator}
                   medicalStatus={medicalStatus}
+                  style={styles.tabItemStyle}/>
+              </Tab>
+              <Tab heading="生活指南" style={{height: 200}}>
+                <GuideToLife
+                  navigator={navigator}
+                  guideToLife={guideToLife}
                   style={styles.tabItemStyle}/>
               </Tab>
             </Tabs>
@@ -102,7 +103,7 @@ class HomePage extends Component<Props> {
                       key={item.key}
                       activeOpacity={.95}
                       style={{width: width/3, paddingLeft: 10}}
-                      onPress={() => navigator.resetTo('HealthExposure')}
+                      onPress={() => navigator.push({screen: 'Koe.HealthExposure'})}
                       underlayColor={null}>
                       <View style={{width: '100%'}}>
                         <Text style={{width: '100%'}}>
@@ -131,7 +132,7 @@ class HomePage extends Component<Props> {
                       key={item.key}
                       activeOpacity={.95}
                       style={{width: width, paddingLeft: 10, paddingBottom: 10}}
-                      onPress={() => navigator.resetTo('HealthDaily')}
+                      onPress={() => navigator.push({screen: 'Koe.HealthDaily'})}
                       underlayColor={null}>
                       <View style={{width: '100%', flexDirection: 'row'}}>
                         <Image source={item.item.avatar} style={{flex: 1, height: 80}}/>

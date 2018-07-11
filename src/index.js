@@ -42,8 +42,6 @@ export default class App extends Component{
           Theme.setDefaultThemeStyle(getTheme(platform));
         }
       })
-
-
   }
 
 
@@ -150,7 +148,8 @@ export default class App extends Component{
           tabFontFamily: 'BioRhyme-Bold',
         },
         appStyle: {
-
+          animationType: 'none',
+          orientation: 'portrait',
           // 强制显示底部菜单上的文字
           forceTitlesDisplay: true,
           // 不现实头部地下的阴影

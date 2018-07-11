@@ -45,7 +45,7 @@ class UserPage extends React.Component {
     return (
       <TouchableNativeFeedback
         title="Go to Details"
-        onPress={() => navigator.push({screen: `Koe.${item.type}`})}
+        onPress={() => item.type && navigator.push({screen: `Koe.${item.type}`})}
       >
         <View style={styles.list}>
           <Text style={styles.label}>{item.title}</Text>

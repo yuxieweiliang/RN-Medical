@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Image,ScrollView, View, Dimensions, TouchableHighlight, Modal, TouchableWithoutFeedback  } from 'react-native';
+import { Text, Image,ScrollView, View, Dimensions  } from 'react-native';
 import styles from './style'
 import { connect } from 'react-redux'
 import CalendarStrip  from 'react-native-calendar-strip';

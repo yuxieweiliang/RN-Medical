@@ -465,24 +465,6 @@ class Chat extends React.Component {
           </TouchableOpacity>
           <Text style={{marginTop:6, fontSize:12}}>相册</Text>
         </View>
-        <View style={[styles.actionCol]}>
-          <TouchableOpacity style={styles.iconTouch} onPress={this.handleLocationClick.bind(this)}>
-            {Svgs.iconLocation}
-          </TouchableOpacity>
-          <Text style={{marginTop:6, fontSize:12}}>位置</Text>
-        </View>
-        <View style={[styles.actionCol,{marginRight:0}]}>
-          <TouchableOpacity style={styles.iconTouch} onPress={this.handlePacketClick.bind(this)}>
-            {Svgs.iconPack}
-          </TouchableOpacity>
-          <Text style={{marginTop:6, fontSize:12}}>红包</Text>
-        </View>
-        {session.sessionType === '0' ? <View style={[styles.actionCol]}>
-          <TouchableOpacity style={styles.iconTouch} onPress={this.handleTransferClick.bind(this)}>
-            {Svgs.iconTransfer}
-          </TouchableOpacity>
-          <Text style={{marginTop:6, fontSize:12}}>转账</Text>
-        </View> : null}
       </View>
     );
   }

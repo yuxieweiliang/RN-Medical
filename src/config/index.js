@@ -16,6 +16,8 @@ const server = {
   system: `http://sysdata.api.${root}:${port}`,
   // 文件
   file: `http://fileserver.api.${root}:${port}`,
+  // 模板
+  cms: `http://cms.api.${root}:${port}`,
 }
 
 let koe = null
