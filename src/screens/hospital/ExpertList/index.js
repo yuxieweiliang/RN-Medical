@@ -61,6 +61,18 @@ class ExpertList extends React.Component {
 
       navigator.pop()
     } else {
+
+      console.log(option)
+      this.props.dispatch({
+        type: 'change_registration_item',
+        data: {
+          key: 'expert',
+          value: option
+        }
+      })
+
+
+
       navigator.push({
         screen: 'Koe.ExpertHome',
         passProps: {
@@ -71,8 +83,6 @@ class ExpertList extends React.Component {
   render() {
     let { expertList }= this.props
     expertList = expertList && expertList.map(item => ({...item, key: item.UserName + item.UserID}))
-
-    console.log(this.props)
 
 
     return (

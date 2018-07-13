@@ -11,7 +11,8 @@ class Department extends React.Component {
   }
   componentDidMount() {}
 
-  _onPressTabCardButton() {
+  _onPressTabCardButton(item) {
+
     this.props.navigator.push({screen: 'Koe.ExpertList'})
   }
   componentWillUnmount() {
@@ -31,7 +32,7 @@ class Department extends React.Component {
         <FlatList
           data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}, {key: 'g'}, {key: 'h'}, {key: 'i'}]}
           renderItem={({item}) => (
-            <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
+            <TouchableHighlight onPress={() => this._onPressTabCardButton(item)}>
               <View style={styles.list}>
                 <View style={{flex: 1}}>
                   <Text style={{fontSize: 18, fontWeight: 'bold', color: '#333'}}>医院名称</Text>

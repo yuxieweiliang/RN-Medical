@@ -7,42 +7,15 @@ const today = data.toISOString().split('T')[0]
 const initialState = Immutable({
   // 预约时间
   appointTime: today,
+  // 科室
+  department: null,
+  // 专家
+  expert: null,
+  // 时间段
+  timeSlot: null,
   // 预约挂号
   registrationList: null,
-  // 健康指南
-  healthGuide: {
-    headerStyle: {
-      height: 50,
-      backgroundColor: '#fafafa',
-    },
-    containerStyle: {
-      height: 500
-    },
-    bodyStyle: {
-      height: 450
-    },
-    dataSource: [
-      {
-        active: true,
-        title: '预约挂号',
-      },{
-        title: '视频问诊',
-        context: {
-          text: '运动运动运动运动运动运动运动运动运动运动运动',
-          button: '生活数据'
-        }
-      },{
-        title: '预约床位',
-        context: {
-          text: '体征体征体征体征体征体征体征体征体征体征',
-          button: ['体征趋势', '体征填写']
-        }
-      },
-    ],
-    tabChange(index, item) {
-      console.log(index, item)
-    }
-  },
+
 });
 
 
@@ -54,6 +27,15 @@ const func = {
       registrationList: action.data
     });
   },
+  change_registration_item(state, action) {
+    let data = state.merge({
+      [action.data.key]: action.data.value
+    });
+    storage.setItem('consult', data)
+
+    // console.log('consult', data)
+    return data
+  }
 }
 
 

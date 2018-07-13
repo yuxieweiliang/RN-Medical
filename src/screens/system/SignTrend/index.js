@@ -46,7 +46,33 @@ class SignTrend extends React.Component {
       pulse: {data: {dataSets: [data]}, xAxis},
       bloodOxygenSaturation: {data: {dataSets: [data]}, xAxis},
     }
+
+    Icon.getImageSource('bars', 24).then(icon => {
+      this.props.navigator.setButtons({
+        rightButtons: [{
+          title: '保存',
+          id: 'SignTrendMenu',
+          icon
+        }],
+        animated: true
+      });
+      /**
+       * 点击右上角按钮执行函数
+       */
+      this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    });
   }
+  onNavigatorEvent(e) {
+    console.log(e)
+    if (e.type == 'NavBarButtonPress') {
+
+      if (e.id == 'SignTrendMenu') {
+        this.props.dispatch({type: 'SignTrendModel'})
+      }
+    }
+
+  }
+
   componentWillMount() {
     const { dispatch } = this.props
     dispatch(getSignList())
@@ -128,19 +154,6 @@ class SignTrend extends React.Component {
   componentWillUnmount() {}
 
   componentDidMount() {
-    const { navigator, dispatch } = this.props;
-
-    /**
-     * 点击右上角按钮执行函数
-     */
-    navigator.setOnNavigatorEvent((e) => {
-      if (e.type == 'NavBarButtonPress') { // this is the event type for button presses
-
-        if (e.id == 'SignTrendMenu') { // this is the same id field from the static navigatorButtons definition
-          dispatch({type: 'SignTrendModel'})
-        }
-      }
-    });
   }
   signTrendMenuItem(item) {
     const { dispatch, navigator } = this.props;
@@ -243,11 +256,11 @@ class SignTrend extends React.Component {
   }
 }
 
-SignTrend.navigatorButtons = {
+/*SignTrend.navigatorButtons = {
   rightButtons: [
     { id: 'SignTrendMenu', icon: require('../../../../img/one.png') }
   ],
-};
+};*/
 
 
 export default connect(state => ({...state.sign}))(SignTrend)

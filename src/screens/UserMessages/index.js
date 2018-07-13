@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, TextInput, View, Image, ScrollView, Dimensions, KeyboardAvoidingView, Keyboard } from 'react-native';
+import { Text, TextInput, View, Image, ScrollView,  KeyboardAvoidingView, Keyboard } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux'
 import behavior from './behavior'
+import { postUser } from '../../reducers/user/actions'
 import styles from './style'
-const { width, height } = Dimensions.get('window');
-
 
 const InputList = ({title, onChangeText, value, placeholder, isRequest, onFocus, onBlur}) => {
   return (
     <View
-      title="Go to Details"
       onPress={() => this.props.navigation.goBack()}
     >
       <View style={styles.list}>
@@ -33,10 +31,12 @@ const InputList = ({title, onChangeText, value, placeholder, isRequest, onFocus,
   )
 }
 
-class UserMessagePage extends React.Component {
+class UserMessagePage extends Component {
   constructor(props) {
     super(props)
     Icon.getImageSource('plus', 24).then(res => {
+
+      // 添加 保存 按钮
       this.props.navigator.setButtons({
         rightButtons: [{
           title: '保存',
@@ -44,39 +44,52 @@ class UserMessagePage extends React.Component {
         }],
         animated: true
       });
-      this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-    });
 
+      // 为保存按钮添加点击事件
+      this.props.navigator.setOnNavigatorEvent(
+        this.onNavigatorEvent.bind(this)
+      );
+    });
   }
+
+  /**
+   * 点击右上角保存按钮 -》 保存用户信息
+   * @param event
+   */
   onNavigatorEvent(event) {
     const { dispatch, user } = this.props
     if(event.id === 'saveUserMessage') {
+
       // 保存数据
-      dispatch(behavior.saveUserMessage(user))
+      dispatch(postUser(user))
+
       // 返回
       this.props.navigator.pop();
-      console.log('fffffffffffffffff', event)
     }
   }
-  componentDidMount() {
+  componentDidMount() {}
 
-  }
-
+  /**
+   * 组件渲染之前，添加键盘事件
+   */
   componentWillMount() {
-    const { dispatch } = this.props
 
     // 当键盘收起之后，显示底部导航
-    this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
+    this.keyboardDidHideSub = Keyboard
+      .addListener('keyboardDidHide',
+        this.keyboardDidHide.bind(this));
   }
 
   /**
    * 显示底部导航
    */
   keyboardDidHide() {
-    this.timer = setTimeout(() => this.props.navigator.toggleTabs({
-      to: 'show',
-      animated: false
-    }))
+    this.timer = setTimeout(() => {
+      this.props.navigator.toggleTabs({
+        to: 'show',
+        animated: false
+      })
+    })
   }
 
   /**
@@ -88,8 +101,6 @@ class UserMessagePage extends React.Component {
 
   /**
    * 改变组件内容
-   * @param text
-   * @param key
    */
   onChangeText(text, key) {
     const { dispatch } = this.props
@@ -98,32 +109,6 @@ class UserMessagePage extends React.Component {
       text,
       key
     })
-  }
-
-  /**
-   * 保存组件数据
-   */
-  saveUserMessage() {
-
-/*    if (!this._contextualMenu) {
-      this.props.navigator.showContextualMenu({
-        leftButtons: [],
-        rightButtons: [{
-          title: 'Edit',
-          icon: require('../../../img/edit.png')
-        }, {
-          title: 'Delete',
-          icon: require('../../../img/delete.png')
-        }],
-        onButtonPressed: (index) => console.log(`Button ${index} tapped`)
-      });
-      this._contextualMenu = true;
-    } else {
-      this.props.navigator.dismissContextualMenu();
-      this._contextualMenu = false;
-    }*/
-
-    //
   }
 
   /**
@@ -175,10 +160,6 @@ class UserMessagePage extends React.Component {
               })
             )
           }
-          <TouchableHighlight
-            onPress={() => this.saveUserMessage()}>
-            <Text>保存</Text>
-          </TouchableHighlight>
         </ScrollView>
       </KeyboardAvoidingView>
     );

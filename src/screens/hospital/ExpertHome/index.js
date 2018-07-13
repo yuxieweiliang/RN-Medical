@@ -43,8 +43,18 @@ class ExpertHome extends React.Component {
     // alert('上午还是下午')
   }
 
-  selectItem() {
+  selectItem(item) {
     this.setState({visible: false})
+
+
+    this.props.dispatch({
+      type: 'change_registration_item',
+      data: {
+        key: 'timeSlot',
+        value: item
+      }
+    })
+
     this.props.navigator.push({screen: 'Registration.Information'})
   }
   render() {

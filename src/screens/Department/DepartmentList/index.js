@@ -30,7 +30,18 @@ class DepartmentList extends React.Component {
   componentDidMount() {}
   componentWillUnmount() {}
 
-  _onPressTabCardButton() {
+  _onPressDepartmentItem(item) {
+
+    console.log(item)
+    this.props.dispatch({
+      type: 'change_registration_item',
+      data: {
+        key: 'department',
+        value: item
+      }
+    })
+
+
     this.props.navigator.push({screen: 'Koe.ExpertList'})
   }
   render() {
@@ -38,7 +49,6 @@ class DepartmentList extends React.Component {
 
     const list = departmentList ? departmentList.map((item, i) => ({...item, key: item.Dept_Name+i})) : false
 
-    console.log('departmentList', this.props)
     return (
       <ScrollView style={styles.container}>
         {/*<Search/>*/}
@@ -60,9 +70,9 @@ class DepartmentList extends React.Component {
               <FlatList
                 data={list}
                 renderItem={({item}) => {
-                  console.log(item)
                   return (
-                    <TouchableHighlight onPress={() => this._onPressTabCardButton()}>
+                    <TouchableHighlight
+                      onPress={() => this._onPressDepartmentItem(item)}>
                       <View style={styles.list}>
                         <View style={{flex: 1}}>
                           <Text style={{fontSize: 16, color: '#333'}}>

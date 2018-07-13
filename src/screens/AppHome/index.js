@@ -91,32 +91,6 @@ class HomePage extends Component<Props> {
 
           </View>
 
-          {/*   晒健康  */}
-          <Card title="晒健康" style={{paddingBottom: 10}}>
-            {
-              <FlatList
-                data={list}
-                horizontal={true}
-                renderItem={item => {
-                  return (
-                    <TouchableOpacity
-                      key={item.key}
-                      activeOpacity={.95}
-                      style={{width: width/3, paddingLeft: 10}}
-                      onPress={() => navigator.push({screen: 'Koe.HealthExposure'})}
-                      underlayColor={null}>
-                      <View style={{width: '100%'}}>
-                        <Text style={{width: '100%'}}>
-                          这里是晒健康的内容，这里是晒健h康的内容
-                        </Text>
-                        <Image source={item.item.avatar} style={{width: '100%', height: 80}}/>
-                      </View>
-                    </TouchableOpacity>
-                  )
-                }}
-              />
-            }
-          </Card>
 
           {/*  健康日报  */}
           <Card title="健康日报" style={{paddingBottom: 10}}>

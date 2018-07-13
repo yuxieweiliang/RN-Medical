@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, ScrollView, TouchableHighlight} from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
 
 class CollapsingHeader extends React.Component {
 
@@ -12,14 +13,38 @@ class CollapsingHeader extends React.Component {
     navBarBackgroundColor: '#eeeeee'
   };
 
+  /**
+   * 打开相册
+   */
+  handleImagePicker() {
+
+    ImagePicker.openPicker({
+      mediaType: 'photo',
+      loadingLabelText: '请稍候...'
+    }).then(image => {
+
+      let data = new FormData();
+      let file = { uri: image.path, type: "multipart/form-data", name: "image.png" };
+      data.append("imgFile", file);
+
+      fetch('http://fileserver.api.koenn.cn:81/api/UserMainImages/UploadUserHead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'multipart/form-data;charset=utf-8' },
+        body: data
+      }).then(res => {
+        console.log(res, "myImg");
+      })
+      console.log(image.path, "myName");
+    });
+  }
   render() {
     return (
       <ScrollView style={styles.container}>
-        <View>
-          {[...new Array(40)].map((a, index) => (
-            <Text key={`row_${index}`} style={styles.button}>Row {index}</Text>
-          ))}
-        </View>
+        <TouchableHighlight  onPress={this.handleImagePicker.bind(this)}>
+          <Text>
+            点击
+          </Text>
+        </TouchableHighlight>
       </ScrollView>
     );
   }

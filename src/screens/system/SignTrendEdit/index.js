@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, TextInput, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
-import signAction from '../../../reducers/sign/actions'
+import { postUserInfo, getUserInfo } from '../../../reducers/sign/actions'
 import styles from './style'
 import moment from 'moment'
 
@@ -26,27 +26,33 @@ class SignTrendEdit extends React.Component {
   constructor(props) {
     super(props)
     const { navigator, dispatch } = this.props;
-    /**
-     * 点击右上角按钮执行函数
-     */
-    navigator.setOnNavigatorEvent((e) => {
-      if (e.type === 'NavBarButtonPress') {
-        if (e.id === 'save') {
-          this.addSign()
-        }
-      }
+    this.props.navigator.setButtons({
+      rightButtons: [{
+        title: '保存',
+        id: 'saveTrend'
+      }],
+      animated: true
     });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
+  /**
+   * 点击右上角按钮执行函数
+   */
+  onNavigatorEvent(e) {
+    const { dispatch, sign } = this.props
+    if (e.type === 'NavBarButtonPress') {
+      if (e.id === 'saveTrend') {
+        dispatch(postUserInfo(sign))
+      }
+    }
 
+  }
   componentDidMount() {
   }
   componentWillUnmount() {
     // this._onPressButton.remove();
   }
-  addSign() {
-    const { dispatch, sign } = this.props
-    dispatch(signAction.postSign(sign))
-  }
+
   signItemChange(value, key) {
     const { dispatch, navigator } = this.props
 
@@ -142,4 +148,4 @@ class SignTrendEdit extends React.Component {
   }
 }
 
-export default connect(state => ({...state.user.sign}))(SignTrendEdit)
+export default connect(state => ({...state.sign}))(SignTrendEdit)

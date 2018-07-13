@@ -106,7 +106,7 @@ export default class App extends Component{
         tabs: [
           {
             label: '主页',
-            screen: 'Koe.AppHome', // this is a registered name for a screen
+            screen: 'Koe.AppHome', // AppHome
             icon: icon.home,
             title: "主页",
             rightButtons: [
@@ -118,7 +118,7 @@ export default class App extends Component{
             screen: 'Registration',
             icon: icon.registration,
             title: '预约挂号',
-            rightButtons: [{ id: 'account', icon: icon.bars }],
+            // rightButtons: [{ id: 'account', icon: icon.bars }],
 
           },
           {
@@ -126,7 +126,7 @@ export default class App extends Component{
             screen: 'Koe.Consult',
             icon: icon.consult,
             title: '咨询',
-            rightButtons: [{ id: 'account', icon: icon.bars }],
+            // rightButtons: [{ id: 'account', icon: icon.bars }],
 
           },
           {
@@ -134,9 +134,9 @@ export default class App extends Component{
             screen: 'User', // this is a registered name for a screen
             icon: icon.user,
             title: "用户中心",
-            rightButtons: [
+            /*rightButtons: [
               { id: 'user', icon: icon.plus }
-            ]
+            ]*/
           },
         ],
         // animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',

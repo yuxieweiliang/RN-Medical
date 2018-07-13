@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import TabCardView from '../../components/TabCardView/index'
 import { Calendar, CalendarList, Agenda, LocaleConfig } from 'react-native-calendars';
 import { getRegistration } from '../../reducers/registration/actions'
+import ReservationVideo from '../ReservationVideo'
 import styles from './style'
 
 LocaleConfig.locales['cn'] = {
@@ -14,9 +15,6 @@ LocaleConfig.locales['cn'] = {
   dayNamesShort: ['日','一','二','三','四','五','六']
 };
 LocaleConfig.defaultLocale = 'cn';
-
-const TITLE = '预约挂号'
-const { width, height } = Dimensions.get('window');
 
 class Registration extends React.Component {
   constructor(props) {
@@ -37,7 +35,14 @@ class Registration extends React.Component {
   }
 
   calendarDayChange(data) {
-    const {  dispatch } = this.props
+    this.props.dispatch({
+      type: 'change_registration_item',
+      data: {
+        key: 'appointTime',
+        value: data.dateString
+      }
+    })
+    console.log(data)
   }
   render() {
     let { healthGuide, appointTime, registrationList }= this.props
@@ -47,7 +52,7 @@ class Registration extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <Tabs initialPage={0}>
-          <Tab heading="预约挂号" style={{height: 380}}>
+          <Tab heading="预约挂号">
             <View style={{height: 380}}>
               <CalendarList
                 horizontal={true}
@@ -66,53 +71,43 @@ class Registration extends React.Component {
                 <Text>预约</Text>
               </TouchableHighlight>
             </View>
+            <View>
+              <FlatList
+                data={registrationList}
+                renderItem={({item}) => (
+                  <View style={styles.list}>
+                    <View style={{flex: 1}}>
+                      <Text>预约挂号：</Text>
+                    </View>
+                    <View style={{flex: 3}}>
+                      <View style={{flexDirection: 'row'}}>
+                        <Text style={{flex: 2}}>{item.Reg_MerchantName}</Text>
+                        <Text style={{flex: 1}}>{item.Reg_Dept_Name}</Text>
+                      </View>
+                      <View>
+                        <Text>{item.Reg_VisitTime} {item.Reg_Doc_Title} 下午</Text>
+                      </View>
+                    </View>
+                  </View>
+                )}
+              />
+            </View>
           </Tab>
           <Tab heading="视频问诊" style={{height: 380}}>
-            <Text>fdsa</Text>
-          </Tab>
-          <Tab heading="预约床位" style={{height: 380}}>
-            <Text>fda</Text>
+            <ReservationVideo {...this.props}/>
           </Tab>
         </Tabs>
-
-        <View>
-          <FlatList
-            data={registrationList}
-            renderItem={({item}) => (
-              <View style={styles.list}>
-                <View style={{flex: 1}}>
-                  <Text>预约挂号：</Text>
-                </View>
-                <View style={{flex: 3}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 2}}>{item.Reg_MerchantName}</Text>
-                    <Text style={{flex: 1}}>{item.Reg_Dept_Name}</Text>
-                  </View>
-                  <View>
-                    <Text>{item.Reg_VisitTime} {item.Reg_Doc_Title} 下午</Text>
-                  </View>
-                </View>
-              </View>
-            )}
-          />
-        </View>
       </ScrollView>
     );
   }
 }
 
-
-Registration.navigationOptions = ({ navigation : nav, navigationOptions: option }) => {
-  const { headerLeft, headerRight, headerTitle } = option;
-  return {
-    headerLeft: headerLeft && headerLeft(nav, option),
-    headerRight: headerRight && headerRight(nav, option),
-    headerTitle: headerTitle && headerTitle(nav, option, TITLE),
-  }
-};
 const createState = function(state) {
   return ({
-    ...state.registration
+    ...state.registration,
+    ...state.user,
+    ...state.consult,
+    ...state.export,
   })
 }
 

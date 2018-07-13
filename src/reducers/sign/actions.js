@@ -4,20 +4,22 @@ import storage from '../../utils/storage'
 import moment from 'moment'
 import api from '../../url'
 
+
+
 /**
  * 添加体征
  * @returns {{type}}
  */
-export function postUserInfo() {
-  let url = api.postUserInfo()
+export function postUserInfo(body) {
+  let url = body.ID ? api.putUserInfo() : api.postUserInfo()
 
-  fetch.post(url)
-
-  return {type: types.LOGIN};
+  return (async dispatch => {
+    return fetch.post(url, { body })
+  });
 }
 
 /**
- * 体征
+ * 获取单条体征
  * @returns {{type}}
  */
 export function getUserInfo() {

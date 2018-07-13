@@ -1,18 +1,4 @@
 export default {
-  saveUserMessage(option) {
-    return async dispatch => {
-      const data = {
-        IDCard: "6101151999022223232",
-        IsDeleted: false,
-        MerchantID: 1001,
-        Sex: "男",
-        ShenGao: "175.6",
-        UserID: "322717145007458",
-        UserName: "薛育飞",
-        VShardID: 548
-      }
-    }
-  },
   createStructure(option = {}) {
     let structure =  [
       {title: '姓名', key: 'UserName', value: null, show: true},

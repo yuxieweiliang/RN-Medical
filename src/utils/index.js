@@ -1,7 +1,3 @@
-/*import moment from 'moment';
-require('moment/locale/zh-cn.js');*/
-
-
 /**
  * 获取当前值的类型
  * @param obj
