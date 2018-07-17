@@ -53,3 +53,100 @@ export function postUser(body) {
     })
   })
 }
+
+/**
+ * 咨询随访列表
+ * paperType 表单类型，如：1：慢病随访记录、2：咨询确认单
+ * @returns {{type}}
+ */
+export function fullList(body) {
+  let url = api.getFullListByUser({start: '2018-06-06', end: '2018-08-08', paperType: '慢病随访记录'})
+
+  return (async dispatch => {
+
+    if(0 === 0) {
+      return;
+    }
+    fetch.get(url, { body }).then(res => {
+      // 如果失败
+      if(res.ok === false) {
+        return false
+      }
+
+      // 保存成功
+      dispatch({type: types.SAVE_USER_MESSAGE_SUCCESS})
+      return true
+    })
+  })
+}
+
+
+/**
+ * 健康日报列表
+ * start
+ * offSet
+ * number
+ * @returns {{type}}
+ */
+export function healthDaily(body) {
+  let url = api.getListByUser({start: '2018-06-06', offSet: '2018-08-08', number: 30})
+
+  return (async dispatch => {
+
+    if(0 === 0) {
+      return;
+    }
+    fetch.get(url, { body }).then(res => {
+      // 如果失败
+      if(res.ok === false) {
+        return false
+      }
+
+      // 保存成功
+      dispatch({type: types.SAVE_USER_MESSAGE_SUCCESS})
+      return true
+    })
+  })
+}
+
+/**
+ * 上传证件照
+ * start
+ * offSet
+ * number
+ * @returns {{type}}
+ */
+export function userCredentials(image) {
+  let url = api.uploadUserCredentials()
+
+  let body = new FormData();
+  let file = { uri: image.path, type: "multipart/form-data", name: "image.png" };
+  body.append("imgFile", file);
+
+  return (async dispatch => {
+
+    fetch.post(url,
+      {
+        body,
+        headers: {
+          'Content-Type': 'multipart/form-data;charset=utf-8',
+        }
+      }).then(res => {
+
+
+
+
+      // 如果失败
+      if(res.ok === false) {
+        return false
+      }
+
+      // 图片地址
+      // http://fileserver.api.koenn.cn:81/UploadImages/UserCredentials/2018/07-17/322717145007458/408eb95a-b8ed-4b91-be42-62cf8bb5b5b5.png
+      console.log(res)
+      // 保存成功
+      dispatch({type: types.SAVE_USER_MESSAGE_SUCCESS})
+      return true
+    })
+  })
+}

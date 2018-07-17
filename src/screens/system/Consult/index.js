@@ -25,6 +25,9 @@ class ConsultPage extends Component {
     // 获取咨询的本地缓存
     this.props.dispatch(initState())
 
+    //=============================================================
+    // 极光推送 start
+    //=============================================================
     // 在监听所有相关事件之前要调用此方法，否则不会收到点击通知事件。
     JPushModule.notifyJSDidLoad(ret => { console.log('initial!', ret) });
 
@@ -51,6 +54,14 @@ class ConsultPage extends Component {
       console.log("receive notification----------: ", message);
     })
 
+
+    //=============================================================
+    // 网易聊天列表
+    //=============================================================
+    this.sessionListener = NativeAppEventEmitter
+      .addListener("observeRecentContact",(data)=>{
+        console.info('会话列表',data)
+      });
   }
 
   // props更新时调用
@@ -66,16 +77,19 @@ class ConsultPage extends Component {
       });
     }
   }
-  componentDidMount() {
+  componentDidMount() {}
 
-    this.sessionListener = NativeAppEventEmitter
-      .addListener("observeRecentContact",(data)=>{
-      console.info('会话列表',data)
-    });
-
-  }
+  /**
+   * 卸载
+   */
   componentWillUnmount() {
     this.sessionListener && this.sessionListener.remove();
+    // 取消监听：自定义消息后事件
+    JPushModule.removeReceiveCustomMsgListener()
+    // 取消监听：接收推送事件
+    JPushModule.removeReceiveNotificationListener()
+    // 取消监听：点击推送事件
+    JPushModule.removeReceiveOpenNotificationListener()
   }
 
   /**
@@ -105,10 +119,10 @@ class ConsultPage extends Component {
    */
   leavingVideo() {
     const { navigator, dispatch, user, expert } = this.props
-    /*if(!this.state.isRegistration) {
+    if(!this.state.isRegistration) {
       alert('您尚未预约，请先预约！')
       return;
-    }*/
+    }
 
     // 极光推送
     dispatch(JPushAlert(user.UserID, expert.UserID)).then(res => {
@@ -118,8 +132,15 @@ class ConsultPage extends Component {
       }
     })
   }
+  /**
+  * 预约视频问诊
+  */
+   registrationVideoInquisition() {
 
+   }
   render() {
+    const { isRegistration } = this.props
+    let videoClass = isRegistration ? {flex: 1, backgroundColor: '#3f51b5'} : {flex: 1, backgroundColor: '#ccc'}
 
     return (
       <Container style={styles.container}>
@@ -146,8 +167,12 @@ class ConsultPage extends Component {
 
             <View style={styles.consultBtnBox}>
               <Button
+                onPress={this.registrationVideoInquisition.bind(this)}>
+                预约问诊
+              </Button>
+              <Button
                 onPress={this.leavingVideo.bind(this)}
-                style={{flex: 1, backgroundColor: '#ccc'}}>
+                style={videoClass} underlayColor={videoClass.backgroundColor}>
                 视频问诊
               </Button>
             </View>

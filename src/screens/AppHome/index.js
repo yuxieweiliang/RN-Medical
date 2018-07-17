@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Text, FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions , StatusBar  } from 'react-native';
-import { Container, Header, Content, Tab, Tabs } from 'native-base';
+import { Container, Header, ScrollableTab, Tab, Tabs } from 'native-base';
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 // 栏目卡片
 import Card from '../../components/Card'
+import { healthDaily } from '../../reducers/user/actions'
 // 精灵
 import Spirit from '../../components/Spirit'
 
@@ -43,7 +44,8 @@ class HomePage extends Component<Props> {
     }
   }
   componentWillMount() {
-
+    const { dispatch } = this.props
+    dispatch(healthDaily({}))
     console.log('****************|||||||||||     home page    |||||||||||****************')
   }
 
@@ -66,7 +68,12 @@ class HomePage extends Component<Props> {
 
           {/*  健康指南  */}
           <View style={{ flex: 1 ,borderColor: 'transparent' }}>
-            <Tabs initialPage={0}>
+            <Tabs
+              // 默认显示第一个
+              initialPage={0}
+              // 如果超过四个，则超出的隐藏，可以左右滑动
+              renderTabBar={()=> <ScrollableTab tabStyle={{color: 'red'}}/>}
+              >
               {/*  健康日报  */}
               <Tab heading="健康日报">
                 <FlatList
@@ -115,8 +122,6 @@ class HomePage extends Component<Props> {
             </Tabs>
 
           </View>
-
-
 
         </ScrollView>
 

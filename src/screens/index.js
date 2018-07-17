@@ -38,6 +38,11 @@ import Information from './Registration/Information'
 import Department from './Department'
 import DepartmentList from './Department/DepartmentList'
 
+import Help from './Help'
+import Friends from './Friends'
+import Account from './Account'
+import Authentication from './Authentication'
+
 import DrawerLeft from './DrawerLeft'
 
 
@@ -79,6 +84,11 @@ export  function registerScreens(store, Provider) {
   RegisterComponent('Registration.Information', () => Information, store, Provider)
   RegisterComponent('Koe.Department', () => Department, store, Provider)
   RegisterComponent('Koe.DepartmentList', () => DepartmentList, store, Provider)
+
+  RegisterComponent('Koe.Friends', () => Friends, store, Provider)
+  RegisterComponent('Koe.Help', () => Help, store, Provider)
+  RegisterComponent('Koe.Account', () => Account, store, Provider)
+  RegisterComponent('Koe.Authentication', () => Authentication, store, Provider)
 
   RegisterComponent('Koe.DrawerLeft', () => DrawerLeft, store, Provider)
 }

@@ -5,6 +5,8 @@ import storage from '../../utils/storage'
 const data = new Date()
 const today = data.toISOString().split('T')[0]
 const initialState = Immutable({
+  // 是否预约
+  isRegistration: false,
   // 预约时间
   appointTime: today,
   // 科室

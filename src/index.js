@@ -106,7 +106,7 @@ export default class App extends Component{
           tabs: [
             {
               label: '主页',
-              screen: 'Koe.AppHome', // AppHome
+              screen: 'Koe.Account', // AppHome
               icon: icon.home,
               title: "主页",
               rightButtons: [

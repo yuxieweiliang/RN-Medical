@@ -13,18 +13,19 @@ export default {
       ]},
       {key: 'test', data: [
         {title: '检查', type: 'Examination', key: '2'},
-        {title: '检验', key: '3'},
+        /*{title: '检验', key: '3'},*/
       ]},
       {key: 'history', data: [
-        {title: '预约床位', key: '4'},
+        {title: '预约床位', type: 'Help', key: '4'},
         {title: '咨询记录', key: '5'},
         {title: '随访记录', key: '6'},
         {title: '宣教记录', key: '7'},
       ]},
       {key: 'myself', data: [
-        {title: '我的账户', key: '8'},
-        {title: '推荐[智护康]给好友', key: '9'},
-        {title: '帮助中心', key: '10'},
+        {title: '我的账户', type: 'Account', key: '8'},
+        {title: '认证', type: 'Authentication', key: '11'},
+        {title: '推荐[智护康]给好友', type: 'Friends', key: '9'},
+        {title: '帮助中心', type: 'Help', key: '10'},
       ]},
     ]
   }

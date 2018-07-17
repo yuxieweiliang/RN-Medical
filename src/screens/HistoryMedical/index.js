@@ -4,18 +4,23 @@ import { Container, Header, Content, Tab, Tabs } from 'native-base';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import { fullList } from '../../reducers/user/actions'
+import { connect } from 'react-redux'
 // 栏目卡片
 import Card from '../../components/Card'
+
 const { width, height } = Dimensions.get('window');
 
+/**
+ * 就医历史
+ */
+class HistoryMedical extends React.Component {
 
-export default class extends React.Component {
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
-    return {
-      title: '就医历史',
-    }
-  };
+  componentWillMount() {
+    const { dispatch } = this.props
+    console.log(this.props)
+    dispatch(fullList({}))
+  }
 
   componentDidMount() {}
 
@@ -141,9 +146,10 @@ export default class extends React.Component {
 
       </Container>
 
-
-
     );
   }
 }
 
+
+
+export default connect(state => ({...state.user}))(HistoryMedical)

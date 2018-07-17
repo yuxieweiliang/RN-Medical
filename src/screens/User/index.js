@@ -36,7 +36,6 @@ class UserPage extends React.Component {
             />
           )
         }
-
       </View>
     );
   }
