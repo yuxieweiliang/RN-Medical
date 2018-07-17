@@ -57,8 +57,8 @@ class HomePage extends Component<Props> {
     // console.log('defaultData: ', defaultData)
     return (
       <View style={styles.container}>
-       {/* <StatusBar  barStyle="default" animated={'backgroundColor'} translucent={true}/>
-        <View style={{height: 25, backgroundColor: 'red'}}/>*/}
+        {/* <StatusBar  barStyle="default" animated={'backgroundColor'} translucent={true}/>
+         <View style={{height: 25, backgroundColor: 'red'}}/>*/}
         {/*    精灵    */}
         <Spirit/>
         <ScrollView style={styles.container}
@@ -67,19 +67,46 @@ class HomePage extends Component<Props> {
           {/*  健康指南  */}
           <View style={{ flex: 1 ,borderColor: 'transparent' }}>
             <Tabs initialPage={0}>
-              <Tab heading="健康状况" style={{height: 200}}>
+              {/*  健康日报  */}
+              <Tab heading="健康日报">
+                <FlatList
+                  data={list}
+                  renderItem={item => {
+
+                    // console.log(item.item.title)
+                    item.item.horizontal = true
+                    return (
+                      <TouchableOpacity
+                        key={item.key}
+                        activeOpacity={.95}
+                        style={styles.healthDaily}
+                        onPress={() => navigator.push({screen: 'Koe.HealthDaily'})}
+                        underlayColor={null}>
+                        <View style={{width: '100%', flexDirection: 'row'}}>
+                          <Image source={item.item.avatar} style={{flex: 1, height: 80}}/>
+                          <Text style={{width: '75%', paddingLeft: 10, paddingRight: 10}}>
+                            这里是晒健康的内容，这里是晒健康的内容
+                            这里是晒健康的内容，这里是晒健康的内容
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    )
+                  }}
+                />
+              </Tab>
+              <Tab heading="健康状况">
                 <HealthStatus
                   navigator={navigator}
                   healthStatus={healthStatus}
                   style={styles.tabItemStyle}/>
               </Tab>
-              <Tab heading="就医情况" style={{height: 200}}>
+              <Tab heading="就医情况">
                 <MedicalStatus
                   navigator={navigator}
                   medicalStatus={medicalStatus}
                   style={styles.tabItemStyle}/>
               </Tab>
-              <Tab heading="生活指南" style={{height: 200}}>
+              <Tab heading="生活指南">
                 <GuideToLife
                   navigator={navigator}
                   guideToLife={guideToLife}
@@ -90,35 +117,7 @@ class HomePage extends Component<Props> {
           </View>
 
 
-          {/*  健康日报  */}
-          <Card title="健康日报" style={{paddingBottom: 10}}>
-            {
-              <FlatList
-                data={list}
-                renderItem={item => {
 
-                  // console.log(item.item.title)
-                  item.item.horizontal = true
-                  return (
-                    <TouchableOpacity
-                      key={item.key}
-                      activeOpacity={.95}
-                      style={{width: width, paddingLeft: 10, paddingBottom: 10}}
-                      onPress={() => navigator.push({screen: 'Koe.HealthDaily'})}
-                      underlayColor={null}>
-                      <View style={{width: '100%', flexDirection: 'row'}}>
-                        <Image source={item.item.avatar} style={{flex: 1, height: 80}}/>
-                        <Text style={{width: '75%', paddingLeft: 10, paddingRight: 10}}>
-                          这里是晒健康的内容，这里是晒健康的内容
-                          这里是晒健康的内容，这里是晒健康的内容
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  )
-                }}
-              />
-            }
-          </Card>
         </ScrollView>
 
       </View>
