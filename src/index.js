@@ -1,13 +1,12 @@
-import React,{ Component } from 'react';
-import { View, Platform } from 'react-native'
-import { registerScreens, registerScreenVisibilityListener } from './screens';
+import React,{ Component } from 'react'
+import { registerScreens, registerScreenVisibilityListener } from './screens'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { Navigation } from 'react-native-navigation';
-import { Theme } from "native-base-shoutem-theme"; // 主题
-import getTheme from '../native-base-theme/components';
-import platform from '../native-base-theme/variables/platform';
-import { Provider } from "react-redux";
-import * as appActions from "./reducers/app/actions";
+import { Navigation } from 'react-native-navigation'
+import { Theme } from "native-base-shoutem-theme" // 主题
+import getTheme from '../native-base-theme/components'
+import platform from '../native-base-theme/variables/platform'
+import { Provider } from "react-redux"
+import * as appActions from "./reducers/app/actions"
 import store from './reducers'
 
 // redux related book keeping
@@ -84,100 +83,115 @@ export default class App extends Component{
   }
   startApp(root) {
 
-    if(root === 'login') {
-      Navigation.startSingleScreenApp({
-        screen: {
-          screen: 'Koe.Login',
-          title: '登录',
-          navigatorStyle: {
-            ...navigatorStyle,
-            statusBarTextColorScheme: 'dark',
-            navBarBackgroundColor:'#444',
-            navBarHidden: true
+    switch(root) {
+      case 'login':
+        Navigation.startSingleScreenApp({
+          screen: {
+            screen: 'Koe.Login',
+            title: '登录',
+            navigatorStyle: {
+              ...navigatorStyle,
+              statusBarTextColorScheme: 'dark',
+              navBarBackgroundColor:'#444',
+              navBarHidden: true
+            }
+          },
+          appleStyle:{
+            statusBarColor:'#fff',
           }
-        },
-        appleStyle:{
-          statusBarColor:'#fff',
-        }
-      });
-    } else {
+        });
+        break;
+      case 'home':
+        Navigation.startTabBasedApp({
+          tabs: [
+            {
+              label: '主页',
+              screen: 'Koe.AppHome', // AppHome
+              icon: icon.home,
+              title: "主页",
+              rightButtons: [
+                { id: 'cart', icon: icon.search, },
+              ],
+            },
+            {
+              label: '预约',
+              screen: 'Registration',
+              icon: icon.registration,
+              title: '预约挂号',
+              // rightButtons: [{ id: 'account', icon: icon.bars }],
 
-      Navigation.startTabBasedApp({
-        tabs: [
-          {
-            label: '主页',
-            screen: 'Koe.AppHome', // AppHome
-            icon: icon.home,
-            title: "主页",
-            rightButtons: [
-              { id: 'cart', icon: icon.search, },
-            ],
-          },
-          {
-            label: '预约',
-            screen: 'Registration',
-            icon: icon.registration,
-            title: '预约挂号',
-            // rightButtons: [{ id: 'account', icon: icon.bars }],
+            },
+            {
+              label: '咨询',
+              screen: 'Koe.Consult',
+              icon: icon.consult,
+              title: '咨询',
+              // rightButtons: [{ id: 'account', icon: icon.bars }],
 
+            },
+            {
+              label: '我的',
+              screen: 'User', // this is a registered name for a screen
+              icon: icon.user,
+              title: "用户中心",
+              /*rightButtons: [
+               { id: 'user', icon: icon.plus }
+               ]*/
+            },
+          ],
+          // animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
+          // type: 'TheSideBar',
+          tabsStyle: {
+            tabBarBackgroundColor: '#3f51b5',
+            tabBarButtonColor: '#ffffff',
+            tabBarSelectedButtonColor: '#ff505c',
+            tabFontFamily: 'BioRhyme-Bold',
           },
-          {
-            label: '咨询',
+          appStyle: {
+            animationType: 'none',
+            orientation: 'portrait',
+            // 强制显示底部菜单上的文字
+            forceTitlesDisplay: true,
+            // 不现实头部地下的阴影
+            topBarElevationShadowEnabled: false,
+
+            // 底部导航条样式
+            tabBarBackgroundColor: '#fafafa',
+            tabBarButtonColor: '#666',
+            tabBarSelectedButtonColor: '#4754bb',
+            tabFontFamily: 'BioRhyme-Bold',
+
+            // 头部样式
+            navBarButtonColor: '#fff',
+            navBarTextColor: '#fff',
+            navigationBarColor: '#3f51b5',
+            navBarBackgroundColor: '#3f51b5',
+
+            // 手机状态栏背景色
+            statusBarColor: '#3f51b5',
+          },
+          /*drawer: {
+           left: { // optional, define if you want a drawer from the left
+           screen: 'Koe.DrawerLeft', // unique ID registered with Navigation.registerScreen
+           passProps: {}, // simple serializable object that will pass as props to all top screens (optional),
+           // fixedWidth: 200, // a fixed width you want your left drawer to have (optional)
+           },
+           }*/
+        });
+        break;
+      case 'video-chat':
+        Navigation.startSingleScreenApp({
+          screen: {
             screen: 'Koe.Consult',
-            icon: icon.consult,
-            title: '咨询',
-            // rightButtons: [{ id: 'account', icon: icon.bars }],
-
-          },
-          {
-            label: '我的',
-            screen: 'User', // this is a registered name for a screen
-            icon: icon.user,
-            title: "用户中心",
-            /*rightButtons: [
-              { id: 'user', icon: icon.plus }
-            ]*/
-          },
-        ],
-        // animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
-        // type: 'TheSideBar',
-        tabsStyle: {
-          tabBarBackgroundColor: '#3f51b5',
-          tabBarButtonColor: '#ffffff',
-          tabBarSelectedButtonColor: '#ff505c',
-          tabFontFamily: 'BioRhyme-Bold',
-        },
-        appStyle: {
-          animationType: 'none',
-          orientation: 'portrait',
-          // 强制显示底部菜单上的文字
-          forceTitlesDisplay: true,
-          // 不现实头部地下的阴影
-          topBarElevationShadowEnabled: false,
-
-          // 底部导航条样式
-          tabBarBackgroundColor: '#fafafa',
-          tabBarButtonColor: '#666',
-          tabBarSelectedButtonColor: '#4754bb',
-          tabFontFamily: 'BioRhyme-Bold',
-
-          // 头部样式
-          navBarButtonColor: '#fff',
-          navBarTextColor: '#fff',
-          navigationBarColor: '#3f51b5',
-          navBarBackgroundColor: '#3f51b5',
-
-          // 手机状态栏背景色
-          statusBarColor: '#3f51b5',
-        },
-        /*drawer: {
-          left: { // optional, define if you want a drawer from the left
-            screen: 'Koe.DrawerLeft', // unique ID registered with Navigation.registerScreen
-            passProps: {}, // simple serializable object that will pass as props to all top screens (optional),
-            // fixedWidth: 200, // a fixed width you want your left drawer to have (optional)
-          },
-        }*/
-      });
+            navigatorStyle: {
+              navBarHidden: true,
+            },
+          }
+        });
+        break;
+      default:
+        this.startApp('login')
     }
+
   }
 }

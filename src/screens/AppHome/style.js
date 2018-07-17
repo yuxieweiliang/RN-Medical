@@ -26,6 +26,11 @@ export default StyleSheet.create({
     padding: 15
   },
 
+  healthDaily: {
+    width,
+    padding: 10,
+  },
+
 });
 
 

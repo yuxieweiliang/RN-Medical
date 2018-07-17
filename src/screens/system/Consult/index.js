@@ -4,12 +4,13 @@ import { Container, Header, Content, Tab, Tabs } from 'native-base'
 import { connect } from 'react-redux'
 import styles from './style'
 import Button from '../../../components/Button'
-import { initState } from '../../../reducers/consult/actions'
-import { registerNetEase } from '../../../reducers/app/actions'
+import { initState, JPushAlert } from '../../../reducers/consult/actions'
+import { appInitialized } from '../../../reducers/app/actions'
 import ReservationVideo from '../../ReservationVideo'
 // 操作动作
 import { NimSession, NimFriend } from 'react-native-netease-im'
 
+import JPushModule from 'jpush-react-native'
 
 const title = '咨询'
 const { width, height } = Dimensions.get('window');
@@ -19,13 +20,52 @@ class ConsultPage extends Component {
     super(props);
     this.state = {}
   }
-  /**
-   * 检查是否登录
-   * */
+
   componentWillMount() {
-      this.props.dispatch(initState())
+    // 获取咨询的本地缓存
+    this.props.dispatch(initState())
+
+    // 在监听所有相关事件之前要调用此方法，否则不会收到点击通知事件。
+    JPushModule.notifyJSDidLoad(ret => { console.log('initial!', ret) });
+
+    // 监听自定义消息
+    JPushModule.addReceiveCustomMsgListener((message) => {
+      this.setState({pushMsg: message});
+      console.log("receive customer notification000000: " + message);
+    });
+
+    // 监听通知消息
+    JPushModule.addReceiveNotificationListener((message) => {
+      this.setState({clickMsg: message});
+      console.log("receive notification11111: " + message);
+    })
+
+    // 监听点击通知后触发的事件
+    JPushModule.addReceiveOpenNotificationListener((message) => {
+      this.setState({clickMsg: message});
+
+      this.alertHandle(message)
+      // 跳转页面
+      this.props.dispatch(appInitialized('video-chat'));
+
+      console.log("receive notification----------: ", message);
+    })
+
   }
 
+  // props更新时调用
+  componentWillReceiveProps(nextProps) {
+    let { user } = nextProps
+
+    // 设置当前用户昵称 -> { 极光推送 }
+    if(user !== this.props.user) {
+      JPushModule.setAlias(user.UserID, (res) => {
+        console.log('极光昵称：', res);
+      },() => {
+        console.log('fail set alias');
+      });
+    }
+  }
   componentDidMount() {
 
     this.sessionListener = NativeAppEventEmitter
@@ -61,20 +101,22 @@ class ConsultPage extends Component {
   }
 
   /**
-   * 预约 { 点击 }
-   */
-  registration() {}
-
-  /**
    * 视频通话 { 点击 }
    */
   leavingVideo() {
-    const { navigator } = this.props
-    if(!this.state.isRegistration) {
+    const { navigator, dispatch, user, expert } = this.props
+    /*if(!this.state.isRegistration) {
       alert('您尚未预约，请先预约！')
       return;
-    }
-    navigator.push({screen: 'Koe.InterrogationVideo'})
+    }*/
+
+    // 极光推送
+    dispatch(JPushAlert(user.UserID, expert.UserID)).then(res => {
+      if(res) {
+        // 跳转到视频页面
+         navigator.push({screen: 'Koe.InterrogationVideo'})
+      }
+    })
   }
 
   render() {

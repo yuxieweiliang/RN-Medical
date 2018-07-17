@@ -3,8 +3,6 @@ import { Text, FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions ,
 import { Container, Header, Content, Tab, Tabs } from 'native-base';
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
-// 选项卡
-import TabCardView from '../../components/TabCardView'
 // 栏目卡片
 import Card from '../../components/Card'
 // 精灵

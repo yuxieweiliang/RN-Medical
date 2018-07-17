@@ -12,9 +12,12 @@ import api from '../../url'
  * 初始化 APP 状态
  * @returns {Function}
  */
-export function appInitialized() {
+export function appInitialized(router) {
   // storage.clear()
   // storage.removeItem('system.token')
+  if(router) {
+    return {type: types.ROOT_CHANGED, data: router};
+  }
 
   return async function(dispatch, getState) {
     let token = await storage.getItem('system.token')

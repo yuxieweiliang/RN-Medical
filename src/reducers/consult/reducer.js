@@ -24,7 +24,10 @@ const initialState = Immutable({
 });
 
 const func = {
-  INIT_STATE(state, action){
+  /**
+   * 获取咨询的本地缓存
+   */
+  GET_CONSULT_COPY(state, action){
     return state.merge(action.data);
   },
   CHANGE_CONSULT_ITEM(state, action) {

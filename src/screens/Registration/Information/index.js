@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { getRegistration, postRegistration } from '../../../reducers/registration/actions'
 import Card from '../../../components/Card'
 import Button from '../../../components/Button'
+import ListInput from '../../../components/ListInput'
 import behavior from './behavior'
 
 
@@ -23,10 +24,13 @@ class RegistrationInformation extends React.Component {
     // dispatch(postRegistration())
     this.props.navigator.popToRoot()
   }
+  onChangeText() {
+
+  }
   render() {
     let { user, expert, dispatch } = this.props
     let userMessage = user && behavior.createUserMessage(user)
-    registration = expert && behavior.createRegistration(expert)
+    registration = behavior.createRegistration(expert)
 
     return (
       <View style={styles.container}>
@@ -42,7 +46,14 @@ class RegistrationInformation extends React.Component {
             keyboardShouldPersistTaps="always"
             style={{width}}
             data={userMessage}
-            renderItem={(item) => this._renderItem(item)}
+            renderItem={({ item }) => {
+              return (
+                <ListInput
+                  onChangeText={this.onChangeText}
+                  title={item.title}
+                  value={item.text}/>
+              )
+            }}
           />
         </Card>
         <View style={{padding: 10}}>
@@ -74,7 +85,7 @@ class RegistrationInformation extends React.Component {
         <View style={styles.content}>
           <TextInput
             underlineColorAndroid="transparent"
-            style={styles.contentFont}
+            style={styles.inputFont}
             placeholder={option.item.text}
           />
         </View>
@@ -83,23 +94,8 @@ class RegistrationInformation extends React.Component {
   }
 }
 
-RegistrationInformation.navigationOptions = ({ navigation, navigationOptions }) => {
-  const { params } = navigation.state;
-  // console.log(navigationOptions)
-  return {
-    headerTitle: function() {
-      return (
-        <View style={{width: width - 120, height: 50, alignItems: 'center', justifyContent: 'center',}}>
-          <Text>{ TITLE }</Text>
-        </View>
-      )
-    },
-  }
-};
-
 export default connect(state => ({
   ...state.user,
   ...state.registration,
-  ...state.expert,
 }))(RegistrationInformation)
 

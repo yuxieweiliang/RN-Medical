@@ -10,6 +10,7 @@ import com.netease.im.RNNeteaseImPackage;
 import cn.jiguang.imui.messagelist.ReactIMUIPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import cn.qiuxiang.react.amap3d.AMap3DPackage;
+
 import me.ele.dodo.AMapLocationReactPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -20,9 +21,12 @@ import com.netease.im.IMApplication;
 
 import java.util.Arrays;
 import java.util.List;
+import cn.jpush.reactnativejpush.JPushPackage;
 
 public class MainApplication extends NavigationApplication {
 
+    private boolean SHUTDOWN_TOAST = true;
+    private boolean SHUTDOWN_LOG = true;
 
     @Override
     public boolean isDebug() {
@@ -31,16 +35,17 @@ public class MainApplication extends NavigationApplication {
 
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-                new MainReactPackage(),
-                new AgoraPackage(),
-                new SvgPackage(),
-                new RNNeteaseImPackage(),
-                new ReactIMUIPackage(),
-                new PickerPackage(),
-                new AMap3DPackage(),
-                new AMapLocationReactPackage(),
-                new MPAndroidChartPackage(),
-                new VectorIconsPackage()
+            new MainReactPackage(),
+            new AgoraPackage(),
+            new SvgPackage(),
+            new RNNeteaseImPackage(),
+            new ReactIMUIPackage(),
+            new PickerPackage(),
+						new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG),
+            new AMap3DPackage(),
+            new AMapLocationReactPackage(),
+            new MPAndroidChartPackage(),
+            new VectorIconsPackage()
         );
     }
 

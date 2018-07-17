@@ -13,7 +13,7 @@ export default StyleSheet.create({
     width,
     height: 40,
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#fafafa',
     alignItems: 'center',
     paddingLeft: 15,
     paddingRight: 15,
@@ -24,7 +24,7 @@ export default StyleSheet.create({
     width,
     height: 40,
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#fafafa',
     alignItems: 'center',
     paddingLeft: 15,
     paddingRight: 15,
@@ -33,13 +33,13 @@ export default StyleSheet.create({
     paddingRight: 15,
   },
   labelFont: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 'bold'
   },
   content: {
     flex: 1,
     paddingRight: 15,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
 
   },
@@ -50,9 +50,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   contentFont: {
-    fontSize: 18,
+    fontSize: 12,
     width: '100%',
-    flex: 1
+  },
+  inputFont: {
+    textAlign: 'left',
+    fontSize: 12,
   },
   goto: {
     fontSize: 18,

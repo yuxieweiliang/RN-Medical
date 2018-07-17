@@ -3,7 +3,7 @@ export default {
   createRegistration(doctor) {
     return [
       {key: '就诊医院', title: '就诊医院：', text: '三桥'},
-      {key: '医生姓名', title: '医生姓名：', text: doctor.UserName},
+      {key: '医生姓名', title: '医生姓名：', text: 'doctor.UserName'},
       {key: '门诊类型', title: '门诊类型：', text: '主任医师'},
       {key: '就诊日起', title: '就诊日起：', text: '2015、12、12'},
       {key: '挂号费用', title: '挂号费用：', text: '￥1254'},
