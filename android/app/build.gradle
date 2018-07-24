@@ -162,6 +162,7 @@ dependencies {
     compile project(':react-native-agora')
     compile project(':react-native-charts-wrapper')
     compile project(':react-native-svg')
+    compile project(':react-native-splash-screen')
     compile project(':react-native-amap-geolocation')
     compile project(':react-native-amap3d')
     compile project(':react-native-imui')

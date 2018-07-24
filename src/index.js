@@ -96,6 +96,7 @@ export default class App extends Component{
               navBarHidden: true
             }
           },
+          animationType: 'none',
           appleStyle:{
             statusBarColor:'#fff',
           }
@@ -106,7 +107,7 @@ export default class App extends Component{
           tabs: [
             {
               label: '主页',
-              screen: 'Koe.Account', // AppHome
+              screen: 'Koe.AppHome', // AppHome
               icon: icon.home,
               title: "主页",
               rightButtons: [
@@ -170,13 +171,13 @@ export default class App extends Component{
             // 手机状态栏背景色
             statusBarColor: '#3f51b5',
           },
-          /*drawer: {
+          drawer: {
            left: { // optional, define if you want a drawer from the left
            screen: 'Koe.DrawerLeft', // unique ID registered with Navigation.registerScreen
            passProps: {}, // simple serializable object that will pass as props to all top screens (optional),
            // fixedWidth: 200, // a fixed width you want your left drawer to have (optional)
            },
-           }*/
+           }
         });
         break;
       case 'video-chat':

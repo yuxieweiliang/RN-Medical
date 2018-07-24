@@ -105,7 +105,7 @@ export default {
   },
 
   // Card
-  cardDefaultBg: "#fff",
+  cardDefaultBg: "#fafafa",
 
   // Color
   brandPrimary: "#2874F0",

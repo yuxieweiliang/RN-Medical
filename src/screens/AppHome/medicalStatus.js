@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View,  Dimensions  } from 'react-native';
+import { TouchableOpacity, View,  Dimensions, FlatList  } from 'react-native';
+import { Container, Content, CardItem, Card, Right, Text } from 'native-base';
 import styles from './style'
 const { width, height } = Dimensions.get('window');
 
@@ -11,27 +12,62 @@ const { width, height } = Dimensions.get('window');
  */
 export default function medicalStatus({ medicalStatus, style, navigator }) {
   return (
-  <View style={style}>
-    <TouchableOpacity
-      style={{flexDirection: 'column'}}
-      onPress={() => navigator.push({
-        screen: 'Koe.HistoryMedical',
-        title: '就医状况'
-      })}>
-      <Text style={[styles.tabCardText, {fontWeight: 'bold'}]}>
-         尿常规检查报告
-      </Text>
-      <Text style={styles.tabCardText}>
-         白细胞（WBC） 异常
-      </Text>
-      <Text style={styles.tabCardText}>
-         高血压（39.2） 异常
-      </Text>
-      <Text style={styles.tabCardText}>
-          3月2日 何护士
-      </Text>
-    </TouchableOpacity>
-  </View>
+    <Content style={style}>
+        <Card transparent style={{padding: 0, margin: 0}}>
+          <CardItem bordered={true}>
+            <Text>CT</Text>
+          </CardItem>
+          <CardItem button onPress={() => navigator.push({
+            screen: 'Koe.HistoryMedical',
+            title: '就医状况'
+          })}>
+            <FlatList
+              data={[{key: 'a'}, {key: 'b'}]}
+              renderItem={({item}) => <View><Text>入fdsafdsafdsafdsafdsa</Text></View>}/>
+          </CardItem>
+          <CardItem >
+            <Right style={{flex:1}}>
+              <Text>3月2日 何护士</Text>
+            </Right>
+          </CardItem>
+        </Card>
+        <Card transparent style={{padding: 0, margin: 0}}>
+          <CardItem bordered={true}>
+            <Text>CT</Text>
+          </CardItem>
+          <CardItem button onPress={() => navigator.push({
+            screen: 'Koe.HistoryMedical',
+            title: '就医状况'
+          })}>
+            <FlatList
+              data={[{key: 'a'}, {key: 'b'}]}
+              renderItem={({item}) => <View><Text>入fdsafdsafdsafdsafdsa</Text></View>}/>
+          </CardItem>
+          <CardItem >
+            <Right style={{flex:1}}>
+              <Text>3月2日 何护士</Text>
+            </Right>
+          </CardItem>
+        </Card>
+        <Card transparent style={{padding: 0, margin: 0}}>
+          <CardItem bordered={true}>
+            <Text>CT</Text>
+          </CardItem>
+          <CardItem button onPress={() => navigator.push({
+            screen: 'Koe.HistoryMedical',
+            title: '就医状况'
+          })}>
+            <FlatList
+              data={[{key: 'a'}, {key: 'b'}]}
+              renderItem={({item}) => <View><Text>入fdsafdsafdsafdsafdsa</Text></View>}/>
+          </CardItem>
+          <CardItem >
+            <Right style={{flex:1}}>
+              <Text>3月2日 何护士</Text>
+            </Right>
+          </CardItem>
+        </Card>
+    </Content>
   )
 }
 

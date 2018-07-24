@@ -49,10 +49,9 @@ export function appInitialized(router) {
  * 登录
  * @param username
  * @param password
- * @param navigator
  * @returns {*}
  */
-export function login(username, password, navigator) {
+export function login(username, password) {
   let url = api.getToken()
   let option = {
     headers: {
@@ -68,17 +67,15 @@ export function login(username, password, navigator) {
     })
   }
 
-  if(!username || !password) {
-    Toast.show("用户名或密码不正确！")
-
-    return ({
-      type: types.LOGIN,
-      data: false
-    })
-  }
 
 
   return (async dispatch => {
+
+    if(!username || !password) {
+      Toast.show("用户名或密码不正确！")
+      return false
+    }
+
     try{
       let token = await storage.getItem('system.token')
 
@@ -110,7 +107,7 @@ export function login(username, password, navigator) {
 }
 
 /**
- *
+ * 注册
  * @param UserName
  * @param Password
  * @param RePassword
@@ -118,12 +115,25 @@ export function login(username, password, navigator) {
  * @param RegType loginname | mobilephonepsw
  * @returns {function(*)}
  */
-export async function register(UserName, Password, RePassword, UserType = '患者', RegType = 'mobilephonepsw') {
+export async function register(
+  UserName,
+  Password,
+  RePassword,
+  UserType = '患者',
+  RegType = 'mobilephonepsw'
+) {
   const option = {
-    body: JSON.stringify({ UserName, Password, RePassword, UserType, RegType, })
+    body: JSON.stringify({
+      UserName,
+      Password,
+      RePassword,
+      UserType,
+      RegType,
+    })
   }
 
-  return fetch.post(api.register, option).then(res => {
+  return fetch.post(api.register, option)
+    .then(res => {
 
     if(res.state === 1 && res.errorMsg === '') {
 

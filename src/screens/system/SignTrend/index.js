@@ -256,11 +256,5 @@ class SignTrend extends React.Component {
   }
 }
 
-/*SignTrend.navigatorButtons = {
-  rightButtons: [
-    { id: 'SignTrendMenu', icon: require('../../../../img/one.png') }
-  ],
-};*/
-
 
 export default connect(state => ({...state.sign}))(SignTrend)

@@ -257,6 +257,8 @@ export default {
   uploadUserCredentials: createApi(`${file}/api/UserMainImages/UploadUserCredentials`),
   // 随访记录
   getFullListByUser: createApi(`${file}/api/Data_User_AdvicePaper_Dto/GetFullListByUser/{start}/{end}/{paperType}`),
+  // 电话随访
+  getByPaperId: createApi(`${file}/api/Data_User_AdvicePaper_Dto/GetByPaperID/{paperId}/{userId}`),
   // 获取当前用户指定时间段的文章列表
   getListByUser: createApi(`${file}/api/Data_User_Article_Dto/GetListByUser/{start}/{offSet}/{number}`),
 }

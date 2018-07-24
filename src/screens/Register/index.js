@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import {
-  Image, Text, TouchableHighlight, TouchableOpacity, Dimensions, View, ImageBackground,
-  TextInput, ToastAndroid, Platform , BackHandler, Animated, Keyboard
+  Image, TouchableHighlight, TouchableOpacity, Dimensions, View, ImageBackground,
+  TextInput, ToastAndroid, Platform , BackHandler, Animated, Keyboard, StyleSheet
 } from 'react-native';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import { Container, Content, Button, Icon, Text, Item, Left, Right, Input, Label } from 'native-base';
 import { register, requestSmsCode, verifySmsCode, registerNetEase } from '../../reducers/app/actions'
 import styles from './style'
 import { connect } from 'react-redux'
-import CountDownButton from './CountDownButton'
-import ImageEnlarge from '../../components/ImageEnlarge'
 const { width, height } = Dimensions.get('window');
 const short = ToastAndroid.SHORT
 
 
+const borderWidth = StyleSheet.hairlineWidth;
 function InputView({icon, onChangeText, value, placeholder, secureTextEntry}) {
   return (
     <View style={styles.inputBox}>
       <View style={styles.iconBox}>
-        <Icon style={styles.userIcon} name={icon}/>
+        <Icon style={styles.userIcon} type="FontAwesome" name={icon}/>
       </View>
       <TextInput
         style={styles.input}
@@ -138,35 +137,40 @@ class Register extends Component<Props> {
     const verifyBtnColor = verifyTime <= 0 ? '#03a47f' : '#ccc'
     const verifyText = verifyTime <= 0 ? '获取验证码' : `${verifyTime}秒后重新获取`
 
-    console.log(this.state)
     return (
-      <View style={{height,width, backgroundColor: '#fafafa'}}>
+      <ImageBackground style={styles.container}  source={require('../../../assets/images/bg.jpg')}>
 
         <View style={styles.container}>
-          <InputView
-            icon="user"
-            placeholder="用户名"
-            onChangeText={(text) => this.setState({username: text})}
-            value={this.state.username}
-          />
-          <InputView
-            icon="lock"
-            placeholder="密码"
-            onChangeText={(text) => this.setState({password: text})}
-            value={this.state.password}
-          />
-
-          <View style={styles.inputBox}>
-            <View style={styles.iconBox}>
-              <Icon style={styles.userIcon} name="key"/>
-            </View>
-            <TextInput
-              style={styles.verification}
-              onChangeText={(text) => this.setState({verifyCode: text})}
-              underlineColorAndroid="transparent"
-              placeholderTextColor='#ccc'
-              placeholder="验证码"
+          <Item style={styles.item}>
+            <Icon type="FontAwesome" name='user' style={{color: 'rgba(255, 255, 255, .8)'}} />
+            <Input
+              placeholderTextColor="#fff"
+              style={{color:"#fff"}}
+              value={this.state.username}
+              onChangeText={(text) => this.setState({username: text})}
+              placeholder='用户名'
+            />
+          </Item>
+          <Item style={styles.item}>
+            <Icon type="FontAwesome" name='lock' style={{color: 'rgba(255, 255, 255, .8)'}} />
+            <Input
+              placeholderTextColor="#fff"
+              style={{color:"#fff"}}
+              value={this.state.password}
+              secureTextEntry={true} // 密码
+              onChangeText={(text) => this.setState({password: text})}
+              placeholder='密码'
+            />
+          </Item>
+          <Item style={styles.item}>
+            <Icon type="FontAwesome" name='key' style={{color: 'rgba(255, 255, 255, .8)'}} />
+            <Input
+              placeholderTextColor="#fff"
+              style={{color:"#fff"}}
               value={this.state.verifyCode}
+              secureTextEntry={true} // 密码
+              onChangeText={(text) => this.setState({verifyCode: text})}
+              placeholder='验证码'
             />
             <TouchableHighlight
               onPress={() => this._getVerifyCode()}>
@@ -177,7 +181,7 @@ class Register extends Component<Props> {
                 </Text>
               </View>
             </TouchableHighlight>
-          </View>
+          </Item>
           <TouchableHighlight
             style={styles.button}
             onPress={() => this._register()}>
@@ -187,13 +191,19 @@ class Register extends Component<Props> {
             </Text>
           </TouchableHighlight>
 
-          <View style={{display: 'flex', width, justifyContent: 'flex-end'}}>
-            <Text style={styles.goRegister}>
-              前往登陆
-            </Text>
+          <View style={{ width }}>
+
+            <Button
+              transparent
+              light
+              style={{ alignSelf: 'flex-end' }}
+              onPress={() => this.props.navigator.dismissLightBox()}
+            >
+              <Text>返回登陆</Text>
+            </Button>
           </View>
         </View>
-      </View>
+      </ImageBackground>
     );
   }
 }

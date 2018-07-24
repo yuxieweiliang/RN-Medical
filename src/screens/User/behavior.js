@@ -6,14 +6,9 @@ const iconTemp  = ()=> (
 // 模拟用户信息
 export default {
   createStructure(option = {}) {
-
     return   [
-      {key: 'user', data: [
-        { title: option.UserName || 'none', icon: iconTemp(), type: 'UserMessages', key: '1' },
-      ]},
       {key: 'test', data: [
         {title: '检查', type: 'Examination', key: '2'},
-        /*{title: '检验', key: '3'},*/
       ]},
       {key: 'history', data: [
         {title: '预约床位', type: 'Help', key: '4'},
@@ -22,10 +17,7 @@ export default {
         {title: '宣教记录', key: '7'},
       ]},
       {key: 'myself', data: [
-        {title: '我的账户', type: 'Account', key: '8'},
-        {title: '认证', type: 'Authentication', key: '11'},
         {title: '推荐[智护康]给好友', type: 'Friends', key: '9'},
-        {title: '帮助中心', type: 'Help', key: '10'},
       ]},
     ]
   }

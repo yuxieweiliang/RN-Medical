@@ -15,9 +15,7 @@ class CollapsingHeader extends React.Component {
       clickMsg: ''
     }
 
-
     // JPushModule.setTags(["t_guo"], () => {}, () => { });
-
   }
 
 
@@ -25,7 +23,7 @@ class CollapsingHeader extends React.Component {
     drawUnderTabBar: true,
     navBarButtonColor: '#ffffff',
     navBarTextColor: '#ffffff',
-    collapsingToolBarImage: require('../../../img/gyro_header.jpg'),
+    collapsingToolBarImage: require('../../../assets/images/img/gyro_header.jpg'),
     collapsingToolBarCollapsedColor: '#0f2362',
     navBarBackgroundColor: '#eeeeee'
   };

@@ -1,12 +1,21 @@
 import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
+const borderWidth = StyleSheet.hairlineWidth;
 export default StyleSheet.create({
   container: {
+    width,
+    height,
     flex: 1,
-    paddingBottom: 140,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 80,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  item: {
+    borderBottomColor: 'rgba(255, 255, 255, .5)',
+    borderBottomWidth: borderWidth
   },
   returnBox: {
     width,

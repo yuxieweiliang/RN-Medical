@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, SectionList, StatusBar, View, Image, TouchableNativeFeedback, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
-import Icon from 'react-native-vector-icons/dist/EvilIcons'
+import { Container, Header, List, ListItem , Left , Right, Icon  } from 'native-base';
 import behavior from './behavior'
 import { getUser } from '../../reducers/user/actions'
 import { registerForWY } from '../../reducers/app/actions'
@@ -53,6 +53,7 @@ class UserPage extends React.Component {
               ? item.icon
               : (
               <Icon
+                type="EvilIcons"
                 name="chevron-right"
                 style={{fontSize: 40}}
               />

@@ -59,8 +59,34 @@ export function postUser(body) {
  * paperType 表单类型，如：1：慢病随访记录、2：咨询确认单
  * @returns {{type}}
  */
-export function fullList(body) {
+/*export function fullList(body) {
   let url = api.getFullListByUser({start: '2018-06-06', end: '2018-08-08', paperType: '慢病随访记录'})
+
+  return (async dispatch => {
+
+    if(0 === 0) {
+      return;
+    }
+    fetch.get(url, { body }).then(res => {
+      // 如果失败
+      if(res.ok === false) {
+        return false
+      }
+
+      // 保存成功
+      dispatch({type: types.SAVE_USER_MESSAGE_SUCCESS})
+      return true
+    })
+  })
+}*/
+
+/**
+ * 电话随访列表
+ * paperType 表单类型，如：1：慢病随访记录、2：咨询确认单
+ * @returns {{type}}
+ */
+export function paperList(body) {
+  let url = api.getByPaperId({paperId: '电话随访', userId: '2018-08-08'})
 
   return (async dispatch => {
 

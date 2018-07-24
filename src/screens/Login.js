@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { View,Image,TextInput,StyleSheet,Text,Dimensions} from 'react-native';
-import { Container, Content, Button, Icon,ListItem,Left,Right } from 'native-base';
-import {NimSession} from 'react-native-netease-im';
+import { View, ImageBackground, Image, PixelRatio, StyleSheet, Dimensions} from 'react-native';
+import { Container, Content, Button, Icon, Text, Item, Left, Right, Input, Label } from 'native-base';
+
 import { connect } from 'react-redux'
-import md5 from '../utils/md5';
 import { getUser } from '../reducers/user/actions'
 import { login } from '../reducers/app/actions'
 
 const {height,width} = Dimensions.get('window');
+const borderWidth = StyleSheet.hairlineWidth;
 class Login extends Component {
   static navigatorStyle = {
     statusBarColor: '#fff'
@@ -34,8 +34,15 @@ class Login extends Component {
     const { navigator, dispatch } = this.props;
     const { username, password } = this.state;
 
+
+    console.log(dispatch)
+
     dispatch(login(username, password)).then(res => {
-      dispatch(getUser())
+
+      console.log(res)
+      if(res) {
+        dispatch(getUser())
+      }
       /*if(res) {
         navigator.resetTo({
           screen:'Koe.AppHome',
@@ -47,61 +54,80 @@ class Login extends Component {
   _renderContent(){
     return (
       <View style={styles.content}>
-        <View style={[styles.inputView,{borderTopWidth:borderWidth,borderTopColor:'#ccc'}]}>
-          <Text style={styles.inputLabel}>账户</Text>
-          <TextInput
-            style={styles.textViewStyle}
+        <Item style={{borderBottomColor: 'rgba(255, 255, 255, .5)', borderBottomWidth: borderWidth}}>
+          <Icon type="FontAwesome" name='user' style={{color: 'rgba(255, 255, 255, .8)'}} />
+          <Input
+            placeholderTextColor="#fff"
+            style={{color:"#fff"}}
             value={this.state.name}
-            underlineColorAndroid="transparent"
-            placeholder="请输入帐号"
-            autoCapitalize="none"
-            autoCorrect={false}
-            clearButtonMode="while-editing"
             onChangeText={username => {
               this.setState({username});
             }}
+            placeholder='请输入用户名'
           />
-        </View>
-        <View style={styles.inputView}>
-          <Text style={styles.inputLabel}>密码</Text>
-          <TextInput
-            style={styles.textViewStyle}
+        </Item>
+        <Item style={{borderBottomColor: 'rgba(255, 255, 255, .5)', borderBottomWidth: borderWidth}}>
+          <Icon type="FontAwesome" name='lock' style={{color: 'rgba(255, 255, 255, .8)'}} />
+          <Input
+            placeholderTextColor="#fff"
+            style={{color:"#fff"}}
             value={this.state.password}
-            underlineColorAndroid="transparent"
-            secureTextEntry={true}
-            autoCapitalize="none"
-            autoCorrect={false}
-            clearButtonMode="while-editing"
-            placeholder="请输入密码"
+            secureTextEntry={true} // 密码
             onChangeText={password => {
               this.setState({password});
             }}
+            placeholder='请输入密码'
           />
-        </View>
+        </Item>
       </View>
     );
   }
   render() {
-    const { showModal, push } = this.props.navigator
+    const { showModal, showLightBox } = this.props.navigator
     return (
-      <Container>
+      <ImageBackground style={styles.container}  source={require('../../assets/images/bg.jpg')}>
+
         <Content alwaysBounceVertical={false}>
+          <View
+            style={styles.logoBox}>
+            <Image
+              style={styles.logo}
+              source={require('../../assets/images/icon.png')}/>
+          </View>
           {this._renderContent()}
+
           <View style={styles.bottom}>
-            <Button style={styles.button} block
-                    onPress={() => this.login()}>
-              <Text style={styles.buttonText}>登录</Text>
-            </Button>
-            <Button style={styles.button} block
-                    onPress={() => showModal({
-                      screen: 'Koe.Register',
-                      title: '注册',
-                    })}>
-              <Text style={styles.buttonText}>前往注册</Text>
-            </Button>
+            <View style={styles.button}>
+              <Button full rounded style={{backgroundColor:"#03a47f"}}
+                      onPress={() => this.login()}>
+                <Text>登录</Text>
+              </Button>
+            </View>
+            <View style={{width: '100%', flexDirection: 'row'}}>
+              <Left>
+                <Button transparent light>
+                  <Text>忘记密码</Text>
+                </Button>
+              </Left>
+              <Right>
+                <Button transparent light
+                        onPress={() => showLightBox({
+                          screen: 'Koe.Register',
+                          title: '注册',
+                          style: {
+                            backgroundBlur: 'none',
+                            backgroundColor: '#2effcc',
+                            // 点击背景隐藏
+                            tapBackgroundToDismiss: true
+                          }
+                        })}>
+                  <Text>前往注册</Text>
+                </Button>
+              </Right>
+            </View>
           </View>
         </Content>
-      </Container>
+      </ImageBackground>
     );
   }
 }
@@ -109,12 +135,24 @@ class Login extends Component {
 export default connect(state => ({...state.app}))(Login)
 
 
-const borderWidth = StyleSheet.hairlineWidth;
 const styles = StyleSheet.create({
+  container: {
+    width,
+    height,
+  },
+  logoBox: {
+    width,
+    height: height / 2 - 100,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  logo: {
+    width: width/3,
+    height: width/3,
+    justifyContent: 'center'
+  },
   content: {
-    backgroundColor: '#fff',
     flex: 1,
-    marginTop:height/2-150,
     padding:12
   },
   bottom: {
@@ -145,7 +183,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
-    marginBottom: 10
+    width: '100%',
+    marginBottom: 10,
   },
   buttonText: {
     color: '#fff'

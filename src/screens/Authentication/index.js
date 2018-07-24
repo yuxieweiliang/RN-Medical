@@ -40,7 +40,7 @@ class Authorization extends React.Component {
   }
   render() {
     return (
-      <View style={styles.slide1}>
+      <View style={styles.container}>
         <View style={{ flex: 1, width, paddingTop: 100 }}>
 
           <Button

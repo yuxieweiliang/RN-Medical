@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Text, FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions , StatusBar  } from 'react-native';
-import { Container, Header, ScrollableTab, Tab, Tabs } from 'native-base';
+import { Text, FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions , StatusBar, StyleSheet  } from 'react-native';
+import { Container, Content, ScrollableTab, Tab, Tabs, Card, CardItem, Left, Right, Icon } from 'native-base';
 import { connect } from 'react-redux'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import fetch from '../../utils/fetch'
 // 栏目卡片
-import Card from '../../components/Card'
 import { healthDaily } from '../../reducers/user/actions'
 // 精灵
 import Spirit from '../../components/Spirit'
@@ -47,6 +46,10 @@ class HomePage extends Component<Props> {
     const { dispatch } = this.props
     dispatch(healthDaily({}))
     console.log('****************|||||||||||     home page    |||||||||||****************')
+
+
+    fetch.get('http://userdata.api.koenn.cn:81/api/Data_User_AdvicePaper_Dto/GetByPaperID/电话随访/322717145007458').then(res => console.log(res))
+
   }
 
   componentDidMount() {}
@@ -63,9 +66,8 @@ class HomePage extends Component<Props> {
          <View style={{height: 25, backgroundColor: 'red'}}/>*/}
         {/*    精灵    */}
         <Spirit/>
-        <ScrollView style={styles.container}
-                    onScroll={(e) => console.log(e.nativeEvent.contentOffset)}>
-
+        {/*<ScrollView style={styles.container}
+                    onScroll={(e) => console.log(e.nativeEvent.contentOffset)}>*/}
           {/*  健康指南  */}
           <View style={{ flex: 1 ,borderColor: 'transparent' }}>
             <Tabs
@@ -76,30 +78,60 @@ class HomePage extends Component<Props> {
               >
               {/*  健康日报  */}
               <Tab heading="健康日报">
+                <Content style={{  backgroundColor: '#eee', paddingLeft: 5, paddingRight: 5}}>
                 <FlatList
                   data={list}
+                  /*ItemSeparatorComponent={item => <View style={{height: 5, backgroundColor: '#ccc'}}/>}*/
                   renderItem={item => {
-
                     // console.log(item.item.title)
                     item.item.horizontal = true
                     return (
                       <TouchableOpacity
                         key={item.key}
                         activeOpacity={.95}
-                        style={styles.healthDaily}
                         onPress={() => navigator.push({screen: 'Koe.HealthDaily'})}
                         underlayColor={null}>
-                        <View style={{width: '100%', flexDirection: 'row'}}>
-                          <Image source={item.item.avatar} style={{flex: 1, height: 80}}/>
-                          <Text style={{width: '75%', paddingLeft: 10, paddingRight: 10}}>
-                            这里是晒健康的内容，这里是晒健康的内容
-                            这里是晒健康的内容，这里是晒健康的内容
-                          </Text>
-                        </View>
+                        <Card style={{width: '100%', borderColor: '#fff', borderRadius: 10}}
+                              transparent
+                        >
+                          <CardItem style={{flex: 1, borderRadius: 10 }}>
+                            <Text style={{width: '100%', fontWeight: 'bold', fontSize: 14, color: '#222'}} numberOfLines={1}>
+                              这里是晒健康的内容，这里是晒健康的内容
+                            </Text>
+                          </CardItem>
+                          <View style={{flex: 1, paddingLeft: 15, paddingRight: 15, margin: 0, flexDirection: 'row' }} transparent>
+                            <View style={{flex: 1, padding: 0, margin: 0 }}>
+                              <Image source={item.item.avatar} style={{width: '100%', height: width/6}}/>
+                            </View>
+                            <View style={{flex: 2, paddingLeft: 10 }}>
+                              <Text style={{width: '100%', fontSize: 12,}}>
+                                这里是晒健康的内容，这里是晒健康的内容
+                                这里是晒健康的内容，这里是晒健康的内容
+                                这里是晒健康的内容，这里是晒健康的内容
+                              </Text>
+                            </View>
+                          </View>
+                          <CardItem style={{flex: 1, borderRadius: 10 }}>
+                            <Left style={{flex: 1 }}>
+                              <Text style={{width: '100%', fontSize: 12,}}>
+                                2018-12-12
+                              </Text>
+                            </Left>
+                            <Right style={{flex: 2, paddingLeft: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+                              <Icon type="FontAwesome" name="thumbs-o-up" style={{color:"#aaa", marginRight: 25}}/>
+                              <Icon type="FontAwesome" name="comments-o" style={{color:"#aaa", marginRight: 5}}/>
+                              <Text style={{ fontSize: 12, marginRight: 25 }}>
+                                33
+                              </Text>
+                              <Icon type="FontAwesome" name="heart-o" style={{color:"#aaa"}}/>
+                            </Right>
+                          </CardItem>
+                        </Card>
                       </TouchableOpacity>
                     )
                   }}
                 />
+                </Content>
               </Tab>
               <Tab heading="健康状况">
                 <HealthStatus
@@ -123,7 +155,7 @@ class HomePage extends Component<Props> {
 
           </View>
 
-        </ScrollView>
+        {/*</ScrollView>*/}
 
       </View>
     );

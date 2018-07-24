@@ -10,6 +10,7 @@ import com.netease.im.RNNeteaseImPackage;
 import cn.jiguang.imui.messagelist.ReactIMUIPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import cn.qiuxiang.react.amap3d.AMap3DPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import me.ele.dodo.AMapLocationReactPackage;
 import com.facebook.react.ReactNativeHost;
@@ -44,6 +45,7 @@ public class MainApplication extends NavigationApplication {
 						new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG),
             new AMap3DPackage(),
             new AMapLocationReactPackage(),
+            new SplashScreenReactPackage(),
             new MPAndroidChartPackage(),
             new VectorIconsPackage()
         );

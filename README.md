@@ -203,3 +203,56 @@ https://github.com/remobile/react-native-marquee-label
 react-native-modalbox
 https://github.com/maxs15/react-native-modalbox
 模态视图模块
+
+
+
+
+
+
+# 随访记录主表
+data_user_paperrecord
+
+包含了当前医生以及病人信息，与当前所使用的模板的信息（当前缺少）。
+
+# 随访记录的模板
+sys_paper_template
+
+包含了当前模板所有到的表格，可以是多个（tableIDs： 1,2）,
+
+# 各种表格的模板
+sys_table_template
+
+宝行了表格名称和表格的种类
+
+# 表格字段定义
+sys_table_item
+
+包含表格字段的名称以及类型
+
+# 表格字段的值
+data_user_paperitem
+
+指定表格，指定字段的值
+
+tableId ： sys_table_template 表的id
+
+
+
+
+先创建一个模板 sys_table_template 然后为模板添加字段 sys_table_item
+
+然后才用 sys_paper_template 调用 sys_table_template 形成当前一条随访记录， 并且一条随访记录可以始用多个表格模板
+
+data_user_paperrecord 记录医生对病人的随访信息，调用了 sys_paper_template 指定随访的模板 模板中包含了这次随访的问答信息。
+
+
+
+
+
+
+
+
+
+
+
+
