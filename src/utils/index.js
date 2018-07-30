@@ -27,6 +27,7 @@ export function b64Encode(str) {
 }
 /**
  * 解码
+
  * @param str
  * @returns {string}
  */
