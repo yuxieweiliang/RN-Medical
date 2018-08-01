@@ -2,7 +2,12 @@ import { Navigation, ScreenVisibilityListener } from 'react-native-navigation';
 
 import Login from './Login'
 import Register from './Register'
+import RetrievePassword from './Register/RetrievePassword'
+import NewPassword from './Register/NewPassword'
 import AppHome from './AppHome'
+
+import SearchView from '../components/Search'
+import TitleView from '../components/Title'
 
 import HealthDaily from './HealthDaily'
 import HealthDailyDetails from './HealthDailyDetails'
@@ -51,6 +56,8 @@ export  function registerScreens(store, Provider) {
   const RegisterComponent = Navigation.registerComponent
   RegisterComponent('Koe.Login', () => Login, store, Provider)
   RegisterComponent('Koe.Register', () => Register, store, Provider)
+  RegisterComponent('Koe.RetrievePassword', () => RetrievePassword, store, Provider)
+  RegisterComponent('Koe.NewPassword', () => NewPassword, store, Provider)
   RegisterComponent('Koe.AppHome', () => AppHome, store, Provider)
   RegisterComponent('Koe.HealthDaily', () => HealthDaily, store, Provider)
   RegisterComponent('Koe.HealthDailyDetails', () => HealthDailyDetails, store, Provider)
@@ -91,6 +98,9 @@ export  function registerScreens(store, Provider) {
   RegisterComponent('Koe.Authentication', () => Authentication, store, Provider)
 
   RegisterComponent('Koe.DrawerLeft', () => DrawerLeft, store, Provider)
+
+  RegisterComponent('Koe.SearchView', () => SearchView)
+  RegisterComponent('Koe.TitleView', () => TitleView)
 }
 
 
@@ -98,10 +108,10 @@ export  function registerScreens(store, Provider) {
 export function registerScreenVisibilityListener() {
 
   return;
-  new ScreenVisibilityListener({
+  /*new ScreenVisibilityListener({
     willAppear: ({screen}) => console.log(`Displaying screen ${screen}`),
     didAppear: ({screen, startTime, endTime, commandType}) => console.log('screenVisibility', `Screen ${screen} displayed in ${endTime - startTime} millis [${commandType}]`),
     willDisappear: ({screen}) => console.log(`Screen will disappear ${screen}`),
     didDisappear: ({screen}) => console.log(`Screen disappeared ${screen}`)
-  }).register();
+  }).register();*/
 }

@@ -51,14 +51,14 @@ class Chat extends React.Component {
             this.props.navigator.setButtons({
                 rightButtons:[{
                     id:'setting_team',
-                    icon:require('../images/session_team.png')
+                    icon:require('../../assets/images/session_team.png')
                 }]
             });
         }else{
             this.props.navigator.setButtons({
                 rightButtons:[{
                     id:'setting_user',
-                    icon:require('../images/session_user.png')
+                    icon:require('../../assets/images/session_user.png')
                 }]
             });
         }

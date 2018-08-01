@@ -10,26 +10,21 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: 'transparent',
-    backgroundColor: '#fafafa',
     borderWidth: 1,
     paddingRight: 20
   },
 
-  search: {
-    flex: 1,
-    justifyContent: 'center',
+  titleText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    width: '100%',
     alignItems: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 5,
-    paddingBottom: 5
-  },
-  searchItemEmpty: {
-    height: 100,
-    width,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    // backgroundColor: '#ccc',
+    // borderRadius: 8,
+    textAlign: 'center'
+  },
 
 });
 

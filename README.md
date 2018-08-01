@@ -246,7 +246,13 @@ tableId ： sys_table_template 表的id
 data_user_paperrecord 记录医生对病人的随访信息，调用了 sys_paper_template 指定随访的模板 模板中包含了这次随访的问答信息。
 
 
-
+dir # 列出当前目录下的文件以继文件夹
+md # 创建目录 （make directory）
+rd # 删除目录 （remove directory）
+cd # 切换目录 （change directory）
+del # 删除目录 del *.text : 删除一堆text文件
+exit # 退出命令行 （clear screen）
+cls # 清除命令行
 
 
 

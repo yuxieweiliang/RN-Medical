@@ -45,6 +45,11 @@ export function appInitialized(router) {
   };
 }
 
+export function exit() {
+  storage.removeItem('system.token')
+  return ({type: types.ROOT_CHANGED, data: 'login'})
+}
+
 /**
  * 登录
  * @param username

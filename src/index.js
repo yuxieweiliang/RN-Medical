@@ -1,11 +1,11 @@
-import React,{ Component } from 'react'
-import { registerScreens, registerScreenVisibilityListener } from './screens'
+import React, {Component} from 'react'
+import {registerScreens, registerScreenVisibilityListener} from './screens'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { Navigation } from 'react-native-navigation'
-import { Theme } from "native-base-shoutem-theme" // 主题
+import {Navigation} from 'react-native-navigation'
+import {Theme} from "native-base-shoutem-theme" // 主题
 import getTheme from '../native-base-theme/components'
 import platform from '../native-base-theme/variables/platform'
-import { Provider } from "react-redux"
+import {Provider} from "react-redux"
 import * as appActions from "./reducers/app/actions"
 import store from './reducers'
 
@@ -13,13 +13,24 @@ import store from './reducers'
 registerScreens(store, Provider);
 registerScreenVisibilityListener();
 
+/**
+ * APP 底部菜单的配置
+ */
 const navigatorStyle = {
   drawUnderNavBar: true,
+  // statusBarHidden: true,
+  /*navBarTranslucent: true,
+   navBarTransparent: true,*/
   navBarTextColor: 'white',
   navBarButtonColor: 'white',
-  statusBarTextColorScheme: 'light',
-  statusBarColor:'#000',
+  // statusBarHidden: true,
+  statusBarColor:'#03c89b',
+  // statusBarTextColorScheme: 'light',
+  //statusBarColor:'white',
 };
+/**
+ * APP 用到的图标
+ */
 let icon = {
   homeIcon: null,
   consultIcon: null,
@@ -29,13 +40,14 @@ let icon = {
   plus: null,
   search: null,
 }
-export default class App extends Component{
+
+export default class App extends Component {
   constructor(props) {
     super(props);
     this._populateIcons()
       .then(res => {
 
-        if(res) {
+        if (res) {
           store.subscribe(this.onStoreUpdate.bind(this));
           store.dispatch(appActions.appInitialized());
           Theme.setDefaultThemeStyle(getTheme(platform));
@@ -71,8 +83,9 @@ export default class App extends Component{
       }).done();
     });
   };
+
   onStoreUpdate() {
-    const { root } = store.getState().app;
+    const {root} = store.getState().app;
     // handle a root change
     // if your app doesn't change roots in runtime, you can remove onStoreUpdate() altogether
 
@@ -81,24 +94,25 @@ export default class App extends Component{
       this.startApp(root);
     }
   }
+
   startApp(root) {
 
-    switch(root) {
+    switch (root) {
       case 'login':
         Navigation.startSingleScreenApp({
           screen: {
-            screen: 'Koe.Login',
+            screen: 'Koe.SearchView', // Login Register
             title: '登录',
             navigatorStyle: {
               ...navigatorStyle,
-              statusBarTextColorScheme: 'dark',
-              navBarBackgroundColor:'#444',
+              // statusBarTextColorScheme: 'dark',
+              // navBarBackgroundColor:'#444',
               navBarHidden: true
             }
           },
-          animationType: 'none',
-          appleStyle:{
-            statusBarColor:'#fff',
+          appleStyle: {
+            animationType: 'none',
+            // statusBarColor:'#fff',
           }
         });
         break;
@@ -107,11 +121,19 @@ export default class App extends Component{
           tabs: [
             {
               label: '主页',
-              screen: 'Koe.AppHome', // AppHome
+              screen: 'Koe.SearchView', // AppHome HistoryMedical SearchView
               icon: icon.home,
-              title: "主页",
-              rightButtons: [
-                { id: 'cart', icon: icon.search, },
+              // title: "主页",
+              navigatorStyle: {
+                navBarHidden: true
+              },
+
+              leftButtons: [
+                {
+                  id: 'search',
+                  icon: icon.user
+                  // icon: require('../assets/images/a3.jpg')
+                  },
               ],
             },
             {
@@ -172,12 +194,12 @@ export default class App extends Component{
             statusBarColor: '#3f51b5',
           },
           drawer: {
-           left: { // optional, define if you want a drawer from the left
-           screen: 'Koe.DrawerLeft', // unique ID registered with Navigation.registerScreen
-           passProps: {}, // simple serializable object that will pass as props to all top screens (optional),
-           // fixedWidth: 200, // a fixed width you want your left drawer to have (optional)
-           },
-           }
+            left: { // optional, define if you want a drawer from the left
+              screen: 'Koe.DrawerLeft', // unique ID registered with Navigation.registerScreen
+              passProps: {}, // simple serializable object that will pass as props to all top screens (optional),
+              // fixedWidth: 200, // a fixed width you want your left drawer to have (optional)
+            },
+          }
         });
         break;
       case 'video-chat':

@@ -1,35 +1,28 @@
 import React, { Component } from 'react';
 import {
-  Image, TouchableHighlight, TouchableOpacity, Dimensions, View, ImageBackground,
-  TextInput, ToastAndroid, Platform , BackHandler, Animated, Keyboard, StyleSheet
+  Image,
+  TouchableHighlight,
+  TouchableOpacity,
+  Dimensions,
+  View,
+  ImageBackground,
+  TextInput,
+  ToastAndroid,
+  Platform ,
+  BackHandler,
+  Animated,
+  Keyboard,
+  StyleSheet
 } from 'react-native';
-import { Container, Content, Button, Icon, Text, Item, Left, Right, Input, Label } from 'native-base';
+import { Button, Icon, Text, Item, Left, Right, Input, Label } from 'native-base';
 import { register, requestSmsCode, verifySmsCode, registerNetEase } from '../../reducers/app/actions'
 import styles from './style'
 import { connect } from 'react-redux'
+
 const { width, height } = Dimensions.get('window');
+const borderWidth = StyleSheet.hairlineWidth;
 const short = ToastAndroid.SHORT
 
-
-const borderWidth = StyleSheet.hairlineWidth;
-function InputView({icon, onChangeText, value, placeholder, secureTextEntry}) {
-  return (
-    <View style={styles.inputBox}>
-      <View style={styles.iconBox}>
-        <Icon style={styles.userIcon} type="FontAwesome" name={icon}/>
-      </View>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        underlineColorAndroid="transparent"
-        placeholderTextColor='#ccc'
-        secureTextEntry={secureTextEntry}
-        placeholder={placeholder}
-        value={value}
-      />
-    </View>
-  )
-}
 
 type Props = {};
 class Register extends Component<Props> {
@@ -142,19 +135,6 @@ class Register extends Component<Props> {
 
         <View style={styles.content}>
           <Item style={styles.item}>
-            <Icon type="FontAwesome" name='user' style={{color: 'rgba(255, 255, 255, .8)'}} />
-            <Input
-              keyboardType="numeric"
-              placeholderTextColor="#fff"
-              returnKeyType ="next"
-              iosreturnKeyType  ="next"
-              style={{color:"#fff"}}
-              value={this.state.username}
-              onChangeText={(text) => this.setState({username: text})}
-              placeholder='手机号'
-            />
-          </Item>
-          <Item style={styles.item}>
             <Icon type="FontAwesome" name='lock' style={{color: 'rgba(255, 255, 255, .8)'}} />
             <Input
               placeholderTextColor="#fff"
@@ -164,35 +144,15 @@ class Register extends Component<Props> {
               value={this.state.password}
               secureTextEntry={true} // 密码
               onChangeText={(text) => this.setState({password: text})}
-              placeholder='密码'
+              placeholder='新密码'
             />
-          </Item>
-          <Item style={styles.item}>
-            <Icon type="FontAwesome" name='key' style={{color: 'rgba(255, 255, 255, .8)'}} />
-            <Input
-              placeholderTextColor="#fff"
-              style={{color:"#fff"}}
-              value={this.state.verifyCode}
-              secureTextEntry={true} // 密码
-              onChangeText={(text) => this.setState({verifyCode: text})}
-              placeholder='验证码'
-            />
-            <TouchableHighlight
-              onPress={() => this._getVerifyCode()}>
-              <View style={[styles.verifyBox,{backgroundColor: verifyBtnColor}]}>
-                <Text
-                  style={styles.verifyText}>
-                  { verifyText }
-                </Text>
-              </View>
-            </TouchableHighlight>
           </Item>
           <TouchableHighlight
             style={styles.button}
             onPress={() => this._register()}>
             <Text
               style={styles.btnText}>
-              注&nbsp;&nbsp;&nbsp;&nbsp;册
+              确&nbsp;&nbsp;&nbsp;&nbsp;定
             </Text>
           </TouchableHighlight>
 

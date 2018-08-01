@@ -9,9 +9,15 @@ export default StyleSheet.create({
     flex: 1,
     paddingLeft: 15,
     paddingRight: 15,
-    paddingBottom: 80,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: 80,
+  },
+  content: {
+    /*borderWidth: 1,
+    borderColor: 'red',*/
+    width: '100%',
+
   },
   item: {
     borderBottomColor: 'rgba(255, 255, 255, .5)',
@@ -80,7 +86,7 @@ export default StyleSheet.create({
     color: '#333',
   },
   verifyBox: {
-    width: 120,
+    width: 80,
     borderRadius: 4,
     paddingTop: 4,
     paddingBottom: 4,

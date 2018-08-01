@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import { FlatList, ImageBackground, View, TouchableOpacity, Image, Dimensions , StatusBar  } from 'react-native';
 import { Container, Icon, Content, List, ListItem, Text, Left, Button, Right } from 'native-base';
 import styles from './style'
+import { exit } from '../../reducers/app/actions'
+import { connect } from 'react-redux'
 
 
 const { width, height } = Dimensions.get('window');
 
-
-export default class DrawerExample extends Component {
+class DrawerLeft extends Component {
 
   router(screen) {
+    /*this.props.navigator.toggleDrawer({
+      side: 'left',
+      animated: true
+    });*/
     this.props.navigator.showModal({screen})
   }
   render() {
@@ -78,15 +83,15 @@ export default class DrawerExample extends Component {
         </Content>
         <View style={styles.footer}>
           <Left  style={styles.footerLeft}>
-            <Button small transparent >
+            <Button small transparent  onPress={() => this.router('Koe.Register')}>
               <Text>注册</Text>
             </Button>
-            <Button small transparent >
+            <Button small transparent  onPress={() => this.router('Koe.Login')}>
               <Text>登陆</Text>
             </Button>
           </Left>
           <Right  style={styles.footerRight}>
-            <Button small transparent>
+            <Button small transparent onPress={() => this.props.dispatch(exit())}>
               <Text>退出</Text>
             </Button>
           </Right>
@@ -95,3 +100,6 @@ export default class DrawerExample extends Component {
     );
   }
 }
+
+
+export default connect()(DrawerLeft)

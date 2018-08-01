@@ -96,7 +96,7 @@ export default class FriendList extends React.Component {
     _renderRow(res){
         return(
             <ListItem onPress={()=>this.toFriendDetail(res.contactId)}>
-                <Image style={{width:35,height:35}} source={res.avatar ? {uri:res.avatar} : require('../images/discuss_logo.png')} />
+                <Image style={{width:35,height:35}} source={res.avatar ? {uri:res.avatar} : require('../../assets/images/discuss_logo.png')} />
                 <Body>
                 <Text>
                     {res.name}

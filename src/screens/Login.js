@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ImageBackground, Image, PixelRatio, StyleSheet, Dimensions} from 'react-native';
+import { View, ImageBackground, Image, StatusBar, StyleSheet, Dimensions} from 'react-native';
 import { Container, Content, Button, Icon, Text, Item, Left, Right, Input, Label } from 'native-base';
 
 import { connect } from 'react-redux'
@@ -10,7 +10,9 @@ const {height,width} = Dimensions.get('window');
 const borderWidth = StyleSheet.hairlineWidth;
 class Login extends Component {
   static navigatorStyle = {
-    statusBarColor: '#fff'
+    // statusBarColor: 'red',
+    // drawUnderNavBar: true,
+    // navBarTranslucent: true
   };
   constructor(props) {
     super(props);
@@ -86,7 +88,6 @@ class Login extends Component {
     const { showModal, showLightBox } = this.props.navigator
     return (
       <ImageBackground style={styles.container}  source={require('../../assets/images/bg.jpg')}>
-
         <Content alwaysBounceVertical={false}>
           <View
             style={styles.logoBox}>
@@ -105,15 +106,35 @@ class Login extends Component {
             </View>
             <View style={{width: '100%', flexDirection: 'row'}}>
               <Left>
-                <Button transparent light>
+                <Button transparent light
+                        onPress={() => showModal({
+                          screen: 'Koe.RetrievePassword',
+                          title: '找回密码',
+                          navigatorStyle: {
+                            // statusBarHidden: true,
+                            navBarHidden: true,
+                            statusBarColor:'#03c89b',
+                          },
+                          style: {
+                            backgroundBlur: 'none',
+                            backgroundColor: '#2effcc',
+                            // 点击背景隐藏
+                            tapBackgroundToDismiss: true
+                          }
+                        })}>
                   <Text>忘记密码</Text>
                 </Button>
               </Left>
               <Right>
                 <Button transparent light
-                        onPress={() => showLightBox({
+                        onPress={() => showModal({
                           screen: 'Koe.Register',
                           title: '注册',
+                          navigatorStyle: {
+                            // statusBarHidden: true,
+                            navBarHidden: true,
+                            statusBarColor:'#03c89b',
+                          },
                           style: {
                             backgroundBlur: 'none',
                             backgroundColor: '#2effcc',
