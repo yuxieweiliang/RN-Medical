@@ -101,7 +101,7 @@ export default class App extends Component {
       case 'login':
         Navigation.startSingleScreenApp({
           screen: {
-            screen: 'Koe.SearchView', // Login Register
+            screen: 'Koe.Login', // Login Register
             title: '登录',
             navigatorStyle: {
               ...navigatorStyle,
@@ -121,7 +121,7 @@ export default class App extends Component {
           tabs: [
             {
               label: '主页',
-              screen: 'Koe.SearchView', // AppHome HistoryMedical SearchView
+              screen: 'Koe.HistoryMedical', // Koe.AppHome HistoryMedical SearchView User
               icon: icon.home,
               // title: "主页",
               navigatorStyle: {
@@ -131,7 +131,7 @@ export default class App extends Component {
               leftButtons: [
                 {
                   id: 'search',
-                  icon: icon.user
+                  icon: icon.user,
                   // icon: require('../assets/images/a3.jpg')
                   },
               ],
@@ -142,7 +142,6 @@ export default class App extends Component {
               icon: icon.registration,
               title: '预约挂号',
               // rightButtons: [{ id: 'account', icon: icon.bars }],
-
             },
             {
               label: '咨询',

@@ -55,7 +55,7 @@ export default class HealthStatus extends Component{
 
   renderItem(item, isFirst) {
     const style = isFirst ? {marginTop: 10} : {borderTopWidth: 1, borderTopColor: '#ccc'}
-    console.log(item, isFirst)
+    // console.log(item, isFirst)
     return (
       <View style={[styles.item, {height: item.height}, style]}>
         {/*<Text>{item.name}</Text>*/}

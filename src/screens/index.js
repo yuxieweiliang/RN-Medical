@@ -4,18 +4,20 @@ import Login from './Login'
 import Register from './Register'
 import RetrievePassword from './Register/RetrievePassword'
 import NewPassword from './Register/NewPassword'
+import QRCode from './QRCode'
+import Follow from './User/Follow'
+import Record from './User/Record'
+import MyRegistration from './User/MyRegistration'
+
+
 import AppHome from './AppHome'
 
 import SearchView from '../components/Search'
 import TitleView from '../components/Title'
 
 import HealthDaily from './HealthDaily'
-import HealthDailyDetails from './HealthDailyDetails'
-import HealthExposure from './HealthExposure'
-import HealthIndicators from './HealthIndicators'
+import HealthDailyDetails from './HealthDaily/HealthDailyDetails'
 import HistoryMedical from './HistoryMedical'
-import TelephoneInterview from './TelephoneInterview'
-import Examination from './Examination'
 import CollapsingHeader from './UserMessages/CollapsingHeader'
 
 import Consult from './system/Consult'
@@ -36,17 +38,14 @@ import FriendList from './FriendList'
 
 import User from './User'
 import UserMessages from './UserMessages'
-import UserSetting from './UserSetting'
 
 import Registration from './Registration'
 import Information from './Registration/Information'
 import Department from './Department'
 import DepartmentList from './Department/DepartmentList'
 
-import Help from './Help'
-import Friends from './Friends'
+
 import Account from './Account'
-import Authentication from './Authentication'
 
 import DrawerLeft from './DrawerLeft'
 
@@ -58,14 +57,16 @@ export  function registerScreens(store, Provider) {
   RegisterComponent('Koe.Register', () => Register, store, Provider)
   RegisterComponent('Koe.RetrievePassword', () => RetrievePassword, store, Provider)
   RegisterComponent('Koe.NewPassword', () => NewPassword, store, Provider)
+  RegisterComponent('Koe.QRCode', () => QRCode, store, Provider)
+  RegisterComponent('Koe.Follow', () => Follow, store, Provider)
+  RegisterComponent('Koe.Record', () => Record, store, Provider)
+  RegisterComponent('Koe.MyRegistration', () => MyRegistration, store, Provider)
+
+
   RegisterComponent('Koe.AppHome', () => AppHome, store, Provider)
   RegisterComponent('Koe.HealthDaily', () => HealthDaily, store, Provider)
   RegisterComponent('Koe.HealthDailyDetails', () => HealthDailyDetails, store, Provider)
-  RegisterComponent('Koe.HealthExposure', () => HealthExposure, store, Provider)
-  RegisterComponent('Koe.HealthIndicators', () => HealthIndicators, store, Provider)
   RegisterComponent('Koe.HistoryMedical', () => HistoryMedical, store, Provider)
-  RegisterComponent('Koe.TelephoneInterview', () => TelephoneInterview, store, Provider)
-  RegisterComponent('Koe.Examination', () => Examination, store, Provider)
   RegisterComponent('Koe.CollapsingHeader', () => CollapsingHeader, store, Provider)
 
   RegisterComponent('Koe.Consult', () => Consult, store, Provider)
@@ -85,17 +86,13 @@ export  function registerScreens(store, Provider) {
 
   RegisterComponent('User', () => User, store, Provider)
   RegisterComponent('Koe.UserMessages', () => UserMessages, store, Provider)
-  RegisterComponent('Koe.UserSetting', () => UserSetting, store, Provider)
 
   RegisterComponent('Registration', () => Registration, store, Provider)
   RegisterComponent('Registration.Information', () => Information, store, Provider)
   RegisterComponent('Koe.Department', () => Department, store, Provider)
   RegisterComponent('Koe.DepartmentList', () => DepartmentList, store, Provider)
 
-  RegisterComponent('Koe.Friends', () => Friends, store, Provider)
-  RegisterComponent('Koe.Help', () => Help, store, Provider)
   RegisterComponent('Koe.Account', () => Account, store, Provider)
-  RegisterComponent('Koe.Authentication', () => Authentication, store, Provider)
 
   RegisterComponent('Koe.DrawerLeft', () => DrawerLeft, store, Provider)
 

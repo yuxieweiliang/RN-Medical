@@ -1,19 +1,31 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, FlatList, Image, View, Dimensions, TouchableNativeFeedback } from 'react-native';
-import { Container, CardItem, Card, Tab, Tabs, Left, Body, Button, Right, Content, Thumbnail } from 'native-base';
+import { Text, TouchableOpacity, FlatList, Image, View, Dimensions, StyleSheet } from 'react-native';
+import { Container, CardItem, Card, Tab, Tabs, Left, Body, Button, Right, Content, Item, List } from 'native-base';
 import styles from './style'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { fullList, paperList } from '../../reducers/user/actions'
 import { connect } from 'react-redux'
-import TelephoneInterview from './TelephoneInterview'
+import TelephoneInterview from '../../components/TelephoneInterview'
+import HealthEducation from '../../components/HealthEducation'
+import Inspect from '../../components/Inspect'
 
+
+
+const borderWidth = StyleSheet.hairlineWidth
 const { width, height } = Dimensions.get('window');
 
 
-
-
-
+/*<View style={{
+ width: 16,
+ height: 16,
+ backgroundColor: 'red',
+ alignItems: 'center',
+ justifyContent: 'center'
+ }}>
+ <Text style={{color: 'white', fontSize: 10}}>入</Text>
+ </View>
+ */
 
 
 
@@ -43,25 +55,57 @@ class HistoryMedical extends React.Component {
     this.props.navigator.push()
   }
   render() {
+    const row = [{
+      context: '12健康宣教的列表，康宣教的列表健康宣，教的列健康宣教的列表健康宣教的列健康宣教的列表，康宣教的列健康宣教的列表1',
+      time: '2018-12-12'
+    },{
+      context: '2018-12-12健康宣教的列表，健康宣教的列表，健康宣教的列表',
+      time: '2018-12-12'
+    },{
+      context: '2018-12-12健康宣教的列表，健康宣教的列表，健康宣教的列表',
+      time: '2018-12-12'
+    },{
+      context: '2018-12-12健康宣教的列表，健康宣教的列表，健康宣教的列表',
+      time: '2018-12-12'
+    },
+    ]
+
+
     return (
 
       <Container style={styles.container}>
         <Tabs initialPage={0}>
-          <Tab heading="检查" style={{backgroundColor: '#fafafa'}}>
+
+
+
+          {/*    健康宣教    */}
+          <Tab heading="宣教" style={{backgroundColor: '#eee'}}>
             <Content>
-              <Card transparent style={{padding: 0, margin: 0, borderWidth: 1, borderColor: 'red'}}>
+              <List
+                dataArray={row}
+                renderRow={(item) => (
+                  <HealthEducation {...item}/>
+                )}
+              >
+              </List>
+
+
+
+            </Content>
+          </Tab>
+          <Tab heading="检查" style={{backgroundColor: '#eee'}}>
+            <Content>
+              <Card transparent style={{borderColor: 'transparent'}}>
                 <CardItem bordered={true}>
                   <Text>CT</Text>
                 </CardItem>
                 <CardItem button onPress={this.navTo.bind(this)}>
-                  <FlatList
-                    data={[{key: 'a'}, {key: 'b'}]}
-                    renderItem={({item}) => <View><Text>入fdsafdsafdsafdsafdsa</Text></View>}/>
+                  <Inspect/>
                 </CardItem>
                 <CardItem >
-                  <Right style={{flex:1}}>
-                    <Text>2018-12-1fdsafdsafdsafdsa2</Text>
-                  </Right>
+                  <Left style={{flex:1}}>
+                    <Text style={{fontSize: 12, color: '#888'}}>2018-12-1fdsafdsafdsafdsa2</Text>
+                  </Left>
                 </CardItem>
               </Card>
               <Card transparent>
@@ -69,86 +113,48 @@ class HistoryMedical extends React.Component {
                   <Text>CT</Text>
                 </CardItem>
                 <CardItem button onPress={this.navTo.bind(this)}>
-                  <FlatList
-                    data={[{key: 'a'}, {key: 'b'}]}
-                    renderItem={({item}) => <View><Text>入fdsafdsafdsafdsafdsa</Text></View>}/>
+                  <Inspect/>
                 </CardItem>
                 <CardItem >
-                  <Right style={{flex:1}}>
-                    <Text>2018-12-1fdsafdsafdsafdsa2</Text>
-                  </Right>
-                </CardItem>
-              </Card>
-              <Card>
-                <CardItem>
-                  <Text>CT</Text>
-                </CardItem>
-                <CardItem button onPress={this.navTo.bind(this)}>
-                  <FlatList
-                    data={[{key: 'a'}, {key: 'b'}]}
-                    renderItem={({item}) => <View><Text>入fdsafdsafdsafdsafdsa</Text></View>}/>
-                </CardItem>
-                <CardItem >
-                  <Right style={{flex:1}}>
-                    <Text>2018-12-1fdsafdsafdsafdsa2</Text>
-                  </Right>
-                </CardItem>
-              </Card>
-              <Card>
-                <CardItem>
-                  <Text>CT</Text>
-                </CardItem>
-                <CardItem button onPress={this.navTo.bind(this)}>
-                  <FlatList
-                    data={[{key: 'a'}, {key: 'b'}]}
-                    renderItem={({item}) => <View><Text>入fdsafdsafdsafdsafdsa</Text></View>}/>
-                </CardItem>
-                <CardItem >
-                  <Right style={{flex:1}}>
-                    <Text>2018-12-1fdsafdsafdsafdsa2</Text>
-                  </Right>
+                  <Left style={{flex:1}}>
+                    <Text style={{fontSize: 12, color: '#888'}}>2018-12-1fdsafdsafdsafdsa2</Text>
+                  </Left>
                 </CardItem>
               </Card>
 
             </Content>
           </Tab>
-          <Tab heading="宣教" style={{backgroundColor: '#fafafa'}}>
-            <Content>
-              <Card transparent style={{padding: 0, margin: 0, borderWidth: 1, borderColor: 'red'}}>
-                <CardItem bordered={true}>
-                  <Text>健康宣教的列表1</Text>
-                </CardItem>
-                <CardItem button onPress={this.navTo.bind(this)}>
-                  <Left><Text style={{flex: 1}}>入</Text></Left>
-                  <Right style={{flex:1}}>
-                    <Text>2018-12-12</Text>
-                  </Right>
-                </CardItem>
-                <CardItem >
-                </CardItem>
-              </Card>
 
-              <Card transparent style={{padding: 0, margin: 0, borderWidth: 1, borderColor: 'red'}}>
-                <CardItem bordered={true}>
-                  <Text>健康宣教的列表2</Text>
-                </CardItem>
-                <CardItem button onPress={this.navTo.bind(this)}>
-                  <Left><Text style={{flex: 1}}>出</Text></Left>
-                  <Right style={{flex:1}}>
-                    <Text>2018-12-12</Text>
-                  </Right>
-                </CardItem>
-                <CardItem >
-                </CardItem>
-              </Card>
-            </Content>
-          </Tab>
+
 
 
           {/*    电话访谈    */}
           <Tab heading="访谈" style={{backgroundColor: '#fafafa'}}>
-            <TelephoneInterview/>
+            <Content style={styles.container}>
+              <TelephoneInterview/>
+              <Card transparent style={{borderColor: '#fff', borderRadius: 4}}>
+                <CardItem bordered={true}>
+                  <Text style={{fontWeight: 'bold', fontSize: 14}}>问题：血压偏高，心律不齐 </Text>
+                </CardItem>
+                <CardItem button onPress={() => navigator.push({
+                  screen: 'Koe.HistoryMedical',
+                  title: '就医状况'
+                })}>
+                  <Text style={{fontSize: 14}}>指导：减少热量，膳食平衡，增加运动，（BMI保持20-24kg/m2）（减重10kg收缩压下降5-20mmHg）</Text>
+                </CardItem>
+                <CardItem >
+                  <View style={{flex: 1}}>
+                    <Text style={{fontSize: 12, color: '#666'}}>电话访谈</Text>
+                  </View>
+                  <Right style={{flex: 1}}>
+                    <Text style={{fontSize: 12, color: '#666'}}>3月2日 何护士</Text>
+                  </Right>
+                </CardItem>
+              </Card>
+            </Content>
           </Tab>
+
+
 
 
           <Tab heading="问诊" style={{backgroundColor: '#fafafa'}}>

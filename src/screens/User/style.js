@@ -2,27 +2,25 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-  container: {
-    width,
-    height: height - 140,
-  },
-  list: {
-    width,
-    height: 50,
-    flexDirection: 'row',
-    backgroundColor: '#fff',
+  listItem: {
     alignItems: 'center',
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderBottomWidth: 1,
-    borderColor: '#ccc'
+    padding: 10,
+    backgroundColor: '#fafafa'
   },
-  label: {
-    fontSize: 18,
+  listItemLeft: {
     flex: 1,
+    flexDirection: 'row'
+  },
+  listItemRight: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
+  listItemLeftText: {
+    marginLeft: 10,
+    fontSize: 16,
   },
   goto: {
-    fontSize: 18,
+    fontSize: 14,
   },
   icon: {
     width: 30,

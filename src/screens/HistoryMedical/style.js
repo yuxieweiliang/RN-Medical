@@ -3,7 +3,7 @@ const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
-    width,
+    width: '100%',
     height,
     backgroundColor: '#eee'
   },

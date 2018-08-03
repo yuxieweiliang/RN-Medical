@@ -51,7 +51,7 @@ class DrawerLeft extends Component {
                 />
               </Right>
             </ListItem>
-            <ListItem onPress={() => this.router('Koe.Authentication')}>
+            {/*<ListItem onPress={() => this.router('Koe.Authentication')}>
               <Left>
                 <Text style={{color: '#111'}}>
                   认证
@@ -64,7 +64,7 @@ class DrawerLeft extends Component {
                   style={{fontSize: 40}}
                 />
               </Right>
-            </ListItem>
+            </ListItem>*/}
             <ListItem onPress={() => this.router('Koe.Help')}>
               <Left>
                 <Text style={{color: '#111'}}>

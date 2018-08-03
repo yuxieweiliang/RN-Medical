@@ -9,6 +9,7 @@ const borer = debug? {
   borderWidth: 1,
 } : {}
 
+const borderWidth = StyleSheet.hairlineWidth;
 export default StyleSheet.create({
   container: {
     width,

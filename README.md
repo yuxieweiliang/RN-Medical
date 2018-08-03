@@ -7,6 +7,15 @@ adb connect 127.0.0.1:62001
 显示当前链接 移动设备:
 adb devices
 
+显示当前连接的设备:
+react-native run-android --deviceId YOUR_ID
+
+
+# 启动和关闭 adb server
+adb start-server
+adb kill-server
+
+
 ### 清除缓存
 gradlew.bat clean
 

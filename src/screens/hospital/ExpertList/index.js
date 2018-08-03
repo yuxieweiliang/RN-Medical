@@ -107,7 +107,7 @@ class ExpertList extends React.Component {
                     </View>
                     <View>
                       <Text style={{fontSize: 16,color: '#333'}}>
-                        下面是一个较复杂的例子，演示了利用Pure，来进一步优化性能和减少bug产生的可能。
+                        这里写医生的自我简介
                       </Text>
                     </View>
                     <View style={{flexDirection: 'row', paddingTop: 10}}>
@@ -117,7 +117,7 @@ class ExpertList extends React.Component {
                         </View>
                       </View>
                       <View style={{flex: 4, paddingTop: 4, paddingLeft: 15}}>
-                        <Text>医院地址: 西安市/陕西省/霸王区/菜市场</Text>
+                        <Text>这里些医生的级别</Text>
                       </View>
 
                     </View>

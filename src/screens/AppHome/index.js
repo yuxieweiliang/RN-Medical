@@ -52,8 +52,6 @@ class HomePage extends Component<Props> {
     }).catch((error) => {
       console.log(error);
     });*/
-
-
   }
 
 /*  onNavigatorEvent(event) {
@@ -128,7 +126,7 @@ class HomePage extends Component<Props> {
               // 如果超过四个，则超出的隐藏，可以左右滑动
               renderTabBar={()=> <ScrollableTab tabStyle={{color: 'red'}}/>}
               >
-              <Tab heading="就医情况">
+              <Tab heading="就医历史随访">
                 <MedicalStatus
                   navigator={navigator}
                   medicalStatus={medicalStatus}
