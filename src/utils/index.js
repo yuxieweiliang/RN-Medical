@@ -7,6 +7,10 @@
 export function typeOf(obj, target) {
   var _obj = Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
 
+  if(isNaN(obj)) {
+    _obj =  'NaN'
+  }
+
   if (target) {
     return _obj === target
   }
@@ -128,6 +132,7 @@ export function pySegSort(arr) {
 
 export function randomString(len) {
   len = len || 32;
+  /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
   let $chars = 'ABCDEFGHIJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
   let maxPos = $chars.length
   let pwd = '';
@@ -166,4 +171,10 @@ export function establishUsnPsw(userId) {
     username: changeIdToString(userId),
     password: changeIdToString(reverseId)
   }
+}
+
+export function extendKey(option) {
+  return option
+    ? option.map((item, i) => ({ ...item, key: `${i}-${randomString(6)}` }))
+    : false
 }

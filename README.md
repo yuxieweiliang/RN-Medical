@@ -133,85 +133,6 @@ JavaScript version: 0.54.2
 Native version: 0.55.3
 
 
-react-native-vector-icons
-https://www.npmjs.com/package/react-native-vector-icons
-图标模块
-
-react-navigation
-
-https://reactnavigation.org.cn
-路由导航模块
-
-react-native-parallax-view
-https://github.com/lelandrichardson/react-native-parallax-view
-
-下拉放大模块
-
-react-native-swipeout
-https://github.com/dancormier/react-native-swipeout
-
-侧滑按钮模块
-
-react-native-uploader
-
-https://github.com/aroth/react-native-uploader
-文件上传模块
-
-react-native-blur
-
-https://github.com/react-native-community/react-native-blur
-毛玻璃模块
-
-react-native-app-intro
-
-https://github.com/FuYaoDe/react-native-app-intro
-APP引导页模块
-
-react-native-image-picker
-
-https://github.com/marcshilling/react-native-image-picker
-
-图片选择模块
-
-react-native-storage
-
-https://github.com/sunnylqm/react-native-storage
-本地存储模块
-
-rn-splash-screen
-https://github.com/mehcode/rn-splash-screen
-安卓 IOS 启动白屏解决模块
-
-react-native-gifted-listview
-
-https://github.com/FaridSafi/react-native-gifted-listview
-下拉刷新上拉加载更多模块
-
-react-native-swiper
-
-https://github.com/leecade/react-native-swiper
-轮播视图
-
-react-native-sound
-
-https://github.com/zmxv/react-native-sound
-音频播放模块
-
-react-native-message-bar
-
-https://github.com/KBLNY/react-native-message-bar
-提示消息模块
-
-
-react-native-marquee-label
-
-https://github.com/remobile/react-native-marquee-label
-
-文本跑马灯效果模块
-
-react-native-modalbox
-https://github.com/maxs15/react-native-modalbox
-模态视图模块
 
 
 
@@ -267,6 +188,20 @@ cls # 清除命令行
 
 
 
+1、忘记密码修改密码
+
+预约失败:
+我是否可以继续 修改时间 或者 更换专家 再次预约
+预约成功:
+我突然有事，是否可以取消预约 -> 或者说多长时间之内，我可以取消。
+
+
+ 预约的时候，比如预约了10点，那么其他时候点击预约按钮，会怎么样。
+ 需要在预约时间到达的时候，推送告诉患者预约的时间到了。
+ 如果预约了10点，那么从10点到什么时候，可以预约呢，如果迟到10分钟呢。
+
+健康日报:
+缺少图片字段
 
 
 

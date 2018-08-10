@@ -50,6 +50,7 @@ export function exit() {
   return ({type: types.ROOT_CHANGED, data: 'login'})
 }
 
+
 /**
  * 登录
  * @param username
@@ -217,23 +218,30 @@ export async function registerNetEase(userId) {
     let nonce = randomString(8)
     let str = appSecret + "" + nonce + "" + curTime
     let checkSum = crypto.createHash('sha1').update(str).digest('hex')
-
-    console.log(checkSum)
+    let headers = {
+      "Content-Type": "multipart/form-data",
+      'Appkey': appKey,
+      'Nonce': nonce,
+      'CurTime': curTime,
+      'CheckSum': checkSum,
+    }
     // 注册数据
     let formdata = new FormData()
     formdata.append("accid", userId)
     formdata.append("token", '123456')
 
-    return fetch.post(url, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        'Appkey': appKey,
-        'Nonce': nonce,
-        'CurTime': curTime,
-        'CheckSum': checkSum,
-      },
-      body: formdata
-    })
+    console.log(checkSum)
+
+    let user = await fetch.post(url, { headers, body: formdata})
+    if(!user) {
+      console.log('声网注册失败！')
+    }
+
+
+    dispatch({type: types.ROOT_CHANGED, data: 'UserMessages'})
+
+
+    return user
 
 
   } catch (err) {

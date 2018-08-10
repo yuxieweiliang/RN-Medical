@@ -3,7 +3,7 @@ import { Text, StyleSheet, TouchableOpacity, View, Image, TouchableNativeFeedbac
 import { connect } from 'react-redux'
 import { Container, Header, Content, List, ListItem , Card, CardItem, Item, Left, Tabs, Tab, Right, Icon, Thumbnail  } from 'native-base';
 import behavior from './behavior'
-import { getUser } from '../../reducers/user/actions'
+import { getUser, getPaperDetail, getTemplateByType } from '../../reducers/user/actions'
 import { registerForWY } from '../../reducers/app/actions'
 import Inspect from '../../components/Inspect'
 import HealthEducation from '../../components/HealthEducation'
@@ -12,7 +12,7 @@ import TelephoneInterview from '../../components/TelephoneInterview'
 
 const borderWidth = StyleSheet.hairlineWidth;
 const { width, height } = Dimensions.get('window');
-
+const styles = {};
 
 function FollowUp() {
   return (
@@ -43,6 +43,13 @@ class UserPage extends React.Component {
     this.props.dispatch(getUser())/*.then(res => {
      // this.props.dispatch(registerForWY())
      })*/
+
+
+    // 用户随访
+    this.props.dispatch(getPaperDetail({hospitalId: 1001, templateId: 0}))
+    // 用户随访模板
+    this.props.dispatch(getTemplateByType({hospitalId: 1001, templateType: '电话随访'}))
+
   }
 
   navigate(router) {
@@ -52,10 +59,21 @@ class UserPage extends React.Component {
     const { user } = this.props
     const messageStructure = user && behavior.createStructure(user)
     const row = [{
-      context: '2018-12-12健康宣教的列表12018-12-12健康宣教的列表12018-12-12健康宣教的列表12018-12-12健康宣教的列表1',
+      type: '入',
+      context: `12健康宣教的列表，康宣教的列表健康宣，教的列健康宣教的列表健康宣教的列
+      健康宣教的列表，康宣教的列健康宣教的列表1`,
       time: '2018-12-12'
     },{
-      context: '2018-12-12健康宣教的列表12018-12-12健康宣教的列表12018-12-12健康宣教的列表12018-12-12健康宣教的列表1',
+      type: '入',
+      context: '2018-12-12健康宣教的列表，健康宣教的列表，健康宣教的列表',
+      time: '2018-12-12'
+    },{
+      type: '在',
+      context: '2018-12-12健康宣教的列表，健康宣教的列表，健康宣教的列表',
+      time: '2018-12-12'
+    },{
+      type: '出',
+      context: '2018-12-12健康宣教的列表，健康宣教的列表，健康宣教的列表',
       time: '2018-12-12'
     },
     ]
@@ -69,9 +87,29 @@ class UserPage extends React.Component {
 
 
 
+          {/*    电话访谈    */}
           <Tab heading="随访">
             <Content style={{backgroundColor: '#eee'}}>
               <TelephoneInterview/>
+              <Card transparent style={{borderColor: '#fff', borderRadius: 4}}>
+                <CardItem bordered={true}>
+                  <Text style={{fontWeight: 'bold', fontSize: 14}}>问题：血压偏高，心律不齐 </Text>
+                </CardItem>
+                <CardItem button onPress={() => navigator.push({
+                  screen: 'Koe.HistoryMedical',
+                  title: '就医状况'
+                })}>
+                  <Text style={{fontSize: 14}}>指导：减少热量，膳食平衡，增加运动，（BMI保持20-24kg/m2）（减重10kg收缩压下降5-20mmHg）</Text>
+                </CardItem>
+                <CardItem >
+                  <View style={{flex: 1}}>
+                    <Text style={{fontSize: 12, color: '#666'}}>电话访谈</Text>
+                  </View>
+                  <Right style={{flex: 1}}>
+                    <Text style={{fontSize: 12, color: '#666'}}>3月2日 何护士</Text>
+                  </Right>
+                </CardItem>
+              </Card>
             </Content>
 
           </Tab>
@@ -89,81 +127,20 @@ class UserPage extends React.Component {
           </Tab>
           <Tab heading="宣教">
             <Content style={{backgroundColor: '#eee'}}>
-              <Card transparent style={{padding: 0, margin: 0, borderColor: 'transparent'}}>
-                <CardItem bordered={true}>
-                  <Text>入院阶段</Text>
-                </CardItem>
-                <List
-                  dataArray={row}
-                  renderRow={(item) => (
-                    <Item>
-                      <HealthEducation {...item}/>
-                    </Item>
-                  )}
-                >
-                </List>
-              </Card>
-
-              <Card transparent style={{padding: 0, margin: 0, borderColor: 'transparent'}}>
-                <CardItem bordered={true}>
-                  <Text>在院阶段</Text>
-                </CardItem>
-                <List
-                  dataArray={row}
-                  renderRow={(item) => (
-                    <Item>
-                      <HealthEducation {...item}/>
-                    </Item>
-                  )}
-                >
-                </List>
-              </Card>
-
-              <Card transparent style={{padding: 0, margin: 0, borderColor: 'transparent'}}>
-                <CardItem bordered={true}>
-                  <Text>出院指导</Text>
-                </CardItem>
-                <List
-                  dataArray={row}
-                  renderRow={(item) => (
-                    <Item>
-                      <HealthEducation {...item}/>
-                    </Item>
-                  )}
-                >
-                </List>
-              </Card>
+              <List
+                dataArray={row}
+                renderRow={(item) => (
+                  <Item>
+                    <HealthEducation {...item}/>
+                  </Item>
+                )}
+              >
+              </List>
 
             </Content>
 
           </Tab>
 
-
-          <Tab heading="全部">
-
-            <Content style={{backgroundColor: '#eee'}}>
-              <TelephoneInterview/>
-
-              <FollowUp/>
-              <Card transparent style={{padding: 0, margin: 0, borderColor: 'transparent'}}>
-                <CardItem bordered={true}>
-                  <Text>入院阶段</Text>
-                </CardItem>
-                <List
-                  dataArray={row}
-                  renderRow={(item) => (
-                    <Item>
-                      <HealthEducation {...item}/>
-                    </Item>
-                  )}
-                >
-                </List>
-              </Card>
-
-              <TelephoneInterview/>
-            </Content>
-
-          </Tab>
         </Tabs>
       </Container>
     );

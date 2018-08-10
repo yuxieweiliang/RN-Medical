@@ -13,7 +13,7 @@ const {
  * context: 内容
  * time: 时间
  */
-export default function HealthEducation({ context, time }) {
+export default function HealthEducation({ context, time, type }) {
   console.log(context, time)
   return (
     <View style={{
@@ -37,7 +37,7 @@ export default function HealthEducation({ context, time }) {
           justifyContent: 'center',
           backgroundColor: 'red'
         }}>
-          <Text style={{fontSize: 12, color: 'white'}}>入</Text>
+          <Text style={{fontSize: 12, color: 'white'}}>{type}</Text>
         </View>
       </View>
       <View  style={{

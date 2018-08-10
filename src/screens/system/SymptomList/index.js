@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, TextInput, View, FlatList, TouchableNativeFeedback, Dimensions } from 'react-native';
+import { Container, Content, List, Item, Left, Right, Tab, Tabs, Card, CardItem, Col, Icon } from 'native-base';
 import styles from './style'
 import { connect } from 'react-redux'
 import { getSymptomList } from '../../../reducers/system/actions'
@@ -43,34 +44,27 @@ class Symptom extends React.Component {
   }
   componentWillUnmount() { }
 
-  _onPressButton() {
-    this.props.navigation.navigate('Product', {
-      itemId: 87,
-      otherParam: 'anything you want here',
-    })
-  }
-
   _onPressSymptomList(symptom) {
     const { navigator, dispatch } = this.props
-    dispatch({
+    this.props.onClose(symptom)
+    /*dispatch({
       type: 'CHANGE_CONSULT_ITEM',
       data: {
         key: 'symptom',
         value: symptom
       }
-    })
-    navigator.push({screen: 'Koe.Pathological'})
+    })*/
   }
   render() {
-    let { bodyPartsList, symptomList } = this.props
-    bodyPartsList = bodyPartsList && bodyPartsList.map(item => ({...item, key: item.ItemName}))
+    let { bodyPositionList, symptomList } = this.props
+    bodyPositionList = bodyPositionList && bodyPositionList.map(item => ({...item, key: item.ItemName}))
     symptomList = symptomList && symptomList.map(item => ({...item, key: item.ItemName}))
 
     return (
       <View style={styles.container}>
         <View style={styles.leftContent}>
           <FlatList
-            data={bodyPartsList}
+            data={bodyPositionList}
             renderItem={({item, index}) => (
               <TouchableNativeFeedback
                                        onPress={() => this.props.navigation.goBack()}

@@ -3,51 +3,54 @@ import Immutable from 'seamless-immutable';
 import storage from '../../utils/storage'
 
 const initialState = Immutable({
-  // 病症
-  illnessList: null,
   // 身体模型
   bodyModel: ['man', 'woman', 'child'],
+  // 预约列表
+  registrationList: null,
+  // 病种
+  diseaseSpeciesList: null,
   // 身体部位
-  bodyPartsList: null,
-  // 咨询
-  consult: null,
+  bodyPositionList: null,
   // 症状
   symptomList: null,
   // 病例病程
-  courseDiseaseList: null,
+  pathologicalCourseList: null,
   // 并发症
   complicationList: null,
 });
 
-
-
 const func = {
-  // 疾病列表
-  [types.ILLNESS_LIST](state, action) {
+  // 预约列表
+  [types.REGISTRATION_LIST](state, action) {
     return state.merge({
-      illnessList: action.data
+      registrationList: action.data.reverse()
     });
   },
-  // 部位列表
-  [types.BODY_PARTS_LIST](state, action) {
+  // 病种列表
+  [types.DISEASE_SPECIES_LIST](state, action) {
     return state.merge({
-      bodyPartsList: action.data
+      diseaseSpeciesList: action.data
+    });
+  },
+
+  // 部位列表
+  [types.BODY_POSITION_LIST](state, action) {
+    return state.merge({
+      bodyPositionList: action.data
     });
   },
 
   // 症状列表
   [types.SYMPTOM_LIST](state, action) {
-
-    console.log('症状列表: ', action.data)
     return state.merge({
       symptomList: action.data
     });
   },
 
   // 病例病程
-  [types.COURSE_DISEASE_LIST](state, action) {
+  [types.PATHOLOGICAL_COURSE_LIST](state, action) {
     return state.merge({
-      courseDiseaseList: action.data
+      pathologicalCourseList: action.data
     });
   },
 
@@ -55,6 +58,13 @@ const func = {
   [types.COMPLICATION_LIST](state, action) {
     return state.merge({
       complicationList: action.data
+    });
+  },
+
+  // 健康日报
+  [types.HEALTH_DAILY_LIST](state, action) {
+    return state.merge({
+      healthDailyList: action.data
     });
   },
 }

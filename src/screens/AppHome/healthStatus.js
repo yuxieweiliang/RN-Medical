@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View,  Dimensions  } from 'react-native';
+import {  TouchableOpacity, View,  Dimensions  } from 'react-native';
+import {Container, Icon, Item, Text, Button, Right, Left} from 'native-base';
 import { Agenda } from 'react-native-calendars'
 import styles from './style'
 const { width, height } = Dimensions.get('window');
@@ -22,50 +23,34 @@ export default class HealthStatus extends Component{
   loadItems(day) {
     const { healthStatus, style, navigator } = this.props
 
-    setTimeout(() => {
-      for (let i = -15; i < 35; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = this.timeToString(time);
-        if (!this.state.items[strTime]) {
-          this.state.items[strTime] = [];
-          const numItems = Math.floor(Math.random() * 5);
-          for (let j = 0; j < numItems; j++) {
-            const data = {
-              name: 'Item for ' + strTime,
-              height: Math.max(50, Math.floor(Math.random() * 150)),
-            }
+    // 组装一个月的数据
+    const newItems = {};
 
-            if(healthStatus[j]) {
-              Object.assign(data, healthStatus[j])
-            }
-            this.state.items[strTime].push(data);
-          }
-        }
+    healthStatus.map(item => {
+      if(!newItems[item.time]) {
+        newItems[item.time] = [];
       }
-      //console.log(this.state.items);
-      const newItems = {};
-      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-      this.setState({
-        items: newItems
-      });
+      newItems[item.time].push(item)
+    })
 
-    }, 1000);
-    // console.log(`Load Items for ${day.year}-${day.month}`);
+    this.setState({
+      items: newItems
+    });
   }
 
   renderItem(item, isFirst) {
     const style = isFirst ? {marginTop: 10} : {borderTopWidth: 1, borderTopColor: '#ccc'}
-    // console.log(item, isFirst)
+    console.log(item, this.props)
     return (
-      <View style={[styles.item, {height: item.height}, style]}>
+      <TouchableOpacity
+        style={[styles.item, style]}
+        onPress={() => this.props.navigator.push({screen: 'Koe.HealthIndicators'})}>
         {/*<Text>{item.name}</Text>*/}
-        <View style={{flex: 1, width: '100%', flexDirection: 'row'}}>
-          <Text style={{flex: 1, textAlign: 'center'}}>{item.temperature}℃</Text>
-          <Text style={{flex: 1, textAlign: 'center'}}>{item.breathing}</Text>
-          <Text style={{flex: 1, textAlign: 'center'}}>{item.bloodOxygen}</Text>
-          <Text style={{flex: 1, textAlign: 'center'}}>{item.bloodPressure}</Text>
-        </View>
-      </View>
+        <Text style={{color: '#6881ff', marginBottom: 10}}>4月19日 农历 三月初四 天气：晴 健康指标：5星</Text>
+        <Text style={styles.tabCardText}>
+          富含精氨酸的食物有助调节血管张力、抑制血小板聚集，减少血管损伤。这类食物有海参、泥鳅、鳝鱼及芝麻、山药、银杏、豆腐皮、葵花子等。
+        </Text>
+      </TouchableOpacity>
     );
   }
 
@@ -81,6 +66,8 @@ export default class HealthStatus extends Component{
   }
 
   renderDome() {
+
+
     return (
       <TouchableOpacity
         onPress={() => navigator.push({screen:'Koe.SignTrend'})}>
@@ -121,6 +108,7 @@ export default class HealthStatus extends Component{
   }
   render() {
     const { healthStatus, style, navigator } = this.props
+    // console.log('this.state:', this.state);
     return (
       <View style={[style, {flex: 1}]}>
         <Agenda
@@ -132,7 +120,7 @@ export default class HealthStatus extends Component{
            * 加载组件数据
            */
           loadItemsForMonth={this.loadItems.bind(this)}
-          selected={'2017-05-16'}
+          selected={'2018-08-10'}
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={(r1, r2) => r1.name !== r2.name}
@@ -192,13 +180,6 @@ export default class HealthStatus extends Component{
           // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
           //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
         />
-        <View style={{flexDirection: 'row', height: 40}}>
-          <View style={{flex: 1, alignItems: 'center'}}><Text>4月</Text></View>
-          <View style={{flex: 1, alignItems: 'center'}}><Text>体温</Text></View>
-          <View style={{flex: 1, alignItems: 'center'}}><Text>呼吸</Text></View>
-          <View style={{flex: 1, alignItems: 'center'}}><Text>血氧</Text></View>
-          <View style={{flex: 2, alignItems: 'center'}}><Text>血压</Text></View>
-        </View>
       </View>
     )
   }

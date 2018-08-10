@@ -121,7 +121,6 @@ class HistoryMedical extends React.Component {
                   </Left>
                 </CardItem>
               </Card>
-
             </Content>
           </Tab>
 

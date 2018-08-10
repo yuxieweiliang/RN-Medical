@@ -4,7 +4,8 @@ import {
   TextInput, ToastAndroid, Platform , BackHandler, Animated, Keyboard, StyleSheet
 } from 'react-native';
 import { Container, Content, Button, Icon, Text, Item, Left, Right, Input, Label } from 'native-base';
-import { register, requestSmsCode, verifySmsCode, registerNetEase } from '../../reducers/app/actions'
+import { register, requestSmsCode, verifySmsCode, registerNetEase, login } from '../../reducers/app/actions'
+import { getUser } from '../../reducers/user/actions'
 import styles from './style'
 import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window');
@@ -104,7 +105,7 @@ class Register extends Component<Props> {
       }
 
       /**
-       * 注册声网账号
+       * 注册声网账号，使用userId作为用户名，密码统一为123456
        * true:
        * {
        *    code: 200,
@@ -122,9 +123,7 @@ class Register extends Component<Props> {
        */
       const netEase  = await registerNetEase(userId)
 
-      if(!netEase) {
-        console.log('声网注册失败！')
-      }
+      // this.props.dispatch({type: 'app.ROOT_CHANGED/修改Root状态', data: 'DiseaseSpecies'})
 
     } catch(error) {
       console.log(error)
@@ -136,6 +135,26 @@ class Register extends Component<Props> {
     const { verifyTime } = this.state
     const verifyBtnColor = verifyTime <= 0 ? '#03a47f' : '#ccc'
     const verifyText = verifyTime <= 0 ? '验证码' : `${verifyTime}秒`
+
+    /*this.props.dispatch(login('xueyufei', 'xyf.3342')).then(res => {
+
+      console.log(res)
+      if(res) {
+        this.props.dispatch(getUser()).then(res => {
+          this.props.dispatch({type: 'app.ROOT_CHANGED/修改Root状态', data: 'DiseaseSpecies'})
+        })
+      }
+      /!*if(res) {
+       navigator.resetTo({
+       screen:'Koe.AppHome',
+       title:"主页"
+       });
+       }*!/
+    })*/
+
+
+
+
 
     return (
       <ImageBackground style={styles.container}  source={require('../../../assets/images/bg.jpg')}>

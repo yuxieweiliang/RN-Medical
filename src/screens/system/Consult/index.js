@@ -4,9 +4,10 @@ import { Container, Header, Content, Tab, Tabs } from 'native-base'
 import { connect } from 'react-redux'
 import styles from './style'
 import Button from '../../../components/Button'
-import { initState, JPushAlert } from '../../../reducers/consult/actions'
+import { initState, JPushAlert } from '../../../reducers/appointmentConsultation/actions'
 import { appInitialized } from '../../../reducers/app/actions'
 import ReservationVideo from '../../ReservationVideo'
+
 // 操作动作
 import { NimSession, NimFriend } from 'react-native-netease-im'
 
@@ -22,6 +23,7 @@ class ConsultPage extends Component {
   }
 
   componentWillMount() {
+    const { dispatch, bodyPosition } = this.props
     // 获取咨询的本地缓存
     this.props.dispatch(initState())
 
@@ -188,8 +190,10 @@ class ConsultPage extends Component {
 const createState = function(state) {
   return ({
     ...state.user,
-    ...state.consult,
-    ...state.export,
+    ...state.expert,
+    ...state.appointmentConsultation,
+    ...state.hospital,
+    ...state.department,
   })
 }
 

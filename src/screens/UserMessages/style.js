@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   userCard: {
     width,
-    height: 300,
+    height: width / 2,
     backgroundColor: '#a0ceff',
     alignItems: 'center',
     justifyContent: 'center'

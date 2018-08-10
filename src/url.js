@@ -26,38 +26,14 @@ const userMessage = {
 
 /**
  * ********************************       预约挂号
- * id：用户id
  * start：起始时间
  * end：结束时间
  */
 const registration = {
-  getRegistration: createApi(`${user}/api/Registration/Get/{start}/{end}`), // 获取
-  postRegistration: createApi(`${user}/api/Registration/Post`), // 新增
-  // 获取指定科室的指定时间段的所有挂号信息
-  getRegistrationList: createApi(`${user}/api/Registration/GetListByDeptCode/{deptCode}/{start}/{end}`),
-}
-
-/**
- * ********************************       咨询
- * userId：用户id
- * start：起始时间
- * end：结束时间
- * consultId：咨询adviceId
- */
-const con = `${userData}/api/Data_User_Advice/`
-const msg = `${userData}/api/Data_User_AdviceMessage/`
-const consult = {
-  // -新增一个咨询信息
-  postConsult: createApi(`${con}/Post`),
-  // 获取当前用户指定时间段的咨询列表
-  consultList: createApi(`${con}/GetListByUser/{start}/{end}`),
-
-  // 咨询留言
-  postAdviceMessage: createApi(`${msg}/Post`),
-  // 咨询留言
-  adviceMessage: createApi(`${msg}/GetByAdviceID/{userId}/{consultId}/{messageType}`),
-  // 删除
-  deleteAdviceMessage: createApi(`${msg}/Delete/{id}`),
+  // 获取
+  getRegistration: createApi(`${user}/api/Registration/Get/{start}/{end}`),
+  // 新增
+  postRegistration: createApi(`${user}/api/Registration/Post`),
 }
 
 /**
@@ -71,7 +47,7 @@ const hospitalUser = {
   // 医护人员列表
   getDepartmentDoctorList: createApi(`${hos}/GetByDeptCode/{hospitalId}/{deptCode}`),
   // 专家详细信息
-  getHospitalDoctor: createApi(`${hos}/Get/{hospitalId}/{userId}`),
+  getExpert: createApi(`${hos}/Get/{hospitalId}/{userId}`),
 }
 
 /**
@@ -94,9 +70,9 @@ const systemData = {
   getComplicationList: createApi(`${position}/GetBingFaZheng/{hospitalId}/{clayCode}/{positionCode}/{symptomCode}/{complicationCode}`),
 }
 
-const paper = `${cms}/api/Sys_Paper_Template/`
+// 咨询列表
 const paperData = {
-  getPaperList: createApi(`${paper}/GetList/{merchantId}`),
+  getPaperList: createApi(`${cms}/api/Sys_Paper_Template//GetList/{merchantId}`),
 }
 
 
@@ -114,29 +90,21 @@ export default {
   // 医院用户
   ...hospitalUser,
 
-  // 咨询
-  ...consult,
 
   // 咨询
   ...paperData,
 
-  // 新增一个症状列表
-  postSymptom: createApi(`${userData}/api/Data_User_ZhengZhuang/Post`),
+  ...systemData,
+
   // 根据咨询ID获取病人的症状列表
   getSymptomListByConsult: createApi(`${userData}/api/Data_User_ZhengZhuang/GetByAdviceID/{userId}/{consultId}`),
-
 
   // 获取指定医院的所有疾病基本信息列表  http://sysdataapi.kecoretest.com:81/
   getIllnessList: createApi(`${system}/api/Sys_Illness_Info/Get/{hospitalId}`),
 
 
-
-  ...systemData,
-
   // 查询公共自定义片段
   getCommonDicList: createApi(`${system}/api/Sys_Common_Dic/GetByParentItemCode/{merchantId}/{itemType}/{parentItemCode}`),
-
-
 
 
   // 获取指定体征ID的体征信息  ?name=TW,MB,HX
@@ -151,48 +119,8 @@ export default {
   deleteUserInfo: createApi(`${userData}/api/Data_User_Info/Delete/{iD}`),
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // { 用户授权医院 }-用户获取自己授权给指定医院的单个权限信息
-  getAuthMerchant: createApi(`${auth}/api/AuthMerchant/Get/{merchantID}/{authInfo}`),
-  // 用户授权医院-新增一个用户授权医院的信息，只能新增自己的 医院授权的原则是，授权后才能查看
-  postAuthMerchant: createApi(`${auth}/api/AuthMerchant/Post`),
-  // 授权管理-用户授权医院-修改一个用户授权医院的信息，只能修改自己的
-  putAuthMerchant: createApi(`${auth}/api/AuthMerchant/Put`),
-  // 用户授权医院-删除一个用户授权信息，只能删除自己的
-  deleteAuthMerchant: createApi(`${auth}/api/AuthMerchant/Delete/{merchantID}/{authInfo}`),
-
-  // { 用户授权用户 } 获取授权给指定用户的所有权限列表
-  getAuthUsersList: createApi(`${auth}/api/AuthUsers/GetUserRoles/{merchantID}`),
-  // 获取自己授权给指定用户的单个权限信息
-  getAuthUsers: createApi(`${auth}/api/AuthUsers/Get/{authUserID}/{authInfo}`),
-  // 新增一个用户授权用户的信息
-  postAuthUsers: createApi(`${auth}/api/AuthUsers/Post`),
-  // 修改……
-  putAuthUsers: createApi(`${auth}/api/AuthUsers/Put`),
-  // 删除……
-  deleteAuthUsers: createApi(`${auth}/api/AuthUsers/Delete/{merchantID}/{authInfo}`),
-  // 删除所有……
-  deleteAllAuthUsers: createApi(`${auth}/api/AuthUsers/DeleteUserRoles/{authUserID}`),
+  // 医院 -获取全部医院信息
+  getHospitalList: createApi(`${system}/api/Sys_Mer_Info/Get`),
 
 
   ///////////////////////////////////////// 信息 ///////////////////////////////////////
@@ -211,8 +139,6 @@ export default {
   ///////////////////////////////////////// 系统  ///////////////////////////////////////
   // 根据医院ID获取一个医院信息
   getHospital: createApi(`${system}/api/Sys_Mer_Info/Get/{hospitalId}`),
-  // 医院 -获取全部医院信息
-  getHospitalList: createApi(`${system}/api/Sys_Mer_Info/Get`),
 
   /**
    * 科室
@@ -223,12 +149,6 @@ export default {
   getDepartmentList: createApi(`${system}/api/Sys_Dept_Info/Get/{hospitalId}`),
   // 根据医院ID和科室Code获取一条科室信息
   getDepartment: createApi(`${system}/api/Sys_Dept_Info/Get/{hospitalId}/{deptCode}`),
-  // 新增一个科室，只能增加当前用户所在医院的科室
-  postDepartment: createApi(`${system}/api/Sys_Dept_Info/Post`),
-  // 修改...
-  putDepartmentInfo: createApi(`${system}/api/Sys_Dept_Info/Put/{deptCode}`),
-  // 删除...
-  deleteDepartmentInfo: createApi(`${system}/api/Sys_Dept_Info/Delete/{deptCode}`),
 
   // 获取指定医院，指定疾病ID的基本信息
   getIllnessInfo: createApi(`${system}/api/Sys_Illness_Info/Get/{hospitalID}/{illnessCode}`),
@@ -240,8 +160,6 @@ export default {
 
 
 
-  // { UserID } -> 人员所有科室关系列表
-  getDeptRelationship: createApi(`${system}/api/Sys_User_DeptInfo/GetByUserID/{id}`),
   // { 医院ID } -> 医院所有人员列表
   getHospitalDoctorList: createApi(`${system}/api/Sys_User_Info/Get/{hospitalID}`),
 
@@ -259,8 +177,18 @@ export default {
   getFullListByUser: createApi(`${file}/api/Data_User_AdvicePaper_Dto/GetFullListByUser/{start}/{end}/{paperType}`),
   // 电话随访
   getByPaperId: createApi(`${file}/api/Data_User_AdvicePaper_Dto/GetByPaperID/{paperId}/{userId}`),
-  // 获取当前用户指定时间段的文章列表
-  getListByUser: createApi(`${file}/api/Data_User_Article_Dto/GetListByUser/{start}/{offSet}/{number}`),
+
+  getListByUser: createApi(`${userData}/api/Data_User_Article_Dto/GetListByUser/{start}/{offSet}/{number}`),
+
+  // 随访详细
+  getPaperDetail: createApi(`${cms}/api/Sys_Paper_Template/GetDetailByID/{hospitalId}/{templateId}`),
+
+  // 根据 类型 获取报表
+  getTemplateByType: createApi(`${cms}/api/Sys_Paper_Template/GetListByType/{hospitalId}/{templateType}`),
+
+
+
+
 }
 
 

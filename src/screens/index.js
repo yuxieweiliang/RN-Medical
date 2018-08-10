@@ -1,46 +1,67 @@
 import { Navigation, ScreenVisibilityListener } from 'react-native-navigation';
 
-import Login from './Login'
-import Register from './Register'
-import RetrievePassword from './Register/RetrievePassword'
-import NewPassword from './Register/NewPassword'
-import QRCode from './QRCode'
-import Follow from './User/Follow'
-import Record from './User/Record'
-import MyRegistration from './User/MyRegistration'
-
 
 import AppHome from './AppHome'
+// import HealthDaily from './HealthDaily'
+// 健康日报
+import HealthDailyDetails from './AppHome/HealthDailyDetails'
+// 健康指标
+import HealthIndicators from './AppHome/HealthIndicators'
 
 import SearchView from '../components/Search'
 import TitleView from '../components/Title'
 
-import HealthDaily from './HealthDaily'
-import HealthDailyDetails from './HealthDaily/HealthDailyDetails'
-import HistoryMedical from './HistoryMedical'
-import CollapsingHeader from './UserMessages/CollapsingHeader'
+// SYSTEM
+import Login from './Login'
+import Register from './Register'
+// 病种
+import DiseaseSpecies from './Register/DiseaseSpecies'
+// 忘记密码
+import RetrievePassword from './Register/RetrievePassword'
+// 新密码
+import NewPassword from './Register/NewPassword'
+// 二维码
+import QRCode from './QRCode'
+
+// USER
+import MyRegistration from './User/MyRegistration'
+import Follow from './User/Follow'
+import Record from './User/Record'
+
+// 检查
+import Examination from './Examination'
+
 
 import Consult from './system/Consult'
-import HospitalList from './hospital/HospitalList'
-import IllnessTypeList from './system/IllnessTypeList'
-import ExpertHome from './hospital/ExpertHome'
-import ExpertList from './hospital/ExpertList'
+import Registration from './Registration'
+import Information from './Registration/Information'
 
-import SignTrend from './system/SignTrend'
-import SignTrendEdit from './system/SignTrendEdit'
-import BodyParts from './system/BodyParts'
+import HospitalList from './Hospital/HospitalList'
+import Expert from './Expert'
+import ExpertList from './Expert/ExpertList'
+
+// 病种
+import DiseaseSpeciesList from './system/DiseaseSpeciesList'
+// 填写体征信息
+import SignTrendEdit from './AppHome/SignTrendEdit'
+// 身体部位列表
+import BodyPosition from './system/BodyPosition'
+// 症状雷彪
 import SymptomList from './system/SymptomList'
-import Pathological from './system/SymptomList/Pathological'
-import Complication from './system/SymptomList/Complication'
+// 病理病程
+import PathologicalCourseList from './system/PathologicalCourseList'
+// 并发症
+import Complication from './system/Complication'
+// 预约视频
 import InterrogationVideo from './system/InterrogationVideo'
 import Chat from './Chat'
+// 朋友列表
 import FriendList from './FriendList'
 
 import User from './User'
 import UserMessages from './UserMessages'
+// import CollapsingHeader from './UserMessages/CollapsingHeader'
 
-import Registration from './Registration'
-import Information from './Registration/Information'
 import Department from './Department'
 import DepartmentList from './Department/DepartmentList'
 
@@ -55,6 +76,7 @@ export  function registerScreens(store, Provider) {
   const RegisterComponent = Navigation.registerComponent
   RegisterComponent('Koe.Login', () => Login, store, Provider)
   RegisterComponent('Koe.Register', () => Register, store, Provider)
+  RegisterComponent('Koe.DiseaseSpecies', () => DiseaseSpecies, store, Provider)
   RegisterComponent('Koe.RetrievePassword', () => RetrievePassword, store, Provider)
   RegisterComponent('Koe.NewPassword', () => NewPassword, store, Provider)
   RegisterComponent('Koe.QRCode', () => QRCode, store, Provider)
@@ -64,31 +86,30 @@ export  function registerScreens(store, Provider) {
 
 
   RegisterComponent('Koe.AppHome', () => AppHome, store, Provider)
-  RegisterComponent('Koe.HealthDaily', () => HealthDaily, store, Provider)
+  // RegisterComponent('Koe.HealthDaily', () => HealthDaily, store, Provider)
   RegisterComponent('Koe.HealthDailyDetails', () => HealthDailyDetails, store, Provider)
-  RegisterComponent('Koe.HistoryMedical', () => HistoryMedical, store, Provider)
-  RegisterComponent('Koe.CollapsingHeader', () => CollapsingHeader, store, Provider)
+  RegisterComponent('Koe.HealthIndicators', () => HealthIndicators, store, Provider)
+  RegisterComponent('Koe.Examination', () => Examination, store, Provider)
 
   RegisterComponent('Koe.Consult', () => Consult, store, Provider)
-  RegisterComponent('Koe.SignTrend', () => SignTrend, store, Provider)
   RegisterComponent('Koe.SignTrendEdit', () => SignTrendEdit, store, Provider)
   RegisterComponent('Koe.HospitalList', () => HospitalList, store, Provider)
-  RegisterComponent('Koe.IllnessTypeList', () => IllnessTypeList, store, Provider)
+  RegisterComponent('Koe.DiseaseSpeciesList', () => DiseaseSpeciesList, store, Provider)
   RegisterComponent('Koe.ExpertList', () => ExpertList, store, Provider)
-  RegisterComponent('Koe.ExpertHome', () => ExpertHome, store, Provider)
-  RegisterComponent('Koe.BodyParts', () => BodyParts, store, Provider)
+  RegisterComponent('Koe.Expert', () => Expert, store, Provider)
+  RegisterComponent('Koe.BodyPosition', () => BodyPosition, store, Provider)
   RegisterComponent('Koe.SymptomList', () => SymptomList, store, Provider)
-  RegisterComponent('Koe.Pathological', () => Pathological, store, Provider)
+  RegisterComponent('Koe.PathologicalCourseList', () => PathologicalCourseList, store, Provider)
   RegisterComponent('Koe.Complication', () => Complication, store, Provider)
   RegisterComponent('Koe.InterrogationVideo', () => InterrogationVideo, store, Provider)
   RegisterComponent('Koe.Chat', () => Chat, store, Provider)
   RegisterComponent('Koe.FriendList', () => FriendList, store, Provider)
 
-  RegisterComponent('User', () => User, store, Provider)
-  RegisterComponent('Koe.UserMessages', () => UserMessages, store, Provider)
+  RegisterComponent('Koe.User', () => User, store, Provider)
+  RegisterComponent('Koe.User.UserMessages', () => UserMessages, store, Provider)
 
-  RegisterComponent('Registration', () => Registration, store, Provider)
-  RegisterComponent('Registration.Information', () => Information, store, Provider)
+  RegisterComponent('Koe.Registration', () => Registration, store, Provider)
+  RegisterComponent('Koe.Registration.Information', () => Information, store, Provider)
   RegisterComponent('Koe.Department', () => Department, store, Provider)
   RegisterComponent('Koe.DepartmentList', () => DepartmentList, store, Provider)
 

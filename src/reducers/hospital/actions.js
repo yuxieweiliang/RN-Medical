@@ -2,9 +2,10 @@ import * as types from './actionTypes';
 import fetch from '../../utils/fetch'
 import storage from '../../utils/storage'
 import api from '../../url'
+import { changeHospital } from '../appointmentConsultation/actions'
 
 /**
- * 医护人员列表
+ * 获取医院列表
  * @returns {{type}}
  */
 export function getHospitalList() {
@@ -12,14 +13,12 @@ export function getHospitalList() {
 
   return (dispatch => {
     fetch.get(url).then(res => {
-      console.log('hospital: ', res)
+      // console.log('hospital: ', res)
       if(res) {
-        dispatch({type: types.HOSPITAL_LIST, data: res.Data})
+        dispatch({type: types.GET_HOSPITAL_LIST, data: res.Data})
       }
     })
   })
-
-  return {type: types.LOGIN};
 }
 
 /**
@@ -31,9 +30,10 @@ export function getHospital(option) {
 
   return (dispatch => {
     fetch.get(url).then(res => {
-      console.log('hospital: ', res)
+      // console.log('hospital: ', res)
       if(res) {
-        dispatch({type: types.HOSPITAL_MESSAGE, data: res.Data})
+        // dispatch({type: types.CHANGE_HOSPITAL_MESSAGE, data: res.Data})
+        dispatch(changeHospital(res.Data))
       }
     })
   })

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Text, FlatList, TextInput, View, Dimensions } from 'react-native';
+import { Container, Content, List, Item, Left, Right, Tab, Tabs, Card, CardItem, Row, Col, Icon } from 'native-base';
 import styles from './style'
 import { connect } from 'react-redux'
-import { getRegistration, postRegistration } from '../../../reducers/registration/actions'
-import Card from '../../../components/Card'
 import Button from '../../../components/Button'
 import ListInput from '../../../components/ListInput'
+import { postRegistration } from '../../../reducers/appointmentConsultation/actions'
 import behavior from './behavior'
 
 
@@ -15,13 +15,26 @@ const { width, height } = Dimensions.get('window')
 class RegistrationInformation extends React.Component {
   componentWillMount() {
     const { dispatch } = this.props
-    dispatch(getRegistration({start: '2018-05-18 00:00', end: '2018-05-29 23:59'}))
+    // dispatch(getRegistration({start: '2018-05-18 00:00', end: '2018-05-29 23:59'}))
   }
   componentWillUnmount() { }
 
   registration() {
-    let { user, expert, dispatch } = this.props
-    // dispatch(postRegistration())
+    let { appointTime, user, hospital, department, expert } = this.props
+    if(!appointTime) {
+      alert('请选择预约时间')
+      return;
+    }
+    if(!hospital) {
+      alert('请选择医院')
+      return;
+    }
+    if(!department) {
+      alert('请选择科室')
+      return;
+    }
+
+    this.props.dispatch(postRegistration({ appointTime, user, hospital, department, expert }))
     this.props.navigator.popToRoot()
   }
   onChangeText() {
@@ -33,35 +46,40 @@ class RegistrationInformation extends React.Component {
     registration = behavior.createRegistration(expert)
 
     return (
-      <View style={styles.container}>
-        <Card title="专家信息" style={styles.registration}>
-          <FlatList
-            style={{width, marginBottom: 15}}
-            data={registration}
-            renderItem={(item) => this._renderCardItem(item)}
-          />
-        </Card>
-        <Card title="我的预约" style={styles.userMessage}>
-          <FlatList
-            keyboardShouldPersistTaps="always"
-            style={{width}}
-            data={userMessage}
-            renderItem={({ item }) => {
-              return (
-                <ListInput
-                  onChangeText={this.onChangeText}
-                  title={item.title}
-                  value={item.text}/>
-              )
-            }}
-          />
-        </Card>
-        <View style={{padding: 10}}>
-          <Button style={{borderRadius: 4}}
-            onPress={() => this.registration()}
-            text="预约"/>
-        </View>
-      </View>
+      <Container style={{backgroundColor: '#fafafa'}}>
+        <Content>
+          <Card style={styles.registration}>
+            <CardItem><Text>专家信息</Text></CardItem>
+            <FlatList
+              style={{width, marginBottom: 15}}
+              data={registration}
+              renderItem={(item) => this._renderCardItem(item)}
+            />
+          </Card>
+          <Card style={styles.userMessage}>
+            <CardItem><Text>我的预约</Text></CardItem>
+            <FlatList
+              keyboardShouldPersistTaps="always"
+              style={{width}}
+              data={userMessage}
+              renderItem={({ item }) => {
+                return (
+                  <ListInput
+                    onChangeText={this.onChangeText}
+                    title={item.title}
+                    value={item.text}/>
+                )
+              }}
+            />
+          </Card>
+          <View style={{padding: 10}}>
+            <Button style={{borderRadius: 4}}
+                    onPress={() => this.registration()}
+                    text="预约"/>
+          </View>
+        </Content>
+
+      </Container>
     );
   }
 
@@ -75,7 +93,7 @@ class RegistrationInformation extends React.Component {
       </View>
     )
   }
-  _renderItem(option) {
+ /* _renderItem(option) {
 
     return (
       <View style={styles.list}>
@@ -91,11 +109,11 @@ class RegistrationInformation extends React.Component {
         </View>
       </View>
     )
-  }
+  }*/
 }
 
 export default connect(state => ({
   ...state.user,
-  ...state.registration,
+  ...state.appointmentConsultation,
 }))(RegistrationInformation)
 

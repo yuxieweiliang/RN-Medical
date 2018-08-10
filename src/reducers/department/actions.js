@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import fetch from '../../utils/fetch'
 import storage from '../../utils/storage'
 import { createParams } from '../../utils'
+import { changeDepartment } from '../appointmentConsultation/actions'
 import api from '../../url'
 
 
@@ -19,10 +20,7 @@ export function getDepartment(option) {
         console.log(res)
 
         if(res) {
-          dispatch({
-            type: types.DEPARTMENT_MESSAGE,
-            data: res.Data
-          })
+          dispatch(changeDepartment(res.Data))
         }
       })
   })
@@ -43,12 +41,10 @@ export function getDepartmentList(option) {
 
         if(res) {
           dispatch({
-            type: types.DEPARTMENT_LIST,
+            type: types.GET_DEPARTMENT_LIST,
             data: res.Data
           })
         }
       })
   })
 }
-
-

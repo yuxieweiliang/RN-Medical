@@ -7,8 +7,7 @@ import user from './user/reducer';
 import expert from './expert/reducer';
 import sign from './sign/reducer';
 import hospital from './hospital/reducer';
-import consult from './consult/reducer'
-import registration from './registration/reducer'
+import appointmentConsultation from './appointmentConsultation/reducer'
 import department from './department/reducer'
 
 
@@ -19,8 +18,7 @@ const reducer = combineReducers({
   expert,
   hospital,
   sign,
-  consult,
-  registration,
+  appointmentConsultation,
   department,
 });
 

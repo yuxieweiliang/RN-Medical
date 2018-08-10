@@ -20,7 +20,7 @@ const func = {
   /**
    * 填写体征信息
    */
-  SIGN_ITEM_CHANGE(state, action) {
+  [types.SIGN_ITEM_CHANGE](state, action) {
     return state.merge({
       sign: {
         ...state.sign,

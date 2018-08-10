@@ -2,21 +2,18 @@ import * as types from './actionTypes';
 import Immutable from 'seamless-immutable';
 
 const initialState = Immutable({
-  expert: null,
   expertList: null,
 });
 
 const func = {
-  [types.EXPERT_MESSAGE](state, action) {
-    return state.merge({
-      expert: action.data
-    });
-  },
-  [types.EXPERT_LIST](state, action) {
+
+  // 获取专家列表
+  [types.GET_EXPERT_LIST](state, action) {
     return state.merge({
       expertList: action.data
     });
   },
+
 }
 
 

@@ -64,18 +64,18 @@ export default class App extends Component {
           Icon.getImageSource('calendar-check-o', 24),
           Icon.getImageSource('phone', 24),
           Icon.getImageSource('user', 24),
-          Icon.getImageSource('bars', 24),
-          Icon.getImageSource('plus', 24),
-          Icon.getImageSource('search', 24),
+          // Icon.getImageSource('bars', 24),
+          // Icon.getImageSource('plus', 24),
+          // Icon.getImageSource('search', 24),
         ]
       ).then((values) => {
         icon.home = values[0];
         icon.consult = values[1];
         icon.registration = values[2];
         icon.user = values[3];
-        icon.bars = values[4];
-        icon.plus = values[5];
-        icon.search = values[6];
+        // icon.bars = values[4];
+        // icon.plus = values[5];
+        // icon.search = values[6];
         resolve(true);
       }).catch((error) => {
         console.log(error);
@@ -121,44 +121,29 @@ export default class App extends Component {
           tabs: [
             {
               label: '主页',
-              screen: 'Koe.HistoryMedical', // Koe.AppHome HistoryMedical SearchView User
+              screen: 'Koe.User.UserMessages', // AppHome Consult
               icon: icon.home,
-              // title: "主页",
               navigatorStyle: {
                 navBarHidden: true
               },
-
-              leftButtons: [
-                {
-                  id: 'search',
-                  icon: icon.user,
-                  // icon: require('../assets/images/a3.jpg')
-                  },
-              ],
             },
             {
               label: '预约',
-              screen: 'Registration',
+              screen: 'Koe.Registration',
               icon: icon.registration,
               title: '预约挂号',
-              // rightButtons: [{ id: 'account', icon: icon.bars }],
             },
             {
               label: '咨询',
               screen: 'Koe.Consult',
               icon: icon.consult,
               title: '咨询',
-              // rightButtons: [{ id: 'account', icon: icon.bars }],
-
             },
             {
               label: '我的',
-              screen: 'User', // this is a registered name for a screen
+              screen: 'Koe.User',
               icon: icon.user,
               title: "用户中心",
-              /*rightButtons: [
-               { id: 'user', icon: icon.plus }
-               ]*/
             },
           ],
           // animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
@@ -201,7 +186,7 @@ export default class App extends Component {
           }
         });
         break;
-      case 'video-chat':
+      case 'video-chat': // 视频通话
         Navigation.startSingleScreenApp({
           screen: {
             screen: 'Koe.Consult',
@@ -211,6 +196,27 @@ export default class App extends Component {
           }
         });
         break;
+      case 'UserMessages':
+        Navigation.startSingleScreenApp({
+          screen: {
+            screen: 'Koe.User.UserMessages',
+            navigatorStyle: {
+              navBarHidden: true,
+            },
+          }
+        });
+        break;
+      case 'DiseaseSpecies': // 关注病种 DiseaseSpecies
+        Navigation.startSingleScreenApp({
+          screen: {
+            screen: 'Koe.DiseaseSpecies',
+            navigatorStyle: {
+              navBarHidden: true,
+            },
+          }
+        });
+        break;
+
       default:
         this.startApp('login')
     }

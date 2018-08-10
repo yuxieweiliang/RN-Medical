@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, ImageBackground, Image, StatusBar, StyleSheet, Dimensions} from 'react-native';
 import { Container, Content, Button, Icon, Text, Item, Left, Right, Input, Label } from 'native-base';
-
 import { connect } from 'react-redux'
 import { getUser } from '../reducers/user/actions'
 import { login } from '../reducers/app/actions'

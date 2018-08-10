@@ -20,9 +20,12 @@ class UserPage extends React.Component {
       })*/
   }
 
-  navigate(router) {
+  navigate(router, title) {
 
-    this.props.navigator.push({screen: `Koe.${router}`})
+    this.props.navigator.push({
+      screen: `Koe.${router}`,
+      title
+    })
   }
   render() {
     const { user } = this.props
@@ -57,13 +60,13 @@ class UserPage extends React.Component {
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('Examination')}
+              onPress={() => this.navigate('Examination', '检查')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon
-                  type="EvilIcons"
-                  name="user"
-                  style={{fontSize: 30}}
+                  type="FontAwesome"
+                  name="stethoscope"
+                  style={{fontSize: 20}}
                 />
                 <Text style={styles.listItemLeftText}>检查</Text>
               </Left>
@@ -71,13 +74,13 @@ class UserPage extends React.Component {
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('Follow')}
+              onPress={() => this.navigate('Follow', '关注')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon
-                  type="EvilIcons"
-                  name="user"
-                  style={{fontSize: 30}}
+                  type="FontAwesome"
+                  name="heart-o"
+                  style={{fontSize: 20}}
                 />
                 <Text style={styles.listItemLeftText}>关注</Text>
               </Left>
@@ -85,13 +88,13 @@ class UserPage extends React.Component {
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('MyRegistration')}
+              onPress={() => this.navigate('MyRegistration', '预约')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon
-                  type="EvilIcons"
-                  name="user"
-                  style={{fontSize: 30}}
+                  type="Ionicons"
+                  name="time"
+                  style={{fontSize: 24}}
                 />
                 <Text style={styles.listItemLeftText}>预约</Text>
               </Left>
@@ -99,13 +102,13 @@ class UserPage extends React.Component {
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('Record')}
+              onPress={() => this.navigate('Record', '记录')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon
-                  type="EvilIcons"
-                  name="user"
-                  style={{fontSize: 30}}
+                  type="FontAwesome"
+                  name="hourglass-1"
+                  style={{fontSize: 20}}
                 />
                 <Text style={styles.listItemLeftText}>记录</Text>
               </Left>
@@ -117,9 +120,9 @@ class UserPage extends React.Component {
             >
               <Left style={styles.listItemLeft}>
                 <Icon
-                  type="EvilIcons"
-                  name="user"
-                  style={{fontSize: 30}}
+                  type="FontAwesome"
+                  name="share-alt"
+                  style={{fontSize: 20}}
                 />
                 <Text style={styles.listItemLeftText}>推荐[智护康]给好友</Text>
               </Left>

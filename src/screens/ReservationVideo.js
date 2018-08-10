@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, View, TouchableNativeFeedback, StyleSheet, Dimensions } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet, NativeAppEventEmitter, Dimensions } from 'react-native';
+import { Container, Content, List, Item, Left, Right, Tab, Tabs, Card, CardItem, Col, Icon } from 'native-base';
 import { typeOf } from '../utils'
-import Card from '../components/Card'
+import {  } from '../reducers/hospital/actions'
+import { getExportList } from '../reducers/expert/actions'
+import {NimFriend, NimUtils, NimSession} from 'react-native-netease-im';
+import { addFriendNetEase } from '../reducers/app/actions'
+import {
+  // 更换 病种
+  diseaseSpeciesChange,
+  // 更换 身体部位
+  bodyPositionChange,
+  // 更换 症状
+  symptomChange,
+  // 更换 病理病程
+  pathologicalCourseChange,
+  // 更换 并发症
+  complicationChange,
+  // 更换 专家
+  changeExpert,
+// 更换 医院
+  changeHospital
+} from '../reducers/appointmentConsultation/actions'
 
 const { width, height } = Dimensions.get('window');
 
-const ConsultItem = ({itemTitle, itemName, onPress}) => (
-  <TouchableNativeFeedback
+/*const ConsultItem = ({itemTitle, itemName, onPress}) => (
+  <TouchableOpacity
     title="Go to Details"
     onPress={onPress}
   >
@@ -15,8 +35,8 @@ const ConsultItem = ({itemTitle, itemName, onPress}) => (
       <Text style={{flex:1}}>{itemName}</Text>
       <Text>》</Text>
     </View>
-  </TouchableNativeFeedback>
-)
+  </TouchableOpacity>
+)*/
 
 const PathologicalCardItem = ({itemTitle, itemName}) => {
   let ItemContent = null
@@ -28,6 +48,7 @@ const PathologicalCardItem = ({itemTitle, itemName}) => {
     </View>
   )
 
+  console.log(typeOf(itemName, 'array'), itemName)
   if(itemName) {
     ItemContent = typeOf(itemName, 'array')
       ? itemName.map((item, key) => createItem(itemName, key))
@@ -53,50 +74,192 @@ export default class ReservationVideo extends Component {
       selected: null,
     }
   }
-  componentWillMount() {}
-  componentDidMount() {}
-  componentWillUnmount() {}
-  onPressItem(router) {
+  componentWillMount() {
+    const { dispatch } = this.props
+
+    NimFriend.startFriendList();
+    dispatch(getExportList({hospitalId: 1001, deptCode: '001'}))
+  }
+  componentDidMount() {
+    this.friendListener = NativeAppEventEmitter.addListener("observeFriend",(data)=>{
+
+      console.log("observeFriend", data)
+    });
+  }
+  componentWillUnmount() {
+    NimFriend.stopFriendList();
+    this.friendListener && this.friendListener.remove();
+  }
+
+  /**
+   * 更换医院
+   */
+  onPressHospital() {
     let { navigator } = this.props
     navigator.push({
-      screen: router,
+      screen: `Koe.HospitalList`,
       passProps: {
-        router: 'pop'
+        onClose: (option) => {
+          this.props.dispatch(changeHospital(option))
+          this.props.navigator.pop()
+        },
       }})
   }
 
+  /**
+   * 更换病种
+   */
+  onPressDiseaseSpecies() {
+    let { navigator } = this.props
+    navigator.push({
+      screen: `Koe.DiseaseSpeciesList`,
+      passProps: {
+        onClose: (option) => {
+          this.props.dispatch(diseaseSpeciesChange(option))
+          this.props.navigator.pop()
+        },
+      }})
+  }
+
+  /**
+   * 更换专家
+   */
+  onPressExpert() {
+    let { navigator, user } = this.props
+    navigator.push({
+      screen: `Koe.ExpertList`,
+      passProps: {
+        onClose: (option) => {
+          const self = user.UserID
+          const friend = option.UserID
+
+          // 添加好友
+          addFriendNetEase(self, friend)
+            .then(res => {
+              if(res.code === 200) {
+                // 添加好友成功，修改专家信息
+                dispatch(changeExpert(data))
+
+              }
+            })
+          this.props.dispatch(changeExpert(option))
+          this.props.navigator.pop()
+        },
+      }})
+  }
+
+
+  onPressSymptom() {
+      this.props.navigator.push({
+      screen: `Koe.BodyPosition`,
+        title: '部位',
+      passProps: {
+        onClose: (option) => {
+
+          this.props.dispatch(bodyPositionChange(option))
+          this.props.navigator.pop()
+          this._routerToSymptomList() // ↓↓↓
+        },
+      }})
+  }
+
+  /**
+   * 跳转到 症状
+   * @private
+   */
+  _routerToSymptomList() {
+
+    this.props.navigator.push({
+      screen: 'Koe.SymptomList',
+      title: '症状',
+      passProps: {
+        onClose: (option) => {
+
+          this.props.dispatch(symptomChange(option))
+          this.props.navigator.pop()
+          this._routerToPathologicalCourseList() // ↓↓↓
+        },
+      }
+    })
+  }
+
+  /**
+   * 跳转到 病理病程
+   * @private
+   */
+  _routerToPathologicalCourseList() {
+
+    this.props.navigator.push({
+      screen: 'Koe.PathologicalCourseList',
+      title: '病理病程',
+      passProps: {
+        onClose: (option) => {
+          this.props.dispatch(pathologicalCourseChange(option))
+          this.props.navigator.pop()
+          this._routerToComplication() // ↓↓↓
+        },
+      }
+    })
+  }
+
+  /**
+   * 跳转到 并发症
+   * @private
+   */
+  _routerToComplication() {
+
+    this.props.navigator.push({
+      screen: 'Koe.Complication',
+      title: '并发症',
+      passProps: {
+        onClose: (option) => {
+          this.props.dispatch(complicationChange(option))
+          this.props.navigator.pop()
+        },
+      }
+    })
+  }
   render() {
-    let { complication, symptom, position,
-      pathological, hospital, expert, illness } = this.props
+    let { complication, symptom, bodyPosition,
+      pathologicalCourse, hospital, expert, diseaseSpecies } = this.props
 
 
     return(
-      <View>
-        <ConsultItem
-          itemTitle="医院"
-          itemName={hospital && hospital.MerchantName}
-          onPress={() => this.onPressItem('Koe.HospitalList')}
-        />
-        <ConsultItem
-          itemTitle="病种"
-          itemName={illness && illness.Illness_Name}
-          onPress={() => this.onPressItem('Koe.IllnessTypeList')}
-        />
-        <ConsultItem
-          itemTitle="专家"
-          itemName={expert && expert.UserName}
-          onPress={() => this.onPressItem('Koe.ExpertList')}
-        />
-        <Card title="症状"
-              onPress={() => this.onPressItem('Koe.BodyParts')}
-              style={styles.listChildCard}>
-          <TouchableHighlight
-            onPress={() => this.onPressItem('Koe.BodyParts')}>
+      <Content>
+        <List>
+          <Item style={styles.listItem} onPress={() => this.onPressHospital()}>
+            <Left style={{flexDirection: 'row'}}>
+              <Text>医院：</Text>
+              <Text style={{marginLeft: 10}}>{hospital && hospital.MerchantName}</Text>
+            </Left>
+            <Right><Icon name="chevron-right" type="EvilIcons"/></Right>
+          </Item>
+          <Item style={styles.listItem} onPress={() => this.onPressDiseaseSpecies()}>
+            <Left style={{flexDirection: 'row'}}>
+              <Text>病种：</Text>
+              <Text style={{marginLeft: 10}}>{diseaseSpecies && diseaseSpecies.Illness_Name}</Text>
+            </Left>
+            <Right><Icon name="chevron-right" type="EvilIcons"/></Right>
+          </Item>
+          <Item style={styles.listItem} onPress={() => this.onPressExpert()}>
+            <Left style={{flexDirection: 'row'}}>
+              <Text>专家：</Text>
+              <Text style={{marginLeft: 10}}>{expert && expert.UserName}</Text>
+            </Left>
+            <Right><Icon name="chevron-right" type="EvilIcons"/></Right>
+          </Item>
+        </List>
+        <Card style={styles.listChildCard}>
+          <CardItem>
+            <Text>症状</Text>
+          </CardItem>
+          <TouchableOpacity
+            onPress={() => this.onPressSymptom()}>
             <View style={{padding: 15}}>
 
               <PathologicalCardItem
                 itemTitle="身体部位"
-                itemName={position && position.ItemName}
+                itemName={bodyPosition && bodyPosition.ItemName}
               />
               <PathologicalCardItem
                 itemTitle="状态症状"
@@ -104,16 +267,16 @@ export default class ReservationVideo extends Component {
               />
               <PathologicalCardItem
                 itemTitle="病例病程"
-                itemName={complication && complication.ItemName}
+                itemName={pathologicalCourse && pathologicalCourse.ItemName}
               />
               <PathologicalCardItem
                 itemTitle="并发症状"
-                itemName={pathological && pathological.ItemName}
+                itemName={complication && complication.ItemName}
               />
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </Card>
-      </View>
+      </Content>
     )
   }
 }

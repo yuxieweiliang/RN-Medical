@@ -2,17 +2,12 @@ import * as types from './actionTypes';
 import Immutable from 'seamless-immutable';
 
 const initialState = Immutable({
-  message: null,
   hospitalList: null,
 });
 
 const func = {
-  [types.HOSPITAL_MESSAGE](state, action) {
-    return state.merge({
-      message: action.data
-    });
-  },
-  [types.HOSPITAL_LIST](state, action) {
+  // 获取医院列表
+  [types.GET_HOSPITAL_LIST](state, action) {
     return state.merge({
       hospitalList: action.data
     });

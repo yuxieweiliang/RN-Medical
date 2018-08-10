@@ -19,10 +19,10 @@ export function getUser() {
     let user = await storage.getItem(`user.${tokenData.UserID}`)
 
     if(!user) {
-      await fetch.get(url).then(res => {
+      user = await fetch.get(url).then(res => {
         console.log(res)
-        user = res.Data
 
+        return res.Data
       })
     }
 
@@ -108,21 +108,48 @@ export function paperList(body) {
 
 
 /**
- * 健康日报列表
+ * 用户随访
  * start
  * offSet
  * number
  * @returns {{type}}
  */
-export function healthDaily(body) {
-  let url = api.getListByUser({start: '2018-06-06', offSet: '2018-08-08', number: 30})
+export function getPaperDetail(option) {
+  let url = api.getPaperDetail(option)
 
   return (async dispatch => {
 
-    if(0 === 0) {
-      return;
-    }
-    fetch.get(url, { body }).then(res => {
+    fetch.get(url).then(res => {
+
+      console.log('****************||||||||||| ', res)
+      // 如果失败
+      if(res.ok === false) {
+        return false
+      }
+
+      // 保存成功
+      dispatch({type: types.SAVE_USER_MESSAGE_SUCCESS})
+      return true
+    })
+  })
+}
+
+
+/**
+ * 根据 类型 获取报表
+ * start
+ * offSet
+ * number
+ * @returns {{type}}
+ */
+export function getTemplateByType(option) {
+  let url = api.getTemplateByType(option)
+
+  return (async dispatch => {
+
+    fetch.get(url).then(res => {
+
+      console.log('****************||||||||||| ', res)
       // 如果失败
       if(res.ok === false) {
         return false

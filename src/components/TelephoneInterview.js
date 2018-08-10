@@ -43,9 +43,9 @@ export default class TelephoneInterview extends React.Component {
         </View>
         <Right style={styles.right}>
           {
-            problem && problem.map(item => {
+            problem && problem.map((item, key) => {
               return (
-                <View style={styles.badge}>
+                <View style={styles.badge} key={key}>
                   <Text style={{fontSize: 14}}>{item}</Text>
                 </View>
               )
@@ -70,9 +70,9 @@ export default class TelephoneInterview extends React.Component {
           width: '100%'
         }}>
           {
-            guidance && guidance.map(item => {
+            guidance && guidance.map((item, key)  => {
               return (
-                <View style={styles.rightItemContent}>
+                <View style={styles.rightItemContent} key={key}>
                   <View style={styles.rightItem}/>
                   <Text style={{fontSize: 14}}>
                     { item }

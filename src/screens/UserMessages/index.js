@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Image, ScrollView,  KeyboardAvoidingView, Keyboard } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import {  TextInput, View, Image, ScrollView,  KeyboardAvoidingView, Keyboard, findNodeHandle } from 'react-native';
+import { Container, Content, Button, Icon, Text, Item, Input, Left, Right, Label } from 'native-base';
 import { connect } from 'react-redux'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import behavior from './behavior'
 import { postUser } from '../../reducers/user/actions'
 import styles from './style'
@@ -34,7 +35,7 @@ const InputList = ({title, onChangeText, value, placeholder, isRequest, onFocus,
 class UserMessagePage extends Component {
   constructor(props) {
     super(props)
-    Icon.getImageSource('plus', 24).then(res => {
+    /*Icon.getImageSource('plus', 24).then(res => {
 
       // 添加 保存 按钮
       this.props.navigator.setButtons({
@@ -49,7 +50,7 @@ class UserMessagePage extends Component {
       this.props.navigator.setOnNavigatorEvent(
         this.onNavigatorEvent.bind(this)
       );
-    });
+    });*/
   }
 
   /**
@@ -90,6 +91,10 @@ class UserMessagePage extends Component {
         animated: false
       })
     })
+    this.scroll.scrollTo({
+      x:0,
+      y: 0
+    })
   }
 
   /**
@@ -121,47 +126,63 @@ class UserMessagePage extends Component {
       animated: false
     })
   }
+  _scrollToInput (reactNode: any) {
+    // Add a 'scroll' ref to your ScrollView
 
+    // console.log(this.scroll, reactNode)
+    this.scroll.scrollTo({
+      x:0,
+      y: reactNode
+    })
+  }
   render() {
-    const { user = {} } = this.props
+    const { user } = this.props
     const userStructure = behavior.createStructure(user)
 
-    return (
-      <KeyboardAvoidingView
-        behavior="padding">
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          onScroll={(e) => console.log(e.nativeEvent)}>
 
-          <View
-            title="Go to Details"
-            onPress={() => this.props.navigation.goBack()}
-          >
+    return (
+      <Container
+        behavior="padding">
+
+        <KeyboardAwareScrollView
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          scrollEnabled={false} // 不允许用户滑动
+          innerRef={ref => {this.scroll = ref}}
+          onKeyboardWillShow={(frames: Object) => {
+            console.log('Keyboard event', frames)
+          }}
+        >
+          <View>
             <View style={styles.userCard}>
               <Image
                 style={{width: 60, height: 60, borderRadius: 30}}
                 source={require('../../../assets/images/a1.jpg')}/>
-              <Text style={styles.label}>{user.UserName}</Text>
+              <Text style={styles.label}>{user && user.UserName}</Text>
             </View>
           </View>
           {
             userStructure && (
               userStructure.map((items, key) => {
+                console.log(items.key)
                 return (
-                  <InputList
-                    key={items.key+ key}
-                    onFocus={this.inputFocus.bind(this)}
+                <Item key={items.key+ key} style={{paddingLeft: 10, paddingRight: 10}}>
+                  <Text style={{width: 100}}>{items.title}：</Text>
+                  <Input
+                    style={{flex: 1}}
+                    onFocus={(event: Event) => this._scrollToInput(findNodeHandle(event.target))}
                     title={items.title}
                     value={items.value}
                     onChangeText={(text) => this.onChangeText(text, key)}
                     placeholder="请输入"
                   />
+                </Item>
+
                 )
               })
             )
           }
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
+      </Container>
     );
   }
 }

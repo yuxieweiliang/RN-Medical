@@ -20,7 +20,7 @@ class DrawerLeft extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        <TouchableOpacity onPress={() => this.router('Koe.UserMessages')}>
+        <TouchableOpacity onPress={() => this.router('Koe.User.UserMessages')}>
           <ImageBackground
             style={styles.headerBackgroundImage}
             source={require('../../../assets/images/a8.jpg')}
