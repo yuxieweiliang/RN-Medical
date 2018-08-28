@@ -90,6 +90,7 @@ class Register extends Component<Props> {
       return;
     }
     try {
+      // 验证验证码
       const verify = await verifySmsCode(verifyCode, username)
 
       // 验证失败
@@ -98,9 +99,9 @@ class Register extends Component<Props> {
       }
 
       // 注册账号
-      const userId = await register(username, password, password)
+      const data = await register(username, password, password)
 
-      if(!userId) {
+      if(!data) {
         ToastAndroid.show('注册失败 !', short);
       }
 
@@ -121,12 +122,12 @@ class Register extends Component<Props> {
        *    desc: "already register" // 已经注册
        * }
        */
-      const netEase  = await registerNetEase(userId)
+      const netEase  = await registerNetEase(data.userID)
 
       // this.props.dispatch({type: 'app.ROOT_CHANGED/修改Root状态', data: 'DiseaseSpecies'})
 
     } catch(error) {
-      console.log(error)
+      // console.log(error)
     }
     // this.props.navigation.goBack()
   }
@@ -138,7 +139,7 @@ class Register extends Component<Props> {
 
     /*this.props.dispatch(login('xueyufei', 'xyf.3342')).then(res => {
 
-      console.log(res)
+      // console.log(res)
       if(res) {
         this.props.dispatch(getUser()).then(res => {
           this.props.dispatch({type: 'app.ROOT_CHANGED/修改Root状态', data: 'DiseaseSpecies'})

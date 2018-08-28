@@ -26,7 +26,6 @@ class HomePage extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {}
-
     /*FontAwesomeIcon
       .getImageSource('search', 24)
       .then((values) => {
@@ -47,12 +46,12 @@ class HomePage extends Component<Props> {
           ]})
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }).catch((error) => {
-      console.log(error);
+      // console.log(error);
     });*/
   }
 
 /*  onNavigatorEvent(event) {
-    console.log(event, this.props)
+    // console.log(event, this.props)
     if (event.type === 'NavBarButtonPress') {
       // const parts = event.link.split('/');
       if (event.id === 'search') {
@@ -66,8 +65,8 @@ class HomePage extends Component<Props> {
     const { dispatch } = this.props
     // 请求健康日报
     dispatch(healthDaily({}))
-    console.log('****************|||||||||||     home page    |||||||||||****************')
-    // fetch.get('http://userdata.api.koenn.cn:81/api/Data_User_AdvicePaper_Dto/GetByPaperID/电话随访/322717145007458').then(res => console.log(res))
+    // console.log('****************|||||||||||     home page    |||||||||||****************')
+    // fetch.get('http://userdata.api.koenn.cn:81/api/Data_User_AdvicePaper_Dto/GetByPaperID/电话随访/322717145007458').then(res => // console.log(res))
 
   }
 
@@ -85,7 +84,7 @@ class HomePage extends Component<Props> {
     const { healthGuide, tabCardData={}, list }= defaultData
     const { healthIndicators, guideToLife,  healthStatus, medicalStatus }= tabCardData
     const healthList = healthDailyList && extendKey(healthDailyList)
-    console.log('defaultData: ', this.props)
+    // console.log('defaultData: ', this.props)
 
     return (
       <Container style={styles.container}>
@@ -122,31 +121,6 @@ class HomePage extends Component<Props> {
               renderTabBar={()=> <ScrollableTab tabStyle={{color: 'red'}}/>}
               >
 
-
-              {/*  健康日报  */}
-              <Tab heading="健康日报">
-                <Content style={{  backgroundColor: '#eee', paddingLeft: 5, paddingRight: 5}}>
-                  {
-                    healthList && (
-                      <FlatList
-                        data={healthList}
-                        renderItem={(item) => {
-                          console.log(item)
-                          return (
-                            <HealthDaily
-                              item={item}
-                              onPress={() => navigator.push({
-                                screen: 'Koe.HealthDailyDetails',
-                                title: '健康日报'
-                              })}/>
-                          )
-                        }}
-                      />
-                    )
-                  }
-                </Content>
-              </Tab>
-
               <Tab heading="健康状况">
                 <SignTrend
                   style={styles.tabItemStyle}/>
@@ -171,6 +145,31 @@ class HomePage extends Component<Props> {
               </Tab>
 
 
+
+
+              {/*  健康日报  */}
+              {/*<Tab heading="健康日报">
+               <Content style={{  backgroundColor: '#eee', paddingLeft: 5, paddingRight: 5}}>
+               {
+               healthList && (
+               <FlatList
+               data={healthList}
+               renderItem={(item) => {
+               // console.log(item)
+               return (
+               <HealthDaily
+               item={item}
+               onPress={() => navigator.push({
+               screen: 'Koe.HealthDailyDetails',
+               title: '健康日报'
+               })}/>
+               )
+               }}
+               />
+               )
+               }
+               </Content>
+               </Tab>*/}
             </Tabs>
 
           </View>

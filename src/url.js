@@ -45,7 +45,9 @@ const registration = {
 const hos = `${system}/api/Sys_User_Info/`
 const hospitalUser = {
   // 医护人员列表
-  getDepartmentDoctorList: createApi(`${hos}/GetByDeptCode/{hospitalId}/{deptCode}`),
+  getDoctorList: createApi(`${hos}/Get/{hospitalId}`),
+  // 医护人员列表
+  getDeptDoctorList: createApi(`${hos}/GetByDeptCode/{hospitalId}/{deptCode}`),
   // 专家详细信息
   getExpert: createApi(`${hos}/Get/{hospitalId}/{userId}`),
 }
@@ -166,7 +168,7 @@ export default {
 
 
   // 上传用户头像文件，一次上传一个，返回文件名
-  postHeadPortrait: createApi(`${file}/api/UserMainImages/UploadUserHead`),
+  postUserPortrait: createApi(`${file}/api/UserMainImages/UploadUserHead`),
   // 下载文件，文件流的方式输出
   getFile: createApi(`${file}/api/UserMainImages/DownLoad/{fileName}`),
   // Ajax上传文件,支持批量上传，返回文件名列表

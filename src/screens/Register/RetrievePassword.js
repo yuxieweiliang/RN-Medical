@@ -92,7 +92,7 @@ class Register extends Component<Props> {
       this.setState({verifyPhone: true})
 
     } catch(error) {
-      console.log(error)
+      // console.log(error)
     }
     // this.props.navigation.goBack()
   }

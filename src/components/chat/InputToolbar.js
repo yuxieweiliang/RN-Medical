@@ -225,7 +225,7 @@ export default class InputToolbar extends React.Component {
     }
 
     handleLocationClick() {
-        console.log("locaiton click");
+        // console.log("locaiton click");
 
         this.setState({
             isEmoji: false,
@@ -416,7 +416,7 @@ export default class InputToolbar extends React.Component {
     handleLayout(e) {
 
         this.refs.record.measure((x, y, w, h, px, py) => {
-            console.log("record measure:", x, y, w, h, px, py);
+            // console.log("record measure:", x, y, w, h, px, py);
             this.recordPageX = px;
             this.recordPageY = py;
         });
@@ -462,7 +462,7 @@ export default class InputToolbar extends React.Component {
             },
             onResponderTerminationRequest: (evt) => true,
             onResponderTerminate: (evt) => {
-                console.log("responder terminate")
+                // console.log("responder terminate")
             },
 
         };

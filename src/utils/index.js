@@ -7,7 +7,7 @@
 export function typeOf(obj, target) {
   var _obj = Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
 
-  if(isNaN(obj)) {
+   if(obj !== obj) {
     _obj =  'NaN'
   }
 
@@ -55,7 +55,7 @@ export function createParams(params) {
       string += `${key}=${params[key]}&`
     }
   } else {
-    console.log('params is no string or object')
+    // console.log('params is no string or object')
   }
   return string.substring(0, string.length -1)
 }

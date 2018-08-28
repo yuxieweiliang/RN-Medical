@@ -75,7 +75,7 @@ export default class LocationPicker extends React.Component {
     componentWillMount() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                console.log("current postion:",
+                // console.log("current postion:",
                             position.coords.longitude,
                             position.coords.latitude);
 
@@ -96,7 +96,7 @@ export default class LocationPicker extends React.Component {
     }
     
     onRegionChange(region) {
-        console.log("region postion:",
+        // console.log("region postion:",
                     region.longitude,
                     region.latitude);
         this.setState({region:region, title:"", description:""});
@@ -105,7 +105,7 @@ export default class LocationPicker extends React.Component {
     }
 
     onRegionChangeComplete(region) {
-        console.log("region change complete:",
+        // console.log("region change complete:",
                     region.longitude,
                     region.latitude);
         this.setState({region:region, title:"", description:""});
@@ -113,9 +113,9 @@ export default class LocationPicker extends React.Component {
         var location = {lat:region.latitude, lng:region.longitude};
         Geocoder.geocodePosition(location)
                 .then((res) => {
-                    console.log("geocode position:", res);
+                    // console.log("geocode position:", res);
                     if (res.length > 0) {
-                        console.log("location addresses:", res[0].formattedAddress, res[0]);
+                        // console.log("location addresses:", res[0].formattedAddress, res[0]);
                         if (this.state.region.longitude == location.lng &&
                             this.state.region.latitude == location.lat) {
                             this.setState({title:res[0].streetName,
@@ -125,7 +125,7 @@ export default class LocationPicker extends React.Component {
                     }
                 })
                 .catch(err => {
-                    console.log("geocode error:", err);
+                    // console.log("geocode error:", err);
                 })
     }
     
@@ -142,7 +142,7 @@ export default class LocationPicker extends React.Component {
                 </View>
             );
         } else {
-            console.log("render region:",
+            // console.log("render region:",
                         region.longitude,
                         region.latitude);
             return (

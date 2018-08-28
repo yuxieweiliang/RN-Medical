@@ -10,7 +10,7 @@ let { TELEPHONE_BEFORE, TELEPHONE_SUCCESS, TELEPHONE_FAIL } = USER
  */
 function interview(option) {
 
-  console.log('电话访谈数据');
+  // console.log('电话访谈数据');
 
   return dispatch => {
 
@@ -19,10 +19,10 @@ function interview(option) {
     storage.load('token', option)
       .then(res => {
         if(res) {
-          console.log('登录成功');
+          // console.log('登录成功');
           dispatch({ type: TELEPHONE_SUCCESS, data: res })
         } else {
-          console.log('登录失败');
+          // console.log('登录失败');
           dispatch({ type: TELEPHONE_FAIL })
         }
         return res

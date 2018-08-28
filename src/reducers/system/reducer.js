@@ -17,6 +17,10 @@ const initialState = Immutable({
   pathologicalCourseList: null,
   // 并发症
   complicationList: null,
+  // 健康日报
+  healthDailyList: null,
+  // 健康数据
+  healthIndicatorsList: null,
 });
 
 const func = {
@@ -65,6 +69,50 @@ const func = {
   [types.HEALTH_DAILY_LIST](state, action) {
     return state.merge({
       healthDailyList: action.data
+    });
+  },
+
+  // 健康数据
+  [types.GET_HEALTH_INDICATOR_LIST](state, action) {
+    return state.merge({
+      healthIndicatorsList: action.data
+    });
+  },
+
+  // 修改健康数据
+  [types.CHANGE_SUITABLE_LIST](state, action) {
+    let { suitable, taboo } = state.healthIndicatorsList
+
+    const option = suitable.map(item => {
+        if(item.category === action.item.category) {
+          return {...item, value: action.value}
+        } else return item
+      })
+
+    // console.log(action)
+    return state.merge({
+      healthIndicatorsList: {
+        taboo,
+        suitable: option
+      }
+    });
+  },
+
+  // 修改健康数据
+  [types.CHANGE_TABOO_LIST](state, action) {
+    let { suitable, taboo } = state.healthIndicatorsList
+
+    const option = taboo.map(item => {
+      if(item.category === action.item.category) {
+        return {...item, value: action.value}
+      } else return item
+    })
+
+    return state.merge({
+      healthIndicatorsList: {
+        taboo: option,
+        suitable
+      }
     });
   },
 }

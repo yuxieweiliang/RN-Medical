@@ -78,7 +78,7 @@ export default class App extends Component {
         // icon.search = values[6];
         resolve(true);
       }).catch((error) => {
-        console.log(error);
+        // console.log(error);
         reject(error);
       }).done();
     });
@@ -116,12 +116,12 @@ export default class App extends Component {
           }
         });
         break;
-      case 'home':
+      case 'app':
         Navigation.startTabBasedApp({
           tabs: [
             {
               label: '主页',
-              screen: 'Koe.User.UserMessages', // AppHome Consult
+              screen: 'Koe.AppHome', // AppHome Consult 'Koe.User.UserMessages
               icon: icon.home,
               navigatorStyle: {
                 navBarHidden: true
@@ -190,6 +190,16 @@ export default class App extends Component {
         Navigation.startSingleScreenApp({
           screen: {
             screen: 'Koe.Consult',
+            navigatorStyle: {
+              navBarHidden: true,
+            },
+          }
+        });
+        break;
+      case 'InterrogationVideo': // 视频通话
+        Navigation.startSingleScreenApp({
+          screen: {
+            screen: 'Koe.InterrogationVideo',
             navigatorStyle: {
               navBarHidden: true,
             },

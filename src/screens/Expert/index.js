@@ -24,7 +24,7 @@ class ExpertHome extends Component {
   componentWillMount() {
     let { dispatch, expert, token } = this.props
     let UserID = expert.UserID
-    console.log(expert)
+    // console.log(expert)
 
     getExpert({hospitalId: 1001, userId: UserID})
   }

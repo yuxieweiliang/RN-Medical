@@ -11,7 +11,7 @@ let user = {
 
 function login() {
 
-  console.log('登录方法');
+  // console.log('登录方法');
 
   return dispatch => {
 
@@ -47,7 +47,7 @@ function isLogining() {
 
 function loginSuccess(isSuccess, user) {
 
-  console.log('success');
+  // console.log('success');
 
   return {
 
@@ -61,7 +61,7 @@ function loginSuccess(isSuccess, user) {
 
 function loginError(isSuccess) {
 
-  console.log('error');
+  // console.log('error');
 
   return {
 

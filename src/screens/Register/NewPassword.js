@@ -116,11 +116,11 @@ class Register extends Component<Props> {
       const netEase  = await registerNetEase(userId)
 
       if(!netEase) {
-        console.log('声网注册失败！')
+        // console.log('声网注册失败！')
       }
 
     } catch(error) {
-      console.log(error)
+      // console.log(error)
     }
     // this.props.navigation.goBack()
   }

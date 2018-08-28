@@ -1,3 +1,6 @@
+/**
+ * 专家列表项
+ */
 import React, { Component } from 'react';
 import { StyleSheet, Dimensions, Text, TouchableHighlight, View, Image } from 'react-native';
 import config from '../../config'

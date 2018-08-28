@@ -125,7 +125,7 @@ class Search extends Component<Props> {
   searchValue() {
     const { tag, value } = this.state
     this.setState({search: true})
-    console.log(value, tag)
+    // console.log(value, tag)
   }
   back() {
     if(this.state.back === '取消') {

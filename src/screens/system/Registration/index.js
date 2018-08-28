@@ -41,13 +41,13 @@ class Registration extends React.Component {
 
   calendarDayChange(data) {
     const {  dispatch } = this.props
-    console.log(data)
+    // console.log(data)
   }
   render() {
     let { healthGuide, registration, registrationList }= this.props
     registrationList = registrationList && registrationList.map(item => ({...item, key: item.UserName + item.ID}))
 
-    console.log(registrationList)
+    // console.log(registrationList)
     return (
       <ScrollView style={styles.container}>
         <TabCardView {...healthGuide}>

@@ -39,7 +39,7 @@ class UserPage extends React.Component {
   componentDidMount() {}
 
   componentWillMount() {
-    console.log(this.props)
+    // console.log(this.props)
     this.props.dispatch(getUser())/*.then(res => {
      // this.props.dispatch(registerForWY())
      })*/

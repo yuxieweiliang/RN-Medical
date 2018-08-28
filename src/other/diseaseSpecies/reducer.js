@@ -38,7 +38,7 @@ const func = {
   // 症状列表
   [types.SYMPTOM_LIST](state, action) {
 
-    console.log('症状列表: ', action.data)
+    // console.log('症状列表: ', action.data)
     return state.merge({
       symptomList: action.data
     });

@@ -17,7 +17,7 @@ export function getDepartment(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch(changeDepartment(res.Data))
@@ -30,14 +30,14 @@ export function getDepartment(option) {
  * 部门列表 { 获取 }
  * @returns {{type}}
  */
-export function getDepartmentList(option) {
-  let url = api.getDepartmentList(option)
+export function getDepartmentList(hospitalId) {
+  let url = api.getDepartmentList({ hospitalId })
 
   return (dispatch => {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({

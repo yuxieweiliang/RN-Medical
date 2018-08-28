@@ -61,3 +61,12 @@ export function getHospital(option) {
   return {type: types.LOGIN};
 }
  */
+
+
+
+
+
+
+
+
+

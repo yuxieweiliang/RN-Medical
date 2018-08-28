@@ -22,7 +22,7 @@ class DepartmentList extends React.Component {
   componentWillMount() {
     const { dispatch } = this.props
     // 获取科室列表
-    dispatch(getDepartmentList({hospitalId: 1001}))
+    dispatch(getDepartmentList(1001))
     // 获取默认医院
     // dispatch(getHospital({hospitalId: 1001}))
 
@@ -34,7 +34,7 @@ class DepartmentList extends React.Component {
 
     this.props.onClose(item)
 
-    console.log(item)
+    // console.log(item)
 
     /*this.props.dispatch({
       type: 'change_registration_item',
@@ -51,7 +51,7 @@ class DepartmentList extends React.Component {
     const { departmentList, hospital, navigation }= this.props
 
     const list = departmentList ? departmentList.map((item, i) => ({...item, key: item.Dept_Name+i})) : false
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <Container style={styles.container}>
         {/*<Search/>*/}

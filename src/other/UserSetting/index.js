@@ -49,7 +49,7 @@ class userSettingPage extends React.Component {
 
   render() {
     let { listData } = this.props
-    console.log(listData)
+    // console.log(listData)
     return (
       <View style={styles.container}>
         <View
@@ -75,7 +75,7 @@ class userSettingPage extends React.Component {
   }
   _renderItem({ index, item, section }) {
     let { dispatch } = this.props
-    console.log(item)
+    // console.log(item)
     return (
       <View
         title="Go to Details"

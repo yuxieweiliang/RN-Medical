@@ -132,7 +132,7 @@ class UserMessagePage extends Component {
 
         <Content
           keyboardShouldPersistTaps="handled"
-          onScroll={(e) => console.log(e.nativeEvent)}>
+          onScroll={(e) => // console.log(e.nativeEvent)}>
 
           <View
             title="Go to Details"

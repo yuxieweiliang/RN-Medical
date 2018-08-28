@@ -18,7 +18,7 @@ export function initState() {
     const symptom = await storage.getItem('symptom')
     const pathologicalCourse = await storage.getItem('pathologicalCourse')
     const complication = await storage.getItem('complication')
-    console.log('diseaseSpecies', {
+    // console.log('diseaseSpecies', {
       diseaseSpecies,
       bodyPosition,
       symptom,
@@ -64,11 +64,11 @@ export function JPushAlert(userId, expertId) {
       },
     })
 
-    console.log({ headers, body })
+    // console.log({ headers, body })
 
     return fetch.post(url, { headers, body })
       .then(res => {
-      console.log(res)
+      // console.log(res)
       return (res.ok !== false)
     })
   })

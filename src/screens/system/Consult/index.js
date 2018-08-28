@@ -35,25 +35,25 @@ class ConsultPage extends Component {
 
     // 监听自定义消息
     JPushModule.addReceiveCustomMsgListener((message) => {
-      this.setState({pushMsg: message});
-      console.log("receive customer notification000000: " + message);
+      // this.setState({pushMsg: message});
+      // console.log("receive customer notification000000: " + message);
     });
 
     // 监听通知消息
     JPushModule.addReceiveNotificationListener((message) => {
-      this.setState({clickMsg: message});
-      console.log("receive notification11111: " + message);
+      // this.setState({clickMsg: message});
+      // console.log("receive notification11111: " + message);
     })
 
     // 监听点击通知后触发的事件
     JPushModule.addReceiveOpenNotificationListener((message) => {
-      this.setState({clickMsg: message});
+      // this.setState({clickMsg: message});
 
-      this.alertHandle(message)
+      // this.alertHandle(message)
       // 跳转页面
-      this.props.dispatch(appInitialized('video-chat'));
+      this.props.dispatch(appInitialized('InterrogationVideo'));
 
-      console.log("receive notification----------: ", message);
+      // console.log("receive notification----------: ", message);
     })
 
 
@@ -65,7 +65,9 @@ class ConsultPage extends Component {
         console.info('会话列表',data)
       });
   }
-
+  alertHandle(message) {
+    console.log('ffffffffffffffff', message)
+  }
   // props更新时调用
   componentWillReceiveProps(nextProps) {
     let { user } = nextProps
@@ -73,13 +75,12 @@ class ConsultPage extends Component {
     // 设置当前用户昵称 -> { 极光推送 }
     if(user !== this.props.user) {
       JPushModule.setAlias(user.UserID, (res) => {
-        console.log('极光昵称：', res);
+        // console.log('极光昵称：', res);
       },() => {
-        console.log('fail set alias');
+        // console.log('fail set alias');
       });
     }
   }
-  componentDidMount() {}
 
   /**
    * 卸载
@@ -103,6 +104,10 @@ class ConsultPage extends Component {
     NimFriend.getUserInfo(expert.UserID)
       .then((data)=> {
 
+
+      // console.log('即时资讯: ',data)
+
+
       navigator.push({
         screen:'Koe.Chat',
         title: '咨询',
@@ -121,18 +126,20 @@ class ConsultPage extends Component {
    */
   leavingVideo() {
     const { navigator, dispatch, user, expert } = this.props
-    if(!this.state.isRegistration) {
+    /*if(!this.state.isRegistration) {
       alert('您尚未预约，请先预约！')
       return;
-    }
+    }*/
 
     // 极光推送
     dispatch(JPushAlert(user.UserID, expert.UserID)).then(res => {
+      console.log(res)
       if(res) {
+
         // 跳转到视频页面
-         navigator.push({screen: 'Koe.InterrogationVideo'})
+        navigator.push({screen: 'Koe.InterrogationVideo'})
       }
-    })
+    }).catch(err => console.log(err))
   }
   /**
   * 预约视频问诊
@@ -168,10 +175,10 @@ class ConsultPage extends Component {
             <ReservationVideo { ...this.props }/>
 
             <View style={styles.consultBtnBox}>
-              <Button
+              {/*<Button
                 onPress={this.registrationVideoInquisition.bind(this)}>
                 预约问诊
-              </Button>
+              </Button>*/}
               <Button
                 onPress={this.leavingVideo.bind(this)}
                 style={videoClass} underlayColor={videoClass.backgroundColor}>

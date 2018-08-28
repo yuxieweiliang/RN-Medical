@@ -36,11 +36,11 @@ class Login extends Component {
     const { username, password } = this.state;
 
 
-    console.log(dispatch)
+    // console.log(dispatch)
 
     dispatch(login(username, password)).then(res => {
 
-      console.log(res)
+      // console.log(res)
       if(res) {
         dispatch(getUser())
       }
@@ -61,10 +61,13 @@ class Login extends Component {
             placeholderTextColor="#fff"
             style={{color:"#fff"}}
             value={this.state.name}
+            returnKeyType='go'
+            autoFocus
+            maxLength={11}
             onChangeText={username => {
               this.setState({username});
             }}
-            placeholder='请输入用户名'
+            placeholder='手机号码'
           />
         </Item>
         <Item style={{borderBottomColor: 'rgba(255, 255, 255, .5)', borderBottomWidth: borderWidth}}>
@@ -77,11 +80,30 @@ class Login extends Component {
             onChangeText={password => {
               this.setState({password});
             }}
-            placeholder='请输入密码'
+            placeholder='密码'
           />
         </Item>
       </View>
     );
+  }
+
+  routerTo(screen, title) {
+    // showModal, showLightBox
+      this.props.navigator.showModal({
+      screen,
+      title,
+      navigatorStyle: {
+        // statusBarHidden: true,
+        navBarHidden: true,
+        statusBarColor:'#03c89b',
+      },
+      style: {
+        backgroundBlur: 'none',
+        backgroundColor: '#2effcc',
+        // 点击背景隐藏
+        tapBackgroundToDismiss: true
+      }
+    })
   }
   render() {
     const { showModal, showLightBox } = this.props.navigator
@@ -106,41 +128,13 @@ class Login extends Component {
             <View style={{width: '100%', flexDirection: 'row'}}>
               <Left>
                 <Button transparent light
-                        onPress={() => showModal({
-                          screen: 'Koe.RetrievePassword',
-                          title: '找回密码',
-                          navigatorStyle: {
-                            // statusBarHidden: true,
-                            navBarHidden: true,
-                            statusBarColor:'#03c89b',
-                          },
-                          style: {
-                            backgroundBlur: 'none',
-                            backgroundColor: '#2effcc',
-                            // 点击背景隐藏
-                            tapBackgroundToDismiss: true
-                          }
-                        })}>
+                        onPress={() => this.routerTo('Koe.RetrievePassword', '找回密码')}>
                   <Text>忘记密码</Text>
                 </Button>
               </Left>
               <Right>
                 <Button transparent light
-                        onPress={() => showModal({
-                          screen: 'Koe.Register',
-                          title: '注册',
-                          navigatorStyle: {
-                            // statusBarHidden: true,
-                            navBarHidden: true,
-                            statusBarColor:'#03c89b',
-                          },
-                          style: {
-                            backgroundBlur: 'none',
-                            backgroundColor: '#2effcc',
-                            // 点击背景隐藏
-                            tapBackgroundToDismiss: true
-                          }
-                        })}>
+                        onPress={() => this.routerTo('Koe.Register', '注册')}>
                   <Text>前往注册</Text>
                 </Button>
               </Right>

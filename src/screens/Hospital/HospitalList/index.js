@@ -41,7 +41,7 @@ class HospitalList extends React.Component {
     }*/
   }
   createHospitalList(item) {
-    console.log(item)
+    // console.log(item)
     return item.map((item, i) => ({
       key: item.MerchantName + i,
       ...item

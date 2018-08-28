@@ -40,7 +40,7 @@ export default class HealthStatus extends Component{
 
   renderItem(item, isFirst) {
     const style = isFirst ? {marginTop: 10} : {borderTopWidth: 1, borderTopColor: '#ccc'}
-    console.log(item, this.props)
+    // console.log(item, this.props)
     return (
       <TouchableOpacity
         style={[styles.item, style]}

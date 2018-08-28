@@ -10,7 +10,7 @@ let user = {
 
 function getDepartmentList() {
 
-  console.log('登录方法');
+  // console.log('登录方法');
 
   return dispatch => {
     // storage.remove('hospital.departmentList')
@@ -18,7 +18,7 @@ function getDepartmentList() {
 
     /*storage.load('hospital.departmentList').then((res)=>{
 
-      console.log(res)
+      // console.log(res)
       dispatch({
         type: DEPARTMENT.LIST_SUCCESS,
         data: res

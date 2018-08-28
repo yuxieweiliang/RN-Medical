@@ -40,7 +40,7 @@ export function getDiseaseSpeciesList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -64,7 +64,7 @@ export function getPositionList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -87,7 +87,7 @@ export function getSymptomList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -110,7 +110,7 @@ export function getCourseOfDiseaseList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -133,7 +133,7 @@ export function getComplicationList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -156,7 +156,7 @@ export function getCommonDicList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -194,6 +194,74 @@ export function healthDaily(body) {
 
 
 
+
+
+export function getHealthIndicatorsData() {
+
+  const suitable = [
+    {
+      category: '菌类',
+      detailed: '例如：灵芝、黑木耳、白木耳、香菇'
+    },
+    {
+      category: '蔬菜类',
+      detailed: '例如：芹菜、茼蒿、芦笋、萝卜'
+    },
+    {
+      category: '坚果类',
+      detailed: '例如：豌豆、蚕豆、绿豆、玉米'
+    },
+    {
+      category: '水产类',
+      detailed: '例如：海带、紫菜、海蜇、海参'
+    },
+    {
+      category: '动物类',
+      detailed: '例如：牛奶(脱脂)、猪胆、牛黄、蜂蜜'
+    },
+    {
+      category: '水果类',
+      detailed: '例如：苹果、西瓜、鲜梅、柠檬'
+    },
+  ]
+  const data = { suitable, taboo: suitable }
+  return ({
+    type: types.GET_HEALTH_INDICATOR_LIST,
+    data
+  })
+}
+
+
+
+export function changeSuitable (item, value) {
+
+  return ({
+    type: types.CHANGE_SUITABLE_LIST,
+    item,
+    value,
+  })
+}
+
+
+
+export function changeTaboo (item, value) {
+
+  return ({
+    type: types.CHANGE_TABOO_LIST,
+    item,
+    value,
+  })
+}
+
+
+
+export function saveAndUpdateHealthIndicators (option) {
+
+  return ({
+    type: types.GET_HEALTH_INDICATOR_LIST,
+    data: option,
+  })
+}
 
 
 

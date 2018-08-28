@@ -18,7 +18,7 @@ class Symptom extends React.Component {
     for(let key = 0; key < 40; key ++) {
       this.state.data.push({key: randomString(4)})
     }
-    console.log(this.state)
+    // console.log(this.state)
   }
 
 

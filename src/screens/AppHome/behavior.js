@@ -22,7 +22,7 @@ export default {
       {title: '就医情况',},
     ],
     tabChange(index, item) {
-      console.log(index, item)
+      // console.log(index, item)
     }
   },
   tabCardData: {

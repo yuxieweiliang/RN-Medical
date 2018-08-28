@@ -42,8 +42,8 @@ for (var i in emojis) {
     var name = emojis[i];
     var code = emoji.get(name);
     map[code] = name;
-    //console.log("code:", code);
-    //console.log("name:", name);
+    //// console.log("code:", code);
+    //// console.log("name:", name);
 }
 
 module.exports = {

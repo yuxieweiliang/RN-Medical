@@ -13,14 +13,21 @@ import api from '../../url'
  * @returns {Function}
  */
 export function appInitialized(router) {
+
   // storage.clear()
   // storage.removeItem('system.token')
+  // 如果调用这个方法的时候，直接传入进来了router 则直接跳转
   if(router) {
     return {type: types.ROOT_CHANGED, data: router};
   }
 
+  /**
+   * 首先判断当前是否存在token
+   * 如果存在，则直接跳转到首页
+   * 否则，我们进入登录页
+   */
   return async function(dispatch, getState) {
-    let token = await storage.getItem('system.token')
+    let token = await storage.getItem('token')
     let Buffer = buffer.Buffer
 
     if(token) {
@@ -30,15 +37,15 @@ export function appInitialized(router) {
       let base64Str = new Buffer(access_token.substring(start, end), 'base64').toString()
       let tokenData = JSON.parse(base64Str)
 
-      console.log(tokenData)
+      // console.log(tokenData)
 
       NimSession.login(tokenData.UserID, '123456').then((data)=>{
-        console.log('网易登陆， data: ', data)
+        // console.log('网易登陆， data: ', data)
       },(err)=>{
         console.warn(err);
       })
 
-      dispatch({type: types.ROOT_CHANGED, data: 'home'});
+      dispatch({type: types.ROOT_CHANGED, data: 'app'});
     } else {
       dispatch({type: types.ROOT_CHANGED, data: 'login'});
     }
@@ -75,6 +82,7 @@ export function login(username, password) {
 
 
 
+  // console.log(option)
   return (async dispatch => {
 
     if(!username || !password) {
@@ -83,7 +91,7 @@ export function login(username, password) {
     }
 
     try{
-      let token = await storage.getItem('system.token')
+      let token = await storage.getItem('token')
 
 
       if(!token) {
@@ -96,8 +104,8 @@ export function login(username, password) {
       }
 
       global.token = token
-      storage.setItem('system.token', token)
-      dispatch({type: types.ROOT_CHANGED, data: 'home'})
+      storage.setItem('token', token)
+      dispatch({type: types.ROOT_CHANGED, data: 'app'})
       dispatch({
         type: types.LOGIN,
         data: true
@@ -107,7 +115,7 @@ export function login(username, password) {
     }catch(error) {
       storage.removeItem('system.token')
       Toast.show(error)
-      console.log(error)
+      // console.log(error)
     }
   })
 }
@@ -144,14 +152,14 @@ export async function register(
     if(res.state === 1 && res.errorMsg === '') {
 
       // 本地保存用户信息
-      storage.setItem(`user.${res.data.userID}`, res.data)
+      storage.setItem(`user`, res.data)
 
       // 返回用户ID
-      return res.data.userID
+      return res.data
     } else {
 
       // 注册失败
-      console.log(res)
+      // console.log(res)
       return false
     }
   })
@@ -172,7 +180,7 @@ export function requestSmsCode(mobilePhoneNumber) {
   }
   return fetch.post('https://t6c4p42m.api.lncld.net/1.1/requestSmsCode', option)
     .then(res => {
-      console.log('requestSmsCode', res)
+      // console.log('requestSmsCode', res)
       return true
     })
 }
@@ -184,6 +192,7 @@ export function requestSmsCode(mobilePhoneNumber) {
  * @returns {Promise.<void>}
  */
 export function verifySmsCode(verifyCode, mobilePhoneNumber) {
+  const _url = `https://t6c4p42m.api.lncld.net/1.1/verifySmsCode/${verifyCode}`
   const option = {
     headers: {
       "X-LC-Id": "t6c4P42MQWPQ8pirVPUsqAwL-gzGzoHsz",
@@ -193,12 +202,12 @@ export function verifySmsCode(verifyCode, mobilePhoneNumber) {
   }
 
 
-  return fetch.post(`https://t6c4p42m.api.lncld.net/1.1/verifySmsCode/${verifyCode}`, option)
+  return fetch.post(_url, option)
     .then(res => {
       if(res.ok === false) {
         return false
       }
-      console.log('requestSmsCode', res)
+      // console.log('requestSmsCode', res)
       return true
     })
 }
@@ -230,11 +239,11 @@ export async function registerNetEase(userId) {
     formdata.append("accid", userId)
     formdata.append("token", '123456')
 
-    console.log(checkSum)
+    // console.log(checkSum)
 
     let user = await fetch.post(url, { headers, body: formdata})
     if(!user) {
-      console.log('声网注册失败！')
+      // console.log('声网注册失败！')
     }
 
 
@@ -245,7 +254,7 @@ export async function registerNetEase(userId) {
 
 
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 }
 
@@ -293,7 +302,7 @@ export function addFriendNetEase(userId, friendId){
       body: formdata
     })
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 
 };

@@ -46,7 +46,7 @@ class ExpertList extends React.Component {
     let { illnessList }= this.props
     illnessList = illnessList && illnessList.map(item => ({...item, key: item.Illness_Name + item.ID}))
 
-    console.log(illnessList)
+    // console.log(illnessList)
     return (
     <Container>
       <Header>
@@ -62,7 +62,7 @@ class ExpertList extends React.Component {
           illnessList && (
             <List dataArray={illnessList}
                   renderRow={(item) => {
-                    console.log(item)
+                    // console.log(item)
                     return (
                       <ListItem>
                         <View style={{width: 40}}><CheckBox checked={true} color="blue"/></View>

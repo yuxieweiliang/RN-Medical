@@ -48,7 +48,7 @@ const PathologicalCardItem = ({itemTitle, itemName}) => {
     </View>
   )
 
-  console.log(typeOf(itemName, 'array'), itemName)
+  // console.log(typeOf(itemName, 'array'), itemName)
   if(itemName) {
     ItemContent = typeOf(itemName, 'array')
       ? itemName.map((item, key) => createItem(itemName, key))
@@ -83,7 +83,7 @@ export default class ReservationVideo extends Component {
   componentDidMount() {
     this.friendListener = NativeAppEventEmitter.addListener("observeFriend",(data)=>{
 
-      console.log("observeFriend", data)
+      // console.log("observeFriend", data)
     });
   }
   componentWillUnmount() {
@@ -125,7 +125,7 @@ export default class ReservationVideo extends Component {
    * 更换专家
    */
   onPressExpert() {
-    let { navigator, user } = this.props
+    let { navigator, user, dispatch } = this.props
     navigator.push({
       screen: `Koe.ExpertList`,
       passProps: {

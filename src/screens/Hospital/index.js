@@ -111,7 +111,7 @@ UserMessagePage.navigationOptions = ({ navigation, navigationOptions }) => {
 }
 
 const createState = state => {
-  console.log()
+  // console.log()
   return state.hospital
 }
 export default connect(createState)(UserMessagePage)

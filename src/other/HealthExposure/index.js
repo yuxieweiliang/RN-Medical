@@ -29,7 +29,7 @@ class HealthExposure extends React.Component {
 
   keyboardDidShow(event) {
 
-    console.log(event)
+    // console.log(event)
     if(event && event.endCoordinates) {
       Animated.timing(
         this.state.height,

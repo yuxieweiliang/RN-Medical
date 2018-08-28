@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { StyleSheet, Dimensions, StatusBar, View, TouchableOpacity } from 'react-native';
 import { Container, Content, Button,  ScrollableTab, List, Tab, Tabs, Card, CardItem, Left, Right, Item, Text } from 'native-base';
 import { connect } from 'react-redux'
+import {
+  getHealthIndicatorsData,
+  changeSuitable,
+  changeTaboo,
+  saveAndUpdateHealthIndicators
+} from '../../reducers/system/actions'
 
 
 const borderWidth = StyleSheet.hairlineWidth;
@@ -9,46 +15,62 @@ const { width, height } = Dimensions.get('window');
 const TITLE = '健康指标'
 
 class HealthIndicators extends React.Component {
+  static navigatorButtons = {
+    rightButtons: [
+      {
+        title: '保存',
+        id: 'saveHealthIndicators',
+        buttonColor: 'white',
+        buttonFontSize: 14,
+        buttonFontWeight: '600',
+      },
+    ]
+  };
   constructor(props) {
     super(props);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     this.state = {};
     // this.onDayPress = this.onDayPress.bind(this);
   }
 
+  /**
+   * 点击右上角保存按钮
+   * @param event
+   */
+  onNavigatorEvent(event) {
+    const { healthIndicatorsList, dispatch } = this.props
+    if(event.id === 'saveHealthIndicators') {
+
+
+      // console.log(healthIndicatorsList)
+      // 保存数据
+      dispatch(saveAndUpdateHealthIndicators(healthIndicatorsList))
+
+      // 返回
+      this.props.navigator.pop();
+    }
+  }
+
+  componentWillMount() {
+    this.props.dispatch(getHealthIndicatorsData())
+  }
   componentDidMount() {}
 
   componentWillUnmount() {
     // this._onPressButton.remove();
   }
+  changeSuitable(item, value) {
+    // console.log(item)
+    this.props.dispatch(changeSuitable(item, value))
+  }
+  changeTaboo(item, value) {
+    this.props.dispatch(changeTaboo(item, value))
 
+  }
   render() {
+    const { healthIndicatorsList, dispatch } = this.props
 
-    const data = [
-      {
-        category: '菌类',
-        detailed: '例如：灵芝、黑木耳、白木耳、香菇'
-      },
-      {
-        category: '蔬菜类',
-        detailed: '例如：芹菜、茼蒿、芦笋、萝卜'
-      },
-      {
-        category: '坚果类',
-        detailed: '例如：豌豆、蚕豆、绿豆、玉米'
-      },
-      {
-        category: '水产类',
-        detailed: '例如：海带、紫菜、海蜇、海参'
-      },
-      {
-        category: '动物类',
-        detailed: '例如：牛奶(脱脂)、猪胆、牛黄、蜂蜜'
-      },
-      {
-        category: '水果类',
-        detailed: '例如：苹果、西瓜、鲜梅、柠檬'
-      },
-    ]
+    // console.log(this.props)
     return (
       <Container>
         <Content style={{backgroundColor: '#eee'}}>
@@ -56,64 +78,93 @@ class HealthIndicators extends React.Component {
             <CardItem bordered={true}>
               <Text style={styles.fontSmall}>适宜类型</Text>
             </CardItem>
-            <List
-              dataArray={data}
-              renderRow={item => {
-                return (
-                  <Item style={styles.item} bordered={false}>
-                    <View style={styles.rowLeft}>
-                      <Text style={styles.fontSmall}>{item.category}:</Text>
-                    </View>
-                    <View style={styles.rowMiddle}>
-                      <TouchableOpacity style={[styles.button, styles.btnLeft]} onPress={() => alert('aaa')}>
-                        <Text style={[styles.fontSmall, {color: '#1b70f2'}]}>少量</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={[styles.button, {backgroundColor: '#1b70f2',}]} onPress={() => alert('aaa')}>
-                        <Text style={[styles.fontSmall, {color: '#fff'}]}>一般</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={[styles.button, styles.btnRight]} onPress={() => alert('aaa')}>
-                        <Text style={[styles.fontSmall, {color: '#1b70f2'}]}>大量</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <Left style={styles.rowRight}>
-                      <Text style={styles.fontDetailed}>{item.detailed}</Text>
-                    </Left>
-                  </Item>
-                )
-              }}
-            />
+            {
+              healthIndicatorsList && (
+                <List
+                  dataArray={healthIndicatorsList.suitable}
+                  renderRow={item => {
+                    const setColor = function(type) {
+                      const _type = (type === item.value) || (type === '一般' && !item.value)
+                      return {
+                        button: _type ? {backgroundColor: '#1b70f2'} : {},
+                        text: _type ? {color: '#fff'} : {color: '#1b70f2'},
+                      }
+                    }
+                    return (
+                      <Item style={styles.item} bordered={false}>
+                        <View style={styles.rowLeft}>
+                          <Text style={styles.fontSmall}>{item.category}:</Text>
+                        </View>
+                        <View style={styles.rowMiddle}>
+                          <TouchableOpacity
+                            style={[styles.button, styles.btnLeft, setColor('少量').button]}
+                            onPress={() => this.changeSuitable(item, '少量')}>
+                            <Text style={[styles.fontSmall, {color: '#1b70f2'}, setColor('少量').text]}>少量</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            style={[styles.button, setColor('一般').button]}
+                            onPress={() => this.changeSuitable(item, '一般')}>
+                            <Text style={[styles.fontSmall, {color: '#fff'}, setColor('一般').text]}>一般</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            style={[styles.button, styles.btnRight, setColor('大量').button]}
+                            onPress={() => this.changeSuitable(item, '大量')}>
+                            <Text style={[styles.fontSmall, {color: '#1b70f2'}, setColor('大量').text]}>大量</Text>
+                          </TouchableOpacity>
+                        </View>
+                        <Left style={styles.rowRight}>
+                          <Text style={styles.fontDetailed}>{item.detailed}</Text>
+                        </Left>
+                      </Item>
+                    )
+                  }}
+                />
+              )
+            }
+
 
           </Card>
           <Card title="禁忌类型" bordered={false} transparent>
             <CardItem bordered={true}>
               <Text style={styles.fontSmall}>禁忌类型</Text>
             </CardItem>
-            <List
-              dataArray={data}
-              renderRow={item => {
-                return (
-                  <Item style={styles.item} bordered={false}>
-                    <View style={styles.rowLeft}>
-                      <Text style={styles.fontSmall}>{item.category}:</Text>
-                    </View>
-                    <View style={styles.rowMiddle}>
-                      <TouchableOpacity style={[styles.button, styles.btnLeft]} onPress={() => alert('aaa')}>
-                        <Text style={[styles.fontSmall, {color: '#1b70f2'}]}>少量</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={[styles.button, {backgroundColor: '#1b70f2',}]} onPress={() => alert('aaa')}>
-                        <Text style={[styles.fontSmall, {color: '#fff'}]}>一般</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={[styles.button, styles.btnRight]} onPress={() => alert('aaa')}>
-                        <Text style={[styles.fontSmall, {color: '#1b70f2'}]}>大量</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <Left style={styles.rowRight}>
-                      <Text style={styles.fontDetailed}>{item.detailed}</Text>
-                    </Left>
-                  </Item>
-                )
-              }}
-            />
+            {
+              healthIndicatorsList && (
+                <List
+                  dataArray={healthIndicatorsList.taboo}
+                  renderRow={item => {
+                    return (
+                      <Item style={styles.item} bordered={false}>
+                        <View style={styles.rowLeft}>
+                          <Text style={styles.fontSmall}>{item.category}:</Text>
+                        </View>
+                        <View style={styles.rowMiddle}>
+                          <TouchableOpacity
+                            style={[styles.button, styles.btnRight]}
+                            onPress={() => this.changeTaboo(item, '少量')}>
+                            <Text style={[styles.fontSmall, {color: '#1b70f2'}]}>少量</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            style={[styles.button, {backgroundColor: '#1b70f2',}]}
+                            onPress={() => this.changeTaboo(item, '一般')}>
+                            <Text style={[styles.fontSmall, {color: '#fff'}]}>一般</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            style={[styles.button, styles.btnRight]}
+                            onPress={() => this.changeTaboo(item, '大量')}>
+                            <Text style={[styles.fontSmall, {color: '#1b70f2'}]}>大量</Text>
+                          </TouchableOpacity>
+                        </View>
+                        <Left style={styles.rowRight}>
+                          <Text style={styles.fontDetailed}>{item.detailed}</Text>
+                        </Left>
+                      </Item>
+                    )
+                  }}
+                />
+              )
+            }
+
 
           </Card>
         </Content>
@@ -191,8 +242,8 @@ const styles =  StyleSheet.create({
 
 
 export default connect(state => {
-  console.log(state)
-  return state
+  // console.log(state)
+  return state.system
 })(HealthIndicators)
 
 
@@ -204,7 +255,7 @@ export default connect(state => {
  * @param style
  */
 /*export default function healthIndicators({ healthIndicators, style }) {
-  console.log(healthIndicators, 'option')
+  // console.log(healthIndicators, 'option')
 
 
   return ( <View style={style}>

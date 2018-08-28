@@ -14,7 +14,7 @@ const {
  * time: 时间
  */
 export default function HealthEducation({ context, time, type }) {
-  console.log(context, time)
+  // console.log(context, time)
   return (
     <View style={{
       width: width,

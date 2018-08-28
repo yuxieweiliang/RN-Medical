@@ -64,7 +64,7 @@ export default class extends React.Component {
             <Button
               title="点击返回首页"
               onPress={() => {
-                console.log(this.props.navigation)
+                // console.log(this.props.navigation)
                 this.props.navigation.popToTop()
               }}
             />
@@ -78,13 +78,13 @@ export default class extends React.Component {
   }
   _renderItem = (info) => {
     var txt = '  ' + info.item.title;
-    console.log(info.index + '-' + info.section.key)
+    // console.log(info.index + '-' + info.section.key)
     return <Text
       key={info.index + '-' + info.section.key}
       style={{ height: 60, textAlignVertical: 'center', backgroundColor: "#ffffff", color: '#5C5C5C', fontSize: 15 }}>{txt}</Text>
   }
   _extraUniqueKey = (option) => {
-    console.log()
+    // console.log()
     return option.title
   }
 

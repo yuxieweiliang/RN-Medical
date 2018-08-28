@@ -27,7 +27,7 @@ export function getExpert(option) {
  * @returns {{type}}
  */
 export function getExportList(option) {
-  let url = api.getDepartmentDoctorList(option)
+  let url = api.getDoctorList(option)
 
   return (dispatch => {
     fetch.get(url).then(res => {

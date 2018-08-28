@@ -118,10 +118,11 @@ class Chat extends React.Component {
       }
     }
   }
+
   componentDidMount() {
     const {session = {}} = this.props;
 
-    console.log('新消息通知', this.props)
+    // console.log('新消息通知', this.props)
     NimSession.startSession(session.contactId, session.sessionType);
     this.sessionListener = NativeAppEventEmitter.addListener("observeReceiveMessage", (data) => {
       console.info('新消息通知', data);
@@ -154,10 +155,12 @@ class Chat extends React.Component {
     });
 
 
+    // 最近会话列表
     NimSession.getRecentContactList().then(res => {
-      console.log('getRecentContactList', res)
+      // console.log('getRecentContactList', res)
     })
 
+    // 获取云端聊天记录
     NimSession.queryMessageListEx("", 20).then((data) => {
       console.info('首次加载', data);
       if (data.length > 0) {
@@ -167,7 +170,7 @@ class Chat extends React.Component {
       }
 
     }, (err) => {
-      console.log(err)
+      // console.log(err)
     });
   }
   componentWillUnmount() {
@@ -394,7 +397,7 @@ class Chat extends React.Component {
     },200)
   }
   onEditTextChange = (text) => {
-    console.log("用于做@提醒:",text);
+    // console.log("用于做@提醒:",text);
   }
   onStatusViewClick(message,opt){
     console.info('onStatusViewClick',message+'--'+opt);

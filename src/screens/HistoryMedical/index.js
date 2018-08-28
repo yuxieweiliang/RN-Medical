@@ -36,7 +36,7 @@ class HistoryMedical extends React.Component {
 
   componentWillMount() {
     const { dispatch } = this.props
-    console.log(this.props)
+    // console.log(this.props)
     // dispatch(fullList({}))
 
     // 电话访谈

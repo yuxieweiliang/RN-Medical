@@ -46,6 +46,8 @@ export function JPushAlert(userId, expertId) {
   const url = 'https://api.jpush.cn/v3/push'
   const author = new Buffer.from("cb421288cf278b1a3ced70b8:c241a3ef3f786b736b65845c")
   const Authorization = `Basic ${author.toString('base64')}`
+  console.log(userId, expertId)
+
   return (async dispatch => {
     let headers = {
       'Connection': 'Keep-Alive',
@@ -56,23 +58,25 @@ export function JPushAlert(userId, expertId) {
 
     let body = JSON.stringify({
       "platform": ["android"],
-      "audience": {
+      "audience": "all",
+      /*"audience": {
         alias: [expertId]
-      },
+      },*/
       "notification": {
         "alert": userId,
       },
     })
 
-    console.log({ headers, body })
+    // console.log({ headers, body })
 
     return fetch.post(url, { headers, body })
       .then(res => {
-      console.log(res)
+      // console.log(res)
       return (res.ok !== false)
     })
   })
 }
+
 /**
  * 预约挂号 { 新建 }
  * @returns {{type}}
@@ -107,12 +111,12 @@ export function postRegistration(option) {
 
   return async function(dispatch) {
     fetch.post(url, { body: JSON.stringify(data) })
-     .then(function (res) {
-     if(res) {
-       alert('预约成功！')
-     return true
-     }
-     })
+      .then(function (res) {
+        if(res) {
+          alert('预约成功！')
+          return true
+        }
+      })
   }
 
 

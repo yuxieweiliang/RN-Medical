@@ -1,3 +1,6 @@
+/**
+ * 病种列表项
+ */
 import React, { Component } from 'react';
 import { StyleSheet, Dimensions, Text, TouchableOpacity, View, Image } from 'react-native';
 import config from '../../config'
@@ -36,7 +39,7 @@ export default class HospitalListItem extends Component {
       list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
     })
 
-    console.log(this.props.data)
+    // console.log(this.props.data)
   }
 
   showMore() {

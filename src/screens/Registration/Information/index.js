@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, FlatList, TextInput, View, Dimensions } from 'react-native';
-import { Container, Content, List, Item, Left, Right, Tab, Tabs, Card, CardItem, Row, Col, Icon } from 'native-base';
+import { FlatList, TextInput, View, Dimensions } from 'react-native';
+import { Container, Content, List, Text, Item, Left, Right, Tab, Tabs, Card, CardItem, Row, Col, Icon } from 'native-base';
 import styles from './style'
 import { connect } from 'react-redux'
 import Button from '../../../components/Button'
@@ -37,6 +37,28 @@ class RegistrationInformation extends React.Component {
     this.props.dispatch(postRegistration({ appointTime, user, hospital, department, expert }))
     this.props.navigator.popToRoot()
   }
+
+  registrationVideo() {
+    let { appointTime, user, hospital, department, expert } = this.props
+    if(!appointTime) {
+      alert('请选择预约时间')
+      return;
+    }
+    if(!hospital) {
+      alert('请选择医院')
+      return;
+    }
+    if(!department) {
+      alert('请选择科室')
+      return;
+    }
+
+    alert('预约成功')
+
+    // this.props.dispatch(postRegistration({ appointTime, user, hospital, department, expert }))
+    this.props.navigator.popToRoot()
+  }
+
   onChangeText() {
 
   }
@@ -72,11 +94,14 @@ class RegistrationInformation extends React.Component {
               }}
             />
           </Card>
-          <View style={{padding: 10}}>
-            <Button style={{borderRadius: 4}}
-                    onPress={() => this.registration()}
-                    text="预约"/>
-          </View>
+          <Item>
+            <Left>
+              <Button onPress={() => this.registration()}><Text>预约挂号</Text></Button>
+            </Left>
+            <Right>
+              <Button onPress={() => this.registrationVideo()}><Text>预约视频</Text></Button>
+            </Right>
+          </Item>
         </Content>
 
       </Container>

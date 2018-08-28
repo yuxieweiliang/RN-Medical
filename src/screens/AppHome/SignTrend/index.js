@@ -45,7 +45,7 @@ class SignTrend extends React.Component {
     });*/
   }
   onNavigatorEvent(e) {
-    console.log(e)
+    // console.log(e)
     if (e.type == 'NavBarButtonPress') {
 
       if (e.id == 'SignTrendMenu') {
@@ -68,7 +68,7 @@ class SignTrend extends React.Component {
       this.setState({ ...this.state, selectedEntry: JSON.stringify(entry) });
     }
 
-    console.log(event.nativeEvent);
+    // console.log(event.nativeEvent);
   }
 
   createSignData(option) {
@@ -238,7 +238,7 @@ class SignTrend extends React.Component {
         {/*<Modal
           transparent={true}
           animationType={"fade"}
-          onRequestClose={() => {console.log(false)}}
+          onRequestClose={() => {// console.log(false)}}
           visible={SignTrendModel}>
           <TouchableOpacity
             onPress={() => dispatch({type: 'SignTrendModel'})}

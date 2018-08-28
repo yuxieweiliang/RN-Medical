@@ -16,7 +16,7 @@ export function getIllnessList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -40,7 +40,7 @@ export function getPositionList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -63,7 +63,7 @@ export function getSymptomList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -86,7 +86,7 @@ export function getCourseOfDiseaseList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -109,7 +109,7 @@ export function getComplicationList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({
@@ -132,7 +132,7 @@ export function getCommonDicList(option) {
     fetch.get(url)
       .then(function (res) {
 
-        console.log(res)
+        // console.log(res)
 
         if(res) {
           dispatch({

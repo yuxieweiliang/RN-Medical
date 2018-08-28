@@ -44,7 +44,7 @@ class BodyParts extends React.Component {
 
 
 
-    console.log(this.props)
+    // console.log(this.props)
     this.props.onClose(bodyPositionList[0])
 
     /*dispatch({
@@ -65,7 +65,7 @@ class BodyParts extends React.Component {
       decelerationRate: 'normal',
       startInLoadingState: true,
     }
-    console.log(this)
+    // console.log(this)
     return (
 
       <View style={styles.container}>

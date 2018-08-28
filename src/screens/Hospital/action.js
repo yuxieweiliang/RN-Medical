@@ -10,14 +10,14 @@ export default {
    *!/
   loadUser() {
     return async dispatch => {
-      console.log('-------------------')
+      // console.log('-------------------')
       // storage.remove('user')
       storage.load('user').then(res => {
         dispatch({
           type: 'USER_MESSAGE',
           data: res,
         })
-        console.log(res)
+        // console.log(res)
       })
     }
   },
@@ -25,7 +25,7 @@ export default {
     let url = api.postUser()
 
 
-    console.log(option)
+    // console.log(option)
     return({
       type: 'USER_MESSAGE',
     })
@@ -50,9 +50,9 @@ export default {
         })
 
 
-        console.log(data)
+        // console.log(data)
       })
-      console.log(option)
+      // console.log(option)
     }
   }
 }*/

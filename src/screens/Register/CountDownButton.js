@@ -52,7 +52,7 @@ export default class CountDownButton extends Component {
       /* 切换到后台不受影响*/
       const nowStamp = Date.now()
 
-      console.log(nowStamp , overTimeStamp)
+      // console.log(nowStamp , overTimeStamp)
 
       if (nowStamp >= overTimeStamp) {
         /* 倒计时结束*/
@@ -81,7 +81,7 @@ export default class CountDownButton extends Component {
   _shouldStartCountting(shouldStart){
     if (this.state.counting) {return}
 
-    console.log(shouldStart)
+    // console.log(shouldStart)
 
     if (shouldStart) {
       this._countDownAction()
@@ -98,7 +98,7 @@ export default class CountDownButton extends Component {
     const { counting, timerTitle, selfEnable } = this.state
 
 
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <TouchableOpacity
         activeOpacity={counting ? 1 : 0.8}

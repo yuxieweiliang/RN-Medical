@@ -50,7 +50,7 @@ let router = {
           string += `${key}=${params[key]}&`
         }
       } else {
-        console.log('params is no string or object')
+        // console.log('params is no string or object')
       }
       return string.substring(0, string.length -1)
     }
@@ -71,6 +71,6 @@ let router = {
       },
       body: createParams(query)
     }).then(res => {
-      console.log(res)
+      // console.log(res)
       return res.json()
-    }).then(res => console.log(res))
+    }).then(res => // console.log(res))

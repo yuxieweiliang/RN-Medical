@@ -16,17 +16,17 @@ export function getUser() {
   let url = api.getUser({ id: tokenData.UserID })
 
   return async dispatch => {
-    let user = await storage.getItem(`user.${tokenData.UserID}`)
+    let user = await storage.getItem(`user`)
 
     if(!user) {
       user = await fetch.get(url).then(res => {
-        console.log(res)
+        // console.log(res)
 
         return res.Data
       })
     }
 
-    storage.setItem(`user.${user.UserID}`, user)
+    storage.setItem(`user`, user)
     dispatch({type: types.GET_USER_MESSAGE, data: user})
 
   }
@@ -36,8 +36,8 @@ export function getUser() {
  * 修改角色信息
  * @returns {{type}}
  */
-export function postUser(body) {
-  let url = api.postUser({id: body.UserID})
+export function saveAndUpdateUser(body) {
+  let url = body.ID ? api.putUser({id: body.UserID}) : api.postUser({id: body.UserID})
 
   return (async dispatch => {
 
@@ -121,7 +121,7 @@ export function getPaperDetail(option) {
 
     fetch.get(url).then(res => {
 
-      console.log('****************||||||||||| ', res)
+      // console.log('****************||||||||||| ', res)
       // 如果失败
       if(res.ok === false) {
         return false
@@ -149,7 +149,7 @@ export function getTemplateByType(option) {
 
     fetch.get(url).then(res => {
 
-      console.log('****************||||||||||| ', res)
+      // console.log('****************||||||||||| ', res)
       // 如果失败
       if(res.ok === false) {
         return false
@@ -196,10 +196,50 @@ export function userCredentials(image) {
 
       // 图片地址
       // http://fileserver.api.koenn.cn:81/UploadImages/UserCredentials/2018/07-17/322717145007458/408eb95a-b8ed-4b91-be42-62cf8bb5b5b5.png
-      console.log(res)
+      // console.log(res)
       // 保存成功
       dispatch({type: types.SAVE_USER_MESSAGE_SUCCESS})
       return true
+    })
+  })
+}
+
+
+/**
+ * 上传用户头像
+ * start
+ * offSet
+ * number
+ * @returns {{type}}
+ */
+export function postUserPortrait(path) {
+  let url = api.postUserPortrait()
+
+  let body = new FormData();
+  let file = { uri: path, type: "multipart/form-data", name: "image.png" };
+  body.append("imgFile", file);
+
+  return (async dispatch => {
+
+    fetch.post(url,
+      {
+        body,
+        headers: {
+          'Content-Type': 'multipart/form-data;charset=utf-8',
+        }
+      }).then(res => {
+
+      // 如果失败
+      if(res.ok === false) {
+        return false
+      }
+
+      // 图片地址
+      // http://fileserver.api.koenn.cn:81/UploadImages/UserCredentials/2018/07-17/322717145007458/408eb95a-b8ed-4b91-be42-62cf8bb5b5b5.png
+      // console.log('图片地址', res)
+      // 保存成功
+      dispatch({type: types.SAVE_USER_MESSAGE_SUCCESS})
+      return res.Data
     })
   })
 }

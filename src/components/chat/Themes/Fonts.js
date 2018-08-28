@@ -14,12 +14,12 @@ const size = {
   h5: 20,
   h6: 19,
   input: 18,
-  regular: 17,
-  medium: 14,
-  small2: 13,
-  small: 12,
+  regular: 17, // 正规的
+  medium: 14, // 中等的
+  small2: 13, // 小字2
+  small: 12, // 小字
   tiny1: 11,
-  tiny: 8.5
+  tiny: 8.5 // 最小的字
 }
 
 const style = {

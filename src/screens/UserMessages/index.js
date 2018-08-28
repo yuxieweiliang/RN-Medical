@@ -1,40 +1,29 @@
 import React, { Component } from 'react';
-import {  TextInput, View, Image, ScrollView,  KeyboardAvoidingView, Keyboard, findNodeHandle } from 'react-native';
+import {  TextInput, View, Image, ScrollView,  TouchableOpacity, Keyboard, findNodeHandle } from 'react-native';
 import { Container, Content, Button, Icon, Text, Item, Input, Left, Right, Label } from 'native-base';
 import { connect } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import behavior from './behavior'
-import { postUser } from '../../reducers/user/actions'
+import ImagePicker from 'react-native-image-crop-picker';
+import { saveAndUpdateUser, postUserPortrait } from '../../reducers/user/actions'
 import styles from './style'
 
-const InputList = ({title, onChangeText, value, placeholder, isRequest, onFocus, onBlur}) => {
-  return (
-    <View
-      onPress={() => this.props.navigation.goBack()}
-    >
-      <View style={styles.list}>
-        <Text style={styles.label}>{title}：</Text>
-        <TextInput
-          style={styles.text}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onChangeText={onChangeText}
-          placeholder={placeholder}
-          underlineColorAndroid="transparent"
-          defaultValue={value}/>
-        <Text style={styles.goto}>
-          {
-            isRequest ? '*' : ''
-          }
-        </Text>
-      </View>
-    </View>
-  )
-}
 
 class UserMessagePage extends Component {
+  static navigatorButtons = {
+    rightButtons: [
+      {
+        title: '保存',
+        id: 'saveUserMessage',
+        buttonColor: 'white',
+        buttonFontSize: 14,
+        buttonFontWeight: '600',
+      },
+    ]
+  };
   constructor(props) {
     super(props)
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     /*Icon.getImageSource('plus', 24).then(res => {
 
       // 添加 保存 按钮
@@ -61,8 +50,10 @@ class UserMessagePage extends Component {
     const { dispatch, user } = this.props
     if(event.id === 'saveUserMessage') {
 
+
+      // console.log(user)
       // 保存数据
-      dispatch(postUser(user))
+      dispatch(saveAndUpdateUser(user))
 
       // 返回
       this.props.navigator.pop();
@@ -135,6 +126,46 @@ class UserMessagePage extends Component {
       y: reactNode
     })
   }
+  /**
+   * 打开相册
+   */
+  handleImagePicker() {
+    const { dispatch, user } = this.props
+    // console.log(user)
+
+    ImagePicker.openPicker({
+      mediaType: 'photo',
+      loadingLabelText: '请稍候...'
+    }).then(image => {
+
+      let data = new FormData();
+      let file = { uri: image.path, type: "multipart/form-data", name: "image.png" };
+      data.append("imgFile", file);
+
+      dispatch(postUserPortrait(image.path))
+        .then(res => {
+          if(res) {
+            // 保存用户头像
+            dispatch(saveAndUpdateUser({...user, UserPortrait: res}))
+
+          }
+        })
+
+
+      /*fetch('http://fileserver.api.koenn.cn:81/api/UserMainImages/UploadUserHead', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE1MzE3OTk2MDYsImV4cCI6MTUzMzA5NTYwNiwiaXNzIjoiaHR0cDovL2F1dGgua29lbm4uY246ODEiLCJhdWQiOiJodHRwOi8vYXV0aC5rb2Vubi5jbjo4MS9yZXNvdXJjZXMiLCJjbGllbnRfaWQiOiJBUFBDbGllbnQiLCJzdWIiOiJhZG1pbiIsImF1dGhfdGltZSI6MTUzMTc5OTYwNiwiaWRwIjoibG9jYWwiLCJJRCI6IjEiLCJVc2VySUQiOiI4Nzc1NTQzMTEwOTU4NzgxNzgiLCJNSUQiOiIxMDAxIiwiRW1pYWwiOiIwIiwiTG9naW5OYW1lIjoiYWRtaW4iLCJNb2JpbGVQaG9uZSI6IjAiLCJXWF9JRCI6IjAiLCJOaWNrTmFtZSI6IjAiLCJSb2xlIjpbIkFkbWluIiwiTG9naW4iLCJNZXJBZG1pbiJdLCJzY29wZSI6WyJvZmZsaW5lX2FjY2VzcyJdLCJhbXIiOlsiY3VzdG9tIl19.ON6Jv0VwMzThMqH85CRKHTdonmEgUx42cvWO7HAsbUsLvItExDx62MRbPcpQjoJALq4W7j_RTNXqIdj57Bk2dYfUl4qnU1Ej8Rq-eoiIoUZHfj9VtPXLFvzRpDDHTcvA6UcWVqeWjig5gWzNojmLq7WwQ61EydLwxnOoEKpUjagPdSLooXsEllxRNiH6LpAejQI-_rgcAqa13ttKEMyyXko-QgOhd_8oVD3N4A83XsWAVHqP8EP_DHSuFNVyT3NrShw6j6qIdeltu9mQYlgiLf8JB0WLMD7EfCgj10-QPgnw5tHsiEODATybeRbbQUyhX4ls9063ZkF82lzCU3KhvA',
+          'Content-Type': 'multipart/form-data;charset=utf-8',
+        },
+        body: data
+      }).then(res => {
+        // console.log(res, "myImg");
+      })*/
+      // console.log(image.path, "myName");
+    });
+  }
+
   render() {
     const { user } = this.props
     const userStructure = behavior.createStructure(user)
@@ -149,21 +180,21 @@ class UserMessagePage extends Component {
           scrollEnabled={false} // 不允许用户滑动
           innerRef={ref => {this.scroll = ref}}
           onKeyboardWillShow={(frames: Object) => {
-            console.log('Keyboard event', frames)
+            // console.log('Keyboard event', frames)
           }}
         >
           <View>
-            <View style={styles.userCard}>
+            <TouchableOpacity style={styles.userCard} onPress={() => this.handleImagePicker()}>
               <Image
                 style={{width: 60, height: 60, borderRadius: 30}}
                 source={require('../../../assets/images/a1.jpg')}/>
               <Text style={styles.label}>{user && user.UserName}</Text>
-            </View>
+            </TouchableOpacity>
           </View>
           {
             userStructure && (
               userStructure.map((items, key) => {
-                console.log(items.key)
+                // console.log(items.key)
                 return (
                 <Item key={items.key+ key} style={{paddingLeft: 10, paddingRight: 10}}>
                   <Text style={{width: 100}}>{items.title}：</Text>

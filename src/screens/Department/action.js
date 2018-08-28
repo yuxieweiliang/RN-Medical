@@ -10,7 +10,7 @@ let user = {
 
 function getHospitalList() {
 
-  console.log('登录方法');
+  // console.log('登录方法');
 
   return dispatch => {
     // storage.remove('hospital')
@@ -18,7 +18,7 @@ function getHospitalList() {
 
     /*storage.load('hospital').then((res)=>{
 
-      console.log(res)
+      // console.log(res)
       dispatch({
         type: HOSPITAL.LIST_SUCCESS,
         data: res

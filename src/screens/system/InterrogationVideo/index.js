@@ -48,7 +48,7 @@ export default class RNAgoraExample extends Component {
 
     // 当前版本号
     RtcEngine.getSdkVersion((version) => {
-      console.log(version)
+      // console.log(version)
     });
 
     //加入房间
@@ -62,7 +62,7 @@ export default class RNAgoraExample extends Component {
 
       // 有远程视频加入 返回重要的  uid  AgoraView 根据uid 来设置remoteUid值
       onFirstRemoteVideoDecoded: (data) => {
-        console.log(data);
+        // console.log(data);
         const {remotes} = this.state;
         const newRemotes = [...remotes];
 
@@ -75,7 +75,7 @@ export default class RNAgoraExample extends Component {
 
       // 有人离开房间
       onUserOffline: (data) => {
-        console.log(data);
+        // console.log(data);
         // 有人离开了！
         const {remotes} = this.state;
         const newRemotes = remotes.filter(uid => uid !== data.uid);
@@ -84,7 +84,7 @@ export default class RNAgoraExample extends Component {
 
       // 加入房间成功
       onJoinChannelSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         // 开启摄像头预览
         RtcEngine.startPreview();
 
@@ -95,18 +95,18 @@ export default class RNAgoraExample extends Component {
 
       // 声音回调
       onAudioVolumeIndication: (data) => {
-        console.log(data, '-----');
+        // console.log(data, '-----');
       },
 
       // 有人加入房间
       onUserJoined: (data) => {
-        console.log(data);
+        // console.log(data);
         // 有人来了!
       },
 
       // 错误!
       onError: (data) => {
-        console.log(data);
+        // console.log(data);
 
         if (data.err === 17) {
           // 离开频道
@@ -132,7 +132,7 @@ export default class RNAgoraExample extends Component {
   // 退出视频聊天
   handlerCancel = () => {
     const { navigation } = this.props;
-    console.log('handlerCancel')
+    // console.log('handlerCancel')
     // 离开频道
     RtcEngine.leaveChannel();
     // 销毁引擎实例
@@ -143,13 +143,13 @@ export default class RNAgoraExample extends Component {
 
   // 切换摄像头
   handlerSwitchCamera = () => {
-    console.log('handlerSwitchCamera')
+    // console.log('handlerSwitchCamera')
     RtcEngine.switchCamera();
   };
 
   // 是否静音
   handlerMuteAllRemoteAudioStreams = () => {
-    console.log('handlerMuteAllRemoteAudioStreams')
+    // console.log('handlerMuteAllRemoteAudioStreams')
     this.setState({
       isMute: !this.state.isMute
     }, () => {
@@ -159,7 +159,7 @@ export default class RNAgoraExample extends Component {
 
   // 启用扩音扬声器
   handlerSetEnableSpeakerphone = () => {
-    console.log('handlerSetEnableSpeakerphone')
+    // console.log('handlerSetEnableSpeakerphone')
     this.setState({
       isSpeaker: !this.state.isSpeaker
     }, () => {
@@ -169,7 +169,7 @@ export default class RNAgoraExample extends Component {
 
   // 闪光灯开关
   handlerChangeCameraTorch = () => {
-    console.log('handlerChangeCameraTorch')
+    // console.log('handlerChangeCameraTorch')
     this.setState({
       isCameraTorch: !this.state.isCameraTorch
     }, () => {
@@ -179,7 +179,7 @@ export default class RNAgoraExample extends Component {
 
   // 摄像头开关
   handlerChangeVideo = () => {
-    console.log('handlerChangeVideo')
+    // console.log('handlerChangeVideo')
     this.setState({
       disableVideo: !this.state.disableVideo
     }, () => {
@@ -189,14 +189,14 @@ export default class RNAgoraExample extends Component {
 
   // 隐藏/显示视频上的操作按钮
   handlerHideButtons = () => {
-    console.log('handlerHideButtons')
+    // console.log('handlerHideButtons')
     this.setState({
       isHideButtons: !this.state.isHideButtons
     })
   };
 
   onPressVideo = (uid) => {
-    console.log('onPressVideo')
+    // console.log('onPressVideo')
     this.setState({
       selectUid: uid
     }, () => {

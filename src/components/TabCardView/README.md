@@ -41,7 +41,7 @@ var data = {
 
   // 每次切换返回数据
   tabChange: function(index, item) {
-    console.log(index, item)
+    // console.log(index, item)
   }
 }
 

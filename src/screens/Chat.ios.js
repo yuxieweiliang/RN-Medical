@@ -74,7 +74,7 @@ class Chat extends React.Component {
                 messages:data
             })
         },(err)=>{
-            console.log(err)
+            // console.log(err)
         });
     }
     _onNavigatorEvent(event){
@@ -127,7 +127,7 @@ class Chat extends React.Component {
             }
         });
         this.msgStatusListener = NativeAppEventEmitter.addListener("observeMsgStatus",(data)=>{
-            console.log(data)
+            // console.log(data)
             if(data[0].status === 'send_going'){//发送中
                 AuroraIController.appendMessages(data)
                 AuroraIController.scrollToBottom(true)
@@ -293,7 +293,7 @@ class Chat extends React.Component {
         }
     }
     onStatusViewClick = (message) => {
-        console.log('onStatusViewClick:',message)
+        // console.log('onStatusViewClick:',message)
     }
     onBeginDragMessageList = () => {
         AuroraIController.hidenFeatureView(true)
@@ -320,7 +320,7 @@ class Chat extends React.Component {
         //     mediaType:'video',
         //     loadingLabelText:'请稍候...'
         // }).then((video) => {
-        //     console.log(video);
+        //     // console.log(video);
         //     NimSession.sendVideoMessage(video.path, 'duration', 'width', 'height', 'displayName');
         // });
     }

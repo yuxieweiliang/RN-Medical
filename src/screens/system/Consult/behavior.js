@@ -14,20 +14,20 @@ function consultLoad() {
       let user,  hospital, department
       // storage.remove('user')
       user =  await storage.load('user')
-      console.log(user)
+      // console.log(user)
 
       if(user) {
         hospital = await storage.load('consult')
-        console.log(hospital)
+        // console.log(hospital)
       }
 
       if(hospital) {
         // department = await storage.load('department', hospital.id)
-        console.log(department)
+        // console.log(department)
       }
 
     }catch(error) {
-      console.log(error)
+      // console.log(error)
     }
   }
 }

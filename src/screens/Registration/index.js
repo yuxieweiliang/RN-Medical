@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, FlatList, ScrollView, View, Image, Dimensions, TouchableOpacity } from 'react-native';
-import { Container, Content, List, Item, Left, Right, Tab, Tabs, Card, Row, Col, Icon } from 'native-base';
+import { StyleSheet, FlatList, ScrollView, View, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { Container, Content, Text, List, Item, Left, Right, Button, Tabs, Card, Row, Col, Icon } from 'native-base';
 import { connect } from 'react-redux'
 import CalendarStrip  from 'react-native-calendar-strip'
 // import {  } from '../../reducers/consult/actions'
@@ -126,81 +126,61 @@ class Registration extends React.Component {
 
     return (
       <Container style={styles.container}>
-        <Tabs initialPage={0}>
-          <Tab heading="预约挂号">
-            <Row style={{height: 40, paddingLeft: 10, paddingRight: 10,}}>
-              <Item style={{height: 40, paddingRight: 10, flex: 1}} onPress={() => this.selectHospital()}>
-                <Left style={{flexDirection: 'row'}}>
-                  <Text>医院: </Text>
-                  <Text style={{paddingLeft: 10}}>{hospital && hospital.MerchantName}</Text>
-                </Left>
-                <Icon name="chevron-down" type="EvilIcons"/>
-              </Item>
-              <Item style={{height: 40, paddingLeft: 10, flex: 1}} onPress={() => this.selectDepartment()}>
-                <Left><Text>科室: {department && department.Dept_Name}</Text></Left>
-                <Icon name="chevron-down" type="EvilIcons"/>
-              </Item>
-            </Row>
-            <CalendarStrip
-              // 每个按钮 从左到右依次出现的动画
-              calendarAnimation={{type: 'sequence', duration: 30}}
-              //
-              daySelectionAnimation={{type: 'background', duration: 300, highlightColor: '#9265DC'}}
-              // 头部年月的样式
-              calendarHeaderStyle={{color: 'white'}}
-              // 日期数字的颜色
-              dateNumberStyle={{color: 'white'}}
+        <Row style={{height: 40, paddingLeft: 10, paddingRight: 10,}}>
+          <Item style={{height: 40, paddingRight: 10, flex: 1}} onPress={() => this.selectHospital()}>
+            <Left style={{flexDirection: 'row'}}>
+              <Text>医院: </Text>
+              <Text style={{paddingLeft: 10}}>{hospital && hospital.MerchantName}</Text>
+            </Left>
+            <Icon name="chevron-down" type="EvilIcons"/>
+          </Item>
+          <Item style={{height: 40, paddingLeft: 10, flex: 1}} onPress={() => this.selectDepartment()}>
+            <Left><Text>科室: {department && department.Dept_Name}</Text></Left>
+            <Icon name="chevron-down" type="EvilIcons"/>
+          </Item>
+        </Row>
+        <CalendarStrip
+          // 每个按钮 从左到右依次出现的动画
+          calendarAnimation={{type: 'sequence', duration: 30}}
+          //
+          daySelectionAnimation={{type: 'background', duration: 300, highlightColor: '#9265DC'}}
+          // 头部年月的样式
+          calendarHeaderStyle={{color: 'white'}}
+          // 日期数字的颜色
+          dateNumberStyle={{color: 'white'}}
 
-              // 日历插件的背景色
-              calendarColor={'#7743CE'}
-              // 日期数字的颜色
-              dateNameStyle={{color: 'white'}}
-              // 两侧按钮的宽度
-              iconContainer={{flex: 0.1}}
-              maxDayComponentSize={40}
-              innerStyle={{height: 120}}
-              style={{paddingTop: 10, paddingBottom: 10, paddingLeft: 50}}
-              // 不现实每一天的名字
-              // showDayName={false}
-              // 定义每一个日期按钮的颜色
-              // customDatesStyles={customDatesStyles}
-              onDateSelected={(e) => this.onDateSelected(e)}
-            />
-            <Content>
-              {
-                expertList && (
-                  <List
-                    dataArray={expertList}
-                    renderRow={item => (
-                      <RegistrationItem
-                        item={item}
-                        onPressItem={(option, time) => this._appointmentDoctor(item, time)}
-                        onPressPic={() => this.showExportMessage(item)}
-                      />
-                    )}
+          // 日历插件的背景色
+          calendarColor={'#7743CE'}
+          // 日期数字的颜色
+          dateNameStyle={{color: 'white'}}
+          // 两侧按钮的宽度
+          iconContainer={{flex: 0.1}}
+          maxDayComponentSize={40}
+          innerStyle={{height: 120}}
+          style={{paddingTop: 10, paddingBottom: 10, paddingLeft: 50}}
+          // 不现实每一天的名字
+          // showDayName={false}
+          // 定义每一个日期按钮的颜色
+          // customDatesStyles={customDatesStyles}
+          onDateSelected={(e) => this.onDateSelected(e)}
+        />
+        <Content>
+          {
+            expertList && (
+              <List
+                dataArray={expertList}
+                renderRow={item => (
+                  <RegistrationItem
+                    item={item}
+                    onPressItem={(option, time) => this._appointmentDoctor(item, time)}
+                    onPressPic={() => this.showExportMessage(item)}
                   />
-                )
-              }
+                )}
+              />
+            )
+          }
+        </Content>
 
-            </Content>
-
-          </Tab>
-          <Tab heading="视频问诊" style={{height: 380}}>
-            <ReservationVideo {...this.props}/>
-            <TouchableOpacity
-              style={{
-                width: '100%',
-                backgroundColor: '#5a75ff',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}
-              onPress={() => alert('预约')}>
-              <Text style={{padding: 15, color: '#fff'}}>
-                预约
-              </Text>
-            </TouchableOpacity>
-          </Tab>
-        </Tabs>
       </Container>
     );
   }

@@ -44,7 +44,7 @@ const initialState = {
       },
     ],
     tabChange(index, item) {
-      console.log(index, item)
+      // console.log(index, item)
     }
   },
   status: '点击登录',
@@ -60,7 +60,7 @@ const LOGIN_IN_DOING = 'login/正在登陆'
 
 let func = {
   [LOGIN_IN_DOING](state, action) {
-    console.log(system)
+    // console.log(system)
     return {
       ...state,
       status: '正在登陆',
