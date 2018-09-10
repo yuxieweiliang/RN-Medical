@@ -45,11 +45,11 @@ class Login extends Component {
         dispatch(getUser())
       }
       /*if(res) {
-        navigator.resetTo({
-          screen:'Koe.AppHome',
-          title:"主页"
-        });
-      }*/
+       navigator.resetTo({
+       screen:'Koe.AppHome',
+       title:"主页"
+       });
+       }*/
     })
   }
   _renderContent(){
@@ -89,7 +89,7 @@ class Login extends Component {
 
   routerTo(screen, title) {
     // showModal, showLightBox
-      this.props.navigator.showModal({
+    this.props.navigator.showModal({
       screen,
       title,
       navigatorStyle: {

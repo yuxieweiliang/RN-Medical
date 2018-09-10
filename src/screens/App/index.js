@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions , StatusBar, StyleSheet  } from 'react-native';
 import { Container, Content, Header, Button,  ScrollableTab, Fab, Tab, Tabs, Card, CardItem, Left, Right, Icon, Text } from 'native-base';
 import { connect } from 'react-redux'
-import SignTrend from './SignTrend'
+import SignTrend from '../App.SignTrend'
 // 栏目卡片
 import { healthDaily } from '../../reducers/system/actions'
 import { getUserInfo } from '../../reducers/sign/actions'

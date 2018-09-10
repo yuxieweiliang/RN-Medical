@@ -1,12 +1,12 @@
 import { Navigation, ScreenVisibilityListener } from 'react-native-navigation';
 
 
-import AppHome from './AppHome'
+import AppHome from './App'
 // import HealthDaily from './HealthDaily'
 // 健康日报
-import HealthDailyDetails from './AppHome/HealthDailyDetails'
+import HealthDailyDetails from './App/HealthDailyDetails'
 // 健康指标
-import HealthIndicators from './AppHome/HealthIndicators'
+import HealthIndicators from './App/HealthIndicators'
 
 import SearchView from '../components/Search'
 import TitleView from '../components/Title'
@@ -47,7 +47,7 @@ import ExpertList from './Expert.List'
 // 病种
 import DiseaseSpeciesList from './System.DiseaseSpeciesList'
 // 填写体征信息
-import SignTrendEdit from './AppHome/SignTrendEdit'
+import SignTrendEdit from './App.SignTrendEdit'
 // 症状 身体部位列表
 import SymptomList from './System.SymptomList'
 // 病理病程
@@ -56,18 +56,24 @@ import PathologicalList from './System.PathologicalList'
 import Complication from './System.Complication'
 // 预约视频
 import ConsultVideo from './Consult.Video'
-import Chat from './Chat'
-// 朋友列表
-import FriendList from './FriendList'
 
+// =======================================================================
+//                            我的   start
 import User from './Self'
 import SelfMessages from './Self.Messages'
+import FriendList from './Self.FriendList' // 朋友列表
+import SelfAccount from './Self.Account' // 我的账户
+import Chat from './Self.Chat/Chat'
+//                            我的   end
+// =======================================================================
+//////////////////////////////////////////////////////////////////////////
+// =======================================================================
+//                            医院   start
+import Department from './Hospital.Department'
+import DepartmentList from './Hospital.Department.List'
+//                            医院   end
+// =======================================================================
 
-import Department from './Department'
-import DepartmentList from './Department/DepartmentList'
-
-
-import SelfAccount from './Self.Account'
 
 import DrawerLeft from './DrawerLeft'
 

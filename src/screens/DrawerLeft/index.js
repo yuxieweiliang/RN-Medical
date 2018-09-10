@@ -5,7 +5,6 @@ import styles from './style'
 import { exit } from '../../reducers/app/actions'
 import { connect } from 'react-redux'
 
-
 const { width, height } = Dimensions.get('window');
 
 class DrawerLeft extends Component {
