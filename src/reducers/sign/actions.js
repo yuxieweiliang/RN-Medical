@@ -11,9 +11,9 @@ const today = moment().format('YYYY-MM-DD HH:mm:ss')
  * 添加体征
  * @returns {{type}}
  */
-export function postUserInfo(body, user) {
-  let url = body.ID ? api.putUserInfo() : api.postUserInfo()
-  let data = {
+export function postUserInfo(option, user) {
+  let url = option.ID ? api.putUserInfo() : api.postUserInfo()
+  let body = JSON.stringify(Object.assign({}, {
     "UserID": user.UserID,
     "TimePoint": today,
     "TimePosition": today,
@@ -25,14 +25,15 @@ export function postUserInfo(body, user) {
     "XYLDesc": "string",
     "HXDesc": "string",
     "XLDesc": "string",
-    "XYBHDDesc": "string",
-    "VShardID": 0,
-    "MerchantID": 0,
-    "IsDeleted": true
-  }
+    "XYBHDDesc": "string"
+  }, option))
 
+  console.log(body, url)
   return (async dispatch => {
-    return fetch.post(url, { body: JSON.stringify(Object.assign({}, data, body)) }).then(res => console.log(res))
+    if(option.ID) {
+      return fetch.put(url, { body  }).then(res => console.log(res))
+    }
+    return fetch.post(url, { body  }).then(res => console.log(res))
   });
 }
 
@@ -53,9 +54,9 @@ export function getUserInfo() {
  * @returns {{type}}
  */
 export function getSignList() {
-  let start = moment().add(-30, 'days').format('YYYY-MM-DD HH:mm:ss')
+  let start = moment().add(-7, 'd').format('YYYY-MM-DD HH:mm:ss')
   let end = moment().format('YYYY-MM-DD HH:mm:ss')
-  let url = api.getUserInfoList({start: '2018-05-01 12:12:00', end: '2018-05-12 23:59:59'})
+  let url = api.getUserInfoList({start: start, end: end})
 
   // storage.remove('user')
   return (dispatch => {
@@ -67,6 +68,14 @@ export function getSignList() {
   })
 }
 
+/**
+ * 修改体征信息
+ * @param data
+ * @returns {{type: string, data: *}}
+ */
+export function changeSign(data) {
+  return ({type: types.SIGN_CHANGE, data})
+}
 /**
  * 修改体征信息的每一项
  * @param data

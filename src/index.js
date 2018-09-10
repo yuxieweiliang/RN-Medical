@@ -121,7 +121,7 @@ export default class App extends Component {
           tabs: [
             {
               label: '主页',
-              screen: 'Koe.AppHome', // AppHome Consult 'Koe.User.UserMessages
+              screen: 'Koe.AppHome', // AppHome Consult 'Koe.Self.UserMessages
               icon: icon.home,
               navigatorStyle: {
                 navBarHidden: true
@@ -141,7 +141,7 @@ export default class App extends Component {
             },
             {
               label: '我的',
-              screen: 'Koe.User',
+              screen: 'Koe.Self',
               icon: icon.user,
               title: "用户中心",
             },
@@ -196,10 +196,10 @@ export default class App extends Component {
           }
         });
         break;
-      case 'InterrogationVideo': // 视频通话
+      case 'ConsultVideo': // 视频通话
         Navigation.startSingleScreenApp({
           screen: {
-            screen: 'Koe.InterrogationVideo',
+            screen: 'Koe.ConsultVideo',
             navigatorStyle: {
               navBarHidden: true,
             },
@@ -209,7 +209,7 @@ export default class App extends Component {
       case 'UserMessages':
         Navigation.startSingleScreenApp({
           screen: {
-            screen: 'Koe.User.UserMessages',
+            screen: 'Koe.Self.UserMessages',
             navigatorStyle: {
               navBarHidden: true,
             },

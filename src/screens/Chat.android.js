@@ -182,6 +182,12 @@ class Chat extends React.Component {
   sendLocationImage(longitude, latitude, address) {
     NimSession.sendLocationMessage(longitude, latitude, address);
   }
+
+  /**
+   * 文字聊天内容
+   * @param text
+   * @param ids
+   */
   onSend(text, ids) {
     if (!text || !text.trim()) {
       Toast.show('请输入聊天内容');

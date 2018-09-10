@@ -10,27 +10,32 @@ const borderWidth = StyleSheet.hairlineWidth;
 const header = require('../../assets/images/a4.jpg')
 
 export default class RegistrationItem extends Component {
-  renderItem(item, key) {
+  renderItem(item, key, index) {
     const { onPressItem } = this.props
-    const am = {backgroundColor: item.am ? '#eee' : '#fff'}
-    const pm = {backgroundColor: item.pm ? '#eee' : '#fff'}
+    const bgColor = index*1 === 0 ? '#353396' : '#eee'
+    const color = index*1 === 0 ? '#fafafa' : '#333'
+    const am = {backgroundColor: item.am ? bgColor : '#fff'}
+    const pm = {backgroundColor: item.pm ? bgColor : '#fff'}
+    const amColor = {fontSize: 12, color}
+    const pmColor = {fontSize: 12, color}
+
     return (
       <View key={key} style={styles.itemChild}>
         <TouchableOpacity
           style={[styles.itemChildTop, am]}
           onPress={() => onPressItem(item, item.am)}>
-          <Text style={{fontSize: 12}}>{item.am}</Text>
+          <Text style={amColor}>{item.am}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.itemChildBottom, pm]}
           onPress={() => onPressItem(item, item.pm)}>
-          <Text style={{fontSize: 12}}>{item.pm}</Text>
+          <Text style={pmColor}>{item.pm}</Text>
         </TouchableOpacity>
       </View>
     )
   }
   render() {
-    const { item, onPressPic } = this.props
+    const { item, index, onPressPic } = this.props
     return (
       <Item style={styles.item}>
         <TouchableOpacity
@@ -52,7 +57,7 @@ export default class RegistrationItem extends Component {
         <View  style={styles.content}>
           {
             [ {key: '1', pm: '有空'}, {key: '2', am: '有空'}, {key: '3'}, {key: '4'}, {key: '5'}, {key: '6'}, {key: '7'}]
-              .map((item, key) => this.renderItem(item, key))
+              .map((item, key) => this.renderItem(item, key, index))
           }
         </View>
         <View style={{

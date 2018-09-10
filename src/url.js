@@ -189,6 +189,8 @@ export default {
   getTemplateByType: createApi(`${cms}/api/Sys_Paper_Template/GetListByType/{hospitalId}/{templateType}`),
 
 
+  // 根据患者 ID  获取 回执列表
+  getReceiptListByPatientId: createApi(`${userData}/api/Data_Consult_Receipt/GetByUserID`),
 
 
 }

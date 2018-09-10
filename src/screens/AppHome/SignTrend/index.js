@@ -6,7 +6,7 @@ import { LineChart } from 'react-native-charts-wrapper'
 import update from 'immutability-helper';
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { getSignList } from '../../../reducers/sign/actions'
+import { getSignList, changeSign } from '../../../reducers/sign/actions'
 import Card from '../../../components/Card'
 import { option, config } from './dataConfig'
 import styles from './style'
@@ -28,31 +28,6 @@ class SignTrend extends React.Component {
       pulse: null,
       bloodOxygenSaturation: null,
     }
-
-    /*Icon.getImageSource('bars', 24).then(icon => {
-      this.props.navigator.setButtons({
-        rightButtons: [{
-          title: '保存',
-          id: 'SignTrendMenu',
-          icon
-        }],
-        animated: true
-      });
-      /!**
-       * 点击右上角按钮执行函数
-       *!/
-      this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-    });*/
-  }
-  onNavigatorEvent(e) {
-    // console.log(e)
-    if (e.type == 'NavBarButtonPress') {
-
-      if (e.id == 'SignTrendMenu') {
-        this.props.dispatch({type: 'SignTrendModel'})
-      }
-    }
-
   }
 
   componentWillMount() {
@@ -60,15 +35,28 @@ class SignTrend extends React.Component {
     dispatch(getSignList())
     // dispatch(signAction.sign(3))
   }
-  handleSelect(event) {
+
+  handleSelect(event, e) {
     let entry = event.nativeEvent;
-    if (entry == null) {
+    let { TimePoint } = entry.data
+    let { signList, dispatch } = this.props
+
+    if (entry === null) {
       this.setState({ ...this.state, selectedEntry: null });
     } else {
       this.setState({ ...this.state, selectedEntry: JSON.stringify(entry) });
     }
 
-    // console.log(event.nativeEvent);
+
+    signList.map(item => {
+      if(item.TimePoint === TimePoint) {
+        dispatch(changeSign(item))
+      }
+    })
+
+    //
+    console.log(entry, e, this.props)
+    this.props.navigator.push({screen: 'Koe.SignTrendEdit'})
   }
 
   createSignData(option) {
@@ -78,10 +66,14 @@ class SignTrend extends React.Component {
         if(!data[key]) {
           data[key] = []
         }
+
+        console.log(moment(item.TimePoint).format('YYYY-MM-DD'))
         data[key].push({
-          x: i,
+          x: moment(item.TimePoint).format('DD')*1-1,
           y: item[key],
-          marker: item[key] + ' '
+          marker: item[key] + ' ',
+          key,
+          TimePoint: item.TimePoint,
         })
       })
     })
@@ -89,7 +81,8 @@ class SignTrend extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     const { signList } = nextProps
-    if(signList) {
+
+    if(signList && signList.length > 0) {
       let data = this.createSignData(signList)
 
       this.setState({
@@ -150,21 +143,12 @@ class SignTrend extends React.Component {
 
   componentDidMount() {
   }
-  signTrendMenuItem(item) {
-    const { dispatch, navigator } = this.props;
-
-    if(item.key === '添加') {
-      navigator.push({screen: 'Koe.SignTrendEdit'})
-    }
-
-    dispatch({type: 'SignTrendModel'})
-  }
 
   render() {
     const { bloodPressure, temperature, breathing, pulse, bloodOxygenSaturation } = this.state;
     const { SignTrendModel, navigator, dispatch } = this.props;
 
-    // console.log(this.state, bloodPressure)
+    // console.log(this.state)
     return (
       <Content style={styles.container}>
 

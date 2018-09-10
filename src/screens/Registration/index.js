@@ -94,19 +94,80 @@ class Registration extends React.Component {
    */
   _appointmentDoctor(option) {
     this.props.dispatch(changeExpert(option))
+
+    // this.props.navigator.push({screen: 'Koe.DepartmentList'})
+  }
+
+  _verifyRegistration() {
+    let {appointTime, user, hospital, department, expert} = this.props
+
+    if (!appointTime) {
+      alert('请选择预约时间')
+      return false;
+    }
+
+    if (!hospital) {
+      alert('请选择医院')
+      return false;
+    }
+
+    if (!department) {
+      alert('请选择科室')
+      return false;
+    }
+
+    if (!expert) {
+      alert('请选择专家')
+      return false;
+    }
+
+    return true;
+  }
+  registration() {
+    let {appointTime, user, hospital, department, expert} = this.props
+
+    // 如果验证不通过
+    if(! this._verifyRegistration()) {
+      return;
+    }
+
+    // 进入预约页面
     this.props.navigator.push({
       screen: 'Koe.Registration.Information',
       /*navigatorStyle: {
-        navBarHidden: true
-      },*/
+       navBarHidden: true
+       },*/
       passProps: {
         onClose: (option) => {
-          this.props.navigator.dismissModal()
+          // 返回
+          this.props.navigator.pop();
         },
       },
     })
-    // this.props.navigator.push({screen: 'Koe.DepartmentList'})
   }
+  registrationVideo() {
+    let { appointTime, user, hospital, department, expert } = this.props
+
+    // 如果验证不通过
+    if(! this._verifyRegistration()) {
+      return;
+    }
+
+    // this.props.dispatch(postRegistration({ appointTime, user, hospital, department, expert }))
+      this.props.navigator.push({
+        screen: 'Koe.Registration.Information',
+        /*navigatorStyle: {
+         navBarHidden: true
+         },*/
+        passProps: {
+          onClose: (option) => {
+            // 返回
+            this.props.navigator.pop();
+          },
+        },
+      })
+  }
+
   render() {
     let { expertList, department, hospital }= this.props
 
@@ -169,9 +230,10 @@ class Registration extends React.Component {
             expertList && (
               <List
                 dataArray={expertList}
-                renderRow={item => (
+                renderRow={(item, _, index) => (
                   <RegistrationItem
                     item={item}
+                    index={index}
                     onPressItem={(option, time) => this._appointmentDoctor(item, time)}
                     onPressPic={() => this.showExportMessage(item)}
                   />
@@ -179,6 +241,14 @@ class Registration extends React.Component {
               />
             )
           }
+          <Item style={{flex: 1, padding: 10}}>
+           {/* <Left style={{flex: 1, padding: 5}}>
+              <Button full onPress={() => this.registration()}><Text>预约挂号</Text></Button>
+            </Left>*/}
+            <Right style={{flex: 1, padding: 5}}>
+              <Button full onPress={() => this.registrationVideo()}><Text>预约视频</Text></Button>
+            </Right>
+          </Item>
         </Content>
 
       </Container>

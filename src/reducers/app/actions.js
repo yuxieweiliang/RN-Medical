@@ -53,7 +53,7 @@ export function appInitialized(router) {
 }
 
 export function exit() {
-  storage.removeItem('system.token')
+  storage.removeItem('token')
   return ({type: types.ROOT_CHANGED, data: 'login'})
 }
 
@@ -91,12 +91,8 @@ export function login(username, password) {
     }
 
     try{
-      let token = await storage.getItem('token')
-
-
-      if(!token) {
-        token = await fetch.post(url, option)
-      }
+      await storage.removeItem('token')
+      let token = await fetch.post(url, option)
 
       if(token.ok === false) {
         Toast.show('登录失败，请输入正确的用户名和密码！')
@@ -113,7 +109,7 @@ export function login(username, password) {
 
       return true
     }catch(error) {
-      storage.removeItem('system.token')
+      storage.removeItem('token')
       Toast.show(error)
       // console.log(error)
     }

@@ -13,60 +13,61 @@ import TitleView from '../components/Title'
 
 // SYSTEM
 import Login from './Login'
-import Register from './Register'
+import Register from './System.Register'
 // 病种
-import DiseaseSpecies from './Register/DiseaseSpecies'
+import DiseaseSpecies from './System.DiseaseSpecies'
+
 // 忘记密码
-import RetrievePassword from './Register/RetrievePassword'
+import RetrievePassword from './System.Register/RetrievePassword'
 // 新密码
-import NewPassword from './Register/NewPassword'
-// 二维码
-import QRCode from './QRCode'
+import NewPassword from './System.Register/NewPassword'
 
 // USER
-import MyRegistration from './User/MyRegistration'
-import Follow from './User/Follow'
-import Record from './User/Record'
+import SelfRegistration from './Self.Registration'
+import SelfFollow from './Self.Follow'
+import SelfRecord from './Self.Record'
+// 二维码
+import SelfQRCode from './Self.QRCode'
 
 // 检查
 import Examination from './Examination'
 
 
-import Consult from './system/Consult'
+import Consult from './Consult'
 import Registration from './Registration'
-import Information from './Registration/Information'
+import RegistrationInformation from './Registration.Information'
 
-import HospitalList from './Hospital/HospitalList'
+import HospitalList from './Hospital.List'
 import Expert from './Expert'
-import ExpertList from './Expert/ExpertList'
+import ExpertList from './Expert.List'
 
+// =======================================================================
+//                            系统数据
+// =======================================================================
 // 病种
-import DiseaseSpeciesList from './system/DiseaseSpeciesList'
+import DiseaseSpeciesList from './System.DiseaseSpeciesList'
 // 填写体征信息
 import SignTrendEdit from './AppHome/SignTrendEdit'
-// 身体部位列表
-import BodyPosition from './system/BodyPosition'
-// 症状雷彪
-import SymptomList from './system/SymptomList'
+// 症状 身体部位列表
+import SymptomList from './System.SymptomList'
 // 病理病程
-import PathologicalCourseList from './system/PathologicalCourseList'
+import PathologicalList from './System.PathologicalList'
 // 并发症
-import Complication from './system/Complication'
+import Complication from './System.Complication'
 // 预约视频
-import InterrogationVideo from './system/InterrogationVideo'
+import ConsultVideo from './Consult.Video'
 import Chat from './Chat'
 // 朋友列表
 import FriendList from './FriendList'
 
-import User from './User'
-import UserMessages from './UserMessages'
-// import CollapsingHeader from './UserMessages/CollapsingHeader'
+import User from './Self'
+import SelfMessages from './Self.Messages'
 
 import Department from './Department'
 import DepartmentList from './Department/DepartmentList'
 
 
-import Account from './Account'
+import SelfAccount from './Self.Account'
 
 import DrawerLeft from './DrawerLeft'
 
@@ -79,14 +80,9 @@ export  function registerScreens(store, Provider) {
   RegisterComponent('Koe.DiseaseSpecies', () => DiseaseSpecies, store, Provider)
   RegisterComponent('Koe.RetrievePassword', () => RetrievePassword, store, Provider)
   RegisterComponent('Koe.NewPassword', () => NewPassword, store, Provider)
-  RegisterComponent('Koe.QRCode', () => QRCode, store, Provider)
-  RegisterComponent('Koe.Follow', () => Follow, store, Provider)
-  RegisterComponent('Koe.Record', () => Record, store, Provider)
-  RegisterComponent('Koe.MyRegistration', () => MyRegistration, store, Provider)
 
 
   RegisterComponent('Koe.AppHome', () => AppHome, store, Provider)
-  // RegisterComponent('Koe.HealthDaily', () => HealthDaily, store, Provider)
   RegisterComponent('Koe.HealthDailyDetails', () => HealthDailyDetails, store, Provider)
   RegisterComponent('Koe.HealthIndicators', () => HealthIndicators, store, Provider)
   RegisterComponent('Koe.Examination', () => Examination, store, Provider)
@@ -97,23 +93,35 @@ export  function registerScreens(store, Provider) {
   RegisterComponent('Koe.DiseaseSpeciesList', () => DiseaseSpeciesList, store, Provider)
   RegisterComponent('Koe.ExpertList', () => ExpertList, store, Provider)
   RegisterComponent('Koe.Expert', () => Expert, store, Provider)
-  RegisterComponent('Koe.BodyPosition', () => BodyPosition, store, Provider)
   RegisterComponent('Koe.SymptomList', () => SymptomList, store, Provider)
-  RegisterComponent('Koe.PathologicalCourseList', () => PathologicalCourseList, store, Provider)
+  RegisterComponent('Koe.PathologicalList', () => PathologicalList, store, Provider)
   RegisterComponent('Koe.Complication', () => Complication, store, Provider)
-  RegisterComponent('Koe.InterrogationVideo', () => InterrogationVideo, store, Provider)
+  RegisterComponent('Koe.ConsultVideo', () => ConsultVideo, store, Provider)
   RegisterComponent('Koe.Chat', () => Chat, store, Provider)
   RegisterComponent('Koe.FriendList', () => FriendList, store, Provider)
 
-  RegisterComponent('Koe.User', () => User, store, Provider)
-  RegisterComponent('Koe.User.UserMessages', () => UserMessages, store, Provider)
+  // ======================================================================
+  //                           self   start
+  RegisterComponent('Koe.Self', () => User, store, Provider)
+  RegisterComponent('Koe.Self.Messages', () => SelfMessages, store, Provider)
+  RegisterComponent('Koe.Self.SelfAccount', () => SelfAccount, store, Provider)
+  RegisterComponent('Koe.Self.Registration', () => SelfRegistration, store, Provider)
+  RegisterComponent('Koe.Self.QRCode', () => SelfQRCode, store, Provider)
+  RegisterComponent('Koe.Self.Follow', () => SelfFollow, store, Provider)
+  RegisterComponent('Koe.Self.Record', () => SelfRecord, store, Provider)
+  //                           self   end
+  // ======================================================================
 
+  // ======================================================================
+  //                       Registration   start
   RegisterComponent('Koe.Registration', () => Registration, store, Provider)
-  RegisterComponent('Koe.Registration.Information', () => Information, store, Provider)
+  RegisterComponent('Koe.Registration.Information', () => RegistrationInformation, store, Provider)
+  //                       Registration   end
+  // ======================================================================
+
   RegisterComponent('Koe.Department', () => Department, store, Provider)
   RegisterComponent('Koe.DepartmentList', () => DepartmentList, store, Provider)
 
-  RegisterComponent('Koe.Account', () => Account, store, Provider)
 
   RegisterComponent('Koe.DrawerLeft', () => DrawerLeft, store, Provider)
 

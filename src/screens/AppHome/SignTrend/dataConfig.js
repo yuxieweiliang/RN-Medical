@@ -59,7 +59,11 @@ export let xAxis = {
   legend: false,
   drawAxisLine: true,
   drawGridLines: false,
-  valueFormatter: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+  valueFormatter: [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+    "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+    "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",
+  ],
 
 }
 export let yAxis = {
@@ -78,7 +82,7 @@ export let option = {
   touchEnabled: true,
   // 弹出框以及文字颜色
   marker: {
-    enabled: true,
+    enabled: false,
     markerColor: processColor("white"),
     textColor: processColor("black")
   },

@@ -7,17 +7,17 @@ import { typeOf } from '../../../utils'
 import moment from 'moment'
 
 
-const EditInput = ({title, value, placeholder, onPress, onFocus, onBlur}) => (
+const EditInput = ({title, defaultValue, placeholder = '请输入', onChangeText, onFocus, onBlur}) => (
   <View style={styles.list}>
     <Text style={styles.label}>{title}：</Text>
     <TextInput
       style={styles.text}
       underlineColorAndroid="transparent"
-      defaultValue={value}
+      defaultValue={defaultValue}
       onFocus={onFocus}
       onBlur={onBlur}
       placeholder={placeholder}
-      onChangeText={onPress}
+      onChangeText={onChangeText}
     />
     <Text style={styles.goto}>*</Text>
   </View>
@@ -41,6 +41,7 @@ class SignTrendEdit extends React.Component {
    */
   onNavigatorEvent(e) {
     const { dispatch, sign, user } = this.props
+    let keys = ['HX', 'MB', 'TW', 'XL', 'XY', 'XYH', 'XYL'] // 'XYBHD',
     if (e.type === 'NavBarButtonPress') {
       if (e.id === 'saveTrend') {
 
@@ -48,8 +49,11 @@ class SignTrendEdit extends React.Component {
           return;
         }
 
-        for(var key in sign) {
-          if(typeOf(sign[key] * 1) === 'NaN') {
+
+        for(let i in keys) {
+          let key = keys[i]
+          console.log(sign[key])
+          if((sign[key] * 1) !== (sign[key] * 1)) {
             alert('必须是数值')
             return
           }
@@ -86,7 +90,13 @@ class SignTrendEdit extends React.Component {
       animated: true // does the toggle have transition animation or does it happen immediately (optional)
     })
   }
+
+  _toString(string) {
+    return string ? string + '' : ''
+  }
   render() {
+    const { sign } = this.props
+    console.log(sign)
 
     return (
 
@@ -94,64 +104,57 @@ class SignTrendEdit extends React.Component {
 
         <EditInput
           title="血压（高）"
-          value=""
-          placeholder="请输入"
+          defaultValue={this._toString(sign.XYH)}
           onFocus={this.inputFocus.bind(this)}
           onBlur={this.inputBlur.bind(this)}
-          onPress={(e) => this.signItemChange(e, 'XYH')}
+          onChangeText={(text) => this.signItemChange(text, 'XYH')}
         />
         <EditInput
           title="血压（低）"
-          value=""
-          placeholder="请输入"
+          defaultValue={this._toString(sign.XYL)}
           onFocus={this.inputFocus.bind(this)}
           onBlur={this.inputBlur.bind(this)}
-          onPress={(e) => this.signItemChange(e, 'XYL')}
+          onChangeText={(text) => this.signItemChange(text, 'XYL')}
         />
 
         <EditInput
           title="血氧"
-          value=""
-          placeholder="请输入"
+          defaultValue={this._toString(sign.XY)}
           onFocus={this.inputFocus.bind(this)}
           onBlur={this.inputBlur.bind(this)}
-          onPress={(e) => this.signItemChange(e, 'XY')}
+          onChangeText={(text) => this.signItemChange(text, 'XY')}
         />
 
         <EditInput
           title="呼吸"
-          value=""
-          placeholder="请输入"
+          defaultValue={this._toString(sign.HX)}
           onFocus={this.inputFocus.bind(this)}
           onBlur={this.inputBlur.bind(this)}
-          onPress={(e) => this.signItemChange(e, 'HX')}
+          onChangeText={(text) => this.signItemChange(text, 'HX')}
         />
 
         <EditInput
           title="心率"
-          value=""
-          placeholder="请输入"
+          defaultValue={this._toString(sign.XL)}
           onFocus={this.inputFocus.bind(this)}
           onBlur={this.inputBlur.bind(this)}
-          onPress={(e) => this.signItemChange(e, 'XL')}
+          onChangeText={(text) => this.signItemChange(text, 'XL')}
         />
 
         <EditInput
           title="体温"
-          value=""
-          placeholder="请输入"
+          defaultValue={this._toString(sign.TW)}
           onFocus={this.inputFocus.bind(this)}
           onBlur={this.inputBlur.bind(this)}
-          onPress={(e) => this.signItemChange(e, 'TW')}
+          onChangeText={(text) => this.signItemChange(text, 'TW')}
         />
 
         <EditInput
           title="脉搏"
-          value=""
-          placeholder="请输入"
+          defaultValue={this._toString(sign.MB)}
           onFocus={this.inputFocus.bind(this)}
           onBlur={this.inputBlur.bind(this)}
-          onPress={(e) => this.signItemChange(e, 'MB')}
+          onChangeText={(text) => this.signItemChange(text, 'MB')}
         />
       </View>
     );

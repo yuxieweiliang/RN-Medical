@@ -22,6 +22,7 @@ import {
 // 更换 医院
   changeHospital
 } from '../reducers/appointmentConsultation/actions'
+import { changeBodyPositionOfList } from '../reducers/system/actions'
 
 const { width, height } = Dimensions.get('window');
 
@@ -149,25 +150,10 @@ export default class ReservationVideo extends Component {
   }
 
 
-  onPressSymptom() {
-      this.props.navigator.push({
-      screen: `Koe.BodyPosition`,
-        title: '部位',
-      passProps: {
-        onClose: (option) => {
-
-          this.props.dispatch(bodyPositionChange(option))
-          this.props.navigator.pop()
-          this._routerToSymptomList() // ↓↓↓
-        },
-      }})
-  }
-
   /**
-   * 跳转到 症状
-   * @private
+   * 跳转到选择  部位 症状  的页面
    */
-  _routerToSymptomList() {
+  onPressSymptom() {
 
     this.props.navigator.push({
       screen: 'Koe.SymptomList',
@@ -179,6 +165,12 @@ export default class ReservationVideo extends Component {
           this.props.navigator.pop()
           this._routerToPathologicalCourseList() // ↓↓↓
         },
+        bodyPositionChange: (option) => {
+          this.props.dispatch(changeBodyPositionOfList(option))
+        },
+        changeBodyPositionOfList: (option) => {
+          this.props.dispatch(changeBodyPositionOfList(option))
+        }
       }
     })
   }
@@ -190,7 +182,7 @@ export default class ReservationVideo extends Component {
   _routerToPathologicalCourseList() {
 
     this.props.navigator.push({
-      screen: 'Koe.PathologicalCourseList',
+      screen: 'Koe.PathologicalList',
       title: '病理病程',
       passProps: {
         onClose: (option) => {

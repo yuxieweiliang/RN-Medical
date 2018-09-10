@@ -18,9 +18,10 @@ export function getUser() {
   return async dispatch => {
     let user = await storage.getItem(`user`)
 
+    console.log(user, url, tokenData)
     if(!user) {
       user = await fetch.get(url).then(res => {
-        // console.log(res)
+        console.log(res)
 
         return res.Data
       })

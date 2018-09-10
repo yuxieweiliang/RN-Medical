@@ -80,6 +80,8 @@ const func = {
   // 更改部位
   [types.CHANGE_BODY_POSITION](state, action) {
     storage.setItem('bodyPosition', action.data)
+
+
     return state.merge({
       bodyPosition: action.data
     });

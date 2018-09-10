@@ -77,6 +77,18 @@ export function getPositionList(option) {
 }
 
 /**
+ * 修改部位 { 列表 }
+ * @returns {{type}}
+ */
+export function changeBodyPositionOfList(option) {
+
+  return {
+    type: types.CHANGE_BODY_POSITION_OF_LIST,
+    data: option
+  }
+}
+
+/**
  * 症状 { 列表 }
  * @returns {{type}}
  */

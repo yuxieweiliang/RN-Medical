@@ -64,10 +64,7 @@ class HomePage extends Component<Props> {
   componentWillMount() {
     const { dispatch } = this.props
     // 请求健康日报
-    dispatch(healthDaily({}))
-    // console.log('****************|||||||||||     home page    |||||||||||****************')
-    // fetch.get('http://userdata.api.koenn.cn:81/api/Data_User_AdvicePaper_Dto/GetByPaperID/电话随访/322717145007458').then(res => // console.log(res))
-
+   //  dispatch(healthDaily({}))
   }
 
   toggleDrawer = () => {
@@ -112,7 +109,6 @@ class HomePage extends Component<Props> {
         {/*    精灵    */}
         <Spirit/>
 
-          {/*  健康指南  */}
           <View style={{ flex: 1 ,borderColor: 'transparent' }}>
             <Tabs
               // 默认显示第一个
@@ -121,8 +117,10 @@ class HomePage extends Component<Props> {
               renderTabBar={()=> <ScrollableTab tabStyle={{color: 'red'}}/>}
               >
 
+              {/*  健康指南  */}
               <Tab heading="健康状况">
                 <SignTrend
+                  {...this.props}
                   style={styles.tabItemStyle}/>
                 <Fab
                   direction="up"

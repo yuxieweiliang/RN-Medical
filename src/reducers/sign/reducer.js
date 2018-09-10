@@ -3,8 +3,8 @@ import Immutable from 'seamless-immutable';
 
 const initialState = Immutable({
   SignTrendModel: false,
-  sign: null, // 当前条
-  signList: null, // 体征列表
+  sign: {}, // 当前条
+  signList: [], // 体征列表
 });
 
 const func = {
@@ -26,6 +26,14 @@ const func = {
         ...state.sign,
         [action.data.key]: action.data.value
       }
+    });
+  },
+  /**
+   * 填写体征信息
+   */
+  [types.SIGN_CHANGE](state, action) {
+    return state.merge({
+      sign: action.data
     });
   },
   [types.SIGN_LIST](state, action) {

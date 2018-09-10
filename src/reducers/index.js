@@ -8,6 +8,7 @@ import expert from './expert/reducer';
 import sign from './sign/reducer';
 import hospital from './hospital/reducer';
 import appointmentConsultation from './appointmentConsultation/reducer'
+import consult from './consult/reducer'
 import department from './department/reducer'
 
 
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   hospital,
   sign,
   appointmentConsultation,
+  consult,
   department,
 });
 

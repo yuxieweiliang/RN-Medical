@@ -44,6 +44,25 @@ const func = {
     });
   },
 
+  // 部位列表
+  [types.CHANGE_BODY_POSITION_OF_LIST](state, action) {
+    let list = state.bodyPositionList.map(item => {
+      if(item.ItemName === action.data.ItemName) {
+        return {
+          ...action.data,
+          active: true
+        };
+      } else return {
+        ...item,
+        active: false
+      };
+    })
+
+    return state.merge({
+      bodyPositionList: list
+    });
+  },
+
   // 症状列表
   [types.SYMPTOM_LIST](state, action) {
     return state.merge({
