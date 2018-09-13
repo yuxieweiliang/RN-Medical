@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, View, Image } from 'react-native';
 import styles from './style'
-import config from '../../config'
-const {
-  color: { APP }
-} = config
 
 /**
  * btnStyle: 按钮样式
@@ -20,7 +16,7 @@ export default function TouchButton({
     router,
     navigation,
     activeOpacity = .8,
-    underlayColor  = APP.THEME_DEEP,
+    underlayColor  = '#4573E9',
     onPress
 }) {
   return (

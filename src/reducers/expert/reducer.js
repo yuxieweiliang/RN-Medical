@@ -2,6 +2,9 @@ import * as types from './actionTypes';
 import Immutable from 'seamless-immutable';
 
 const initialState = Immutable({
+  // 专家信息
+  expert: null,
+  // 专家列表
   expertList: null,
 });
 
@@ -13,6 +16,13 @@ const func = {
       expertList: action.data
     });
   },
+  // 更换专家信息
+  [types.CHANGE_EXPERT_MESSAGE](state, action) {
+    return state.merge({
+      expert: action.data
+    });
+  },
+
 
 }
 

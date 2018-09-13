@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
-import { FlatList, TouchableOpacity, View, ScrollView, Image, Dimensions , StatusBar, StyleSheet  } from 'react-native';
-import { Container, Content, Header, Button,  ScrollableTab, Fab, Tab, Tabs, Card, CardItem, Left, Right, Icon, Text } from 'native-base';
+import { View, Image, Dimensions  } from 'react-native';
+import { Container, Content, Header, Button, ScrollableTab, Fab, Tab, Tabs, Card, Left, Right, Icon, Text } from 'native-base';
 import { connect } from 'react-redux'
-import SignTrend from '../App.SignTrend'
-// 栏目卡片
-import { healthDaily } from '../../reducers/system/actions'
-import { getUserInfo } from '../../reducers/sign/actions'
+import SignTrend from '../App_SignTrend'
 // 精灵
 import Spirit from '../../components/Spirit'
+import HeaderView from '../../components/HeaderView'
 
-// 健康日报
-import HealthDaily from './HealthDaily'
 // 健康状况
-import HealthStatus from './healthStatus'
-import { extendKey } from '../../utils'
+import HealthStatus from '../App_HealthIndicators'
 import defaultData from './behavior'
 // 样式
 import styles from './style'
@@ -26,45 +21,11 @@ class HomePage extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {}
-    /*FontAwesomeIcon
-      .getImageSource('search', 24)
-      .then((values) => {
-        this.props.navigator.setButtons({
-          rightButtons: [
-            {
-              icon: values,
-              id: 'search'
-            },
-            {
-              id: 'custom-button',
-              navBarComponentAlignment: 'center',
-              component: 'Koe.TitleView', // This line loads our component as a nav bar button item
-              passProps: {
-                title: '主页',
-              }
-            },
-          ]})
-        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-    }).catch((error) => {
-      // console.log(error);
-    });*/
   }
 
-/*  onNavigatorEvent(event) {
-    // console.log(event, this.props)
-    if (event.type === 'NavBarButtonPress') {
-      // const parts = event.link.split('/');
-      if (event.id === 'search') {
-        this.props.navigator.push({
-          screen: 'Koe.SearchView'
-        });
-      }
-    }
-  }*/
   componentWillMount() {
     const { dispatch } = this.props
     // 请求健康日报
-   //  dispatch(healthDaily({}))
   }
 
   toggleDrawer = () => {
@@ -74,37 +35,31 @@ class HomePage extends Component<Props> {
     });
   };
 
+  _changeSearchText(val) {
+    this.props.navigator.push({
+      screen: 'Koe.Search',
+      navigatorStyle: {
+        navBarHidden: true,
+      }
+    });
+  }
   componentDidMount() {}
   componentWillUnmount() {}
   render() {
-    const { healthDailyList, navigator }= this.props
+    const { navigator }= this.props
     const { healthGuide, tabCardData={}, list }= defaultData
     const { healthIndicators, guideToLife,  healthStatus, medicalStatus }= tabCardData
-    const healthList = healthDailyList && extendKey(healthDailyList)
     // console.log('defaultData: ', this.props)
 
     return (
       <Container style={styles.container}>
-        <Header>
-          <Button transparent onPress={this.toggleDrawer}>
-            <Image source={require('../../../assets/images/a3.jpg')} style={{width: 36, height: 36, borderRadius: 18}} />
-          </Button>
 
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{color: '#fff'}}>Header</Text>
-          </View>
-
-          <Button
-            transparent
-            onPress={() => this.props.navigator.push({
-              screen: 'Koe.SearchView',
-              navigatorStyle: {
-                navBarHidden: true
-              },
-            })}>
-            <Icon name="ios-search" />
-          </Button>
-        </Header>
+        <HeaderView
+          {...this.props}
+          avatar={require('../../../assets/images/a3.jpg')}
+          onPressRight={this._changeSearchText.bind(this)}
+          title="康恩"
+        />
 
         {/*    精灵    */}
         <Spirit/>
@@ -177,7 +132,7 @@ class HomePage extends Component<Props> {
   }
 }
 const createState = function(state) {
-  return ({...state.home, ...state.system})
+  return ({...state.app, ...state.system})
 }
 
 export default connect(createState)(HomePage)

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, TouchableOpacity, View, StyleSheet, NativeAppEventEmitter, Dimensions } from 'react-native';
 import { Container, Content, List, Item, Left, Right, Tab, Tabs, Card, CardItem, Col, Icon } from 'native-base';
 import { typeOf } from '../utils'
-import {  } from '../reducers/hospital/actions'
 import { getExportList } from '../reducers/expert/actions'
 import {NimFriend, NimUtils, NimSession} from 'react-native-netease-im';
 import { addFriendNetEase } from '../reducers/app/actions'
@@ -17,56 +16,16 @@ import {
   pathologicalCourseChange,
   // 更换 并发症
   complicationChange,
-  // 更换 专家
-  changeExpert,
+} from '../reducers/registration/actions'
+import PathologicalCardItem from '../components/PathologicalCardItem'
+
+// 更换 专家
+import { changeExpert } from '../reducers/expert/actions'
 // 更换 医院
-  changeHospital
-} from '../reducers/appointmentConsultation/actions'
+import { changeHospital } from '../reducers/hospital/actions'
 import { changeBodyPositionOfList } from '../reducers/system/actions'
 
 const { width, height } = Dimensions.get('window');
-
-/*const ConsultItem = ({itemTitle, itemName, onPress}) => (
-  <TouchableOpacity
-    title="Go to Details"
-    onPress={onPress}
-  >
-    <View style={styles.listItem}>
-      <Text>{itemTitle}：</Text>
-      <Text style={{flex:1}}>{itemName}</Text>
-      <Text>》</Text>
-    </View>
-  </TouchableOpacity>
-)*/
-
-const PathologicalCardItem = ({itemTitle, itemName}) => {
-  let ItemContent = null
-  let createItem = (text, key) => (
-    <View style={styles.listChildRight} key={key}>
-      <Text style={styles.listChildRightTextColor}>
-        {text}
-      </Text>
-    </View>
-  )
-
-  // console.log(typeOf(itemName, 'array'), itemName)
-  if(itemName) {
-    ItemContent = typeOf(itemName, 'array')
-      ? itemName.map((item, key) => createItem(itemName, key))
-      : createItem(itemName)
-  }
-
-  return (
-    <View style={styles.listChildItem}>
-      <View style={styles.listChildItemLeft}>
-        <Text>{itemTitle}：</Text>
-      </View>
-      <View style={{height: 30}}>
-        {ItemContent}
-      </View>
-    </View>
-  )
-}
 
 export default class ReservationVideo extends Component {
   constructor(props) {
@@ -98,7 +57,7 @@ export default class ReservationVideo extends Component {
   onPressHospital() {
     let { navigator } = this.props
     navigator.push({
-      screen: `Koe.HospitalList`,
+      screen: `Koe.Hospital.List`,
       passProps: {
         onClose: (option) => {
           this.props.dispatch(changeHospital(option))
@@ -113,7 +72,7 @@ export default class ReservationVideo extends Component {
   onPressDiseaseSpecies() {
     let { navigator } = this.props
     navigator.push({
-      screen: `Koe.DiseaseSpeciesList`,
+      screen: `Koe.System.DiseaseSpeciesList`,
       passProps: {
         onClose: (option) => {
           this.props.dispatch(diseaseSpeciesChange(option))
@@ -126,12 +85,12 @@ export default class ReservationVideo extends Component {
    * 更换专家
    */
   onPressExpert() {
-    let { navigator, user, dispatch } = this.props
+    let { navigator, self, dispatch } = this.props
     navigator.push({
-      screen: `Koe.ExpertList`,
+      screen: `Koe.Expert.List`,
       passProps: {
         onClose: (option) => {
-          const self = user.UserID
+          const self = self.UserID
           const friend = option.UserID
 
           // 添加好友
@@ -156,7 +115,7 @@ export default class ReservationVideo extends Component {
   onPressSymptom() {
 
     this.props.navigator.push({
-      screen: 'Koe.SymptomList',
+      screen: 'Koe.System.SymptomList',
       title: '症状',
       passProps: {
         onClose: (option) => {

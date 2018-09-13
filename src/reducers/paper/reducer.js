@@ -3,8 +3,9 @@ import Immutable from 'seamless-immutable';
 import storage from '../../utils/storage'
 
 const initialState = Immutable({
+  paper: null,
   // 随访记录
-  paperList: null,
+  paperList: [],
 });
 
 const func = {

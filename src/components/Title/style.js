@@ -1,7 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import config from '../../config'
 const { width, height } = Dimensions.get('window');
-const { color, component } = config
 
 export default StyleSheet.create({
   container: {

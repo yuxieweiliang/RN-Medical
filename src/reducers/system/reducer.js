@@ -3,11 +3,7 @@ import Immutable from 'seamless-immutable';
 import storage from '../../utils/storage'
 
 const initialState = Immutable({
-  // 身体模型
-  bodyModel: ['man', 'woman', 'child'],
-  // 预约列表
-  registrationList: null,
-  // 病种
+  // 病害种类
   diseaseSpeciesList: null,
   // 身体部位
   bodyPositionList: null,
@@ -24,12 +20,6 @@ const initialState = Immutable({
 });
 
 const func = {
-  // 预约列表
-  [types.REGISTRATION_LIST](state, action) {
-    return state.merge({
-      registrationList: action.data.reverse()
-    });
-  },
   // 病种列表
   [types.DISEASE_SPECIES_LIST](state, action) {
     return state.merge({

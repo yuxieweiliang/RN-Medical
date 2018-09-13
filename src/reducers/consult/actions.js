@@ -4,23 +4,36 @@ import fetch from '../../utils/fetch'
 import api from '../../url'
 import moment from 'moment'
 
+
+
 /**
- * 根据患者 ID  获取 回执列表
+ * 获取 视频预约 列表  {hospital}/{patientId}
  * @returns {{type}}
  */
-export function getReceiptListByPatientId() {
-  let url = api.getReceiptListByPatientId()
+export function getConsultVideoList(hospital, patientId) {
+  let url = api.getConsultVideoList({ hospital, patientId })
 
   return async function(dispatch) {
-    fetch.get( url )
+    return fetch.get( url )
       .then(function (res) {
         if(res) {
-          console.log(res)
-          return true
+
+          dispatch({
+            type: types.CONSULT_VIDE0_LIST,
+            data: res.Data
+          })
+          console.log('视频预约', res)
+          return res.Data
         }
       })
   }
+}
 
+export function changeConsult(option) {
+  return ({
+    type: types.CONSULT_VIDE0_MESSAGE,
+    data: option
+  })
 
 }
 

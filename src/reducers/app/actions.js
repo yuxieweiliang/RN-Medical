@@ -1,5 +1,6 @@
 import Toast from 'react-native-simple-toast'
 import { NimSession } from 'react-native-netease-im';
+import Icon from 'react-native-vector-icons/FontAwesome'
 import buffer from 'buffer'
 import * as types from './actionTypes';
 import storage from '../../utils/storage'
@@ -7,6 +8,38 @@ import { createParams, randomString, establishUsnPsw } from '../../utils'
 import fetch from '../../utils/fetch'
 import crypto from '../../utils/crypto'
 import api from '../../url'
+
+/**
+ * APP 用到的图标
+ */
+export function populateIcons() {
+  /**
+   * APP 用到的图标
+   * homeIcon consultIcon registrationIcon userIcon
+   * bars plus search
+   */
+  let icon = {}
+  return new Promise(function (resolve, reject) {
+    Promise.all(
+      [
+        Icon.getImageSource('home', 24),
+        Icon.getImageSource('calendar-check-o', 24),
+        Icon.getImageSource('phone', 24),
+        Icon.getImageSource('user', 24),
+      ]
+    ).then((values) => {
+      icon.home = values[0];
+      icon.consult = values[1];
+      icon.registration = values[2];
+      icon.user = values[3];
+      resolve(icon);
+    }).catch((error) => {
+      // console.log(error);
+      reject(error);
+    }).done();
+  });
+};
+
 
 /**
  * 初始化 APP 状态

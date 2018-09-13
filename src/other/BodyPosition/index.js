@@ -46,7 +46,7 @@ class BodyParts extends React.Component {
     let option = null;
 
 
-    console.log(e.nativeEvent)
+    // console.log(e.nativeEvent)
 
     if(bodyPositionList && bodyPositionList.length > 0) {
       bodyPositionList.map(item => {
@@ -56,7 +56,7 @@ class BodyParts extends React.Component {
       })
     }
 
-    console.log(this.props)
+    // console.log(this.props)
 
     if(option) {
       this.props.onClose(bodyPositionList[0])

@@ -85,7 +85,7 @@ class CreateFetch {
       let { token_type, access_token} = global.token
       this.headers.Authorization =  `${token_type} ${access_token}`
     }
-    console.log('get: ---', url, Object.assign({}, this.headers, headers ))
+    // console.log('get: ---', url, Object.assign({}, this.headers, headers ))
 
     return fetch(url, {
       method: 'GET',

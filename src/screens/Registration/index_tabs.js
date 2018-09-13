@@ -11,13 +11,13 @@ import ReservationVideo from '../ReservationVideo'
 import RegistrationItem from '../../components/RegistrationItem'
 import styles from './style'
 
-import {
-  initState,
-  changeHospital,
-  changeDepartment,
-  changeExpert,
-  changeRegistrationTime
-} from '../../reducers/appointmentConsultation/actions'
+/**
+ * store
+ */
+import {initState, changeRegistrationTime} from '../../reducers/registration/actions'
+import { changeExpert } from '../../reducers/expert/actions'
+import { changeDepartment } from '../../reducers/department/actions'
+import { changeHospital } from '../../reducers/hospital/actions'
 
 const borderWidth = StyleSheet.hairlineWidth;
 
@@ -208,10 +208,10 @@ class Registration extends React.Component {
 
 const createState = function(state) {
   return ({
-    ...state.appointmentConsultation,
+    ...state.registration,
     ...state.hospital,
     ...state.department,
-    ...state.user,
+    ...state.self,
     ...state.expert,
   })
 }

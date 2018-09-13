@@ -1,15 +1,14 @@
 import * as color from './color'
 import * as component from './component'
 import server from './server'
+import * as router from './router'
 
 // 设备
 const software = 'patient'
+const koe = null
 
-let koe = null
-
-export default {
+export {
   software,
   server,
-  color,
-  component,
+  router,
 }

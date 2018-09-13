@@ -150,6 +150,7 @@ android {
 
 dependencies {
     compile project(':react-native-vector-icons')
+    compile project(':react-native-wechat')
     compile project(':react-native-netease-im')
     compile project(':react-native-navigation')
     compile project(':react-native-imui')

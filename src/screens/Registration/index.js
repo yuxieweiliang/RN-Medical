@@ -1,28 +1,23 @@
 import React, { Component } from 'react';
-import { StyleSheet, FlatList, ScrollView, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { Container, Content, Text, List, Item, Left, Right, Button, Tabs, Card, Row, Col, Icon } from 'native-base';
-import { connect } from 'react-redux'
 import CalendarStrip  from 'react-native-calendar-strip'
-// import {  } from '../../reducers/consult/actions'
+import { connect } from 'react-redux'
 import moment from 'moment'
 
+
+import HeaderView from '../../components/HeaderView'
 import { getExportList } from '../../reducers/expert/actions'
-import ReservationVideo from '../ReservationVideo'
 import RegistrationItem from '../../components/RegistrationItem'
+
+import { initState, changeRegistrationTime } from '../../reducers/registration/actions'
+import { changeExpert } from '../../reducers/expert/actions'
+import { changeDepartment } from '../../reducers/department/actions'
+import { changeHospital } from '../../reducers/hospital/actions'
+
 import styles from './style'
 
-import {
-  initState,
-  changeHospital,
-  changeDepartment,
-  changeExpert,
-  changeRegistrationTime
-} from '../../reducers/appointmentConsultation/actions'
 
-const borderWidth = StyleSheet.hairlineWidth;
-
-
-class Registration extends React.Component {
+class Registration extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -51,7 +46,7 @@ class Registration extends React.Component {
   // 选择医院
   selectHospital() {
     this.props.navigator.showModal({
-      screen: 'Koe.HospitalList',
+      screen: 'Koe.Hospital.List',
       title: '医院列表',
       passProps: {
         onClose: (option) => {
@@ -64,7 +59,7 @@ class Registration extends React.Component {
   // 选择科室
   selectDepartment() {
     this.props.navigator.showModal({
-      screen: 'Koe.DepartmentList',
+      screen: 'Koe.Department.List',
       title: '科室列表',
       passProps: {
         onClose: (option) => {
@@ -168,6 +163,14 @@ class Registration extends React.Component {
       })
   }
 
+  _changeSearchText(val) {
+    this.props.navigator.push({
+      screen: 'Koe.Search',
+      navigatorStyle: {
+        navBarHidden: true,
+      }
+    });
+  }
   render() {
     let { expertList, department, hospital }= this.props
 
@@ -187,6 +190,15 @@ class Registration extends React.Component {
 
     return (
       <Container style={styles.container}>
+
+        <HeaderView
+          {...this.props}
+          avatar={require('../../../assets/images/a3.jpg')}
+          onPressRight={this._changeSearchText.bind(this)}
+          title="康恩"
+        />
+
+
         <Row style={{height: 40, paddingLeft: 10, paddingRight: 10,}}>
           <Item style={{height: 40, paddingRight: 10, flex: 1}} onPress={() => this.selectHospital()}>
             <Left style={{flexDirection: 'row'}}>
@@ -258,7 +270,7 @@ class Registration extends React.Component {
 
 const createState = function(state) {
   return ({
-    ...state.appointmentConsultation,
+    ...state.registration,
     ...state.hospital,
     ...state.department,
     ...state.user,

@@ -2,7 +2,6 @@ import * as types from './actionTypes';
 import fetch from '../../utils/fetch'
 import storage from '../../utils/storage'
 import { createParams } from '../../utils'
-import { changeDepartment } from '../appointmentConsultation/actions'
 import api from '../../url'
 
 
@@ -47,4 +46,13 @@ export function getDepartmentList(hospitalId) {
         }
       })
   })
+}
+/**
+ * 更换科室信息
+ * @param data
+ * @returns {{type: *, data: *}}
+ */
+export function changeDepartment(data) {
+  storage.setItem('department', data)
+  return ({type: types.CHANGE_DEPARTMENT_MESSAGE, data})
 }

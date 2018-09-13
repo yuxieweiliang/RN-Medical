@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Dimensions, Text, TouchableHighlight, View, Image } from 'react-native';
-import config from '../../config'
+
 
 
 const borderWidth = StyleSheet.hairlineWidth;
 const { width, height } = Dimensions.get('window');
-const {
-  color: { APP }
-} = config
+
 
 /**
  * context: 内容

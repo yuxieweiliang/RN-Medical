@@ -6,28 +6,6 @@ import api from '../../url'
 
 
 
-/**
- * 预约挂号 { 列表 }
- * @returns {{type}}
- */
-export function getRegistration(option) {
-  let url = api.getRegistration(option)
-
-  return (dispatch => {
-    fetch.get(url)
-      .then(function (res) {
-
-        // console.log(res)
-
-        if(res) {
-          dispatch({
-            type: types.REGISTRATION_LIST,
-            data: res.Data
-          })
-        }
-      })
-  })
-}
 
 /**
  * 病种 { 列表 }
@@ -138,8 +116,14 @@ export function getCourseOfDiseaseList(option) {
  * 并发症 { 列表 }
  * @returns {{type}}
  */
-export function getComplicationList(option) {
-  let url = api.getComplicationList(option)
+export function getComplicationList(hospitalId, positionCode, symptomCode, complicationCode) {
+  let url = api.getComplicationList({
+    hospitalId,
+    clayCode: 'man',
+    positionCode,
+    symptomCode,
+    complicationCode
+  })
 
   return (dispatch => {
     fetch.get(url)

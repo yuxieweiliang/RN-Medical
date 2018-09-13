@@ -1,19 +1,17 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import config from '../../config'
 const { width, height } = Dimensions.get('window');
-const { color, component } = config
 
 export default StyleSheet.create({
   container: {
     marginTop: 10,
-    backgroundColor: color.CARD.BACKGROUND_COLOR,
+    backgroundColor: '#fafafa',
   },
 
   header: {
     height: 40,
     paddingLeft: 10,
     paddingRight: 10,
-    backgroundColor: color.CARD.BACKGROUND_COLOR,
+    backgroundColor: '#fafafa',
     flexDirection: 'row',
   },
 

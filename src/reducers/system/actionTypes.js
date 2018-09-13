@@ -1,4 +1,4 @@
-export const REGISTRATION_LIST = 'registration.list/预约挂号列表';
+
 export const DISEASE_SPECIES_LIST = 'disease.species.list/病种列表';
 export const BODY_POSITION_LIST = 'body.position.list/身体部位列表';
 export const CHANGE_BODY_POSITION_OF_LIST = 'change.body.position.list/修改身体部位列表';

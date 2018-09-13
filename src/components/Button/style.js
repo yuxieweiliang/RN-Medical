@@ -1,9 +1,3 @@
-import config from '../../config'
-const {
-  color: { APP }
-} = config
-
-
 export default {
   btnStyle: {
     width: '100%',
@@ -11,7 +5,7 @@ export default {
     paddingRight: 15,
     paddingTop: 10,
     paddingBottom: 10,
-    backgroundColor: APP.THEME,
+    backgroundColor: '#5a77e9',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center'

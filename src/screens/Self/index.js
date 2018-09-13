@@ -3,8 +3,8 @@ import { Text, StyleSheet, TouchableOpacity, View, Image, TouchableNativeFeedbac
 import { connect } from 'react-redux'
 import { Container, Header, Content, List, ListItem , Item, Left , Right, Icon, Thumbnail  } from 'native-base';
 import behavior from './behavior'
-import { getUser } from '../../reducers/user/actions'
-import { getReceiptListByPatientId } from '../../reducers/consult/actions'
+import HeaderView from '../../components/HeaderView'
+import { getPatient } from '../../reducers/patient/actions'
 import { registerForWY } from '../../reducers/app/actions'
 import styles from './style'
 
@@ -16,8 +16,10 @@ class UserPage extends React.Component {
   componentDidMount() {}
 
   componentWillMount() {
-      this.props.dispatch(getUser())
-      this.props.dispatch(getReceiptListByPatientId())/*.then(res => {
+    this.props.dispatch(getPatient())
+
+
+    /*.then(res => {
         // this.props.dispatch(registerForWY())
       })*/
   }
@@ -29,17 +31,31 @@ class UserPage extends React.Component {
       title
     })
   }
+  _changeSearchText(val) {
+    this.props.navigator.push({
+      screen: 'Koe.Search',
+      navigatorStyle: {
+        navBarHidden: true,
+      }
+    });
+  }
   render() {
-    const { user } = this.props
-    const messageStructure = user && behavior.createStructure(user)
+    const { patient } = this.props
+    const messageStructure = patient && behavior.createStructure(patient)
 
     return (
       <Container style={{backgroundColor: '#eee'}}>
+        <HeaderView
+          {...this.props}
+          avatar={require('../../../assets/images/a3.jpg')}
+          onPressRight={this._changeSearchText.bind(this)}
+          title="康恩"
+        />
 
         <Content>
           <List>
             <Item style={[styles.listItem, {marginTop: 20}]}>
-              <TouchableOpacity onPress={() => this.navigate('QRCode')}>
+              <TouchableOpacity onPress={() => this.navigate('Self.QRCode')}>
                 <Left style={{flex: 1, flexDirection: 'row'}}>
                   <Thumbnail square source={require('../../../assets/images/a8.jpg')} />
                   <View style={{paddingLeft: 10}}>
@@ -62,7 +78,7 @@ class UserPage extends React.Component {
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('Examination', '检查')}
+              onPress={() => this.navigate('Self.Examination', '检查')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon
@@ -76,7 +92,7 @@ class UserPage extends React.Component {
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('Follow', '关注')}
+              onPress={() => this.navigate('Self.Follow', '关注')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon
@@ -90,21 +106,35 @@ class UserPage extends React.Component {
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('Follow', '回执')}
+              onPress={() => this.navigate('Receipt.List', '回执')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon
                   type="FontAwesome"
-                  name="heart-o"
+                  name="file-movie-o"
                   style={{fontSize: 20}}
                 />
-                <Text style={styles.listItemLeftText}>关注</Text>
+                <Text style={styles.listItemLeftText}>回执</Text>
               </Left>
             </Item>
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('MyRegistration', '预约')}
+              onPress={() => this.navigate('Prescription.List', '处方列表')}
+            >
+              <Left style={styles.listItemLeft}>
+                <Icon
+                  type="FontAwesome"
+                  name="file-text-o"
+                  style={{fontSize: 20}}
+                />
+                <Text style={styles.listItemLeftText}>处方列表</Text>
+              </Left>
+            </Item>
+
+            <Item
+              style={[styles.listItem, {marginTop: 20}]}
+              onPress={() => this.navigate('Self.MyRegistration', '预约')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon
@@ -118,7 +148,7 @@ class UserPage extends React.Component {
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('Record', '记录')}
+              onPress={() => this.navigate('Self.Record', '记录')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon
@@ -132,7 +162,7 @@ class UserPage extends React.Component {
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('Follow')}
+              onPress={() => this.navigate('Self.Follow')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon
@@ -177,5 +207,5 @@ class UserPage extends React.Component {
 }
 export default connect((state) => ({
   ...state.consult,
-  ...state.user
+  ...state.patient
 }))(UserPage)

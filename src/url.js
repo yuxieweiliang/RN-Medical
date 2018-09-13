@@ -1,6 +1,6 @@
-import config from './config'
+import { server } from './config'
 import template from 'url-template'
-let {server: { auth, user, userData, system, file, register, cms }} = config
+let { auth, user, userData, system, file, register, cms } = server
 
 function createApi(url) {
   return (option) => template.parse(url).expand(option);
@@ -67,7 +67,7 @@ const systemData = {
   // 症状列表
   getSymptomList: createApi(`${position}/GetZhengZhuang/{hospitalId}/{clayCode}/{positionCode}`),
   // 病程列表
-  getCourseOfDiseaseList: createApi(`${position}/GetBingCheng/{hospitalId}/{clayCode}/{positionCode}/{symptomCode}`),
+  getPathologicalList: createApi(`${position}/GetBingCheng/{hospitalId}/{clayCode}/{positionCode}/{symptomCode}`),
   // 并发症列表
   getComplicationList: createApi(`${position}/GetBingFaZheng/{hospitalId}/{clayCode}/{positionCode}/{symptomCode}/{complicationCode}`),
 }
@@ -188,10 +188,20 @@ export default {
   // 根据 类型 获取报表
   getTemplateByType: createApi(`${cms}/api/Sys_Paper_Template/GetListByType/{hospitalId}/{templateType}`),
 
-
   // 根据患者 ID  获取 回执列表
   getReceiptListByPatientId: createApi(`${userData}/api/Data_Consult_Receipt/GetByUserID`),
 
+  // 根据 咨询ID  获取 当前咨询对应的回执信息
+  getReceiptByAdviceId: createApi(`${userData}/api/Data_Consult_Receipt/GetByAdviceID/{adviceId}`),
+
+  // 获取 视频预约 列表
+  getConsultVideoList: createApi(`${user}/api/Work_Reserve/GetByPatient/{hospital}/{patientId}`),
+
+  // 获取 处方 列表  http://userdata.api.koenn.cn:81/api/Data_User_Prescription/GetListByUser
+  getPrescriptionList: createApi(`${userData}/api/Data_User_Prescription/GetListByUser`),
+
+  // 获取 处方 医嘱内容
+  getPrescriptionOrder: createApi(`${userData}/api/Data_User_Orders/GetListByUser/{prescriptionId}`),
 
 }
 

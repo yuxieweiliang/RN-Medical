@@ -3,15 +3,13 @@
  */
 import React, { Component } from 'react';
 import { StyleSheet, Dimensions, Text, TouchableOpacity, View, Image } from 'react-native';
-import config from '../../config'
+
 import ChevronDown from 'react-native-vector-icons/EvilIcons'
 
 
 const borderWidth = StyleSheet.hairlineWidth;
 const { width, height } = Dimensions.get('window');
-const {
-  color: { APP }
-} = config
+
 
 /**
  * 不管再多，每一病种只显示前十个，点击更改多，显示全部

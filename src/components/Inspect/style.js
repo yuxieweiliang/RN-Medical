@@ -1,7 +1,3 @@
-import config from '../../config'
-const {
-  color: { APP }
-} = config
 
 
 export default {
