@@ -10,7 +10,11 @@ import styles from './style'
 const { width, height } = Dimensions.get('window');
 
 
-class Symptom extends React.Component {
+class PathologicalList extends React.Component {
+  static navigatorStyle = {
+    title: '病理病程',
+    tabBarHidden: true,
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -70,15 +74,9 @@ class Symptom extends React.Component {
   }
 }
 
-Symptom.navigationOptions = ({ navigation, navigationOptions }) => {
-  const { params } = navigation.state;
-  return {
-    drawerLabel: '病理病程',
-  }
-};
 
 export default connect(state => ({
   ...state.pathological,
   ...state.symptom,
   ...state.bodyPosition,
-}))(Symptom)
+}))(PathologicalList)

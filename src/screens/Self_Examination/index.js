@@ -7,6 +7,9 @@ import { connect } from 'react-redux'
 
 
 class TelephoneInterviewData extends React.Component {
+  static navigatorStyle = {
+    tabBarHidden: true,
+  }
 
   componentDidMount() {}
   componentWillUnmount() {

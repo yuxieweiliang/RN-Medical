@@ -36,6 +36,9 @@ function FollowUp() {
 
 
 class UserPage extends React.Component {
+  static navigatorStyle = {
+    tabBarHidden: true,
+  }
   componentDidMount() {}
 
   componentWillMount() {

@@ -10,7 +10,10 @@ import { extendKey } from '../../utils'
 const TITLE = '专家列表'
 const { width, height } = Dimensions.get('window');
 
-class ExpertList extends React.Component {
+class DiseaseSpeciesList extends React.Component {
+  static navigatorStyle = {
+    tabBarHidden: true,
+  }
 
   componentWillMount() {
     const { dispatch } = this.props
@@ -69,4 +72,4 @@ const createState = function(state) {
   return ({...state.diseaseSpecies})
 }
 
-export default connect(createState)(ExpertList)
+export default connect(createState)(DiseaseSpeciesList)

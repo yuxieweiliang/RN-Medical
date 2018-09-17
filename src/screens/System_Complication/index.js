@@ -8,6 +8,9 @@ import { getComplicationList, complicationChange } from '../../reducers/complica
 
 
 class Symptom extends React.Component {
+  static navigatorStyle = {
+    tabBarHidden: true,
+  }
   constructor(props) {
     super(props);
     this.state = {}

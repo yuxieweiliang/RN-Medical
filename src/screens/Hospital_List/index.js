@@ -8,6 +8,9 @@ import { getHospitalList } from '../../reducers/hospital/actions'
 
 
 class HospitalList extends React.Component {
+  static navigatorStyle  = {
+    tabBarHidden: true,
+  }
 
   componentWillMount() {
     const { dispatch } = this.props

@@ -13,7 +13,7 @@ import { getToken } from '../../utils/_utils'
  */
 export function getPatient() {
   let tokenData = getToken(global.token.access_token)
-  let url = api.getUser({ id: tokenData.UserID })
+  let url = api.getHospitalPatient({ hospitalId: tokenData.MID, id: tokenData.UserID })
 
   return async dispatch => {
     let user = await storage.getItem(`patient`)
@@ -22,8 +22,12 @@ export function getPatient() {
       user = await fetch.get(url).then(res => res.Data)
     }
 
-    storage.setItem(`patient`, user)
-    dispatch({type: types.GET_USER_MESSAGE, data: user})
+    if(user) {
+      storage.setItem(`patient`, user)
+      dispatch({type: types.GET_USER_MESSAGE, data: user})
+    } else {
+      Toast.show('用户信息不存在，是否为医生端用户！')
+    }
   }
 }
 

@@ -18,8 +18,8 @@ class CollapsingHeader extends React.Component {
     // JPushModule.setTags(["t_guo"], () => {}, () => { });
   }
 
-
   static navigatorStyle = {
+    tabBarHidden: true,
     drawUnderTabBar: true,
     navBarButtonColor: '#ffffff',
     navBarTextColor: '#ffffff',

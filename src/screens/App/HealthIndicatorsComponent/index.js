@@ -7,7 +7,7 @@ import {
   changeSuitable,
   changeTaboo,
   saveAndUpdateHealthIndicators
-} from '../../reducers/system/actions'
+} from '../../../reducers/system/actions'
 
 
 const borderWidth = StyleSheet.hairlineWidth;
@@ -66,6 +66,10 @@ class HealthIndicators extends React.Component {
   changeTaboo(item, value) {
     this.props.dispatch(changeTaboo(item, value))
 
+  }
+
+  saveHealthDictators() {
+    this.props.navigator.popToRoot();
   }
   render() {
     const { healthIndicatorsList, dispatch } = this.props
@@ -133,6 +137,13 @@ class HealthIndicators extends React.Component {
                 <List
                   dataArray={healthIndicatorsList.taboo}
                   renderRow={item => {
+                    const setColor = function(type) {
+                      const _type = (type === item.value) || (type === '一般' && !item.value)
+                      return {
+                        button: _type ? {backgroundColor: '#1b70f2'} : {},
+                        text: _type ? {color: '#fff'} : {color: '#1b70f2'},
+                      }
+                    }
                     return (
                       <Item style={styles.item} bordered={false}>
                         <View style={styles.rowLeft}>
@@ -140,19 +151,19 @@ class HealthIndicators extends React.Component {
                         </View>
                         <View style={styles.rowMiddle}>
                           <TouchableOpacity
-                            style={[styles.button, styles.btnRight]}
+                            style={[styles.button, styles.btnLeft, setColor('少量').button]}
                             onPress={() => this.changeTaboo(item, '少量')}>
-                            <Text style={[styles.fontSmall, {color: '#1b70f2'}]}>少量</Text>
+                            <Text style={[styles.fontSmall, setColor('少量').text]}>少量</Text>
                           </TouchableOpacity>
                           <TouchableOpacity
-                            style={[styles.button, {backgroundColor: '#1b70f2',}]}
+                            style={[styles.button, setColor('一般').button]}
                             onPress={() => this.changeTaboo(item, '一般')}>
-                            <Text style={[styles.fontSmall, {color: '#fff'}]}>一般</Text>
+                            <Text style={[styles.fontSmall, setColor('一般').text]}>一般</Text>
                           </TouchableOpacity>
                           <TouchableOpacity
-                            style={[styles.button, styles.btnRight]}
+                            style={[styles.button, styles.btnRight, setColor('大量').button]}
                             onPress={() => this.changeTaboo(item, '大量')}>
-                            <Text style={[styles.fontSmall, {color: '#1b70f2'}]}>大量</Text>
+                            <Text style={[styles.fontSmall, setColor('大量').text]}>大量</Text>
                           </TouchableOpacity>
                         </View>
                         <Left style={styles.rowRight}>
@@ -164,9 +175,12 @@ class HealthIndicators extends React.Component {
                 />
               )
             }
-
-
           </Card>
+          <View style={{padding: 15}}>
+            <Button full onPress={() => this.saveHealthDictators()}>
+              <Text>保存</Text>
+            </Button>
+          </View>
         </Content>
 
 

@@ -14,6 +14,9 @@ const borderWidth = StyleSheet.hairlineWidth;
 const { width, height } = Dimensions.get('window');
 
 class UserPage extends React.Component {
+  static navigatorStyle = {
+    tabBarHidden: true,
+  }
   componentDidMount() {}
 
   componentWillMount() {}

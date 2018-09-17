@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { View, Image, Dimensions  } from 'react-native';
 import { Container, Content, Header, Button, ScrollableTab, Fab, Tab, Tabs, Card, Left, Right, Icon, Text } from 'native-base';
 import { connect } from 'react-redux'
-import SignTrend from '../App_SignTrend'
 // 精灵
 import Spirit from '../../components/Spirit'
 import HeaderView from '../../components/HeaderView'
 
+import SignTrend from './SignTrendComponent'
 // 健康状况
-import HealthStatus from '../App_HealthIndicators'
+import HealthStatus from './HealthIndicatorsComponent'
 import defaultData from './behavior'
 // 样式
 import styles from './style'
@@ -64,68 +64,68 @@ class HomePage extends Component<Props> {
         {/*    精灵    */}
         <Spirit/>
 
-          <View style={{ flex: 1 ,borderColor: 'transparent' }}>
-            <Tabs
-              // 默认显示第一个
-              initialPage={0}
-              // 如果超过四个，则超出的隐藏，可以左右滑动
-              renderTabBar={()=> <ScrollableTab tabStyle={{color: 'red'}}/>}
-              >
+        <View style={{ flex: 1 ,borderColor: 'transparent' }}>
+          <Tabs
+            // 默认显示第一个
+            initialPage={0}
+            // 如果超过四个，则超出的隐藏，可以左右滑动
+            renderTabBar={()=> <ScrollableTab tabStyle={{color: 'red'}}/>}
+          >
 
-              {/*  健康指南  */}
-              <Tab heading="健康状况">
-                <SignTrend
-                  {...this.props}
-                  style={styles.tabItemStyle}/>
-                <Fab
-                  direction="up"
-                  style={{ backgroundColor: '#5067FF' }}
-                  position="bottomRight"
-                  onPress={() => navigator.push({
-                    screen: 'Koe.SignTrendEdit',
-                    title: '健康状况'
-                  })}>
-                  <Icon name="add" />
-                </Fab>
-              </Tab>
-
-
-              <Tab heading="生活指南">
-                <HealthStatus
-                  navigator={navigator}
-                  healthStatus={healthStatus}
-                  style={styles.tabItemStyle}/>
-              </Tab>
+            {/*  健康指南  */}
+            <Tab heading="健康状况">
+              <SignTrend
+                {...this.props}
+                style={styles.tabItemStyle}/>
+              <Fab
+                direction="up"
+                style={{ backgroundColor: '#5067FF' }}
+                position="bottomRight"
+                onPress={() => navigator.push({
+                  screen: 'Koe.App.SignTrendEdit',
+                  title: '健康状况'
+                })}>
+                <Icon name="add" />
+              </Fab>
+            </Tab>
 
 
+            <Tab heading="生活指南">
+              <HealthStatus
+                navigator={navigator}
+                healthStatus={healthStatus}
+                style={styles.tabItemStyle}/>
+            </Tab>
 
 
-              {/*  健康日报  */}
-              {/*<Tab heading="健康日报">
-               <Content style={{  backgroundColor: '#eee', paddingLeft: 5, paddingRight: 5}}>
-               {
-               healthList && (
-               <FlatList
-               data={healthList}
-               renderItem={(item) => {
-               // console.log(item)
-               return (
-               <HealthDaily
-               item={item}
-               onPress={() => navigator.push({
-               screen: 'Koe.HealthDailyDetails',
-               title: '健康日报'
-               })}/>
-               )
-               }}
-               />
-               )
-               }
-               </Content>
-               </Tab>*/}
-            </Tabs>
 
-          </View>
+
+            {/*  健康日报  */}
+            {/*<Tab heading="健康日报">
+             <Content style={{  backgroundColor: '#eee', paddingLeft: 5, paddingRight: 5}}>
+             {
+             healthList && (
+             <FlatList
+             data={healthList}
+             renderItem={(item) => {
+             // console.log(item)
+             return (
+             <HealthDaily
+             item={item}
+             onPress={() => navigator.push({
+             screen: 'Koe.HealthDailyDetails',
+             title: '健康日报'
+             })}/>
+             )
+             }}
+             />
+             )
+             }
+             </Content>
+             </Tab>*/}
+          </Tabs>
+
+        </View>
 
       </Container>
     );

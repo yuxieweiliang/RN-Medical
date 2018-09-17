@@ -13,6 +13,9 @@ import PathologicalCardItem from '../../components/PathologicalCardItem'
 const { width, height } = Dimensions.get('window');
 
 class ConsultSelect extends Component {
+  static navigatorStyle  = {
+    tabBarHidden: true,
+  }
   constructor(props) {
     super(props)
     this.state = {

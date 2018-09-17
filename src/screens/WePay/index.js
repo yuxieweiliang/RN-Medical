@@ -14,6 +14,10 @@ const borderWidth = StyleSheet.hairlineWidth;
 const { width, height } = Dimensions.get('window');
 
 class UserPage extends React.Component {
+  static navigatorStyle = {
+    title: '二维码',
+    tabBarHidden: true,
+  }
   componentDidMount() {}
 
   componentWillMount() {

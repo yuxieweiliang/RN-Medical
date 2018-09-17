@@ -5,6 +5,9 @@ import { connect } from 'react-redux'
 const { width, height } = Dimensions.get('window')
 import ac from './action'
 class Department extends React.Component {
+  static navigatorStyle  = {
+    tabBarHidden: true,
+  }
   componentWillMount() {
     const { dispatch } = this.props
     dispatch(ac.getHospitalList())

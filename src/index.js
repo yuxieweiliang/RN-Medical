@@ -56,12 +56,11 @@ export default class App extends Component {
         Navigation.startTabBasedApp({
           tabs: [
             {
-              label: '我的',
-              screen: 'Koe.Self',
-              icon: icon.user,
-              title: "用户中心",
+              label: '主页',
+              screen: 'Koe.App', // App Consult 'Koe.Self.UserMessages
+              icon: icon.home,
               navigatorStyle: {
-                navBarHidden: true
+                navBarHidden: true,
               },
             },
             {
@@ -74,18 +73,19 @@ export default class App extends Component {
               },
             },
             {
-              label: '主页',
-              screen: 'Koe.App', // App Consult 'Koe.Self.UserMessages
-              icon: icon.home,
+              label: '预约',
+              screen: 'Koe.Registration',
+              icon: icon.registration,
+              title: '预约挂号',
               navigatorStyle: {
                 navBarHidden: true
               },
             },
             {
-              label: '预约',
-              screen: 'Koe.Registration',
-              icon: icon.registration,
-              title: '预约挂号',
+              label: '我的',
+              screen: 'Koe.Self',
+              icon: icon.user,
+              title: "用户中心",
               navigatorStyle: {
                 navBarHidden: true
               },

@@ -12,32 +12,19 @@ import { bodyPositionChange, getPositionList } from '../../reducers/bodyPosition
 import moment from 'moment'
 // import behavior from './behavior'
 
-
 const TITLE = '症状'
 const { width, height } = Dimensions.get('window');
 const time = moment().format();
 
-function randomString(len) {
-  len = len || 32;
-  let $chars = 'ABCDEFGHIJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
-  let maxPos = $chars.length
-  let pwd = '';
-  for (i = 0; i < len; i++) {
-    pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
-  }
-  return pwd;
-}
-
 class Symptom extends React.Component {
+  static navigatorStyle = {
+    title: TITLE,
+    tabBarHidden: true,
+  }
   constructor(props) {
     super(props)
-    this.state = {
-      data: [],
-      showList: false
-    }
-    for(let key = 0; key < 40; key ++) {
-      this.state.data.push({key: randomString(4)})
-    }
+    this.state = {}
+
   }
 
   componentDidMount() { }

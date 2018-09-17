@@ -20,7 +20,6 @@ import App_Register from './App_Register'
 import App_RetrievePassword from './App_RetrievePassword' // 忘记密码
 import App_NewPassword from './App_NewPassword' // 新密码
 import App_SignTrendEdit from './App_SignTrendEdit' // 填写体征信息
-import App_HealthIndicators from './App_HealthIndicators' // 健康指标
 //                       App   end
 // ==========================================================================================
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +116,6 @@ export  function registerScreens(store, Provider) {
   RegisterComponent('Koe.App.Register', () => App_Register, store, Provider)
   RegisterComponent('Koe.App.RetrievePassword', () => App_RetrievePassword, store, Provider)
   RegisterComponent('Koe.App.NewPassword', () => App_NewPassword, store, Provider)
-  RegisterComponent('Koe.App.HealthIndicators', () => App_HealthIndicators, store, Provider) // 健康指标
   RegisterComponent('Koe.App.SignTrendEdit', () => App_SignTrendEdit, store, Provider) // 体征填写
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////

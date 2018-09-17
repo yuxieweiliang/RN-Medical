@@ -10,6 +10,9 @@ const TITLE = '科室列表'
 const { width, height } = Dimensions.get('window')
 
 class DepartmentList extends React.Component {
+  static navigatorStyle  = {
+    tabBarHidden: true,
+  }
   constructor(props) {
     super(props)
     // 添加页面名称

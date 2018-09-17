@@ -10,6 +10,9 @@ import styles from './style'
 
 
 class UserMessagePage extends Component {
+  static navigatorStyle = {
+    tabBarHidden: true,
+  }
   static navigatorButtons = {
     rightButtons: [
       {

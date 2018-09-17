@@ -21,6 +21,9 @@ const InputList = ({title, onChangeText, value, placeholder, isRequest}) => {
 }
 
 class UserMessagePage extends React.Component {
+  static navigatorStyle  = {
+    tabBarHidden: true,
+  }
   componentDidMount() {}
 
   _onPressButton() {

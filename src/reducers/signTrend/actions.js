@@ -1,8 +1,8 @@
 import * as types from './actionTypes';
-import fetch from '../../utils/fetch'
-import storage from '../../utils/storage'
-import moment from 'moment'
-import api from '../../url'
+import fetch from '../../utils/fetch';
+import storage from '../../utils/storage';
+import moment from 'moment';
+import api from '../../url';
 
 const today = moment().format('YYYY-MM-DD HH:mm:ss')
 
@@ -31,11 +31,21 @@ export function postUserInfo(option, user) {
   // console.log(body, url)
   return (async dispatch => {
     if(option.ID) {
-      return fetch.put(url, { body  }).then(res => console.log(res))
+      return fetch.put(url, { body  }).then(res => dispatch(pushUserInfo(res.Data)))
     }
-    return fetch.post(url, { body  }).then(res => console.log(res))
+    return fetch.post(url, { body  }).then(res => dispatch(pushUserInfo(res.Data)))
   });
 }
+
+function pushUserInfo(data) {
+  return ({
+    type: types.SIGN_LIST_PUSH,
+    data
+  })
+}
+
+
+
 
 /**
  * 获取单条体征

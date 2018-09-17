@@ -6,8 +6,8 @@ import { LineChart } from 'react-native-charts-wrapper'
 import update from 'immutability-helper';
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { getSignList, changeSign } from '../../reducers/signTrend/actions'
-import Card from '../../components/Card'
+import { getSignList, changeSign } from '../../../reducers/signTrend/actions'
+import Card from '../../../components/Card'
 import { option, config } from './dataConfig'
 import styles from './style'
 
@@ -38,9 +38,13 @@ class SignTrend extends React.Component {
 
   handleSelect(event, e) {
     let entry = event.nativeEvent;
-    let { TimePoint } = entry.data
     let { signList, dispatch } = this.props
 
+    // 如果当前数据为空
+    if(!entry.data) return;
+
+    console.log(entry)
+    // 判断是 更新还是新建
     if (entry === null) {
       this.setState({ ...this.state, selectedEntry: null });
     } else {
@@ -49,14 +53,14 @@ class SignTrend extends React.Component {
 
 
     signList.map(item => {
-      if(item.TimePoint === TimePoint) {
+      if(item.TimePoint ===  entry.data.TimePoint) {
         dispatch(changeSign(item))
       }
     })
 
     //
     // console.log(entry, e, this.props)
-    this.props.navigator.push({screen: 'Koe.SignTrendEdit'})
+    this.props.navigator.push({screen: 'Koe.App.SignTrendEdit'})
   }
 
   createSignData(option) {

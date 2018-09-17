@@ -12,6 +12,9 @@ const {width, height} = Dimensions.get('window')
 
 
 class UserScreen extends Component {
+  static navigatorStyle = {
+    tabBarHidden: true,
+  }
 
   constructor(props) {
     super(props);
@@ -53,7 +56,7 @@ class UserScreen extends Component {
               marginTop: 20
             }}>
               <Text style={{color: '#444', fontSize: 14}}>
-                康恩处方付款二维码，切勿向其他人出示
+                扫一扫上面的二维码，添加好友
               </Text>
             </View>
           </View>

@@ -8,6 +8,9 @@ const TITLE = '专家列表'
 const { width, height } = Dimensions.get('window');
 
 class ExpertList extends React.Component {
+  static navigatorStyle  = {
+    tabBarHidden: true,
+  }
   componentWillMount() {}
   componentDidMount() {}
   componentWillUnmount() {}

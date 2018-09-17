@@ -24,6 +24,9 @@ const EditInput = ({title, defaultValue, placeholder = '请输入', onChangeText
 )
 
 class SignTrendEdit extends React.Component {
+  static navigatorStyle  = {
+    tabBarHidden: true,
+  }
   constructor(props) {
     super(props)
     const { navigator, dispatch } = this.props;
@@ -40,7 +43,7 @@ class SignTrendEdit extends React.Component {
    * 点击右上角按钮执行函数
    */
   onNavigatorEvent(e) {
-    const { dispatch, sign, user } = this.props
+    const { dispatch, sign, patient, navigator } = this.props
     let keys = ['HX', 'MB', 'TW', 'XL', 'XY', 'XYH', 'XYL'] // 'XYBHD',
     if (e.type === 'NavBarButtonPress') {
       if (e.id === 'saveTrend') {
@@ -48,7 +51,6 @@ class SignTrendEdit extends React.Component {
         if(!sign) {
           return;
         }
-
 
         for(let i in keys) {
           let key = keys[i]
@@ -59,7 +61,8 @@ class SignTrendEdit extends React.Component {
           }
         }
 
-        dispatch(postUserInfo(sign, user))
+        dispatch(postUserInfo(sign, patient))
+        navigator.popToRoot()
       }
     }
 
@@ -161,4 +164,4 @@ class SignTrendEdit extends React.Component {
   }
 }
 
-export default connect(state => ({...state.sign, ...state.user}))(SignTrendEdit)
+export default connect(state => ({...state.signTrend, ...state.patient}))(SignTrendEdit)

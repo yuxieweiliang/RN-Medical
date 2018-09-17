@@ -11,6 +11,9 @@ const { width, height } = Dimensions.get('window');
 
 
 class ExpertHome extends Component {
+  static navigatorStyle  = {
+    tabBarHidden: true,
+  }
   constructor(props) {
     super(props);
     this.state = {

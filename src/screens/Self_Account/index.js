@@ -9,6 +9,9 @@ const { width, height } = Dimensions.get('window');
  * 我的账户
  */
 export default class extends React.Component {
+  static navigatorStyle = {
+    tabBarHidden: true,
+  }
 
   componentDidMount() {}
 

@@ -13,6 +13,9 @@ const TITLE = '专家主页'
 const { width, height } = Dimensions.get('window')
 
 class RegistrationInformation extends React.Component {
+  static navigatorStyle = {
+    tabBarHidden: true,
+  }
   static navigatorButtons = {
     rightButtons: [
       {

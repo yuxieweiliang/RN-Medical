@@ -13,12 +13,12 @@ const getToken =createApi(`${auth}/connect/token`)
 
 /**
  * ********************************       用户
- * id：用户id
+ * id：用户id getHospitalPatient
  * start：起始时间
  * end：结束时间
  */
 const userMessage = {
-  getUser: createApi(`${user}/api/ClientUsers/Get/{id}`),
+  getHospitalPatient: createApi(`${user}/api/ClientUsers/Get/{hospitalId}/{id}`),
   postUser: createApi(`${user}/api/ClientUsers/Post`),
   putUser: createApi(`${user}/api/ClientUsers/Put`),
   deleteUser: createApi(`${user}/api/ClientUsers/Delete`),
@@ -188,11 +188,14 @@ export default {
   // 根据 类型 获取报表
   getTemplateByType: createApi(`${cms}/api/Sys_Paper_Template/GetListByType/{hospitalId}/{templateType}`),
 
-  // 根据患者 ID  获取 回执列表
+  // { 回执 } 根据患者 ID  获取 回执列表
   getReceiptListByPatientId: createApi(`${userData}/api/Data_Consult_Receipt/GetByUserID`),
 
-  // 根据 咨询ID  获取 当前咨询对应的回执信息
+  // { 回执 } 根据 咨询ID  获取 当前咨询对应的回执信息
   getReceiptByAdviceId: createApi(`${userData}/api/Data_Consult_Receipt/GetByAdviceID/{adviceId}`),
+
+  // { 回执 } 修改 回执   确认回执信息
+  putReceiptByAdviceId: createApi(`${userData}/api/Data_User_Advice/Put/{adviceId}`),
 
   // 获取 视频预约 列表
   getConsultVideoList: createApi(`${user}/api/Work_Reserve/GetByPatient/{hospital}/{patientId}`),
@@ -200,8 +203,9 @@ export default {
   // 获取 处方 列表  http://userdata.api.koenn.cn:81/api/Data_User_Prescription/GetListByUser
   getPrescriptionList: createApi(`${userData}/api/Data_User_Prescription/GetListByUser`),
 
-  // 获取 处方 医嘱内容
+  // 获取 处方 医嘱内容 -> 也就是药单
   getPrescriptionOrder: createApi(`${userData}/api/Data_User_Orders/GetListByUser/{prescriptionId}`),
+
 
 }
 

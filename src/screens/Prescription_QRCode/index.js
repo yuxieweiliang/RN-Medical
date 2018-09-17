@@ -12,6 +12,9 @@ const {width, height} = Dimensions.get('window')
 
 
 class Prescription_QRCode extends Component {
+  static navigatorStyle  = {
+    tabBarHidden: true,
+  }
 
   constructor(props) {
     super(props);
