@@ -5,15 +5,16 @@ import { connect } from 'react-redux'
 // 精灵
 import Spirit from '../../components/Spirit'
 import HeaderView from '../../components/HeaderView'
+import { server } from '../../config'
 
 import SignTrend from './SignTrendComponent'
 // 健康状况
 import HealthStatus from './HealthIndicatorsComponent'
 import defaultData from './behavior'
+import { initLocalState } from '../../reducers/app/actions'
 // 样式
 import styles from './style'
 
-let search = null
 const { width, height } = Dimensions.get('window');
 
 type Props = {};
@@ -25,7 +26,8 @@ class HomePage extends Component<Props> {
 
   componentWillMount() {
     const { dispatch } = this.props
-    // 请求健康日报
+    // 获取本地缓存
+    dispatch(initLocalState())
   }
 
   toggleDrawer = () => {
@@ -46,9 +48,10 @@ class HomePage extends Component<Props> {
   componentDidMount() {}
   componentWillUnmount() {}
   render() {
-    const { navigator }= this.props
+    const { navigator, patient }= this.props
     const { healthGuide, tabCardData={}, list }= defaultData
     const { healthIndicators, guideToLife,  healthStatus, medicalStatus }= tabCardData
+    const portrait = patient ? {uri: server.file + patient.ImageUrl} : {}
     // console.log('defaultData: ', this.props)
 
     return (
@@ -56,7 +59,7 @@ class HomePage extends Component<Props> {
 
         <HeaderView
           {...this.props}
-          avatar={require('../../../assets/images/a3.jpg')}
+          avatar={ portrait }
           onPressRight={this._changeSearchText.bind(this)}
           title="康恩"
         />
@@ -132,7 +135,7 @@ class HomePage extends Component<Props> {
   }
 }
 const createState = function(state) {
-  return ({...state.app, ...state.system})
+  return ({...state.app, ...state.system, ...state.patient})
 }
 
 export default connect(createState)(HomePage)

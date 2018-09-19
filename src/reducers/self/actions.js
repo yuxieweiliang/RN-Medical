@@ -25,12 +25,14 @@ export function saveAndUpdateUser(body) {
 
   return (async dispatch => {
 
+    console.log('修改角色信息', url, body)
     fetch.post(url, { body }).then(res => {
       // 如果失败
       if(res.ok === false) {
         return false
       }
 
+      console.log('修改角色信息', res)
       // 保存成功
       dispatch({type: types.SAVE_USER_MESSAGE_SUCCESS})
       return true

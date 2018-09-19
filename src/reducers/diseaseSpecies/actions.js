@@ -28,14 +28,15 @@ export function getDiseaseSpeciesList(option) {
         }
       })
   })
-
 }
 
 
-
-export const diseaseSpeciesChange = (data) => ({
-  type: types.DISEASE_SPECIES,
-  data,
-})
+export const diseaseSpeciesChange = (data) => {
+  storage.setItem('diseaseSpecies', data)
+  return ({
+    type: types.DISEASE_SPECIES,
+    data,
+  })
+}
 
 

@@ -8,7 +8,7 @@ const initialState = Immutable({
   // 是否预约
   isRegistration: false,
   // 预约时间
-  appointTime: today,
+  appointDate: today,
   // 时间段
   timeSlot: null,
 
@@ -38,7 +38,7 @@ const func = {
   // 更改预约时间
   [types.CHANGE_REGISTRATION_TIME](state, action) {
     return state.merge({
-      appointTime: action.data
+      appointDate: action.data
     });
   },
 

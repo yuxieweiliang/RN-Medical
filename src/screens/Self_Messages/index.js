@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {  TextInput, View, Image, ScrollView,  TouchableOpacity, Keyboard, findNodeHandle } from 'react-native';
-import { Container, Content, Button, Icon, Text, Item, Input, Left, Right, Label } from 'native-base';
+import { Container, Content, Button, Icon, Text, Item, Input, Left, Right, List } from 'native-base';
 import { connect } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import behavior from './behavior'
 import ImagePicker from 'react-native-image-crop-picker';
-import { saveAndUpdateUser, postUserPortrait } from '../../reducers/self/actions'
+import { saveAndUpdateUser, postUserPortrait } from '../../reducers/patient/actions'
 import styles from './style'
 
 
@@ -133,23 +133,24 @@ class UserMessagePage extends Component {
    * 打开相册
    */
   handleImagePicker() {
-    const { dispatch, user } = this.props
+    const { dispatch, patient } = this.props
     // console.log(user)
 
     ImagePicker.openPicker({
       mediaType: 'photo',
       loadingLabelText: '请稍候...'
     }).then(image => {
-
-      let data = new FormData();
+      /*let data = new FormData();
       let file = { uri: image.path, type: "multipart/form-data", name: "image.png" };
-      data.append("imgFile", file);
+      data.append("imgFile", file);*/
 
+      console.log('用户头像: ', image.path)
       dispatch(postUserPortrait(image.path))
         .then(res => {
           if(res) {
+            console.log('保存用户头像: ', res)
             // 保存用户头像
-            dispatch(saveAndUpdateUser({...user, UserPortrait: res}))
+            dispatch(saveAndUpdateUser({ ...patient, ImageUrl: res, MerchantID: 1001 }))
 
           }
         })
@@ -170,10 +171,11 @@ class UserMessagePage extends Component {
   }
 
   render() {
-    const { user } = this.props
-    const userStructure = behavior.createStructure(user)
+    const { patient } = this.props
+    const userStructure = behavior.createStructure(patient)
 
 
+    console.log(this.props)
     return (
       <Container
         behavior="padding" style={{backgroundColor: '#fafafa'}}>
@@ -186,14 +188,28 @@ class UserMessagePage extends Component {
             // console.log('Keyboard event', frames)
           }}
         >
-          <View>
-            <TouchableOpacity style={styles.userCard} onPress={() => this.handleImagePicker()}>
+          <View style={styles.userCard}>
+            <TouchableOpacity  onPress={() => this.handleImagePicker()}>
               <Image
                 style={{width: 60, height: 60, borderRadius: 30}}
                 source={require('../../../assets/images/a1.jpg')}/>
-              <Text style={styles.label}>{user && user.UserName}</Text>
+              <Text style={styles.label}>{patient && patient.UserName}</Text>
             </TouchableOpacity>
           </View>
+         {/* <List>
+            <Item key={items.key+ key} style={{paddingLeft: 10, paddingRight: 10}}>
+              <Text style={{width: 100}}>姓名：</Text>
+              <Input
+                style={{flex: 1}}
+                onFocus={(event: Event) => this._scrollToInput(findNodeHandle(event.target))}
+                title={patient.title}
+                value={patient.value}
+                onChangeText={(text) => this.onChangeText(text, key)}
+                placeholder="请输入"
+              />
+            </Item>
+          </List>*/}
+
           {
             userStructure && (
               userStructure.map((items, key) => {
@@ -223,7 +239,7 @@ class UserMessagePage extends Component {
 
 const createState = state => {
   return {
-    ...state.user
+    ...state.patient
   }
 }
 export default connect(createState)(UserMessagePage)

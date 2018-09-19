@@ -24,7 +24,10 @@ export function getPathologicalList(option) {
     }))
 }
 
-export const pathologicalChange = (data) => ({
-  type: types.PATHOLOGICAL,
-  data,
-})
+export const pathologicalChange = (data) => {
+  storage.setItem('pathological', data)
+  return ({
+    type: types.PATHOLOGICAL,
+    data,
+  })
+}

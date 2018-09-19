@@ -71,6 +71,7 @@
  registration: 预约
  >
   - registrationList
+  - appointDate
   - appointTime
   - timeSlot
   - clayCode

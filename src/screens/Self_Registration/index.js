@@ -3,9 +3,13 @@ import { StyleSheet, TouchableOpacity, View, Image, TouchableNativeFeedback, Dim
 import { connect } from 'react-redux'
 import { Text, Container, Tabs, Tab, Content, List, ListItem , Item, Left , Right, Card, CardItem, Icon, Button  } from 'native-base';
 import behavior from './behavior'
+import moment from 'moment'
+import { getToken } from '../../utils/_utils'
 import { registerForWY } from '../../reducers/app/actions'
 import { getRegistration } from '../../reducers/system/actions'
-import moment from 'moment'
+import { getConsultVideoList, changeConsult } from '../../reducers/consult/actions'
+// 更换专家
+import { changeExpert } from '../../reducers/expert/actions'
 import styles from './style'
 
 
@@ -19,18 +23,42 @@ class UserPage extends React.Component {
   componentDidMount() {}
 
   componentWillMount() {
+    const self = getToken(global.token.access_token)
 
+    this.props.dispatch(getConsultVideoList(self.MID, self.UserID))
     // 查询历史预约记录
-    this.props.dispatch(getRegistration({start: '2018-05-18 00:00', end: '2018-08-29 23:59'}))
-
+    // this.props.dispatch(getRegistration({start: '2018-05-18 00:00', end: '2018-08-29 23:59'}))
   }
 
   navigate(router) {
     this.props.navigator.push({screen: `Koe.${router}`})
   }
+  /**
+   * 点击预约列表每一项
+   * @param option
+   */
+  consultSelect(option) {
+    const { dispatch } = this.props
+
+    dispatch(changeConsult(option))
+    dispatch(changeExpert(option.Doctor))
+
+    // 跳转到， 预约视频， 选择预约条件页面
+    this.props.navigator.push({screen: 'Koe.Consult.Select'})
+  }
   render() {
-    const { user, registrationList } = this.props
+    const { user, registrationList, consultVideoList } = this.props
     const messageStructure = user && behavior.createStructure(user)
+    let videoList = [];
+      if(consultVideoList) {
+        consultVideoList.map(item => {
+          let today = moment().format();
+          let endTime = moment(item.StartTime).add(item.ReserveHours*1, 'h').format();
+          if(moment(today).isBefore(moment(endTime))) {
+            videoList.push(item)
+          }
+        })
+      }
 
     return (
       <Container style={{backgroundColor: '#eee'}}>
@@ -87,7 +115,26 @@ class UserPage extends React.Component {
                     <Button small transparent info><Text>历史记录</Text></Button>
                   </Right>
                 </CardItem>
-                <List>
+                <List dataArray={videoList} renderRow={(item) => {
+                  let today = moment().format();
+                  let { ReserveHours, StartTime, Doctor } = item;
+                  let endTime = moment(StartTime).add(ReserveHours*1, 'h').format();
+                  let text = moment(today).isBefore(moment(endTime)) ? '未完成' : '已完成'
+                  return (
+                    <Item style={{padding: 10}} onPress={() => this.consultSelect(item)}>
+                      <Image style={{width: 40, height: 40}} source={require('../../../assets/images/a3.jpg')}/>
+                      <Left style={{paddingLeft: 10}}>
+                        <Text>{item.Doctor.UserName}</Text>
+                        <Text>{moment(item.StartTime).format('MM/DD HH:mm')}</Text>
+                      </Left>
+                      <Right>
+                        <Text>{item.Doctor.UserType}</Text>
+                        <Text>{text}</Text>
+                      </Right>
+                    </Item>
+                  )
+                }}/>
+                {/*<List>
                   <Item style={[styles.listItem]}>
                     <Left style={styles.listItemLeft}>
                       <Text style={styles.listItemLeftText}>2018-12-12 12:12:12</Text>
@@ -115,7 +162,7 @@ class UserPage extends React.Component {
                     </Right>
 
                   </Item>
-                </List>
+                </List>*/}
 
               </Card>
             </Content>
@@ -156,4 +203,5 @@ class UserPage extends React.Component {
 export default connect((state) => ({
   ...state.system,
   ...state.patient,
+  ...state.consult,
 }))(UserPage)

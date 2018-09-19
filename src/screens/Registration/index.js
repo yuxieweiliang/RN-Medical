@@ -4,12 +4,12 @@ import CalendarStrip  from 'react-native-calendar-strip'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
-
+import behavior from './behavior'
 import HeaderView from '../../components/HeaderView'
 import { getExportList } from '../../reducers/expert/actions'
 import RegistrationItem from '../../components/RegistrationItem'
 
-import { initState, changeRegistrationTime } from '../../reducers/registration/actions'
+import { initState, changeRegistrationTime, getDoctorScheduleList } from '../../reducers/registration/actions'
 import { changeExpert } from '../../reducers/expert/actions'
 import { changeDepartment } from '../../reducers/department/actions'
 import { changeHospital } from '../../reducers/hospital/actions'
@@ -26,22 +26,17 @@ class Registration extends Component {
   }
   componentWillMount() {
     const { dispatch, bodyPosition } = this.props
-    if(!bodyPosition) {
-      // 获取咨询的本地缓存
-      this.props.dispatch(initState())
-    }
 
     // 请求专家列表
     dispatch(getExportList({hospitalId: 1001, deptCode: '001'}))
+    dispatch(getDoctorScheduleList(1001, '001'))
   }
 
   /**
    * 修改预约时间
    * @param day
    */
-  onDateSelected(day) {
-    this.props.dispatch(changeRegistrationTime(moment(day).format('YYYY-MM-DD')))
-  }
+  onDateSelected(day) {}
 
   // 选择医院
   selectHospital() {
@@ -87,42 +82,22 @@ class Registration extends Component {
    * 预约专家
    * @private
    */
-  _appointmentDoctor(option) {
-    this.props.dispatch(changeExpert(option))
+  _appointmentDoctor(option, Doctor, time) {
 
+    console.log(option, Doctor)
+    this.props.dispatch(changeExpert(Doctor))
+    this.props.dispatch(changeRegistrationTime(option, time))
+
+    // 预约视频
+    this.registrationVideo()
     // this.props.navigator.push({screen: 'Koe.DepartmentList'})
   }
 
-  _verifyRegistration() {
-    let {appointTime, user, hospital, department, expert} = this.props
-
-    if (!appointTime) {
-      alert('请选择预约时间')
-      return false;
-    }
-
-    if (!hospital) {
-      alert('请选择医院')
-      return false;
-    }
-
-    if (!department) {
-      alert('请选择科室')
-      return false;
-    }
-
-    if (!expert) {
-      alert('请选择专家')
-      return false;
-    }
-
-    return true;
-  }
   registration() {
-    let {appointTime, user, hospital, department, expert} = this.props
+    let {appointDate, hospital, department, expert, user} = this.props
 
     // 如果验证不通过
-    if(! this._verifyRegistration()) {
+    if(! behavior._verifyRegistration(appointDate, hospital, department, expert)) {
       return;
     }
 
@@ -141,10 +116,11 @@ class Registration extends Component {
     })
   }
   registrationVideo() {
-    let { appointTime, user, hospital, department, expert } = this.props
+    let {appointDate, hospital, department, expert, user} = this.props
 
+    console.log(this.props)
     // 如果验证不通过
-    if(! this._verifyRegistration()) {
+    if(! behavior._verifyRegistration(appointDate, hospital, department, expert)) {
       return;
     }
 
@@ -172,7 +148,7 @@ class Registration extends Component {
     });
   }
   render() {
-    let { expertList, department, hospital }= this.props
+    let { expertList, department, hospital, schedulingList }= this.props
 
     // registrationList = registrationList && registrationList.map(item => ({...item, key: item.UserName + item.ID}))
     // console.log(expertList)
@@ -235,32 +211,32 @@ class Registration extends Component {
           // showDayName={false}
           // 定义每一个日期按钮的颜色
           // customDatesStyles={customDatesStyles}
-          onDateSelected={(e) => this.onDateSelected(e)}
+          // 点击日期每一天时调用
+          // onDateSelected={(e) => this.onDateSelected(e)}
         />
         <Content>
           {
-            expertList && (
+            schedulingList && (
               <List
-                dataArray={expertList}
-                renderRow={(item, _, index) => (
+                dataArray={schedulingList}
+                renderRow={(item,) => (
                   <RegistrationItem
                     item={item}
-                    index={index}
-                    onPressItem={(option, time) => this._appointmentDoctor(item, time)}
+                    onPressItem={(option, time) => this._appointmentDoctor(option, item.Doctor, time)}
                     onPressPic={() => this.showExportMessage(item)}
                   />
                 )}
               />
             )
           }
-          <Item style={{flex: 1, padding: 10}}>
-           {/* <Left style={{flex: 1, padding: 5}}>
+          {/*<Item style={{flex: 1, padding: 10}}>
+            <Left style={{flex: 1, padding: 5}}>
               <Button full onPress={() => this.registration()}><Text>预约挂号</Text></Button>
-            </Left>*/}
+            </Left>
             <Right style={{flex: 1, padding: 5}}>
               <Button full onPress={() => this.registrationVideo()}><Text>预约视频</Text></Button>
             </Right>
-          </Item>
+          </Item>*/}
         </Content>
 
       </Container>

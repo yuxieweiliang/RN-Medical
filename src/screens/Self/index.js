@@ -134,7 +134,7 @@ class UserPage extends React.Component {
 
             <Item
               style={[styles.listItem, {marginTop: 20}]}
-              onPress={() => this.navigate('Self.MyRegistration', '预约')}
+              onPress={() => this.navigate('Self.Registration', '预约')}
             >
               <Left style={styles.listItemLeft}>
                 <Icon

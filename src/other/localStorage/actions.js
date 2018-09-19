@@ -82,7 +82,7 @@ export function JPushAlert(userId, expertId) {
  * @returns {{type}}
  */
 export function postRegistration(option) {
-  let { appointTime, user, hospital, department, expert } = option
+  let { appointDate, user, hospital, department, expert } = option
   let url = api.postRegistration()
   let PKStr = randomString(10)
   let Expense = parseInt(Math.random(10) * 1000 * 1000)
@@ -103,7 +103,7 @@ export function postRegistration(option) {
     Reg_Doc_UserID: expert.UserID, // 挂号医生ID
     Reg_Doc_UserName: expert.UserName, // 挂号医生名
     Reg_Doc_Title: "心内科医生", // 挂号医生职称
-    Reg_VisitTime: appointTime, // 挂号时间
+    Reg_VisitTime: appointDate, // 挂号时间
     Reg_Expense: Expense, // 挂号费用
     Reg_VisitBanCi: visitBanCi ,// 挂号预约时段
     Reg_Status: "0",

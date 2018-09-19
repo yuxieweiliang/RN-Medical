@@ -42,34 +42,7 @@ class CollapsingHeader extends React.Component {
       // console.log('fail set alias');
     });
   }
-  /*componentDidMount() {
 
-   JPushModule.notifyJSDidLoad(ret => { // console.log('initial!', ret) });
-
-   // 自定义消息
-   JPushModule.addReceiveCustomMsgListener((message) => {
-   this.setState({pushMsg: message});
-   // console.log("receive customer notification000000: " + message);
-   });
-
-   // 通知消息
-   JPushModule.addReceiveNotificationListener((message) => {
-   this.setState({clickMsg: message});
-   // console.log("receive notification11111: " + message);
-   })
-
-   // 点击通知后触发的事件
-   JPushModule.addReceiveOpenNotificationListener((message) => {
-   this.setState({clickMsg: message});
-
-   this.alertHandle(message)
-   // 跳转页面
-   // this.props.dispatch(appActions.appVideoChat());
-
-   // console.log("receive notification----------: ", message);
-   })
-
-   }*/
 
   alertHandle(message) {
     Alert.alert(message.alertContent)

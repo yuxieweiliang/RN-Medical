@@ -8,7 +8,55 @@ import { createParams, randomString, establishUsnPsw } from '../../utils'
 import fetch from '../../utils/fetch'
 import crypto from '../../utils/crypto'
 import api from '../../url'
+// 医院
+import { changeHospital } from '../hospital/actions'
+// 科室
+import { changeDepartment } from '../department/actions'
+// 专家
+import { changeExpert } from '../expert/actions'
+// 更换 病种
+import { diseaseSpeciesChange } from '../diseaseSpecies/actions'
+// 更换 身体部位
+import { bodyPositionChange } from '../bodyPosition/actions'
+// 更换 症状
+import { symptomChange } from '../symptom/actions'
+// 更换 病理病程
+import { pathologicalChange } from '../pathological/actions'
+// 更换 并发症
+import { complicationChange } from '../complication/actions'
 
+/**
+ * 获取本地缓存中的数据
+ * @returns {{type}}
+ */
+export function initLocalState() {
+  return (async dispatch => {
+    const diseaseSpecies = await storage.getItem('diseaseSpecies')
+    const bodyPosition = await storage.getItem('bodyPosition')
+    const symptom = await storage.getItem('symptom')
+    const pathological = await storage.getItem('pathological')
+    const complication = await storage.getItem('complication')
+    const department = await storage.getItem('department')
+    const expert = await storage.getItem('expert')
+    const hospital = await storage.getItem('hospital')
+    // 医院
+    if(hospital) dispatch(changeHospital(hospital))
+    // 科室
+    if(department) dispatch(changeDepartment(department))
+    // 专家
+    if(expert) dispatch(changeExpert(expert))
+    // 更改病种
+    if(diseaseSpecies) dispatch(diseaseSpeciesChange(diseaseSpecies))
+    // 更改部位
+    if(bodyPosition) dispatch(bodyPositionChange(bodyPosition))
+    // 更改症状
+    if(symptom) dispatch(symptomChange(symptom))
+    // 病理病程
+    if(pathological) dispatch(pathologicalChange(pathological))
+    // 并发症
+    if(complication) dispatch(complicationChange(complication))
+  })
+}
 /**
  * APP 用到的图标
  */
@@ -38,7 +86,7 @@ export function populateIcons() {
       reject(error);
     }).done();
   });
-};
+}
 
 
 /**

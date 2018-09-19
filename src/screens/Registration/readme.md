@@ -12,7 +12,7 @@ LocaleConfig.defaultLocale = 'cn';
  // 每次滑动一页
  pagingEnabled={true}
  // 是否有选中的日期
- markedDates={{[appointTime]: {selected: true, selectedColor: 'blue'}}}
+ markedDates={{[appointDate]: {selected: true, selectedColor: 'blue'}}}
  // 月份的格式
  monthFormat={'yyyy/MM'}
  // 当日期改变时

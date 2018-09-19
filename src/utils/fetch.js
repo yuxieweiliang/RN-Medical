@@ -40,6 +40,7 @@ class CreateFetch {
     }
 
     // console.log('post: ---\n', url + '\n', Object.assign({}, this.headers, headers ) , body)
+    console.log('post: ---\n')
     return fetch(url, {
       method: 'POST',
       headers: Object.assign({}, this.headers, headers ),
@@ -58,6 +59,7 @@ class CreateFetch {
       this.headers.Authorization =  `${token_type} ${access_token}`
     }
 
+    console.log('put: ---\n')
     // console.log('post: ---\n', url + '\n', Object.assign({}, this.headers, headers ) , body)
     return fetch(url, {
       method: 'PUT',

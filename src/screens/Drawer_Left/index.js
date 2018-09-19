@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FlatList, ImageBackground, View, TouchableOpacity, Image, Dimensions , StatusBar  } from 'react-native';
 import { Container, Icon, Content, List, ListItem, Text, Left, Button, Right } from 'native-base';
 import styles from './style'
+import { server } from '../../config'
 import { exit } from '../../reducers/app/actions'
 import { connect } from 'react-redux'
 
@@ -17,15 +18,18 @@ class DrawerLeft extends Component {
     this.props.navigator.showModal({screen})
   }
   render() {
+    const { patient }= this.props
+    const portrait = patient ? {uri: server.file + patient.ImageUrl} : {}
+    console.log('Drawer_Left Drawer_Left Drawer_Left',this.props)
     return (
       <Container style={styles.container}>
-        <TouchableOpacity onPress={() => this.router('Koe.Self.UserMessages')}>
+        <TouchableOpacity onPress={() => this.router('Koe.Self.Messages')}>
           <ImageBackground
             style={styles.headerBackgroundImage}
             source={require('../../../assets/images/a8.jpg')}
           >
             <View style={styles.portraitBox}>
-              <Image source={require('../../../assets/images/a4.jpg')} style={{height: 50, width: 50, borderRadius: 100 }}/>
+              <Image source={ portrait } style={{height: 50, width: 50, borderRadius: 100 }}/>
             </View>
             <View style={styles.usernameBox}>
               <Text style={styles.username}>
@@ -101,4 +105,4 @@ class DrawerLeft extends Component {
 }
 
 
-export default connect()(DrawerLeft)
+export default connect(store => ({...store.patient}))(DrawerLeft)

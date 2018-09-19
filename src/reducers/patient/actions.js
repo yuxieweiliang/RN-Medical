@@ -14,7 +14,6 @@ import { getToken } from '../../utils/_utils'
 export function getPatient() {
   let tokenData = getToken(global.token.access_token)
   let url = api.getHospitalPatient({ hospitalId: tokenData.MID, id: tokenData.UserID })
-
   return async dispatch => {
     let user = await storage.getItem(`patient`)
 
@@ -35,21 +34,24 @@ export function getPatient() {
  * 修改角色信息
  * @returns {{type}}
  */
-export function saveAndUpdateUser(body) {
-  let url = body.ID ? api.putUser({id: body.UserID}) : api.postUser({id: body.UserID})
-
+export function saveAndUpdateUser(option) {
+  let {Doctors, IsDeleted, ID, VShardID, ...body } = option
+  let url = body.UserID ? api.putUser() : api.postUser()
   return (async dispatch => {
+    let user = await storage.getItem(`patient`)
 
-    fetch.post(url, { body }).then(res => {
+    fetch[body.UserID ? 'put': 'post'](url, { body: JSON.stringify(body) }).then(res => {
       // 如果失败
       if(res.ok === false) {
         return false
       }
 
+      storage.setItem(`patient`, {...user, ...res.Data})
       // 保存成功
-      dispatch({type: types.SAVE_USER_MESSAGE_SUCCESS})
+      dispatch({type: types.GET_USER_MESSAGE, data: res.Data})
       return true
     })
+
   })
 }
 
@@ -220,7 +222,7 @@ export function postUserPortrait(path) {
 
   return (async dispatch => {
 
-    fetch.post(url,
+    return fetch.post(url,
       {
         body,
         headers: {
@@ -228,6 +230,7 @@ export function postUserPortrait(path) {
         }
       }).then(res => {
 
+      console.log('图片上传成功: ', res)
       // 如果失败
       if(res.ok === false) {
         return false
@@ -237,7 +240,6 @@ export function postUserPortrait(path) {
       // http://fileserver.api.koenn.cn:81/UploadImages/UserCredentials/2018/07-17/322717145007458/408eb95a-b8ed-4b91-be42-62cf8bb5b5b5.png
       // console.log('图片地址', res)
       // 保存成功
-      dispatch({type: types.SAVE_USER_MESSAGE_SUCCESS})
       return res.Data
     })
   })

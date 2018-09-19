@@ -103,20 +103,10 @@ export default class App extends Component {
           }
         });
         break;
-      case 'video-chat': // 视频通话
+      case 'Video': // 视频通话
         Navigation.startSingleScreenApp({
           screen: {
-            screen: 'Koe.Consult',
-            navigatorStyle: {
-              navBarHidden: true,
-            },
-          }
-        });
-        break;
-      case 'ConsultVideo': // 视频通话
-        Navigation.startSingleScreenApp({
-          screen: {
-            screen: 'Koe.ConsultVideo',
+            screen: 'Koe.Consult.Video',
             navigatorStyle: {
               navBarHidden: true,
             },

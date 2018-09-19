@@ -31,8 +31,12 @@ export function getSymptomList(option) {
  * 症状 { 列表 }
  * @returns {{type}}
  */
-export const symptomChange =  (data)  => ({
-  type: types.SYMPTOM,
-  data
-});
+export const symptomChange =  (data)  => {
+  storage.setItem('symptom', data)
+  return ({
+    type: types.SYMPTOM,
+    data,
+  })
+}
+
 

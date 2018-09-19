@@ -37,8 +37,11 @@ export const changeBodyPositionOfList = (data) => ({
  * 修改身体部位数据
  * @param data
  */
-export const bodyPositionChange = (data) => ({
-  type: types.BODY_POSITION_CHANGE,
-  data,
-})
+export const bodyPositionChange = (data) => {
+  storage.setItem('bodyPosition', data)
+  return ({
+    type: types.BODY_POSITION_CHANGE,
+    data,
+  })
+}
 

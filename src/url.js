@@ -129,10 +129,19 @@ export default {
   /**
    * id：用户id
    */
-  // 获取当前用户指定咨询的ID（AdviceID）的咨询信息
+  // get  咨询  获取 当前用户指定咨询的ID（AdviceID）的咨询信息
   getConsultInfo: createApi(`${userData}/api/Data_User_Advice/GetByAdviceID/{consultId}`),
-  // -删除....
+  // post 咨询  删除
   deleteConsult: createApi(`${userData}/api/Data_User_Advice/Delete/{consultId}`),
+  // post 咨询  新增
+  postConsult: createApi(`${userData}/api/Data_User_Advice/Post`),
+
+  // 随访记录
+  getFullListByUser: createApi(`${file}/api/Data_User_AdvicePaper_Dto/GetFullListByUser/{start}/{end}/{paperType}`),
+  // 电话随访
+  getByPaperId: createApi(`${file}/api/Data_User_AdvicePaper_Dto/GetByPaperID/{paperId}/{userId}`),
+  // { 回执 } 修改 回执   确认回执信息
+  putReceiptByAdviceId: createApi(`${userData}/api/Data_User_Advice/Put/{adviceId}`),
 
   // 获取朋友圈数据
   getFriendList: createApi(`${userData}/api/Data_User_CircleMessage/GetList`),
@@ -175,10 +184,6 @@ export default {
   uploadFiles: createApi(`${file}/api/UserMainImages/UploadFiles`),
   // 上传用户证件照
   uploadUserCredentials: createApi(`${file}/api/UserMainImages/UploadUserCredentials`),
-  // 随访记录
-  getFullListByUser: createApi(`${file}/api/Data_User_AdvicePaper_Dto/GetFullListByUser/{start}/{end}/{paperType}`),
-  // 电话随访
-  getByPaperId: createApi(`${file}/api/Data_User_AdvicePaper_Dto/GetByPaperID/{paperId}/{userId}`),
 
   getListByUser: createApi(`${userData}/api/Data_User_Article_Dto/GetListByUser/{start}/{offSet}/{number}`),
 
@@ -194,11 +199,12 @@ export default {
   // { 回执 } 根据 咨询ID  获取 当前咨询对应的回执信息
   getReceiptByAdviceId: createApi(`${userData}/api/Data_Consult_Receipt/GetByAdviceID/{adviceId}`),
 
-  // { 回执 } 修改 回执   确认回执信息
-  putReceiptByAdviceId: createApi(`${userData}/api/Data_User_Advice/Put/{adviceId}`),
 
-  // 获取 视频预约 列表
+  // { 视频预约 } 获取 列表
   getConsultVideoList: createApi(`${user}/api/Work_Reserve/GetByPatient/{hospital}/{patientId}`),
+
+  // { 视频预约 } 新增 列表
+  postVideoRegistration: createApi(`${user}/api/Work_Reserve/Post`),
 
   // 获取 处方 列表  http://userdata.api.koenn.cn:81/api/Data_User_Prescription/GetListByUser
   getPrescriptionList: createApi(`${userData}/api/Data_User_Prescription/GetListByUser`),
@@ -206,6 +212,8 @@ export default {
   // 获取 处方 医嘱内容 -> 也就是药单
   getPrescriptionOrder: createApi(`${userData}/api/Data_User_Orders/GetListByUser/{prescriptionId}`),
 
+  // 【 GET  】 排版信息 { 查询 } -> , startTime, endTime
+  getDoctorScheduleList: createApi(`${system}/api/Sys_User_DeptInfo/GetDoctorSchedule/{hospitalId}/{deptCode}/{startTime}/{endTime}`),
 
 }
 

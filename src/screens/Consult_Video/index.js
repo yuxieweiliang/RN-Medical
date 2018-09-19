@@ -47,9 +47,9 @@ export default class RNAgoraExample extends Component {
 
   }
 
-
   init_rtcEngine() {
 
+    console.log('init_rtcEngine: ', this.props)
     //加入房间
     RtcEngine.joinChannel();
 

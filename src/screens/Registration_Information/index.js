@@ -5,7 +5,7 @@ import styles from './style'
 import { connect } from 'react-redux'
 import Button from '../../components/Button'
 import ListInput from '../../components/ListInput'
-import { postRegistration } from '../../reducers/registration/actions'
+import { postRegistration, postVideoRegistration } from '../../reducers/registration/actions'
 import behavior from './behavior'
 
 
@@ -37,15 +37,22 @@ class RegistrationInformation extends React.Component {
    * @param event
    */
   onNavigatorEvent(event) {
-    const { dispatch, user, onClose } = this.props
+    const { dispatch, onClose, appointDate, appointTime, patient, hospital, department, expert } = this.props
     if(event.id === 'saveRegistration') {
 
 
-      // console.log(user)
-      // 保存数据
-
+      console.log('saveRegistration', this.props)
+      // 新增挂号
+      // dispatch(postRegistration({ appointDate, patient, hospital, department, expert }))
+      // 新增视频预约
+      dispatch(postVideoRegistration({ appointDate, appointTime, patient, expert }))
+        .then(res => {
+          if(res) {
+            alert('预约成功！')
+          }
+        })
       // dispatch(saveAndUpdateUser(user))
-      onClose()
+      // onClose()
       // 返回
       // this.props.navigator.pop();
     }
@@ -57,8 +64,8 @@ class RegistrationInformation extends React.Component {
   componentWillUnmount() { }
 
   /*registration() {
-    let { appointTime, user, hospital, department, expert } = this.props
-    if(!appointTime) {
+    let { appointDate, user, hospital, department, expert } = this.props
+    if(!appointDate) {
       alert('请选择预约时间')
       return;
     }
@@ -71,13 +78,12 @@ class RegistrationInformation extends React.Component {
       return;
     }
 
-    this.props.dispatch(postRegistration({ appointTime, user, hospital, department, expert }))
+    this.props.dispatch(postRegistration({ appointDate, user, hospital, department, expert }))
     this.props.navigator.popToRoot()
   }
-
   registrationVideo() {
-    let { appointTime, user, hospital, department, expert } = this.props
-    if(!appointTime) {
+    let { appointDate, user, hospital, department, expert } = this.props
+    if(!appointDate) {
       alert('请选择预约时间')
       return;
     }
@@ -92,17 +98,18 @@ class RegistrationInformation extends React.Component {
 
     alert('预约成功')
 
-    // this.props.dispatch(postRegistration({ appointTime, user, hospital, department, expert }))
+    // this.props.dispatch(postRegistration({ appointDate, user, hospital, department, expert }))
     this.props.navigator.popToRoot()
-  }*/
+  }
+   */
 
   onChangeText() {
 
   }
   render() {
-    let { user, expert, dispatch } = this.props
-    let userMessage = user && behavior.createUserMessage(user)
-    registration = behavior.createRegistration(expert)
+    let { patient, expert, dispatch, appointDate, appointTime } = this.props
+    let userMessage = patient && behavior.createUserMessage(patient)
+    registration = behavior.createRegistration(expert, `${appointDate} ${appointTime * 1 === 1 ? '上午' : '下午'}` )
 
     return (
       <Container style={{backgroundColor: '#fafafa'}}>
@@ -175,7 +182,8 @@ class RegistrationInformation extends React.Component {
 }
 
 export default connect(state => ({
-  ...state.user,
+  ...state.expert,
+  ...state.patient,
   ...state.registration,
 }))(RegistrationInformation)
 

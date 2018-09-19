@@ -13,8 +13,10 @@ const initialState = Immutable({
 
   // 是否预约
   isRegistration: false,
+  // 预约日期
+  appointDate: today,
   // 预约时间
-  appointTime: today,
+  appointTime: '上午',
   // 时间段
   timeSlot: null,
 
@@ -39,18 +41,12 @@ const func = {
       registrationList: action.data.reverse()
     });
   },
-  /**
-   * 获取咨询的本地缓存
-   */
-  [types.GET_LOCAL_CACHING](state, action){
-    return state.merge(action.data);
-  },
-
 
   // 更改预约时间
   [types.CHANGE_REGISTRATION_TIME](state, action) {
     return state.merge({
-      appointTime: action.data
+      appointDate: action.date,
+      appointTime: action.time,
     });
   },
 
@@ -93,6 +89,13 @@ const func = {
     storage.setItem('complication', action.data)
     return state.merge({
       complication: action.data
+    });
+  },
+  // 医生排班列表
+  [types.GET_EXPERT_SCHEDULE_LIST](state, action) {
+    // storage.setItem('complication', action.data)
+    return state.merge({
+      schedulingList: action.data
     });
   },
 }

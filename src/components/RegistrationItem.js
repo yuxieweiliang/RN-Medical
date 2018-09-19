@@ -12,30 +12,47 @@ const header = require('../../assets/images/a4.jpg')
 export default class RegistrationItem extends Component {
   renderItem(item, key, index) {
     const { onPressItem } = this.props
-    const bgColor = index*1 === 0 ? '#353396' : '#eee'
-    const color = index*1 === 0 ? '#fafafa' : '#333'
-    const am = {backgroundColor: item.am ? bgColor : '#fff'}
-    const pm = {backgroundColor: item.pm ? bgColor : '#fff'}
-    const amColor = {fontSize: 12, color}
-    const pmColor = {fontSize: 12, color}
+    const am = {backgroundColor: item.am ? '#aadcff' : '#fff'}
+    const pm = {backgroundColor: item.pm ? '#aadcff' : '#fff'}
+    const amColor = {fontSize: 12, color: item.am ? '#333' : '#fff'}
+    const pmColor = {fontSize: 12, color: item.pm ? '#333' : '#fff'}
 
     return (
       <View key={key} style={styles.itemChild}>
         <TouchableOpacity
           style={[styles.itemChildTop, am]}
-          onPress={() => onPressItem(item, item.am)}>
+          onPress={() => onPressItem(item, '1')}>
           <Text style={amColor}>{item.am}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.itemChildBottom, pm]}
-          onPress={() => onPressItem(item, item.pm)}>
+          onPress={() => onPressItem(item, '2')}>
           <Text style={pmColor}>{item.pm}</Text>
         </TouchableOpacity>
       </View>
     )
   }
+
+
+  createSchedules(Schedules) {
+    return Schedules.map((item, key) => {
+      let am, pm;
+      if(item.FreeHours === 1 || item.FreeHours === 3) {
+        am = '空闲'
+      }
+      if(item.FreeHours === 2 || item.FreeHours === 3) {
+        pm = '空闲'
+      }
+      return({
+        ...item, am, pm, key,
+      })
+    })
+  }
   render() {
-    const { item, index, onPressPic } = this.props
+    const { item: { Schedules, Doctor }, onPressPic } = this.props
+    let portrait = Doctor ? { uri: Doctor.ImageUrl } : header
+    let schedules = Schedules && this.createSchedules(Schedules)
+
     return (
       <Item style={styles.item}>
         <TouchableOpacity
@@ -45,39 +62,29 @@ export default class RegistrationItem extends Component {
 
           <Image
             style={styles.image}
-            source={ header }
+            source={portrait}
           />
 
           <Text style={{fontSize: 12}}>
-            {item.UserName}
+            {Doctor && Doctor.UserName}
           </Text>
 
         </TouchableOpacity>
 
         <View  style={styles.content}>
           {
-            [ {key: '1', pm: '有空'}, {key: '2', am: '有空'}, {key: '3'}, {key: '4'}, {key: '5'}, {key: '6'}, {key: '7'}]
-              .map((item, key) => this.renderItem(item, key, index))
+            schedules
+              .map((item, key) => this.renderItem(item, key))
           }
         </View>
         <View style={{
           width: 15,
           height: 60,
         }}>
-          <View style={{
-            width: '100%',
-            height: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          <View style={styles.am}>
             <Text style={{fontSize: 10}}>上</Text>
           </View>
-          <View style={{
-            width: '100%',
-            height: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          <View style={styles.pm}>
             <Text style={{fontSize: 10}}>下</Text>
           </View>
         </View>
@@ -127,5 +134,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  am: {
+    width: '100%',
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pm: {
+    width: '100%',
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 })
 

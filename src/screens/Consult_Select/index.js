@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, View, StyleSheet, NativeAppEventEmitter, Dimensions } from 'react-native';
-import { Container, Content, List, Item, Left, Right, Tab, Button, Card, CardItem, Col, Text, Icon } from 'native-base';
+import { Container, Content, List, Item, Left, Right, Tab, Button, Card, CardItem, Text, Icon } from 'native-base';
 import {NimFriend, NimUtils, NimSession} from 'react-native-netease-im';
-import { JPushAlert } from '../../reducers/registration/actions'
+import { JPushAlert, JPushModule } from '../../reducers/registration/actions'
 import moment from 'moment'
 import { connect } from 'react-redux'
-import { addFriendNetEase } from '../../reducers/app/actions'
-
+import { postConsult } from '../../reducers/consult/actions'
+import Toast from 'react-native-simple-toast'
 import { getReceiptByAdviceId } from '../../reducers/receipt/actions'
 import PathologicalCardItem from '../../components/PathologicalCardItem'
 
@@ -31,10 +31,14 @@ class ConsultSelect extends Component {
     // dispatch(getExportList({hospitalId: 1001, deptCode: '001'}))
   }
   componentDidMount() {
+    let { patient, expert } = this.props
     this.friendListener = NativeAppEventEmitter.addListener("observeFriend",(data)=>{
 
       // console.log("observeFriend", data)
     });
+
+    console.log('nextProps: ', this.props)
+
   }
   componentWillUnmount() {
     NimFriend.stopFriendList();
@@ -73,45 +77,35 @@ class ConsultSelect extends Component {
     return moment(today).isBefore(moment(StartTime)) || moment(endTime).isBefore(moment(today));
   }
 
-
-  // props更新时调用
-  componentWillReceiveProps(nextProps) {
-    let { patient } = nextProps
-
-    // 设置当前用户昵称 -> { 极光推送 }
-    /*if(patient !== this.props.patient) {
-      JPushModule.setAlias(patient.UserID, (res) => {
-        // console.log('极光昵称：', res);
-      },() => {
-        // console.log('fail set alias');
-      });
-    }*/
-  }
-
   /**
    * 视频通话 { 点击 }
    */
   leavingVideo() {
-    const { navigator, dispatch, patient, expert, consultVideo } = this.props
+    const { navigator, dispatch, patient, expert, consultVideo, diseaseSpecies } = this.props
+
+
+    if(diseaseSpecies) {
+      dispatch(postConsult(expert, diseaseSpecies))
+    }
 
     // 极光推送
     dispatch(JPushAlert(patient.UserID, expert.UserID)).then(res => {
-      // console.log(res)
+      console.log('极光推送', res)
       if(res) {
-
         // 跳转到视频页面
         navigator.push({
           screen: 'Koe.Consult.Video',
           title: '视频'
         })
+      } else {
+        Toast.show("对方不在线，请稍后再拨！")
       }
     }).catch(err => console.log(err))
   }
   render() {
     let { complication, symptom, bodyPosition,
-      pathologicalCourse, hospital, expert, diseaseSpecies } = this.props
-
-    console.log(this.props)
+      pathological, hospital, expert, diseaseSpecies } = this.props
+    const MerchantName = hospital ? hospital.MerchantName : expert ? expert.MerchantName : ''
 
     return(
       <Container>
@@ -120,7 +114,7 @@ class ConsultSelect extends Component {
             <Item style={styles.listItem}>
               <Left style={{flexDirection: 'row'}}>
                 <Text>医院：</Text>
-                <Text style={{marginLeft: 10}}>{hospital && hospital.MerchantName}</Text>
+                <Text style={{marginLeft: 10}}>{ MerchantName }</Text>
               </Left>
               <Right style={{flexDirection: 'row'}}>
                 <Text>专家：</Text>
@@ -153,7 +147,7 @@ class ConsultSelect extends Component {
                 />
                 <PathologicalCardItem
                   itemTitle="病例病程"
-                  itemName={pathologicalCourse && pathologicalCourse.ItemName}
+                  itemName={pathological && pathological.ItemName}
                 />
                 <PathologicalCardItem
                   itemTitle="并发症状"
@@ -172,6 +166,7 @@ class ConsultSelect extends Component {
               <Text>咨询（测试）</Text>
             </Button>
           </View>
+
         </Content>
       </Container>
     )
@@ -183,6 +178,12 @@ const createState = function(state) {
     ...state.patient,
     ...state.expert,
     ...state.consult,
+    ...state.diseaseSpecies,
+    ...state.bodyPosition,
+    ...state.symptom,
+    ...state.pathological,
+    ...state.hospital,
+    ...state.complication,
   })
 }
 

@@ -7,7 +7,6 @@ import moment from 'moment'
 import styles from './style'
 import { getToken } from '../../utils/_utils'
 import HeaderView from '../../components/HeaderView'
-import { initState, JPushAlert } from '../../reducers/registration/actions'
 import { getConsultVideoList, changeConsult } from '../../reducers/consult/actions'
 import { appInitialized } from '../../reducers/app/actions'
 import PathologicalCardItem from '../../components/PathologicalCardItem'
@@ -21,17 +20,6 @@ import { changeHospital } from '../../reducers/hospital/actions'
 // 更换 病种
 import { diseaseSpeciesChange } from '../../reducers/diseaseSpecies/actions'
 
-// 更换 身体部位
-import { bodyPositionChange } from '../../reducers/bodyPosition/actions'
-
-// 更换 症状
-import { symptomChange } from '../../reducers/symptom/actions'
-
-// 更换 病理病程
-import { pathologicalChange } from '../../reducers/pathological/actions'
-
-// 更换 并发症
-import { complicationChange } from '../../reducers/complication/actions'
 
 // 下拉选择  更滑列表项
 import SelectOfRouter from '../../components/SelectOfRouter'
@@ -51,8 +39,6 @@ class ConsultPage extends Component {
   componentWillMount() {
     const { dispatch, bodyPosition } = this.props
     const self = getToken(global.token.access_token)
-    // 获取咨询的本地缓存
-    this.props.dispatch(initState())
 
     //=============================================================
     // 极光推送 start
@@ -62,8 +48,20 @@ class ConsultPage extends Component {
 
     // 监听自定义消息
     JPushModule.addReceiveCustomMsgListener((message) => {
-      // this.setState({pushMsg: message});
-      // console.log("receive customer notification000000: " + message);
+      // this.setState({ pushMsg: message });
+      let extras = JSON.parse(message.extras)
+
+      console.log("极光推送 【自定义消息】: ", message);
+
+      if(message.content === 'open-video') {
+
+        console.log("极光推送 【打开电话】: ", extras.id);
+        this.props.dispatch(appInitialized('Video'));
+
+      } else {
+        this.props.navigator.pop();
+        console.log("极光推送 【关闭电话】: ");
+      }
     });
 
     // 监听通知消息
@@ -77,7 +75,7 @@ class ConsultPage extends Component {
       // this.setState({clickMsg: message});
 
       // 跳转页面
-      this.props.dispatch(appInitialized('ConsultVideo'));
+      this.props.dispatch(appInitialized('Video'));
 
       // console.log("receive notification----------: ", message);
     })
@@ -97,18 +95,18 @@ class ConsultPage extends Component {
   }
 
   // props更新时调用
-  /*componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     let { patient } = nextProps
 
     // 设置当前用户昵称 -> { 极光推送 }
     if(patient !== this.props.patient) {
       JPushModule.setAlias(patient.UserID, (res) => {
-        // console.log('极光昵称：', res);
+        console.log('极光昵称：', res);
       },() => {
         // console.log('fail set alias');
       });
     }
-  }*/
+  }
 
   /**
    * 卸载

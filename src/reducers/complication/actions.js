@@ -36,7 +36,10 @@ export function getComplicationList(hospitalId, positionCode, symptomCode, compl
   })
 }
 
-export const complicationChange = (data) => ({
-  type: types.COMPLICATION,
-  data,
-})
+export const complicationChange = (data) => {
+  storage.setItem('complication', data)
+  return ({
+    type: types.COMPLICATION,
+    data,
+  })
+}
