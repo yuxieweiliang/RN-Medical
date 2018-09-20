@@ -1,8 +1,7 @@
 export default function(config) {
   const { Colors, Fonts } = config
   return {
-    flex: 1,
-    height: config.height,
+    height: 80,
     width: config.width,
     backgroundColor: Colors.ContainerBackgroundColor,
   };
