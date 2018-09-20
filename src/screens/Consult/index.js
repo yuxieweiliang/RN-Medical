@@ -27,7 +27,7 @@ import SelectOfRouter from '../../components/SelectOfRouter'
 // 操作动作
 import { NimSession, NimFriend } from 'react-native-netease-im'
 
-const title = '咨询'
+const title = '咨询';
 const { width, height } = Dimensions.get('window');
 
 class ConsultPage extends Component {
@@ -37,8 +37,8 @@ class ConsultPage extends Component {
   }
 
   componentWillMount() {
-    const { dispatch, bodyPosition } = this.props
-    const self = getToken(global.token.access_token)
+    const { dispatch, bodyPosition } = this.props;
+    const self = getToken(global.token.access_token);
 
     //=============================================================
     // 极光推送 start
@@ -49,7 +49,7 @@ class ConsultPage extends Component {
     // 监听自定义消息
     JPushModule.addReceiveCustomMsgListener((message) => {
       // this.setState({ pushMsg: message });
-      let extras = JSON.parse(message.extras)
+      let extras = JSON.parse(message.extras);
 
       console.log("极光推送 【自定义消息】: ", message);
 
@@ -68,7 +68,7 @@ class ConsultPage extends Component {
     JPushModule.addReceiveNotificationListener((message) => {
       // this.setState({clickMsg: message});
       // console.log("receive notification11111: " + message);
-    })
+    });
 
     // 监听点击通知后触发的事件
     JPushModule.addReceiveOpenNotificationListener((message) => {
@@ -78,7 +78,7 @@ class ConsultPage extends Component {
       this.props.dispatch(appInitialized('Video'));
 
       // console.log("receive notification----------: ", message);
-    })
+    });
 
 
     //=============================================================

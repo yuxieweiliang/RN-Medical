@@ -83,21 +83,42 @@ class ConsultSelect extends Component {
   leavingVideo() {
     const { navigator, dispatch, patient, expert,
       complication, symptom, bodyPosition,
-      pathological, diseaseSpecies } = this.props
-    const data = { complication, symptom, bodyPosition, pathological, diseaseSpecies }
+      pathological, diseaseSpecies } = this.props;
+    const data = { complication, symptom, bodyPosition, pathological, diseaseSpecies };
 
     if(diseaseSpecies) {
       dispatch(postConsult(expert, diseaseSpecies))
     }
 
+    const open = {
+      msg_content: 'open-video',
+      extras: {
+        id: patient.UserID,
+        data
+      }
+    };
+    const close = { msg_content: 'close-video' };
     // 极光推送
-    dispatch(JPushAlert(patient.UserID, expert.UserID, data)).then(res => {
-      console.log('极光推送', res)
+    dispatch(JPushAlert(expert.UserID, open)).then(res => {
+      console.log('极光推送', res);
       if(res) {
         // 跳转到视频页面
         navigator.push({
-          screen: 'Koe.Telephone.Video',
-          title: '视频'
+          screen: 'Koe.Telephone.Answer',
+          title: '视频',
+          passProps: {
+            onCancel: (error) => {
+              // 在这里，无论它是否有错误，都返回到选择页面
+              this.props.navigator.pop();
+              dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }));
+
+
+
+              if(error) {
+                // this.props.navigator.push()
+              }
+            }
+          }
         })
       } else {
         Toast.show("对方不在线，请稍后再拨！")

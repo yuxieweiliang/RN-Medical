@@ -78,6 +78,7 @@ import Department_List from './Department_List'
 //                            Consult   start
 import Consult from './Consult'
 import Telephone_Video from './Telephone_Video' // 预约视频
+import Telephone_Answer from './Telephone_Answer' // 预约视频 接听挂断
 import Consult_Chat from './Consult_Chat/Chat'
 import Consult_Select from './Consult_Select'
 //                            Consult   end
@@ -107,108 +108,110 @@ import Drawer_Left from './Drawer_Left'
 
 // Register the component
 export  function registerScreens(store, Provider) {
-  const RegisterComponent = Navigation.registerComponent
+  const RegisterComponent = Navigation.registerComponent;
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                           App   start
-  RegisterComponent('Koe.App', () => App, store, Provider)
-  RegisterComponent('Koe.App.Login', () => App_Login, store, Provider)
-  RegisterComponent('Koe.App.Register', () => App_Register, store, Provider)
-  RegisterComponent('Koe.App.RetrievePassword', () => App_RetrievePassword, store, Provider)
-  RegisterComponent('Koe.App.NewPassword', () => App_NewPassword, store, Provider)
-  RegisterComponent('Koe.App.SignTrendEdit', () => App_SignTrendEdit, store, Provider) // 体征填写
+  RegisterComponent('Koe.App', () => App, store, Provider);
+  RegisterComponent('Koe.App.Login', () => App_Login, store, Provider);
+  RegisterComponent('Koe.App.Register', () => App_Register, store, Provider);
+  RegisterComponent('Koe.App.RetrievePassword', () => App_RetrievePassword, store, Provider);
+  RegisterComponent('Koe.App.NewPassword', () => App_NewPassword, store, Provider);
+  RegisterComponent('Koe.App.SignTrendEdit', () => App_SignTrendEdit, store, Provider); // 体征填写
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                       system   start
-  RegisterComponent('Koe.System.DiseaseSpeciesList', () => System_DiseaseSpeciesList, store, Provider)
-  RegisterComponent('Koe.System.SymptomList', () => System_SymptomList, store, Provider)
-  RegisterComponent('Koe.System.PathologicalList', () => System_PathologicalList, store, Provider)
-  RegisterComponent('Koe.System.Complication', () => System_Complication, store, Provider)
-  RegisterComponent('Koe.System.Authentication', () => System_Authentication, store, Provider)
+  RegisterComponent('Koe.System.DiseaseSpeciesList', () => System_DiseaseSpeciesList, store, Provider);
+  RegisterComponent('Koe.System.SymptomList', () => System_SymptomList, store, Provider);
+  RegisterComponent('Koe.System.PathologicalList', () => System_PathologicalList, store, Provider);
+  RegisterComponent('Koe.System.Complication', () => System_Complication, store, Provider);
+  RegisterComponent('Koe.System.Authentication', () => System_Authentication, store, Provider);
   //                       Registration   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                           Consult   start
-  RegisterComponent('Koe.Consult', () => Consult, store, Provider)
-  RegisterComponent('Koe.Consult.Chat', () => Consult_Chat, store, Provider)
-  RegisterComponent('Koe.Telephone.Video', () => Telephone_Video, store, Provider)
-  RegisterComponent('Koe.Consult.Select', () => Consult_Select, store, Provider)
+  RegisterComponent('Koe.Consult', () => Consult, store, Provider);
+  RegisterComponent('Koe.Consult.Chat', () => Consult_Chat, store, Provider);
+  RegisterComponent('Koe.Consult.Select', () => Consult_Select, store, Provider);
+  // Telephone
+  RegisterComponent('Koe.Telephone.Video', () => Telephone_Video, store, Provider);
+  RegisterComponent('Koe.Telephone.Answer', () => Telephone_Answer, store, Provider);
 
   //                           Consult   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                           Prescription   start
-  RegisterComponent('Koe.Prescription', () => Prescription, store, Provider)
-  RegisterComponent('Koe.Prescription.List', () => Prescription_List, store, Provider)
-  RegisterComponent('Koe.Prescription.QRCode', () => Prescription_QRCode, store, Provider)
+  RegisterComponent('Koe.Prescription', () => Prescription, store, Provider);
+  RegisterComponent('Koe.Prescription.List', () => Prescription_List, store, Provider);
+  RegisterComponent('Koe.Prescription.QRCode', () => Prescription_QRCode, store, Provider);
   //                           Consult   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                           Hospital   start
-  RegisterComponent('Koe.Hospital', () => Hospital, store, Provider)
-  RegisterComponent('Koe.Hospital.List', () => Hospital_List, store, Provider)
+  RegisterComponent('Koe.Hospital', () => Hospital, store, Provider);
+  RegisterComponent('Koe.Hospital.List', () => Hospital_List, store, Provider);
 
   //                           Consult   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                           Department   start
-  RegisterComponent('Koe.Department', () => Department, store, Provider)
-  RegisterComponent('Koe.Department.List', () => Department_List, store, Provider)
+  RegisterComponent('Koe.Department', () => Department, store, Provider);
+  RegisterComponent('Koe.Department.List', () => Department_List, store, Provider);
 
   //                           Department   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                           Expert   start
-  RegisterComponent('Koe.Expert', () => Expert, store, Provider)
-  RegisterComponent('Koe.Expert.List', () => Expert_List, store, Provider)
+  RegisterComponent('Koe.Expert', () => Expert, store, Provider);
+  RegisterComponent('Koe.Expert.List', () => Expert_List, store, Provider);
   //                           Expert   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                           Receipt   start
-  RegisterComponent('Koe.Receipt', () => Receipt, store, Provider)
-  RegisterComponent('Koe.Receipt.List', () => Receipt_List, store, Provider)
+  RegisterComponent('Koe.Receipt', () => Receipt, store, Provider);
+  RegisterComponent('Koe.Receipt.List', () => Receipt_List, store, Provider);
   //                           Receipt   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                           self   start
-  RegisterComponent('Koe.Self', () => Self, store, Provider)
-  RegisterComponent('Koe.Self.Messages', () => Self_Messages, store, Provider)
-  RegisterComponent('Koe.Self.Account', () => Self_Account, store, Provider)
-  RegisterComponent('Koe.Self.Registration', () => Self_Registration, store, Provider)
-  RegisterComponent('Koe.Self.QRCode', () => Self_QRCode, store, Provider)
-  RegisterComponent('Koe.Self.Follow', () => Self_Follow, store, Provider)
-  RegisterComponent('Koe.Self.Record', () => Self_Record, store, Provider)
-  RegisterComponent('Koe.Self.Examination', () => Self_Examination, store, Provider)
-  RegisterComponent('Koe.Self.FriendList', () => Self_FriendList, store, Provider)
-  RegisterComponent('Koe.Self.Picture', () => Self_Picture, store, Provider)
+  RegisterComponent('Koe.Self', () => Self, store, Provider);
+  RegisterComponent('Koe.Self.Messages', () => Self_Messages, store, Provider);
+  RegisterComponent('Koe.Self.Account', () => Self_Account, store, Provider);
+  RegisterComponent('Koe.Self.Registration', () => Self_Registration, store, Provider);
+  RegisterComponent('Koe.Self.QRCode', () => Self_QRCode, store, Provider);
+  RegisterComponent('Koe.Self.Follow', () => Self_Follow, store, Provider);
+  RegisterComponent('Koe.Self.Record', () => Self_Record, store, Provider);
+  RegisterComponent('Koe.Self.Examination', () => Self_Examination, store, Provider);
+  RegisterComponent('Koe.Self.FriendList', () => Self_FriendList, store, Provider);
+  RegisterComponent('Koe.Self.Picture', () => Self_Picture, store, Provider);
   //                           self   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                           WePay   start
-  RegisterComponent('Koe.WePay', () => WePay, store, Provider)
+  RegisterComponent('Koe.WePay', () => WePay, store, Provider);
   //                           WePay   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
   //                       Registration   start
-  RegisterComponent('Koe.Registration', () => Registration, store, Provider)
-  RegisterComponent('Koe.Registration.list', () => Registration_List, store, Provider)
-  RegisterComponent('Koe.Registration.Information', () => Registration_Information, store, Provider)
+  RegisterComponent('Koe.Registration', () => Registration, store, Provider);
+  RegisterComponent('Koe.Registration.list', () => Registration_List, store, Provider);
+  RegisterComponent('Koe.Registration.Information', () => Registration_Information, store, Provider);
   //                       Registration   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
   // ==========================================================================================
 
-  RegisterComponent('Koe.Drawer.Left', () => Drawer_Left, store, Provider)
+  RegisterComponent('Koe.Drawer.Left', () => Drawer_Left, store, Provider);
 }
 
 

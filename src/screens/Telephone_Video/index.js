@@ -114,18 +114,14 @@ export default class RNAgoraExample extends Component {
           RtcEngine.destroy();
         }
 
-        const { onCancel } = this.props;
-
-        console.log(data)
-        console.log(this.state.again)
         if(! this.state.again) {
-          this.init_rtcEngine()
+          this.init_rtcEngine();
           this.setState({again: 0})
         } else if(this.state.again < 3) {
-          this.init_rtcEngine()
+          this.init_rtcEngine();
           this.setState({again: this.state.again++})
         } else {
-          this.props.navigator.pop()
+          this.props.onCancel(data);
         }
         //
         // this.onCancel(data.err)
@@ -152,14 +148,13 @@ export default class RNAgoraExample extends Component {
 
   // 退出视频聊天
   handlerCancel = () => {
-    const { navigator } = this.props;
     // console.log('handlerCancel')
     // 离开频道
     RtcEngine.leaveChannel();
     // 销毁引擎实例
     RtcEngine.destroy();
 
-    navigator.pop()
+    this.props.onCancel();
   };
 
   // 切换摄像头

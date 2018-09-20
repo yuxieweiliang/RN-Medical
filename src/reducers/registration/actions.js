@@ -12,11 +12,11 @@ const Buffer = buffer.Buffer
  * 极光推送
  * @returns {{type}}
  */
-export function JPushAlert(patientId, expertId, data = {}, close) {
-  const url = 'https://api.jpush.cn/v3/push'
-  const author = new Buffer.from("cb421288cf278b1a3ced70b8:c241a3ef3f786b736b65845c")
-  const Authorization = `Basic ${author.toString('base64')}`
-  console.log(patientId, expertId)
+export function JPushAlert(expertId, message) {
+  const url = 'https://api.jpush.cn/v3/push';
+  const author = new Buffer.from("cb421288cf278b1a3ced70b8:c241a3ef3f786b736b65845c");
+  const Authorization = `Basic ${author.toString('base64')}`;
+  console.log(expertId, message);
 
   /**
    * 向 医生 发送 患者 ID
@@ -27,7 +27,7 @@ export function JPushAlert(patientId, expertId, data = {}, close) {
       'Charset': 'UTF-8',
       'Content-Type': 'application/json',
       Authorization
-    }
+    };
 
     let body = JSON.stringify({
       "platform": ["android"],
@@ -38,14 +38,15 @@ export function JPushAlert(patientId, expertId, data = {}, close) {
       /*"notification": {
         "alert": userId,
       },*/
-      "message": {
+      /*"message": {
         "msg_content": close ? 'close-video' : 'open-video',
         "extras": {
           id: patientId,
           data
         }
-      },
-    })
+      },*/
+      message,
+    });
 
     // console.log({ headers, body })
 
