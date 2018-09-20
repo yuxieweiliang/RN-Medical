@@ -77,7 +77,7 @@ import Department_List from './Department_List'
 // =======================================================================
 //                            Consult   start
 import Consult from './Consult'
-import Consult_Video from './Consult_Video' // 预约视频
+import Telephone_Video from './Telephone_Video' // 预约视频
 import Consult_Chat from './Consult_Chat/Chat'
 import Consult_Select from './Consult_Select'
 //                            Consult   end
@@ -133,7 +133,7 @@ export  function registerScreens(store, Provider) {
   //                           Consult   start
   RegisterComponent('Koe.Consult', () => Consult, store, Provider)
   RegisterComponent('Koe.Consult.Chat', () => Consult_Chat, store, Provider)
-  RegisterComponent('Koe.Consult.Video', () => Consult_Video, store, Provider)
+  RegisterComponent('Koe.Telephone.Video', () => Telephone_Video, store, Provider)
   RegisterComponent('Koe.Consult.Select', () => Consult_Select, store, Provider)
 
   //                           Consult   end

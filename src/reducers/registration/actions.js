@@ -12,7 +12,7 @@ const Buffer = buffer.Buffer
  * 极光推送
  * @returns {{type}}
  */
-export function JPushAlert(patientId, expertId, close) {
+export function JPushAlert(patientId, expertId, data = {}, close) {
   const url = 'https://api.jpush.cn/v3/push'
   const author = new Buffer.from("cb421288cf278b1a3ced70b8:c241a3ef3f786b736b65845c")
   const Authorization = `Basic ${author.toString('base64')}`
@@ -41,7 +41,8 @@ export function JPushAlert(patientId, expertId, close) {
       "message": {
         "msg_content": close ? 'close-video' : 'open-video',
         "extras": {
-          id: patientId
+          id: patientId,
+          data
         }
       },
     })

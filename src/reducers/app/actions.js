@@ -134,7 +134,7 @@ export function appInitialized(router) {
 }
 
 export function exit() {
-  storage.removeItem('token')
+  storage.clear()
   return ({type: types.ROOT_CHANGED, data: 'login'})
 }
 
@@ -163,8 +163,8 @@ export function login(username, password) {
 
 
 
-  // console.log(option)
-  return (async dispatch => {
+  console.log(option)
+  return async function(dispatch) {
 
     if(!username || !password) {
       Toast.show("用户名或密码不正确！")
@@ -175,26 +175,28 @@ export function login(username, password) {
       await storage.removeItem('token')
       let token = await fetch.post(url, option)
 
+      console.log('token', token)
       if(token.ok === false) {
         Toast.show('登录失败，请输入正确的用户名和密码！')
         return false;
       }
 
       global.token = token
+      console.log('global.token', global.token)
       storage.setItem('token', token)
-      dispatch({type: types.ROOT_CHANGED, data: 'app'})
+      /*dispatch({type: types.ROOT_CHANGED, data: 'app'})
+      */
       dispatch({
         type: types.LOGIN,
         data: true
       })
-
       return true
     }catch(error) {
       storage.removeItem('token')
       Toast.show(error)
       // console.log(error)
     }
-  })
+  }
 }
 
 /**
@@ -226,13 +228,14 @@ export async function register(
   return fetch.post(api.register, option)
     .then(res => {
 
-    if(res.state === 1 && res.errorMsg === '') {
+      console.log(res)
+    if(res.State === 1) {
 
       // 本地保存用户信息
-      storage.setItem(`user`, res.data)
+      storage.setItem(`user`, res.Data)
 
       // 返回用户ID
-      return res.data
+      return res.Data
     } else {
 
       // 注册失败
@@ -256,10 +259,7 @@ export function requestSmsCode(mobilePhoneNumber) {
     body: JSON.stringify({ mobilePhoneNumber })
   }
   return fetch.post('https://t6c4p42m.api.lncld.net/1.1/requestSmsCode', option)
-    .then(res => {
-      // console.log('requestSmsCode', res)
-      return true
-    })
+    .then(res => res.ok)
 }
 
 /**
@@ -280,13 +280,7 @@ export function verifySmsCode(verifyCode, mobilePhoneNumber) {
 
 
   return fetch.post(_url, option)
-    .then(res => {
-      if(res.ok === false) {
-        return false
-      }
-      // console.log('requestSmsCode', res)
-      return true
-    })
+    .then(res => res.ok)
 }
 
 /**
@@ -318,16 +312,7 @@ export async function registerNetEase(userId) {
 
     // console.log(checkSum)
 
-    let user = await fetch.post(url, { headers, body: formdata})
-    if(!user) {
-      // console.log('声网注册失败！')
-    }
-
-
-    dispatch({type: types.ROOT_CHANGED, data: 'UserMessages'})
-
-
-    return user
+    return await fetch.post(url, { headers, body: formdata})
 
 
   } catch (err) {

@@ -6,6 +6,7 @@ import behavior from './behavior'
 import HeaderView from '../../components/HeaderView'
 import { getPatient } from '../../reducers/patient/actions'
 import { registerForWY } from '../../reducers/app/actions'
+import { server } from '../../config'
 import styles from './style'
 
 
@@ -42,14 +43,15 @@ class UserPage extends React.Component {
   render() {
     const { patient } = this.props
     const messageStructure = patient && behavior.createStructure(patient)
+    const portrait = patient ? {uri: server.file + patient.ImageUrl} : require('../../../assets/images/a3.jpg')
 
     return (
       <Container style={{backgroundColor: '#eee'}}>
         <HeaderView
           {...this.props}
-          avatar={require('../../../assets/images/a3.jpg')}
+          avatar={ portrait }
           onPressRight={this._changeSearchText.bind(this)}
-          title="康恩"
+          title="我的"
         />
 
         <Content>
@@ -57,15 +59,15 @@ class UserPage extends React.Component {
             <Item style={[styles.listItem, {marginTop: 20}]}>
               <TouchableOpacity onPress={() => this.navigate('Self.QRCode')}>
                 <Left style={{flex: 1, flexDirection: 'row'}}>
-                  <Thumbnail square source={require('../../../assets/images/a8.jpg')} />
+                  <Thumbnail square source={ portrait } />
                   <View style={{paddingLeft: 10}}>
                     <Text style={{
                       fontSize: 16,
                       color: '#333',
                       height: 30,
                       lineHeight: 30
-                    }}>赵千山</Text>
-                    <Text style={{color: '#888'}}>fdsafdsafdsafdsafdsafdsafdsafdsafdsafdsa</Text>
+                    }}>{ patient.UserName }</Text>
+                    <Text style={{color: '#888'}}>账号ID：{ patient.UserID }</Text>
                   </View>
                 </Left>
               </TouchableOpacity>

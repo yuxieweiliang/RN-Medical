@@ -81,20 +81,22 @@ class ConsultSelect extends Component {
    * 视频通话 { 点击 }
    */
   leavingVideo() {
-    const { navigator, dispatch, patient, expert, consultVideo, diseaseSpecies } = this.props
-
+    const { navigator, dispatch, patient, expert,
+      complication, symptom, bodyPosition,
+      pathological, diseaseSpecies } = this.props
+    const data = { complication, symptom, bodyPosition, pathological, diseaseSpecies }
 
     if(diseaseSpecies) {
       dispatch(postConsult(expert, diseaseSpecies))
     }
 
     // 极光推送
-    dispatch(JPushAlert(patient.UserID, expert.UserID)).then(res => {
+    dispatch(JPushAlert(patient.UserID, expert.UserID, data)).then(res => {
       console.log('极光推送', res)
       if(res) {
         // 跳转到视频页面
         navigator.push({
-          screen: 'Koe.Consult.Video',
+          screen: 'Koe.Telephone.Video',
           title: '视频'
         })
       } else {

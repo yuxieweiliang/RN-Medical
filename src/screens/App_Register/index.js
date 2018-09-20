@@ -57,7 +57,7 @@ class Register extends Component<Props> {
 
     requestSmsCode(this.state.username)
       .then(res => {
-        if(res) {
+        if(typeof res === 'undefined') {
           this.setState({verifyTime: 60})
 
           this.timer = setInterval(() => {
@@ -68,6 +68,8 @@ class Register extends Component<Props> {
             }
             this.setState({verifyTime: this.state.verifyTime - 1})
           }, 1000)
+        } else {
+
         }
       })
     // this.props.navigation.goBack()
@@ -76,6 +78,9 @@ class Register extends Component<Props> {
   componentWillReceiveProps(nextProps) { }
   // shouldComponentUpdate(nextProps, nextState){ }
   componentWillUpdate(nextProps, nextState) { }
+  componentWillUnmount() {
+    clearInterval(this.timer)
+  }
 
   /**
    * 注册
@@ -90,19 +95,29 @@ class Register extends Component<Props> {
     }
     try {
       // 验证验证码
-      const verify = await verifySmsCode(verifyCode, username)
+     /* const verify = await verifySmsCode(verifyCode, username)
+
+
 
       // 验证失败
-      if(!verify) {
+      if(verify === false) {
         ToastAndroid.show('验证码不正确 !', short);
-      }
+        return;
+      }*/
 
       // 注册账号
       const data = await register(username, password, password)
 
+      console.log('register', data)
       if(!data) {
         ToastAndroid.show('注册失败 !', short);
       }
+
+
+      // 注册账号
+      const _login = await this.props.dispatch(login(username, password))
+
+      console.log('login', _login)
 
       /**
        * 注册声网账号，使用userId作为用户名，密码统一为123456
@@ -121,8 +136,19 @@ class Register extends Component<Props> {
        *    desc: "already register" // 已经注册
        * }
        */
-      const netEase  = await registerNetEase(data.userID)
+      const netEase  = await registerNetEase(data.UserID)
 
+
+
+
+      if(!netEase || netEase.code === 414) {
+        console.log('声网注册失败！')
+        return;
+      }
+
+      console.log('声网注册', netEase, data)
+
+      this.props.navigator.resetTo({screen: 'Koe.Self.Messages'})
       // this.props.dispatch({type: 'app.ROOT_CHANGED/修改Root状态', data: 'DiseaseSpecies'})
 
     } catch(error) {
@@ -149,21 +175,9 @@ class Register extends Component<Props> {
               iosreturnKeyType  ="next"
               style={{color:"#fff"}}
               value={this.state.username}
+              maxLength={11}
               onChangeText={(text) => this.setState({username: text})}
               placeholder='手机号'
-            />
-          </Item>
-          <Item style={styles.item}>
-            <Icon type="FontAwesome" name='lock' style={{color: 'rgba(255, 255, 255, .8)'}} />
-            <Input
-              placeholderTextColor="#fff"
-              returnKeyType ="search"
-              androidreturnKeyLabel ="search"
-              style={{color:"#fff"}}
-              value={this.state.password}
-              secureTextEntry={true} // 密码
-              onChangeText={(text) => this.setState({password: text})}
-              placeholder='密码'
             />
           </Item>
           <Item style={styles.item}>
@@ -185,6 +199,19 @@ class Register extends Component<Props> {
                 </Text>
               </View>
             </TouchableHighlight>
+          </Item>
+          <Item style={styles.item}>
+            <Icon type="FontAwesome" name='lock' style={{color: 'rgba(255, 255, 255, .8)'}} />
+            <Input
+              placeholderTextColor="#fff"
+              returnKeyType ="search"
+              androidreturnKeyLabel ="search"
+              style={{color:"#fff"}}
+              value={this.state.password}
+              secureTextEntry={true} // 密码
+              onChangeText={(text) => this.setState({password: text})}
+              placeholder='密码'
+            />
           </Item>
           <TouchableHighlight
             style={styles.button}

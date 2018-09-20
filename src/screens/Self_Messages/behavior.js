@@ -2,10 +2,12 @@ export default {
   createStructure(option = {}) {
     let Doctors = '', MerchantName = ''
 
-    option.Doctors.map(item => {
-      Doctors += (Doctors ? ',' : '') + item.UserName;
-      MerchantName = item.MerchantName
-    })
+    if(option.Doctors) {
+      option.Doctors.map(item => {
+        Doctors += (Doctors ? ',' : '') + item.UserName;
+        MerchantName = item.MerchantName
+      })
+    }
 
     let structure =  [
       {title: '姓名', key: 'UserName', value: option.UserName, show: true},

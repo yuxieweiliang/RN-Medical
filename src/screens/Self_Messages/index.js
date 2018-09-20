@@ -5,18 +5,28 @@ import { connect } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import behavior from './behavior'
 import ImagePicker from 'react-native-image-crop-picker';
+import { appInitialized } from '../../reducers/app/actions'
 import { saveAndUpdateUser, postUserPortrait } from '../../reducers/patient/actions'
 import styles from './style'
+import { getToken } from '../../utils/_utils'
+import { router } from '../../config'
 
 
 class UserMessagePage extends Component {
   static navigatorStyle = {
+    ...router.navigatorStyle,
+    statusBarColor: '#3f51b5',
+    navBarButtonColor: '#fff',
+    navBarTextColor: '#fff',
+    navigationBarColor: '#3f51b5',
+    navBarBackgroundColor: '#3f51b5',
+    navBarHidden: false,
     tabBarHidden: true,
   }
   static navigatorButtons = {
     rightButtons: [
       {
-        title: '保存',
+        title: '完成',
         id: 'saveUserMessage',
         buttonColor: 'white',
         buttonFontSize: 14,
@@ -27,6 +37,8 @@ class UserMessagePage extends Component {
   constructor(props) {
     super(props)
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+
+    this.state = {}
     /*Icon.getImageSource('plus', 24).then(res => {
 
       // 添加 保存 按钮
@@ -50,16 +62,23 @@ class UserMessagePage extends Component {
    * @param event
    */
   onNavigatorEvent(event) {
-    const { dispatch, user } = this.props
+    const { dispatch, patient } = this.props
+    console.log(global)
     if(event.id === 'saveUserMessage') {
+      const user = getToken(global.token.access_token)
+      const option = {UserID: user.UserID, MerchantID: user.MID}
 
-
-      // console.log(user)
       // 保存数据
-      dispatch(saveAndUpdateUser(user))
+      dispatch(saveAndUpdateUser({...patient, ...option, ...this.state.user }))
+        .then(res => {
+          if(patient.ID >= 0) {
+            // 返回
+            this.props.navigator.pop();
+          } else {
+            dispatch(appInitialized('app'))
+          }
+        })
 
-      // 返回
-      this.props.navigator.pop();
     }
   }
   componentDidMount() {}
@@ -102,11 +121,11 @@ class UserMessagePage extends Component {
    * 改变组件内容
    */
   onChangeText(text, key) {
-    const { dispatch } = this.props
-    dispatch({
-      type: 'CHANGE_USER_MESSAGE',
-      text,
-      key
+    this.setState({
+      user: {
+        ...this.state.user,
+        [key]: text,
+      }
     })
   }
 

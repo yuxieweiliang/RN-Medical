@@ -3,7 +3,7 @@ import { View, ImageBackground, Image, StatusBar, StyleSheet, Dimensions} from '
 import { Container, Content, Button, Icon, Text, Item, Left, Right, Input, Label } from 'native-base';
 import { connect } from 'react-redux'
 import { getPatient } from '../../reducers/patient/actions'
-import { login } from '../../reducers/app/actions'
+import { login, appInitialized } from '../../reducers/app/actions'
 
 const {height,width} = Dimensions.get('window');
 const borderWidth = StyleSheet.hairlineWidth;
@@ -44,6 +44,9 @@ class Login extends Component {
       if(res) {
         dispatch(getPatient())
       }
+
+      dispatch(appInitialized('app'))
+
       /*if(res) {
        navigator.resetTo({
        screen:'Koe.AppHome',
@@ -134,7 +137,7 @@ class Login extends Component {
               </Left>
               <Right>
                 <Button transparent light
-                        onPress={() => this.routerTo('Koe.Register', '注册')}>
+                        onPress={() => this.routerTo('Koe.App.Register', '注册')}>
                   <Text>前往注册</Text>
                 </Button>
               </Right>

@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 import storage from '../../utils/storage'
 
 const initialState = Immutable({
-  patient: null
+  patient: {}
 });
 
 const func = {

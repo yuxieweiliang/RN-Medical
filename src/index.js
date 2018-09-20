@@ -56,6 +56,15 @@ export default class App extends Component {
         Navigation.startTabBasedApp({
           tabs: [
             {
+              label: '我的',
+              screen: 'Koe.Self',
+              icon: icon.user,
+              title: "用户中心",
+              navigatorStyle: {
+                navBarHidden: true
+              },
+            },
+            {
               label: '主页',
               screen: 'Koe.App', // App Consult 'Koe.Self.UserMessages
               icon: icon.home,
@@ -81,15 +90,6 @@ export default class App extends Component {
                 navBarHidden: true
               },
             },
-            {
-              label: '我的',
-              screen: 'Koe.Self',
-              icon: icon.user,
-              title: "用户中心",
-              navigatorStyle: {
-                navBarHidden: true
-              },
-            },
           ],
           // animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
           // type: 'TheSideBar',
@@ -106,7 +106,7 @@ export default class App extends Component {
       case 'Video': // 视频通话
         Navigation.startSingleScreenApp({
           screen: {
-            screen: 'Koe.Consult.Video',
+            screen: 'Koe.Telephone.Video',
             navigatorStyle: {
               navBarHidden: true,
             },

@@ -35,12 +35,13 @@ export function getPatient() {
  * @returns {{type}}
  */
 export function saveAndUpdateUser(option) {
-  let {Doctors, IsDeleted, ID, VShardID, ...body } = option
-  let url = body.UserID ? api.putUser() : api.postUser()
+  let {Doctors, IsDeleted, VShardID, ...body } = option
+  let url = body.ID >= 0 ? api.putUser() : api.postUser()
   return (async dispatch => {
     let user = await storage.getItem(`patient`)
-
-    fetch[body.UserID ? 'put': 'post'](url, { body: JSON.stringify(body) }).then(res => {
+    console.log(body)
+    fetch[body.ID >= 0 ? 'put': 'post'](url, { body: JSON.stringify(body) }).then(res => {
+      console.log(res)
       // 如果失败
       if(res.ok === false) {
         return false
