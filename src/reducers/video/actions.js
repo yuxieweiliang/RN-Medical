@@ -4,7 +4,7 @@ import fetch from '../../utils/fetch'
 import storage from '../../utils/storage'
 import api from '../../url'
 import buffer from 'buffer'
-const Buffer = buffer.Buffer
+const Buffer = buffer.Buffer;
 
 
 

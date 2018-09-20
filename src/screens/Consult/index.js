@@ -59,7 +59,8 @@ class ConsultPage extends Component {
         this.props.dispatch(appInitialized('Video'));
 
       } else {
-        this.props.navigator.pop();
+
+        this.props.dispatch(appInitialized('app'));
         console.log("极光推送 【关闭电话】: ");
       }
     });

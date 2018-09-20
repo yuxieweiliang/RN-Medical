@@ -25,7 +25,7 @@ class HomePage extends Component<Props> {
   }
 
   componentWillMount() {
-    const { dispatch } = this.props
+    const { dispatch } = this.props;
     // 获取本地缓存
     dispatch(initLocalState())
   }

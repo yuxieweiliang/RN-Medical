@@ -18,6 +18,7 @@ import receipt from './receipt/reducer'
 import signTrend from './signTrend/reducer';
 import symptom from './symptom/reducer';
 import system from './system/reducer';
+import video from './video/reducer';
 
 
 const reducer = combineReducers({
@@ -38,6 +39,7 @@ const reducer = combineReducers({
   signTrend,
   symptom,
   system,
+  video,
 });
 
 const createStoreWithMiddleware = applyMiddleware(

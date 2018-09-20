@@ -6,8 +6,8 @@ import icon from './icon'
 import * as router from './router'
 
 // 设备
-const software = 'patient'
-const koe = null
+const software = 'patient';
+const koe = null;
 
 export {
   software,

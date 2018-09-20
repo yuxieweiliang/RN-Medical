@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { View, Image, TouchableOpacity, StyleSheet, Platform, Alert } from 'react-native'
 import { Container, Content, Header, Button, Tab, Tabs, Card, CardItem, Left, Right, Icon, Text } from 'native-base';
 import { appInitialized } from '../../reducers/app/actions'
-import { themes, icon } from '../../config'
+import { themes } from '../../config'
 import { initState, JPushAlert } from '../../reducers/video/actions'
 
 const uri = "http://fileserver.api.koenn.cn:81/UploadImages/UserCredentials/2018/07-27/877554311095878178/51a6eaf0-99e6-48d5-b136-ecc8e105553d.png";
 
-class TelephoneAnswer extends Component {
+class UserScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -18,9 +18,9 @@ class TelephoneAnswer extends Component {
   _navToConsult = () => {
     const { patient, expert } = this.props;
     /*this.props.navigator.popToRoot({
-      animated: true,
-      animationType: 'fade',
-    });*/
+     animated: true,
+     animationType: 'fade',
+     });*/
 
 
     this.props.dispatch(appInitialized('app'));
@@ -86,7 +86,7 @@ class TelephoneAnswer extends Component {
             style={styles.cancel}
             onPress={() => this._navToConsult()}
           >
-            <Icon {...icon.phone} style={styles.phone}/>
+            <Icon type="FontAwesome" name="phone" style={styles.phone}/>
           </TouchableOpacity>
 
           {
@@ -95,7 +95,7 @@ class TelephoneAnswer extends Component {
                 style={styles.confirm}
                 onPress={() => this._navToVideo()}
               >
-                <Icon {...icon.phone} style={styles.phone}/>
+                <Icon type="FontAwesome" name="phone"  style={styles.phone}/>
               </TouchableOpacity>
             )
           }
@@ -110,11 +110,11 @@ class TelephoneAnswer extends Component {
 export default connect(store => ({
   ...store.patient,
   ...store.expert,
-}))(TelephoneAnswer);
+}))(UserScreen);
 
 const styles = StyleSheet.create({
   container: {
-    ...themes.Components.Container,
+    // ...themes.Components.Container,
     backgroundColor: '#1b70f2'
   },
   portraitBox: {
