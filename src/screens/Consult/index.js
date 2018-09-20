@@ -48,21 +48,44 @@ class ConsultPage extends Component {
 
     // 监听自定义消息
     JPushModule.addReceiveCustomMsgListener((message) => {
-      // this.setState({ pushMsg: message });
-      let extras = JSON.parse(message.extras);
 
       console.log("极光推送 【自定义消息】: ", message);
 
+      /**
+       * 接听 || 决绝
+       */
+      if(message.content === 'open-answer') {
+        let extras = JSON.parse(message.extras)
+
+        console.log("极光推送 【打开接听界面】: ", extras);
+
+        this.props.navigator.dismissModal({animationType: 'none'});
+        this.props.navigator.showModal({screen: 'Koe.Telephone.Answer'});
+        // 数据
+      }
+
+      /**
+       * 视频
+       */
       if(message.content === 'open-video') {
 
-        console.log("极光推送 【打开电话】: ", extras.id);
-        this.props.dispatch(appInitialized('Video'));
+        console.log("极光推送 【打开电话界面】: ", extras);
+        this.props.navigator.dismissModal({animationType: 'none'});
+        this.props.navigator.showModal({screen: 'Koe.Telephone.Video'});
 
-      } else {
-
-        this.props.dispatch(appInitialized('app'));
-        console.log("极光推送 【关闭电话】: ");
       }
+
+      /**
+       * 挂断
+       */
+      if(message.content === 'open-close') {
+
+        console.log("极光推送 【关闭电话】: ");
+        this.props.navigator.dismissModal({animationType: 'none'});
+        // this.props.dispatch(appInitialized('Receipt'));
+        // this.props.navigator.pop();
+      }
+
     });
 
     // 监听通知消息

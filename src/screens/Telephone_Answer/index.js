@@ -23,8 +23,12 @@ class TelephoneAnswer extends Component {
     });*/
 
 
+    this.props.navigator.dismissModal({animationType: 'none'});
+    this.props.dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }))
+
+
     this.props.dispatch(appInitialized('app'));
-    this.props.dispatch(JPushAlert(patient.UserID, expert.UserID, true)).then(res => {
+    /*this.props.dispatch(JPushAlert(patient.UserID, expert.UserID, true)).then(res => {
       console.log(res);
       if(res) {
 
@@ -46,12 +50,14 @@ class TelephoneAnswer extends Component {
         // 跳转到视频页面
         // navigator.push({screen: 'Koe.InterrogationVideo'})
       }
-    })
+    })*/
     // this.props.navigator.switchToTab({ tabIndex: 1 });
   };
 
   _navToVideo = () => {
-    this.props.navigator.push({
+    const { patient, expert } = this.props;
+
+    this.props.navigator.showModal({
       screen: 'Koe.Telephone.Video',
       navigatorStyle: {
         navBarHidden: true,
@@ -60,12 +66,9 @@ class TelephoneAnswer extends Component {
         user: this.props.user,
         onCancel:(err) => {
           // this.props.navigator.pop()
-          this.props.navigator.push({
-            screen: 'Koe.Receipt',
-            navigatorStyle: {
-              navBarHidden: true,
-            },
-          })
+          this.props.navigator.dismissModal({animationType: 'none'});
+          this.props.dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }))
+
         }
       }
     });
