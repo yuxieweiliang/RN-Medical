@@ -38,19 +38,11 @@ class ConsultPage extends Component {
     this.state = {}
   }
 
-<<<<<<< HEAD
 
-  async _init() {
-    const { dispatch, bodyPosition } = this.props;
-    const token = storage.getItem('token')
-
-    const self = getToken(token.access_token);
-=======
   componentWillMount() {
     const { dispatch, bodyPosition, navigator, expert } = this.props;
     const self = getToken(global.token.access_token);
     const _this = this;
->>>>>>> 876e722394a1995f3cca083538b1aea0566a57e4
 
     //=============================================================
     // 极光推送 start
@@ -137,16 +129,7 @@ class ConsultPage extends Component {
         console.info('会话列表',data)
       });
 
-
     dispatch(getConsultVideoList(self.MID, self.UserID))
-
-  }
-
-
-
-
-  componentWillMount() {
-    this._init()
 
   }
 
