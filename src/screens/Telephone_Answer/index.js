@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { View, Image, TouchableOpacity, StyleSheet, Platform, Alert } from 'react-native'
-import { Container, Content, Header, Button, Tab, Tabs, Card, CardItem, Left, Right, Icon, Text } from 'native-base';
+import { Container, Content, Header, Button, Tab, Tabs, Card, Item, Left, Right, Icon, Text } from 'native-base';
 import { appInitialized } from '../../reducers/app/actions'
 import { themes, icon } from '../../config'
 import { initState, JPushAlert } from '../../reducers/video/actions'
@@ -15,7 +15,7 @@ class TelephoneAnswer extends Component {
   }
   componentWillMount() {}
 
-  _navToConsult = () => {
+  _navToConsult () {
     const { patient, expert } = this.props;
     /*this.props.navigator.popToRoot({
       animated: true,
@@ -23,11 +23,11 @@ class TelephoneAnswer extends Component {
     });*/
 
 
-    this.props.navigator.dismissModal({animationType: 'none'});
-    this.props.dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }))
+    this.props.navigator.pop();
+    // this.props.dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }))
 
 
-    this.props.dispatch(appInitialized('app'));
+    // this.props.dispatch(appInitialized('app'));
     /*this.props.dispatch(JPushAlert(patient.UserID, expert.UserID, true)).then(res => {
       console.log(res);
       if(res) {
@@ -54,7 +54,7 @@ class TelephoneAnswer extends Component {
     // this.props.navigator.switchToTab({ tabIndex: 1 });
   };
 
-  _navToVideo = () => {
+  _navToVideo() {
     const { patient, expert } = this.props;
 
     this.props.navigator.showModal({
@@ -80,32 +80,36 @@ class TelephoneAnswer extends Component {
 
     console.log(this.props);
     return (
-      <Container style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.portraitBox}>
           <Image style={styles.portrait} source={{uri}} />
         </View>
         <View style={styles.btnBox}>
-          <TouchableOpacity
+          <Item
             style={styles.cancel}
-            onPress={() => this._navToConsult()}
           >
-            <Icon {...icon.phone} style={styles.phone}/>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.cancel}
+              onPress={() => this._navToConsult()}
+            >
+              <Icon {...icon.phone} style={styles.phone}/>
+            </TouchableOpacity>
+          </Item>
 
           {
             !dial && (
-              <TouchableOpacity
+              <Item
                 style={styles.confirm}
                 onPress={() => this._navToVideo()}
               >
                 <Icon {...icon.phone} style={styles.phone}/>
-              </TouchableOpacity>
+              </Item>
             )
           }
 
 
         </View>
-      </Container>
+      </View>
     );
   }
 }

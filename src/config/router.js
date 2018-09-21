@@ -34,7 +34,7 @@ export const tabsStyle = {
  * APP 底部菜单的配置
  */
 export const appStyle = {
-  animationType: 'none',
+  // animationType: 'none',
   orientation: 'portrait',
   // 强制显示底部菜单上的文字
   forceTitlesDisplay: true,

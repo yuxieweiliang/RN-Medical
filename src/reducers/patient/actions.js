@@ -12,10 +12,11 @@ import { getToken } from '../../utils/_utils'
  * @returns {{type}}
  */
 export function getPatient() {
-  let tokenData = getToken(global.token.access_token)
-  let url = api.getHospitalPatient({ hospitalId: tokenData.MID, id: tokenData.UserID })
   return async dispatch => {
+    const token = storage.getItem('token')
+    let tokenData = getToken(token.access_token)
     let user = await storage.getItem(`patient`)
+    let url = api.getHospitalPatient({ hospitalId: tokenData.MID, id: tokenData.UserID })
 
     if(!user) {
       user = await fetch.get(url).then(res => res.Data)

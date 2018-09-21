@@ -175,6 +175,19 @@ class UserPage extends React.Component {
                 <Text style={styles.listItemLeftText}>推荐[智护康]给好友</Text>
               </Left>
             </Item>
+            <Item
+              style={[styles.listItem, {marginTop: 20}]}
+              onPress={() => this.props.navigator.push({screen: 'Koe.Telephone.Answer'})}
+            >
+              <Left style={styles.listItemLeft}>
+                <Icon
+                  type="FontAwesome"
+                  name="share-alt"
+                  style={{fontSize: 20}}
+                />
+                <Text style={styles.listItemLeftText}>推荐[智护康]给好友</Text>
+              </Left>
+            </Item>
           </List>
         </Content>
 

@@ -5,6 +5,7 @@ import JPushModule from 'jpush-react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import styles from './style'
+import storage from '../../utils/storage'
 import { getToken } from '../../utils/_utils'
 import HeaderView from '../../components/HeaderView'
 import { getConsultVideoList, changeConsult } from '../../reducers/consult/actions'
@@ -36,9 +37,12 @@ class ConsultPage extends Component {
     this.state = {}
   }
 
-  componentWillMount() {
+
+  async _init() {
     const { dispatch, bodyPosition } = this.props;
-    const self = getToken(global.token.access_token);
+    const token = storage.getItem('token')
+
+    const self = getToken(token.access_token);
 
     //=============================================================
     // 极光推送 start
@@ -115,6 +119,14 @@ class ConsultPage extends Component {
 
 
     dispatch(getConsultVideoList(self.MID, self.UserID))
+
+  }
+
+
+
+
+  componentWillMount() {
+    this._init()
 
   }
 
