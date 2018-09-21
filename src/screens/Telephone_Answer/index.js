@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import { connect } from "react-redux";
-import { View, Image, TouchableOpacity, StyleSheet, Platform, Alert } from 'react-native'
-import { Container, Content, Header, Button, Tab, Tabs, Card, Item, Left, Right, Icon, Text } from 'native-base';
-import { appInitialized } from '../../reducers/app/actions'
-import { themes, icon } from '../../config'
-=======
 import { View, Image, TouchableHighlight, StyleSheet, Platform, Alert } from 'react-native'
 import { Container, Content, Header, Button, Tab, Tabs, Card, CardItem, Left, Right, Icon, Text } from 'native-base';
 import { themes } from '../../config'
->>>>>>> 876e722394a1995f3cca083538b1aea0566a57e4
 import { initState, JPushAlert } from '../../reducers/video/actions'
 import { connect } from "react-redux";
 
@@ -25,9 +17,9 @@ class TelephoneAnswer extends Component {
   _navToConsult() {
     const { patient, expert } = this.props;
     /*this.props.navigator.popToRoot({
-      animated: true,
-      animationType: 'fade',
-    });*/
+     animated: true,
+     animationType: 'fade',
+     });*/
 
     console.log('expert.UserID', expert.UserID);
 
@@ -38,35 +30,32 @@ class TelephoneAnswer extends Component {
 
     // this.props.dispatch(appInitialized('app'));
     /*this.props.dispatch(JPushAlert(patient.UserID, expert.UserID, true)).then(res => {
-      console.log(res);
-      if(res) {
+     console.log(res);
+     if(res) {
 
-        this.props.navigator.push({
-          screen: 'Koe.Telephone.Video',
-          passProps: {
-            dial: true, // 拨打
-            onCancel:(err) => {
+     this.props.navigator.push({
+     screen: 'Koe.Telephone.Video',
+     passProps: {
+     dial: true, // 拨打
+     onCancel:(err) => {
 
-              this.props.navigator.pop();
+     this.props.navigator.pop();
 
-              // 不是异常的时候，打开回执页面
-              if(!err) {
-                this.props.navigator.push({screen: 'Koe.Receipt'})
-              }
-            }
-          }
-        })
-        // 跳转到视频页面
-        // navigator.push({screen: 'Koe.InterrogationVideo'})
-      }
-    })*/
+     // 不是异常的时候，打开回执页面
+     if(!err) {
+     this.props.navigator.push({screen: 'Koe.Receipt'})
+     }
+     }
+     }
+     })
+     // 跳转到视频页面
+     // navigator.push({screen: 'Koe.InterrogationVideo'})
+     }
+     })*/
     // this.props.navigator.switchToTab({ tabIndex: 1 });
   };
 
   _navToVideo() {
-<<<<<<< HEAD
-    const { patient, expert } = this.props;
-=======
     const { patient, expert, navigator, dispatch } = this.props;
 
     navigator.dismissAllModals({animationType: 'none'});
