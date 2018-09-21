@@ -57,6 +57,8 @@ class ConsultPage extends Component {
 
       /**
        * 接听 || 决绝
+       * 接收到医生端发来的视频，跳转到接听页面，
+       * 然后在接听页面，如果拒绝的话，则会点击 onCancel 事件
        */
       if(message.content === 'open-answer') {
         let extras = JSON.parse(message.extras);
