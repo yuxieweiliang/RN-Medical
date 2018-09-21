@@ -38,19 +38,11 @@ class ConsultPage extends Component {
     this.state = {}
   }
 
-<<<<<<< HEAD
 
-  async _init() {
-    const { dispatch, bodyPosition } = this.props;
-    const token = storage.getItem('token')
-
-    const self = getToken(token.access_token);
-=======
   componentWillMount() {
     const { dispatch, bodyPosition, navigator, expert } = this.props;
     const self = getToken(global.token.access_token);
     const _this = this;
->>>>>>> 876e722394a1995f3cca083538b1aea0566a57e4
 
     //=============================================================
     // 极光推送 start
@@ -65,6 +57,8 @@ class ConsultPage extends Component {
 
       /**
        * 接听 || 决绝
+       * 接收到医生端发来的视频，跳转到接听页面，
+       * 然后在接听页面，如果拒绝的话，则会点击 onCancel 事件
        */
       if(message.content === 'open-answer') {
         let extras = JSON.parse(message.extras);
@@ -137,16 +131,7 @@ class ConsultPage extends Component {
         console.info('会话列表',data)
       });
 
-
     dispatch(getConsultVideoList(self.MID, self.UserID))
-
-  }
-
-
-
-
-  componentWillMount() {
-    this._init()
 
   }
 
@@ -191,18 +176,18 @@ class ConsultPage extends Component {
     NimFriend.getUserInfo(expert.UserID)
       .then((data)=> {
 
-      // console.log('即时资讯: ',data)
-      navigator.push({
-        screen:'Koe.Consult.Chat',
-        title: '咨询',
-        passProps:{
-          session: {
-            ...data,
-            sessionType:'0',
+        // console.log('即时资讯: ',data)
+        navigator.push({
+          screen:'Koe.Consult.Chat',
+          title: '咨询',
+          passProps:{
+            session: {
+              ...data,
+              sessionType:'0',
+            }
           }
-        }
-      });
-    })
+        });
+      })
   }
 
   // 选择医院
@@ -261,7 +246,7 @@ class ConsultPage extends Component {
    * @param option
    */
   consultSelect(option) {
-     const { dispatch } = this.props
+    const { dispatch } = this.props
 
     dispatch(changeConsult(option))
     dispatch(changeExpert(option.Doctor))
@@ -350,8 +335,8 @@ class ConsultPage extends Component {
 
             <View style={styles.consultBtnBox}>
               <Button full
-                style={{flex: 1}}
-                onPress={this.leavingMessage.bind(this)}>
+                      style={{flex: 1}}
+                      onPress={this.leavingMessage.bind(this)}>
                 <Text>咨询</Text>
               </Button>
             </View>
