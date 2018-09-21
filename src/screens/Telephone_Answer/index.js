@@ -15,51 +15,22 @@ class TelephoneAnswer extends Component {
   componentWillMount() {}
 
   _navToConsult() {
-    const { patient, expert } = this.props;
-    /*this.props.navigator.popToRoot({
-     animated: true,
-     animationType: 'fade',
-     });*/
+    const { patient, expert, expertId } = this.props;
+    let doctorId = expertId ? expertId : expert.UserID
 
-    console.log('expert.UserID', expert.UserID);
+    console.log('expert.UserID', doctorId);
 
     this.props.onCancel();
-    this.props.dispatch(JPushAlert(expert.UserID, { msg_content: 'close-answer' }));
+    this.props.dispatch(JPushAlert(doctorId, { msg_content: 'close-answer' }));
 
-    // this.props.navigator.dismissModal({animationType: 'none'});
-
-    // this.props.dispatch(appInitialized('app'));
-    /*this.props.dispatch(JPushAlert(patient.UserID, expert.UserID, true)).then(res => {
-     console.log(res);
-     if(res) {
-
-     this.props.navigator.push({
-     screen: 'Koe.Telephone.Video',
-     passProps: {
-     dial: true, // 拨打
-     onCancel:(err) => {
-
-     this.props.navigator.pop();
-
-     // 不是异常的时候，打开回执页面
-     if(!err) {
-     this.props.navigator.push({screen: 'Koe.Receipt'})
-     }
-     }
-     }
-     })
-     // 跳转到视频页面
-     // navigator.push({screen: 'Koe.InterrogationVideo'})
-     }
-     })*/
-    // this.props.navigator.switchToTab({ tabIndex: 1 });
   };
 
   _navToVideo() {
-    const { patient, expert, navigator, dispatch } = this.props;
+    const { patient, expert, expertId, navigator, dispatch } = this.props;
+    let doctorId = expertId ? expertId : expert.UserID
 
     navigator.dismissAllModals({animationType: 'none'});
-    dispatch(JPushAlert(expert.UserID, { msg_content: 'open-video' }))
+    dispatch(JPushAlert(doctorId, { msg_content: 'open-video' }))
       .then(res => {
         navigator.showModal({
           screen: 'Koe.Telephone.Video',
@@ -70,7 +41,7 @@ class TelephoneAnswer extends Component {
             user: this.props.user,
             onCancel:(err) => {
               // this.props.navigator.pop()
-              dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }));
+              dispatch(JPushAlert(doctorId, { msg_content: 'close-video' }));
               navigator.dismissAllModals({animationType: 'none'});
 
             }
@@ -119,6 +90,7 @@ class TelephoneAnswer extends Component {
 export default connect(store => ({
   ...store.patient,
   ...store.expert,
+  ...store.video,
 }))(TelephoneAnswer);
 
 const styles = StyleSheet.create({

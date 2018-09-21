@@ -17,6 +17,8 @@ class UserPage extends React.Component {
   componentDidMount() {}
 
   componentWillMount() {
+
+
     this.props.dispatch(getPatient())
 
 
