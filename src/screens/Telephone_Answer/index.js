@@ -22,11 +22,7 @@ class TelephoneAnswer extends Component {
   }
   componentWillMount() {}
 
-<<<<<<< HEAD
-  _navToConsult () {
-=======
   _navToConsult() {
->>>>>>> 876e722394a1995f3cca083538b1aea0566a57e4
     const { patient, expert } = this.props;
     /*this.props.navigator.popToRoot({
       animated: true,
@@ -35,13 +31,8 @@ class TelephoneAnswer extends Component {
 
     console.log('expert.UserID', expert.UserID);
 
-<<<<<<< HEAD
-    this.props.navigator.pop();
-    // this.props.dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }))
-=======
     this.props.onCancel();
     this.props.dispatch(JPushAlert(expert.UserID, { msg_content: 'close-answer' }));
->>>>>>> 876e722394a1995f3cca083538b1aea0566a57e4
 
     // this.props.navigator.dismissModal({animationType: 'none'});
 
@@ -97,7 +88,6 @@ class TelephoneAnswer extends Component {
           }
         });
       });
->>>>>>> 876e722394a1995f3cca083538b1aea0566a57e4
 
   };
 
@@ -107,38 +97,6 @@ class TelephoneAnswer extends Component {
 
     console.log(this.props);
     return (
-<<<<<<< HEAD
-      <View style={styles.container}>
-        <View style={styles.portraitBox}>
-          <Image style={styles.portrait} source={{uri}} />
-        </View>
-        <View style={styles.btnBox}>
-          <Item
-            style={styles.cancel}
-          >
-            <TouchableOpacity
-              style={styles.cancel}
-              onPress={() => this._navToConsult()}
-            >
-              <Icon {...icon.phone} style={styles.phone}/>
-            </TouchableOpacity>
-          </Item>
-
-          {
-            !dial && (
-              <Item
-                style={styles.confirm}
-                onPress={() => this._navToVideo()}
-              >
-                <Icon {...icon.phone} style={styles.phone}/>
-              </Item>
-            )
-          }
-
-
-        </View>
-      </View>
-=======
       <Container style={styles.container}>
         <Content>
           <View style={styles.portraitBox}>
@@ -165,7 +123,6 @@ class TelephoneAnswer extends Component {
           </View>
         </Content>
       </Container>
->>>>>>> 876e722394a1995f3cca083538b1aea0566a57e4
     );
   }
 }
