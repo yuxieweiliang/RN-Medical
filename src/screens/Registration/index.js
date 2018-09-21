@@ -139,14 +139,6 @@ class Registration extends Component {
       })
   }
 
-  _changeSearchText(val) {
-    this.props.navigator.push({
-      screen: 'Koe.Search',
-      navigatorStyle: {
-        navBarHidden: true,
-      }
-    });
-  }
   render() {
     let { expertList, department, hospital, schedulingList }= this.props
 
@@ -170,7 +162,6 @@ class Registration extends Component {
         <HeaderView
           {...this.props}
           avatar={require('../../../assets/images/a3.jpg')}
-          onPressRight={this._changeSearchText.bind(this)}
           title="康恩"
         />
 

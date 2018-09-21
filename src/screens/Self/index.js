@@ -34,14 +34,7 @@ class UserPage extends React.Component {
       title
     })
   }
-  _changeSearchText(val) {
-    this.props.navigator.push({
-      screen: 'Koe.Search',
-      navigatorStyle: {
-        navBarHidden: true,
-      }
-    });
-  }
+
   render() {
     const { patient } = this.props
     const messageStructure = patient && behavior.createStructure(patient)
@@ -52,7 +45,6 @@ class UserPage extends React.Component {
         <HeaderView
           {...this.props}
           avatar={ portrait }
-          onPressRight={this._changeSearchText.bind(this)}
           title="我的"
         />
 

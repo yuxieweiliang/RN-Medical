@@ -12,7 +12,7 @@ import { router } from './config'
 registerScreens(store, Provider);
 
 
-let icon = null
+let icon = null;
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +20,7 @@ export default class App extends Component {
     appActions.populateIcons()
       .then(icons => {
         if (icons) {
-          icon = icons
+          icon = icons;
           store.subscribe(this.onStoreUpdate.bind(this));
           store.dispatch(appActions.appInitialized());
           Theme.setDefaultThemeStyle(getTheme(platform));

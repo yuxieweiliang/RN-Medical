@@ -37,14 +37,6 @@ class HomePage extends Component<Props> {
     });
   };
 
-  _changeSearchText(val) {
-    this.props.navigator.push({
-      screen: 'Koe.Search',
-      navigatorStyle: {
-        navBarHidden: true,
-      }
-    });
-  }
   componentDidMount() {}
   componentWillUnmount() {}
   render() {
@@ -60,7 +52,6 @@ class HomePage extends Component<Props> {
         <HeaderView
           {...this.props}
           avatar={ portrait }
-          onPressRight={this._changeSearchText.bind(this)}
           title="康恩"
         />
 

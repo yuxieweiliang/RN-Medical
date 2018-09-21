@@ -45,7 +45,7 @@ class RegistrationInformation extends React.Component {
       // 新增挂号
       // dispatch(postRegistration({ appointDate, patient, hospital, department, expert }))
       // 新增视频预约
-      dispatch(postVideoRegistration({ appointDate, appointTime, patient, expert }))
+      dispatch(postVideoRegistration(appointDate, appointTime, patient, expert))
         .then(res => {
           if(res) {
             alert('预约成功！')
