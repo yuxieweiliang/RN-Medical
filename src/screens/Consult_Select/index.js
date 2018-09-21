@@ -15,15 +15,15 @@ const { width, height } = Dimensions.get('window');
 class ConsultSelect extends Component {
   static navigatorStyle  = {
     tabBarHidden: true,
-  }
+  };
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       selected: null,
     }
   }
   componentWillMount() {
-    const { dispatch } = this.props
+    const { dispatch } = this.props;
 
     // 回执
     // dispatch(getReceiptByAdviceId())
@@ -31,7 +31,7 @@ class ConsultSelect extends Component {
     // dispatch(getExportList({hospitalId: 1001, deptCode: '001'}))
   }
   componentDidMount() {
-    let { patient, expert } = this.props
+    let { patient, expert } = this.props;
     this.friendListener = NativeAppEventEmitter.addListener("observeFriend",(data)=>{
 
       // console.log("observeFriend", data)
@@ -50,7 +50,7 @@ class ConsultSelect extends Component {
    * 更换病种
    */
   onPressDiseaseSpecies() {
-    let { navigator } = this.props
+    let { navigator } = this.props;
     navigator.push({
       screen: `Koe.System.DiseaseSpeciesList`,
       title: '病种列表'
@@ -70,7 +70,7 @@ class ConsultSelect extends Component {
 
 
   beforeOrAfter() {
-    const { consultVideo } = this.props
+    const { consultVideo } = this.props;
     let today = moment().format();
     let { ReserveHours, StartTime } = consultVideo;
     let endTime = moment(StartTime).add(ReserveHours*1, 'h').format();
@@ -85,13 +85,14 @@ class ConsultSelect extends Component {
       complication, symptom, bodyPosition,
       pathological, diseaseSpecies } = this.props;
     const data = { complication, symptom, bodyPosition, pathological, diseaseSpecies };
+    const _this = this;
 
     if(diseaseSpecies) {
       dispatch(postConsult(expert, diseaseSpecies))
     }
 
     const open = {
-      msg_content: 'open-video',
+      msg_content: 'open-answer',
       extras: {
         id: patient.UserID,
         data
@@ -99,20 +100,20 @@ class ConsultSelect extends Component {
     };
     const close = { msg_content: 'close-video' };
     // 极光推送
-    dispatch(JPushAlert(expert.UserID, open)).then(res => {
+    dispatch(JPushAlert(expert.UserID, open))
+      .then(res => {
       console.log('极光推送', res);
       if(res) {
         // 跳转到视频页面
-        navigator.push({
+        navigator.showModal({
           screen: 'Koe.Telephone.Answer',
           title: '视频',
           passProps: {
+            dial: true,
             onCancel: (error) => {
               // 在这里，无论它是否有错误，都返回到选择页面
-              this.props.navigator.pop();
-              dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }));
-
-
+              navigator.dismissModal();
+              dispatch(JPushAlert(expert.UserID, { msg_content: 'close-answer' }));
 
               if(error) {
                 // this.props.navigator.push()
