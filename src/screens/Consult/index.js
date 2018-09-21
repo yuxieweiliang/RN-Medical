@@ -7,6 +7,7 @@ import moment from 'moment'
 import styles from './style'
 import { getToken } from '../../utils/_utils'
 import HeaderView from '../../components/HeaderView'
+import { initState, JPushAlert } from '../../reducers/video/actions'
 import { getConsultVideoList, changeConsult } from '../../reducers/consult/actions'
 import { appInitialized } from '../../reducers/app/actions'
 import PathologicalCardItem from '../../components/PathologicalCardItem'
@@ -37,8 +38,9 @@ class ConsultPage extends Component {
   }
 
   componentWillMount() {
-    const { dispatch, bodyPosition } = this.props;
+    const { dispatch, bodyPosition, navigator, expert } = this.props;
     const self = getToken(global.token.access_token);
+    const _this = this;
 
     //=============================================================
     // 极光推送 start
@@ -55,12 +57,19 @@ class ConsultPage extends Component {
        * 接听 || 决绝
        */
       if(message.content === 'open-answer') {
-        let extras = JSON.parse(message.extras)
+        let extras = JSON.parse(message.extras);
 
         console.log("极光推送 【打开接听界面】: ", extras);
 
-        this.props.navigator.dismissModal({animationType: 'none'});
-        this.props.navigator.showModal({screen: 'Koe.Telephone.Answer'});
+        // this.props.navigator.dismissModal({animationType: 'none'});
+        navigator.showModal({
+          screen: 'Koe.Telephone.Answer',
+          passProps: {
+            onCancel:(err) => {
+              // this.props.navigator.pop()
+              navigator.dismissModal({animationType: 'none'});
+            }
+          }});
         // 数据
       }
 
@@ -69,21 +78,26 @@ class ConsultPage extends Component {
        */
       if(message.content === 'open-video') {
 
-        console.log("极光推送 【打开电话界面】: ", extras);
-        this.props.navigator.dismissModal({animationType: 'none'});
-        this.props.navigator.showModal({screen: 'Koe.Telephone.Video'});
+        console.log("极光推送 【打开电话界面】: ");
 
+        navigator.showModal({
+          screen: 'Koe.Telephone.Video',
+          passProps: {
+            onCancel:(err) => {
+              // this.props.navigator.pop()
+
+              dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }));
+              navigator.dismissAllModals({animationType: 'none'});
+            }
+          }});
       }
 
       /**
        * 挂断
        */
-      if(message.content === 'open-close') {
-
+      if(message.content === 'close-answer' || message.content === 'close-video') {
         console.log("极光推送 【关闭电话】: ");
-        this.props.navigator.dismissModal({animationType: 'none'});
-        // this.props.dispatch(appInitialized('Receipt'));
-        // this.props.navigator.pop();
+        navigator.dismissAllModals({animationType: 'none'});
       }
 
     });
@@ -180,7 +194,7 @@ class ConsultPage extends Component {
       title: '医院列表',
       passProps: {
         onClose: (option) => {
-          this.props.dispatch(changeHospital(option))
+          this.props.dispatch(changeHospital(option));
           this.props.navigator.dismissModal()
         },
       },
@@ -193,7 +207,7 @@ class ConsultPage extends Component {
       title: '专家列表',
       passProps: {
         onClose: (option) => {
-          this.props.dispatch(changeExpert(option))
+          this.props.dispatch(changeExpert(option));
           this.props.navigator.dismissModal()
         },
       },
@@ -203,12 +217,12 @@ class ConsultPage extends Component {
    * 更换病种
    */
   selectDiseaseSpecies() {
-    let { navigator } = this.props
+    let { navigator } = this.props;
     navigator.push({
       screen: `Koe.System.DiseaseSpeciesList`,
       passProps: {
         onClose: (option) => {
-          this.props.dispatch(diseaseSpeciesChange(option))
+          this.props.dispatch(diseaseSpeciesChange(option));
           this.props.navigator.pop()
         },
       }})

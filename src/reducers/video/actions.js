@@ -58,44 +58,51 @@ export function initState() {
  * 极光推送
  * @returns {{type}}
  */
-export function JPushAlert(patientId, expertId, close) {
-  const url = 'https://api.jpush.cn/v3/push'
-  const author = new Buffer.from("cb421288cf278b1a3ced70b8:c241a3ef3f786b736b65845c")
-  const Authorization = `Basic ${author.toString('base64')}`
+/**
+ * 极光推送
+ * @returns {{type}}
+ */
+export function JPushAlert(expertId, message) {
+  const url = 'https://api.jpush.cn/v3/push';
+  const author = new Buffer.from("cb421288cf278b1a3ced70b8:c241a3ef3f786b736b65845c");
+  const Authorization = `Basic ${author.toString('base64')}`;
+  console.log(expertId, message);
+
+  /**
+   * 向 医生 发送 患者 ID
+   */
   return (async dispatch => {
     let headers = {
       'Connection': 'Keep-Alive',
       'Charset': 'UTF-8',
       'Content-Type': 'application/json',
       Authorization
-    }
+    };
 
     let body = JSON.stringify({
       "platform": ["android"],
-      // "audience": 'all',
+      // "audience": "all",
       "audience": {
-        alias: [expertId] // 发送给 patient
+        alias: [expertId] // 发送给  expert
       },
-
-      /*  推送消息， 出现在顶部推送栏， 需要点击  */
       /*"notification": {
        "alert": userId,
        },*/
+      /*"message": {
+       "msg_content": close ? 'close-video' : 'open-video',
+       "extras": {
+       id: patientId,
+       data
+       }
+       },*/
+      message,
+    });
 
-      /*  自定义小消息推送， 不会出现在顶部推送栏  */
-      "message": {
-        "msg_content": close ? 'close-video' : 'open-video',
-        "extras": {
-          id: expertId
-        }
-      },
-    })
-
-    console.log({ headers, body })
+    // console.log({ headers, body })
 
     return fetch.post(url, { headers, body })
       .then(res => {
-        console.log(res)
+        // console.log(res)
         return (res.ok !== false)
       })
   })

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { View, Image, TouchableOpacity, StyleSheet, Platform, Alert } from 'react-native'
+import { View, Image, TouchableHighlight, StyleSheet, Platform, Alert } from 'react-native'
 import { Container, Content, Header, Button, Tab, Tabs, Card, CardItem, Left, Right, Icon, Text } from 'native-base';
-import { appInitialized } from '../../reducers/app/actions'
-import { themes, icon } from '../../config'
+import { themes } from '../../config'
 import { initState, JPushAlert } from '../../reducers/video/actions'
+import { connect } from "react-redux";
 
 const uri = "http://fileserver.api.koenn.cn:81/UploadImages/UserCredentials/2018/07-27/877554311095878178/51a6eaf0-99e6-48d5-b136-ecc8e105553d.png";
 
@@ -15,19 +14,21 @@ class TelephoneAnswer extends Component {
   }
   componentWillMount() {}
 
-  _navToConsult = () => {
+  _navToConsult() {
     const { patient, expert } = this.props;
     /*this.props.navigator.popToRoot({
       animated: true,
       animationType: 'fade',
     });*/
 
+    console.log('expert.UserID', expert.UserID);
 
-    this.props.navigator.dismissModal({animationType: 'none'});
-    this.props.dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }))
+    this.props.onCancel();
+    this.props.dispatch(JPushAlert(expert.UserID, { msg_content: 'close-answer' }));
 
+    // this.props.navigator.dismissModal({animationType: 'none'});
 
-    this.props.dispatch(appInitialized('app'));
+    // this.props.dispatch(appInitialized('app'));
     /*this.props.dispatch(JPushAlert(patient.UserID, expert.UserID, true)).then(res => {
       console.log(res);
       if(res) {
@@ -54,24 +55,29 @@ class TelephoneAnswer extends Component {
     // this.props.navigator.switchToTab({ tabIndex: 1 });
   };
 
-  _navToVideo = () => {
-    const { patient, expert } = this.props;
+  _navToVideo() {
+    const { patient, expert, navigator, dispatch } = this.props;
 
-    this.props.navigator.showModal({
-      screen: 'Koe.Telephone.Video',
-      navigatorStyle: {
-        navBarHidden: true,
-      },
-      passProps: {
-        user: this.props.user,
-        onCancel:(err) => {
-          // this.props.navigator.pop()
-          this.props.navigator.dismissModal({animationType: 'none'});
-          this.props.dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }))
+    navigator.dismissAllModals({animationType: 'none'});
+    dispatch(JPushAlert(expert.UserID, { msg_content: 'open-video' }))
+      .then(res => {
+        navigator.showModal({
+          screen: 'Koe.Telephone.Video',
+          navigatorStyle: {
+            navBarHidden: true,
+          },
+          passProps: {
+            user: this.props.user,
+            onCancel:(err) => {
+              // this.props.navigator.pop()
+              dispatch(JPushAlert(expert.UserID, { msg_content: 'close-video' }));
+              navigator.dismissAllModals({animationType: 'none'});
 
-        }
-      }
-    });
+            }
+          }
+        });
+      });
+
   };
 
 
@@ -81,30 +87,30 @@ class TelephoneAnswer extends Component {
     console.log(this.props);
     return (
       <Container style={styles.container}>
-        <View style={styles.portraitBox}>
-          <Image style={styles.portrait} source={{uri}} />
-        </View>
-        <View style={styles.btnBox}>
-          <TouchableOpacity
-            style={styles.cancel}
-            onPress={() => this._navToConsult()}
-          >
-            <Icon {...icon.phone} style={styles.phone}/>
-          </TouchableOpacity>
+        <Content>
+          <View style={styles.portraitBox}>
+            <Image style={styles.portrait} source={{uri}} />
+          </View>
+          <View style={styles.btnBox}>
+            <TouchableHighlight
+              style={styles.cancel}
+              onPress={() => this._navToConsult()}
+            >
+              <View><Icon name="phone" type="FontAwesome" style={styles.phone}/></View>
+            </TouchableHighlight>
 
-          {
-            !dial && (
-              <TouchableOpacity
-                style={styles.confirm}
-                onPress={() => this._navToVideo()}
-              >
-                <Icon {...icon.phone} style={styles.phone}/>
-              </TouchableOpacity>
-            )
-          }
-
-
-        </View>
+            {
+              !dial && (
+                <TouchableHighlight
+                  style={styles.confirm}
+                  onPress={() => this._navToVideo()}
+                >
+                  <View><Icon name="phone" type="FontAwesome" style={styles.phone}/></View>
+                </TouchableHighlight>
+              )
+            }
+          </View>
+        </Content>
       </Container>
     );
   }
