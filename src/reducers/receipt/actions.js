@@ -11,12 +11,12 @@ import { getPatient } from '../patient/actions'
  * @returns {{type}}
  */
 export function getReceiptByAdviceId(adviceId) {
-  let url = api.getReceiptByAdviceId({ adviceId })
+  let url = api.getReceiptByAdviceId({ adviceId });
 
   return async function(dispatch) {
     return fetch.get( url )
       .then(function (res) {
-        console.log('获取回执信息', res)
+        console.log('获取回执信息', res);
         if(res) {
           return dispatch(changeReceipt(res.Data))
         }
@@ -29,18 +29,18 @@ export function getReceiptByAdviceId(adviceId) {
  * @returns {{type}}
  */
 export function getReceiptListByPatientId() {
-  let url = api.getReceiptListByPatientId()
+  let url = api.getReceiptListByPatientId();
 
   return async function(dispatch) {
     return fetch.get( url )
       .then(function (res) {
-        console.log('获取回执列表', res)
+        console.log('获取回执列表', res);
         if(res) {
 
           dispatch({
             type: types.RECEIPT_LIST,
             data: res.Data
-          })
+          });
           return true
         }
       })
@@ -52,29 +52,25 @@ export function getReceiptListByPatientId() {
  * @returns {{type}}
  */
 export function putReceiptByAdviceId(option) {
-  let url = api.putReceiptByAdviceId({adviceId: option.adviceId})
+  let url = api.putReceiptByAdviceId({adviceId: option.adviceId});
   const data = {
     "AdviceID": option.AdviceID,
-    "UserID": option.UserID,
-    "MerchantName": option.MerchantName,
-    "Illness_Code": option.Illness_Code,
-    "Illness_Name":option.Illness_Name,
+    "PatientID": option.UserID,
     "DoctorID": option.DoctorID,
-    "DoctorName": option.DoctorName,
-    "AdviceStatus": '已完成',
-    "AdviceScore": 5
-  }
+    "IsConfirmed": 1
+  };
 
   return async function(dispatch) {
     return fetch.put( url, data )
       .then(function (res) {
-        console.log('修改回执信息', res)
+        console.log('修改回执信息', res);
         if(res) {
 
+          alert('修改成功');
           dispatch({
             type: types.RECEIPT_CHANGE,
             data: res.Data
-          })
+          });
           return true
         }
       })

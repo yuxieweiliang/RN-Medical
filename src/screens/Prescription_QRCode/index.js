@@ -46,7 +46,7 @@ class Prescription_QRCode extends Component {
           <View style={styles.qrcodeCode}>
             <View style={styles.qrcode}>
               <QRCode
-                value={{PrescriptionID: prescription.PrescriptionID, UserID: prescription.UserID}}
+                value={JSON.stringify({PrescriptionID: prescription.PrescriptionID, UserID: prescription.UserID})}
                 size={200}
                 bgColor='purple'
                 fgColor='white'

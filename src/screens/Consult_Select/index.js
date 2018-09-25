@@ -83,48 +83,47 @@ class ConsultSelect extends Component {
   leavingVideo() {
     const { navigator, dispatch, patient, expert,
       complication, symptom, bodyPosition,
-      pathological, diseaseSpecies } = this.props;
-    const data = { complication, symptom, bodyPosition, pathological, diseaseSpecies };
-    const _this = this;
+      pathological, diseaseSpecies, consultVideo } = this.props;
+    const close = { msg_content: 'close-video' };
 
     if(diseaseSpecies) {
-      dispatch(postConsult(expert, diseaseSpecies))
-    }
-
-    const open = {
-      msg_content: 'open-answer',
-      extras: {
-        id: patient.UserID,
-        data
-      }
-    };
-    const close = { msg_content: 'close-video' };
-    // 极光推送
-    dispatch(JPushAlert(expert.UserID, open))
-      .then(res => {
-      console.log('极光推送', res);
-      if(res) {
-        // 跳转到视频页面
-        navigator.showModal({
-          screen: 'Koe.Telephone.Answer',
-          title: '视频',
-          passProps: {
-            dial: true,
-            onCancel: (error) => {
-              // 在这里，无论它是否有错误，都返回到选择页面
-              navigator.dismissModal();
-              dispatch(JPushAlert(expert.UserID, { msg_content: 'close-answer' }));
-
-              if(error) {
-                // this.props.navigator.push()
-              }
+      dispatch(postConsult(expert, diseaseSpecies)).then(res => {
+        const open = {
+          msg_content: 'open-answer',
+          extras: {
+            id: patient.UserID,
+            data: {
+              complication,
+              symptom,
+              bodyPosition,
+              pathological,
+              diseaseSpecies,
+              receipt:  res,
+              ResID: consultVideo.ResID
             }
           }
-        })
-      } else {
-        Toast.show("对方不在线，请稍后再拨！")
-      }
-    }).catch(err => console.log(err))
+        };
+
+        console.log('新建咨询', res);
+        // 极光推送
+        dispatch(JPushAlert(expert.UserID, open))
+          .then(res => {
+            console.log('极光推送', res);
+            if(res) {
+              // 跳转到视频页面
+              navigator.showModal({
+                screen: 'Koe.Telephone.Answer',
+                title: '视频',
+                passProps: {
+                  dial: true,
+                }
+              })
+            } else {
+              Toast.show("对方不在线，请稍后再拨！")
+            }
+          }).catch(err => console.log(err))
+      })
+    }
   }
   render() {
     let { complication, symptom, bodyPosition,

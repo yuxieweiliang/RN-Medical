@@ -343,11 +343,11 @@ class ConsultPage extends Component {
                 <Item style={{padding: 10}} onPress={() => this.consultSelect(item)}>
                   <Image style={{width: 40, height: 40}} source={require('../../../assets/images/a3.jpg')}/>
                   <Left style={{paddingLeft: 10}}>
-                    <Text>{item.Doctor.UserName}</Text>
+                    <Text>{item.Doctor && item.Doctor.UserName}</Text>
                     <Text>{moment(item.StartTime).format('MM/DD HH:mm')}</Text>
                   </Left>
                   <Right>
-                    <Text>{item.Doctor.UserType}</Text>
+                    <Text>{item.Doctor && item.Doctor.UserType}</Text>
                     <Text>{text}</Text>
                   </Right>
                 </Item>
