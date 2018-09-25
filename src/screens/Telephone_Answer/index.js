@@ -16,7 +16,7 @@ class TelephoneAnswer extends Component {
 
   _navToConsult() {
     const { patient, expert, expertId } = this.props;
-    let doctorId = expertId ? expertId : expert.UserID
+    let doctorId = expertId ? expertId : expert.UserID;
 
     console.log('expert.UserID', doctorId);
 
@@ -27,7 +27,7 @@ class TelephoneAnswer extends Component {
 
   _navToVideo() {
     const { patient, expert, expertId, navigator, dispatch } = this.props;
-    let doctorId = expertId ? expertId : expert.UserID
+    let doctorId = expertId ? expertId : expert.UserID;
 
     navigator.dismissAllModals({animationType: 'none'});
     dispatch(JPushAlert(doctorId, { msg_content: 'open-video' }))

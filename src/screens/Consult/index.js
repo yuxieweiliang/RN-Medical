@@ -63,7 +63,7 @@ class ConsultPage extends Component {
 
         console.log("极光推送 【打开接听界面】: ", extras);
 
-        dispatch(setExpertId(extras.id))
+        dispatch(setExpertId(extras.id));
         // this.props.navigator.dismissModal({animationType: 'none'});
         navigator.showModal({
           screen: 'Koe.Telephone.Answer',
@@ -233,15 +233,6 @@ class ConsultPage extends Component {
       }})
   }
 
-  _changeSearchText(option) {
-
-    this.props.navigator.push({
-      screen: 'Koe.Search',
-      navigatorStyle: {
-        navBarHidden: true,
-      }
-    });
-  }
 
   /**
    * 点击预约列表每一项
@@ -279,7 +270,6 @@ class ConsultPage extends Component {
         <HeaderView
           {...this.props}
           avatar={require('../../../assets/images/a3.jpg')}
-          onPressRight={this._changeSearchText.bind(this)}
           title="咨询"
         />
 

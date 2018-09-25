@@ -107,8 +107,7 @@ export function postRegistration(option) {
  * 预约挂号 { 新建 }
  * @returns {{type}}
  */
-export function postVideoRegistration(option) {
-  let { appointDate, appointTime, patient, expert } = option
+export function postVideoRegistration(appointDate, appointTime, patient, expert) {
   let url = api.postVideoRegistration()
   let visitBanCi = moment().add(5).format('YYYY-MM-DD HH:mm:ss')
 
@@ -126,7 +125,7 @@ export function postVideoRegistration(option) {
     fetch.post(url, { body: JSON.stringify(data) })
       .then(function (res) {
         if(res && res.Data) {
-          console.log('预约成功: ', res)
+          console.log('预约成功: ', res);
           return res.Data
           /*
            * Data: [{},{},{},{},{},{},{}],

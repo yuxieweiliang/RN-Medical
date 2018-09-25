@@ -9,6 +9,7 @@ import System_SymptomList from './System_SymptomList' // 症状 身体部位列�
 import System_PathologicalList from './System_PathologicalList' // 病理病程
 import System_Complication from './System_Complication' // 并发症
 import System_Authentication from './System_Authentication' // 验证
+import System_Search from './System_Search' // 搜索
 //                       Registration   end
 // ==========================================================================================
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,6 +128,7 @@ export  function registerScreens(store, Provider) {
   RegisterComponent('Koe.System.PathologicalList', () => System_PathologicalList, store, Provider);
   RegisterComponent('Koe.System.Complication', () => System_Complication, store, Provider);
   RegisterComponent('Koe.System.Authentication', () => System_Authentication, store, Provider);
+  RegisterComponent('Koe.System.Search', () => System_Search, store, Provider);
   //                       Registration   end
   // ==========================================================================================
   /////////////////////////////////////////////////////////////////////////////////////////////
