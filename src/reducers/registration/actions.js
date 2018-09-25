@@ -108,8 +108,8 @@ export function postRegistration(option) {
  * @returns {{type}}
  */
 export function postVideoRegistration(appointDate, appointTime, patient, expert) {
-  let url = api.postVideoRegistration()
-  let visitBanCi = moment().add(5).format('YYYY-MM-DD HH:mm:ss')
+  let url = api.postVideoRegistration();
+  let visitBanCi = moment().add(5).format('YYYY-MM-DD HH:mm:ss');
 
   let data = {
     PatientID: patient.UserID,
@@ -117,12 +117,12 @@ export function postVideoRegistration(appointDate, appointTime, patient, expert)
     StartTime: appointDate, // 挂号人姓名
     ReserveHours: appointTime, // (1挂号，2视频)
     ReserveType: 2, // (1挂号，2视频)
-  }
+  };
 
-  console.log('预约: ', data)
+  console.log('预约: ', data);
 
   return async function(dispatch) {
-    fetch.post(url, { body: JSON.stringify(data) })
+    return fetch.post(url, { body: JSON.stringify(data) })
       .then(function (res) {
         if(res && res.Data) {
           console.log('预约成功: ', res);
