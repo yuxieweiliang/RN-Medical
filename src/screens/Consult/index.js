@@ -103,6 +103,17 @@ class ConsultPage extends Component {
         navigator.dismissAllModals({animationType: 'none'});
       }
 
+      /**
+       * 订单
+       */
+      if(message.content === 'payment-order') {
+        console.log("极光推送 【处方】: ");
+        navigator.showModal({
+          screen: 'Koe.Order.List',
+          title: '处方'
+       });
+      }
+
     });
 
     // 监听通知消息

@@ -3,19 +3,20 @@ import { FlatList, TextInput, View, Dimensions } from 'react-native';
 import { Container, Content, List, Text, Item, Left, Right, Tab, Tabs, Card, CardItem, Row, Col, Icon } from 'native-base';
 import styles from './style'
 import { connect } from 'react-redux'
+import Toast from 'react-native-simple-toast'
 import Button from '../../components/Button'
 import ListInput from '../../components/ListInput'
 import { postRegistration, postVideoRegistration } from '../../reducers/registration/actions'
 import behavior from './behavior'
 
 
-const TITLE = '专家主页'
-const { width, height } = Dimensions.get('window')
+const TITLE = '专家主页';
+const { width, height } = Dimensions.get('window');
 
 class RegistrationInformation extends React.Component {
   static navigatorStyle = {
     tabBarHidden: true,
-  }
+  };
   static navigatorButtons = {
     rightButtons: [
       {
@@ -28,7 +29,7 @@ class RegistrationInformation extends React.Component {
     ]
   };
   constructor(props) {
-    super(props)
+    super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -37,18 +38,18 @@ class RegistrationInformation extends React.Component {
    * @param event
    */
   onNavigatorEvent(event) {
-    const { dispatch, onClose, appointDate, appointTime, patient, hospital, department, expert } = this.props
+    const { dispatch, onClose, appointDate, appointTime, patient, hospital, department, expert } = this.props;
     if(event.id === 'saveRegistration') {
 
-
-      console.log('saveRegistration', this.props)
+      console.log('saveRegistration', this.props);
       // 新增挂号
       // dispatch(postRegistration({ appointDate, patient, hospital, department, expert }))
       // 新增视频预约
       dispatch(postVideoRegistration(appointDate, appointTime, patient, expert))
         .then(res => {
           if(res) {
-            alert('预约成功！')
+            Toast.show('预约成功！');
+            navigator.pop();
           }
         })
       // dispatch(saveAndUpdateUser(user))
