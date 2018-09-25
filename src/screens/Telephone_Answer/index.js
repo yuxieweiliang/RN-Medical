@@ -15,13 +15,13 @@ class TelephoneAnswer extends Component {
   componentWillMount() {}
 
   _navToConsult() {
-    const { patient, expert, expertId } = this.props;
+    const { patient, expert, expertId, navigator, dispatch } = this.props;
     let doctorId = expertId ? expertId : expert.UserID;
 
     console.log('expert.UserID', doctorId);
 
-    this.props.onCancel();
-    this.props.dispatch(JPushAlert(doctorId, { msg_content: 'close-answer' }));
+    navigator.dismissAllModals({animationType: 'none'});
+    dispatch(JPushAlert(doctorId, { msg_content: 'close-answer' }));
 
   };
 

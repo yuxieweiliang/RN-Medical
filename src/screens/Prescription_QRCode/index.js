@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { View, StyleSheet, SectionList, Platform, Dimensions, Alert } from 'react-native'
 import { Container, Content, Text } from 'native-base';
-
-import {  getExpert } from '../../reducers/expert/actions'
 import { getDepartmentList, getDepartment, getDoctorDeptInfo } from '../../reducers/department/actions'
 import { getToken } from '../../utils/_utils'
 import QRCode from 'react-native-qrcode';
 
-const {width, height} = Dimensions.get('window')
+const {width, height} = Dimensions.get('window');
 
 
 class Prescription_QRCode extends Component {
   static navigatorStyle  = {
     tabBarHidden: true,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -28,17 +26,8 @@ class Prescription_QRCode extends Component {
   }
 
 
-  _changeSearchText(val) {
-    this.props.navigator.push({
-      screen: 'Koe.Search',
-      navigatorStyle: {
-        navBarHidden: true,
-      }
-    });
-  }
-
   render() {
-    const { prescription } = this.props
+    const { prescription } = this.props;
 
     return (
       <Container style={styles.container}>
@@ -46,7 +35,7 @@ class Prescription_QRCode extends Component {
           <View style={styles.qrcodeCode}>
             <View style={styles.qrcode}>
               <QRCode
-                value={{PrescriptionID: prescription.PrescriptionID, UserID: prescription.UserID}}
+                value={JSON.stringify({PrescriptionID: prescription.PrescriptionID, UserID: prescription.UserID})}
                 size={200}
                 bgColor='purple'
                 fgColor='white'
@@ -98,5 +87,4 @@ const styles = StyleSheet.create({
     borderColor: '#6f2ea3',
     backgroundColor: '#fafafa'
   }
-
-})
+});
