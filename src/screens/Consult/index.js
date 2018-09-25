@@ -38,10 +38,8 @@ class ConsultPage extends Component {
     this.state = {}
   }
 
-
   componentWillMount() {
     const { dispatch, bodyPosition, navigator, expert } = this.props;
-    const self = getToken(global.token.access_token);
     const _this = this;
 
     //=============================================================
@@ -131,11 +129,14 @@ class ConsultPage extends Component {
       .addListener("observeRecentContact",(data)=>{
         console.info('会话列表',data)
       });
-
-    dispatch(getConsultVideoList(self.MID, self.UserID))
-
   }
 
+  componentDidMount() {
+    const { dispatch } = this.props;
+    const self = getToken(global.token.access_token);
+
+    dispatch(getConsultVideoList(self.MID, self.UserID))
+  }
   // props更新时调用
   componentWillReceiveProps(nextProps) {
     let { patient } = nextProps
