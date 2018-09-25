@@ -20,8 +20,8 @@ export function setPatientId(data) {
  * 更改专家 ID
  * @returns {{type}}
  */
-export function setExpertId(option) {
-  return ({type: types.SET_EXPORT_ID_ID, data})
+export function setExpertId(data) {
+  return ({type: types.SET_EXPORT_ID, data})
 }
 
 /**

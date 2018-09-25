@@ -8,7 +8,7 @@ import styles from './style'
 import storage from '../../utils/storage'
 import { getToken } from '../../utils/_utils'
 import HeaderView from '../../components/HeaderView'
-import { initState, JPushAlert } from '../../reducers/video/actions'
+import { setExpertId, JPushAlert } from '../../reducers/video/actions'
 import { getConsultVideoList, changeConsult } from '../../reducers/consult/actions'
 import { appInitialized } from '../../reducers/app/actions'
 import PathologicalCardItem from '../../components/PathologicalCardItem'
@@ -38,10 +38,8 @@ class ConsultPage extends Component {
     this.state = {}
   }
 
-
   componentWillMount() {
     const { dispatch, bodyPosition, navigator, expert } = this.props;
-    const self = getToken(global.token.access_token);
     const _this = this;
 
     //=============================================================
@@ -65,6 +63,7 @@ class ConsultPage extends Component {
 
         console.log("极光推送 【打开接听界面】: ", extras);
 
+        dispatch(setExpertId(extras.id));
         // this.props.navigator.dismissModal({animationType: 'none'});
         navigator.showModal({
           screen: 'Koe.Telephone.Answer',
@@ -130,11 +129,14 @@ class ConsultPage extends Component {
       .addListener("observeRecentContact",(data)=>{
         console.info('会话列表',data)
       });
-
-    dispatch(getConsultVideoList(self.MID, self.UserID))
-
   }
 
+  componentDidMount() {
+    const { dispatch } = this.props;
+    const self = getToken(global.token.access_token);
+
+    dispatch(getConsultVideoList(self.MID, self.UserID))
+  }
   // props更新时调用
   componentWillReceiveProps(nextProps) {
     let { patient } = nextProps
@@ -231,15 +233,6 @@ class ConsultPage extends Component {
       }})
   }
 
-  _changeSearchText(option) {
-
-    this.props.navigator.push({
-      screen: 'Koe.Search',
-      navigatorStyle: {
-        navBarHidden: true,
-      }
-    });
-  }
 
   /**
    * 点击预约列表每一项
@@ -277,7 +270,6 @@ class ConsultPage extends Component {
         <HeaderView
           {...this.props}
           avatar={require('../../../assets/images/a3.jpg')}
-          onPressRight={this._changeSearchText.bind(this)}
           title="咨询"
         />
 

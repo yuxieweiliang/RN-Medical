@@ -109,7 +109,7 @@ class Login extends Component {
     })
   }
   render() {
-    const { showModal, showLightBox } = this.props.navigator
+    const { showModal, showLightBox } = this.props.navigator;
     return (
       <ImageBackground style={styles.container}  source={require('../../../assets/images/bg.jpg')}>
         <Content alwaysBounceVertical={false}>
@@ -132,7 +132,7 @@ class Login extends Component {
               <Left>
                 <Button transparent light
                         onPress={() => this.routerTo('Koe.RetrievePassword', '找回密码')}>
-                  <Text>忘记密码</Text>
+                  {/*<Text>忘记密码</Text>*/}
                 </Button>
               </Left>
               <Right>

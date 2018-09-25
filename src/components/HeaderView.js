@@ -11,8 +11,23 @@ export default class HeaderView extends Component {
       animated: true
     });
   }
+
+  onPressRight() {
+    this.props.navigator.push({
+      screen: 'Koe.System.Search',
+      navigatorStyle: {
+        navBarHidden: true,
+      }
+    })
+  }
   render() {
-    const { onPressLeft = this.onPressLeft.bind(this), title, onPressRight, avatar, icon } = this.props
+    const {
+      onPressLeft = this.onPressLeft.bind(this),
+      onPressRight = this.onPressRight.bind(this),
+      title,
+      avatar,
+      icon
+    } = this.props;
 
     return (
       <Header>
